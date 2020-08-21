@@ -3,6 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Amplify from 'aws-amplify';
+import { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
+import awsExports from './aws-exports';
+require('typeface-anton');
+require('typeface-roboto');
+
+Amplify.configure(awsExports);
+Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 ReactDOM.render(
   <React.StrictMode>

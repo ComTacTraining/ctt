@@ -24,6 +24,7 @@ export const SCROLLING_TEXT_COMPLETED = 'SCROLLING_TEXT_COMPLETED';
 export const ADD_TO_SPEECH_QUEUE = 'ADD_TO_SPEECH_QUEUE';
 export const REMOVE_OLDEST_SPEECH_FROM_QUEUE =
   'REMOVE_OLDEST_SPEECH_FROM_QUEUE';
+export const START_TIME = 'START_TIME';
 
 export const firstAlarmAnnounced = () => {
   return { type: FIRST_ALARM_ANNOUNCED };
@@ -139,3 +140,9 @@ export const removeOldestSpeechFromQueue = () => {
     type: REMOVE_OLDEST_SPEECH_FROM_QUEUE,
   };
 };
+
+export const startTime = () => {
+  return {
+    type: START_TIME,
+  };
+}

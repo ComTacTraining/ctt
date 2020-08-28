@@ -25,7 +25,8 @@ const KeyMapping = (props) => {
       setRadioSoundPlaying(true);
       dispatch(aiActions.startRecordingMicrophone());
     } else {
-      setRadioSoundPlaying(false);
+      // setRadioSoundPlaying(false);
+      setRadioSoundPlaying(true);
       dispatch(aiActions.stopRecordingMicrophone());
     }
   }, [isTalking, dispatch]);

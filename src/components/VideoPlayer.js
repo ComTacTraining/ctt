@@ -52,6 +52,7 @@ const VideoPlayer = ({ playlist, onPlay, onPause, onEnded, onPlaylistEnded }) =>
 
   useEffect(() => {
     const play = () => {
+      dispatch(aiActions.startTime());
       if (onPlay) {
         onPlay();
       }
@@ -83,7 +84,7 @@ const VideoPlayer = ({ playlist, onPlay, onPause, onEnded, onPlaylistEnded }) =>
     };
 
     if (player) {
-      onPlay && player.on('play', () => play());
+      player.on('play', () => play());
       onPause && player.on('pause', () => onPause());
       (onEnded || onPlaylistEnded) && player.on('ended', () => videoEnded());
     }

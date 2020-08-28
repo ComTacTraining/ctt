@@ -8577,6 +8577,14 @@ micromatch@^3.1.10, micromatch@^3.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
+microphone-stream@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/microphone-stream/-/microphone-stream-5.0.1.tgz#e9fdf1ef6ddcaa35c5c4dfe6019cdfa45f598cb7"
+  integrity sha512-hHblbrtWNZEOz6I3RR3vO9fVmN2e2PyR5TpBi+m6hRtTh7LT/hw4Pt5LIf6NSpL+HSMQ40I3CdLEq9alI4BG0w==
+  dependencies:
+    buffer-from "^1.1.1"
+    readable-stream "^3.3.0"
+
 miller-rabin@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/miller-rabin/-/miller-rabin-4.0.1.tgz#f080351c865b0dc562a8462966daa53543c78a4d"
@@ -10745,7 +10753,7 @@ read-pkg@^3.0.0:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readable-stream@^3.0.6, readable-stream@^3.1.1, readable-stream@^3.6.0:
+readable-stream@^3.0.6, readable-stream@^3.1.1, readable-stream@^3.3.0, readable-stream@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
   integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==

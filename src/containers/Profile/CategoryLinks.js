@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CommercialIcon from '@material-ui/icons/Store';
-import IndustrialIcon from '@material-ui/icons/Storefront';
+import CommercialIcon from '@material-ui/icons/Storefront';
+import IndustrialIcon from '@material-ui/icons/Store';
 import SingleFamilyIcon from '@material-ui/icons/Home';
 import MultiFamilyIcon from '@material-ui/icons/Apartment';
 

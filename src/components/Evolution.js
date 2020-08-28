@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AI from './AI';
-import Speak from './Speak';
 import ScrollingText from './ScrollingText';
+import Speak from './Speak';
+import KeyMapping from './KeyMapping';
+import SpeechToText from './SpeechToText';
 import VideoPlayer from './VideoPlayer';
 import { playlistFromId } from 'utils/video';
 
@@ -33,6 +35,8 @@ const Evolution = () => {
           <AI />
           <ScrollingText />
           <Speak />
+          <KeyMapping />
+          <SpeechToText />
           <VideoPlayer playlist={playlist} onPlaylistEnded={handlePlaylistEnded} />
         </>
       )}

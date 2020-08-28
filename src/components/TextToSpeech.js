@@ -13,6 +13,7 @@ const TextToSpeech = props => {
   const [encodedAudio, setEncodedAudio] = useState(null);
   const [decodedAudio, setDecodedAudio] = useState(null);
   const [speech, setSpeech] = useState({});
+  const [timer, setTimer] = useState(0);
   const [duration, setDuration] = useState(0);
 
   const { onFinishedSpeaking } = props;
@@ -25,6 +26,7 @@ const TextToSpeech = props => {
   useEffect(() => {
     if (waitingToBeSpoken.length > 0) {
       setSpeech(waitingToBeSpoken[0]);
+      setTimer(Date.now());
     }
   }, [waitingToBeSpoken]);
 
@@ -42,10 +44,15 @@ const TextToSpeech = props => {
           voiceId: speech.voice
         }
       })
-        .then(result => setEncodedAudio(result))
+        .then(result => {
+          setEncodedAudio(result);
+          const elapsed = Date.now();
+          const delta = (elapsed - timer) / 1000;
+          console.log(`${elapsed}: ${delta} seconds to convert text to audio file`);
+        })
         .catch(err => console.log(err));
     }
-  }, [speech]);
+  }, [speech, timer]);
 
   useEffect(() => {
     if (encodedAudio) {

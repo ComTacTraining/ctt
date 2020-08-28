@@ -21,6 +21,7 @@ const initialState = {
   waitingToBeSpoken: [],
   incidentCommandName: '',
   lastPlayedVideo: '',
+  start: 0,
 };
 
 const removeFirstItem = (array) => {
@@ -146,6 +147,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         waitingToBeSpoken: removeFirstItem(state.waitingToBeSpoken),
       };
+    case actionTypes.START_TIME:
+      return {
+        ...state,
+        start: Date.now()
+      }
     default:
       return state;
   }

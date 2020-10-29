@@ -18,7 +18,7 @@ const options = {
   assignmentExtinguishment: [ 'extinguish', 'Attack', 'supress', 'supression'],
   assignmentOverhaul: [ 'overhaul', 'hot', 'spot' ],
   assignmentVentilation: [ 'ventilation', 'vent', 'roof', 'horizontal', 'vertical', 'positive', 'blower', 'hole'],
-  assignmentSalvage: [ 'salvage', 'covers', 'conservation', 'property' ],
+  assignmentSalvage: [ 'salvage', 'covers', 'conservation', 'property', 'recovery' ],
   incidentWithinIncident: [ 'incident' ]
 }
 

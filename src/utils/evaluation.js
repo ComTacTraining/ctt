@@ -23,13 +23,13 @@ const options = {
   strategicExposures: ['exposure','protect', 'eyes', 'extension'],
   strategicConfinement: ['confinement', 'attack', 'Hold', 'Check', 'Limit', 'Restrict', 'Restrain' ],
   strategicExtinguishment: ['hose', 'lines', 'attack', 'interior', 'Attack', 'supress', 'supression'],
-  strategicOverhaul: ['overhaul' 'hot', 'spot'],
+  strategicOverhaul: ['overhaul', 'hot', 'spot'],
   strategicVentilation: ['ventilation','vent', 'roof', 'horizontal', 'vertical', 'positive', 'blower', 'hole'],
   strategicSalvage: ['salvage', 'recovery', 'property conservation'],
   incident: ['incident'],
   par: ['par'],
   can: ['can'],
-  transferAssignments: ['engine', 'truck', 'fire attack', 'ventilation', 'exposure', 'ric'. 'rescue', "Med', 'medical' ],
+  transferAssignments: ['engine', 'truck', 'fire attack', 'ventilation', 'exposure', 'ric', 'rescue', 'med', 'medical' ],
 }
 
 export { options };

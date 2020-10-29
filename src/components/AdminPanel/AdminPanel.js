@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import TuneIcon from '@material-ui/icons/Tune';
 import YesNoOption from './YesNoOption';
 import TextField from '../Transcribe/TextField';
 import Log from './Log';
 import { groupConstToDisplay } from 'utils/ai';
 import TabPanel from './TabPanel';
+import { educationCompleted } from '../../store/actions/ai';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +61,7 @@ const a11yProps = (index) => ({
 
 const AdminPanel = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const ai = useSelector(state => state.ai);
   const evaluation = useSelector(state => state.evaluation);
   const { incidentGroup } = useSelector(state => state.evolution);
@@ -72,11 +78,15 @@ const AdminPanel = () => {
     setSelectedTab(newValue);
   }
 
+  const handleShowEvaluation = () => {
+    dispatch(educationCompleted());
+  }
+
   return (
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
           <Grid container justify="center" spacing="1">
-            <Grid key='col1' item xs={3}>
+            <Grid key='col1' item xs={4}>
               <Paper className={classes.paper}>
                 <Tabs
                   value={selectedTab}
@@ -85,11 +95,11 @@ const AdminPanel = () => {
                   textColor="primary"
                   centered
                 >
-                  <Tab label="Events" {...a11yProps(0)} />
-                  <Tab label="Evaluation" {...a11yProps(1)} />
+                  <Tab icon={<EventAvailableIcon />} {...a11yProps(0)} />
+                  <Tab icon={<AssignmentIcon />} {...a11yProps(1)} />
+                  <Tab icon={<TuneIcon />} {...a11yProps(2)} />
                 </Tabs>
                 <TabPanel value={selectedTab} index={0}>
-                  <Typography key="events_title" variant="caption">Incident Group: {iwiGroup}<br /></Typography>
                   <YesNoOption key="firstAlarmAnnounced" label='First Alarm Announced' value={ai.firstAlarmAnnounced} />
                   <YesNoOption key="initialReportCompleted" label='Initial Report Completed' value={ai.initialReportCompleted} />
                   <YesNoOption key="threeSixtyWalkthroughBegan" label='360&deg; Walkthrough Began' value={ai.threeSixtyWalkthroughBegan} />
@@ -136,9 +146,13 @@ const AdminPanel = () => {
                   <YesNoOption key="can" label='CAN Report' value={evaluation.can} />
                   <YesNoOption key="transferAssignments" label='Transfer of Command Assignments' value={evaluation.transferAssignments} />
                 </TabPanel>
+                <TabPanel value={selectedTab} index={2}>
+                  <Typography key="events_title" variant="caption">Incident Group: {iwiGroup}<br /></Typography>
+                  <Button onClick={handleShowEvaluation}>End Education</Button>
+                </TabPanel>
               </Paper>
             </Grid>
-            <Grid key='col2' item xs={9}>
+            <Grid key='col2' item xs={8}>
               <Paper className={classes.paper}>
                 <Typography key="current_command" variant="caption">
                   <strong>Current Command: </strong>

@@ -46,6 +46,7 @@ type Member
 type Alarm 
   @model
   @auth(rules: [
+      {allow: owner },
       {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
       {allow: groups, groups: ["Members"], queries: [get, list], mutations: [create, update, delete]}
     ])
@@ -67,39 +68,6 @@ type Incident
   icsNims: IcsNims! 
   command: String!
 }
-type Evaluation 
-  @model
-  @auth(rules: [
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
-    ])
-{
-  id: ID!
-  evaluation: [Question!]!
-}
-type Question 
-  @model
-  @auth(rules: [
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
-    ])
-{
-  id: ID!
-  question: String!
-  answers: [String!]!
-}
-type Answer 
-  @model
-  @auth(rules: [
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
-    ])
-{
-  id: ID!
-  question: String
-  answer: String
-  valid: Boolean!
-}
 type Simulation 
   @model
   @auth(rules: [
@@ -109,8 +77,6 @@ type Simulation
 {
   id: ID!
   member: Member @connection(name: "MemberSimulations")
-  industry: [Answer!]!
-  department: [Answer!]!
   link: String
   reviews: [Review]
 }

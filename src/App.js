@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import Layout from './containers/Layout/Layout';
-import Routes from './Routes';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
+import Layout from './components/Layout/Layout';
+import Routes from './Routes';
 import { createStore } from 'store';
 import theme from './theme';
 import awsExports from './aws-exports';

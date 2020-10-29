@@ -106,6 +106,7 @@ export const createMember = `mutation CreateMember(
         id
         unit
         officer
+        owner
       }
       nextToken
     }
@@ -134,6 +135,7 @@ export const updateMember = `mutation UpdateMember(
         id
         unit
         officer
+        owner
       }
       nextToken
     }
@@ -162,6 +164,7 @@ export const deleteMember = `mutation DeleteMember(
         id
         unit
         officer
+        owner
       }
       nextToken
     }
@@ -196,6 +199,7 @@ export const createAlarm = `mutation CreateAlarm(
         nextToken
       }
     }
+    owner
   }
 }
 `;
@@ -220,6 +224,7 @@ export const updateAlarm = `mutation UpdateAlarm(
         nextToken
       }
     }
+    owner
   }
 }
 `;
@@ -244,6 +249,7 @@ export const deleteAlarm = `mutation DeleteAlarm(
         nextToken
       }
     }
+    owner
   }
 }
 `;
@@ -283,117 +289,6 @@ export const deleteIncident = `mutation DeleteIncident(
   }
 }
 `;
-export const createEvaluation = `mutation CreateEvaluation(
-  $input: CreateEvaluationInput!
-  $condition: ModelEvaluationConditionInput
-) {
-  createEvaluation(input: $input, condition: $condition) {
-    id
-    evaluation {
-      id
-      question
-      answers
-    }
-  }
-}
-`;
-export const updateEvaluation = `mutation UpdateEvaluation(
-  $input: UpdateEvaluationInput!
-  $condition: ModelEvaluationConditionInput
-) {
-  updateEvaluation(input: $input, condition: $condition) {
-    id
-    evaluation {
-      id
-      question
-      answers
-    }
-  }
-}
-`;
-export const deleteEvaluation = `mutation DeleteEvaluation(
-  $input: DeleteEvaluationInput!
-  $condition: ModelEvaluationConditionInput
-) {
-  deleteEvaluation(input: $input, condition: $condition) {
-    id
-    evaluation {
-      id
-      question
-      answers
-    }
-  }
-}
-`;
-export const createQuestion = `mutation CreateQuestion(
-  $input: CreateQuestionInput!
-  $condition: ModelQuestionConditionInput
-) {
-  createQuestion(input: $input, condition: $condition) {
-    id
-    question
-    answers
-  }
-}
-`;
-export const updateQuestion = `mutation UpdateQuestion(
-  $input: UpdateQuestionInput!
-  $condition: ModelQuestionConditionInput
-) {
-  updateQuestion(input: $input, condition: $condition) {
-    id
-    question
-    answers
-  }
-}
-`;
-export const deleteQuestion = `mutation DeleteQuestion(
-  $input: DeleteQuestionInput!
-  $condition: ModelQuestionConditionInput
-) {
-  deleteQuestion(input: $input, condition: $condition) {
-    id
-    question
-    answers
-  }
-}
-`;
-export const createAnswer = `mutation CreateAnswer(
-  $input: CreateAnswerInput!
-  $condition: ModelAnswerConditionInput
-) {
-  createAnswer(input: $input, condition: $condition) {
-    id
-    question
-    answer
-    valid
-  }
-}
-`;
-export const updateAnswer = `mutation UpdateAnswer(
-  $input: UpdateAnswerInput!
-  $condition: ModelAnswerConditionInput
-) {
-  updateAnswer(input: $input, condition: $condition) {
-    id
-    question
-    answer
-    valid
-  }
-}
-`;
-export const deleteAnswer = `mutation DeleteAnswer(
-  $input: DeleteAnswerInput!
-  $condition: ModelAnswerConditionInput
-) {
-  deleteAnswer(input: $input, condition: $condition) {
-    id
-    question
-    answer
-    valid
-  }
-}
-`;
 export const createSimulation = `mutation CreateSimulation(
   $input: CreateSimulationInput!
   $condition: ModelSimulationConditionInput
@@ -412,18 +307,6 @@ export const createSimulation = `mutation CreateSimulation(
       simulations {
         nextToken
       }
-    }
-    industry {
-      id
-      question
-      answer
-      valid
-    }
-    department {
-      id
-      question
-      answer
-      valid
     }
     link
     reviews {
@@ -459,18 +342,6 @@ export const updateSimulation = `mutation UpdateSimulation(
         nextToken
       }
     }
-    industry {
-      id
-      question
-      answer
-      valid
-    }
-    department {
-      id
-      question
-      answer
-      valid
-    }
     link
     reviews {
       id
@@ -504,18 +375,6 @@ export const deleteSimulation = `mutation DeleteSimulation(
       simulations {
         nextToken
       }
-    }
-    industry {
-      id
-      question
-      answer
-      valid
-    }
-    department {
-      id
-      question
-      answer
-      valid
     }
     link
     reviews {

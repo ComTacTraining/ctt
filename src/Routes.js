@@ -1,13 +1,13 @@
 import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom';
-import Home from './containers/Home';
-import Admin from './containers/Admin/Admin';
-import Evolution from './containers/Evolution';
-import Profile from './containers/Profile/Profile';
-import Reviews from './containers/Reviews';
-import PrivacyPolicy from './containers/Legal/PrivacyPolicy';
-import TermsOfService from './containers/Legal/TermsOfService';
-import RefundPolicy from './containers/Legal/RefundPolicy';
+import Home from './components/pages/Home';
+import Admin from './components/pages/Admin/Admin';
+import Evolution from './components/pages/Evolution';
+import Profile from './components/pages/Profile/Profile';
+import Reviews from './components/pages/Reviews';
+import PrivacyPolicy from './components/pages/Legal/PrivacyPolicy';
+import TermsOfService from './components/pages/Legal/TermsOfService';
+import RefundPolicy from './components/pages/Legal/RefundPolicy';
 
 const routes = () => {
   return (

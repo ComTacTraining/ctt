@@ -94,6 +94,7 @@ export const onCreateMember = `subscription OnCreateMember {
         id
         unit
         officer
+        owner
       }
       nextToken
     }
@@ -119,6 +120,7 @@ export const onUpdateMember = `subscription OnUpdateMember {
         id
         unit
         officer
+        owner
       }
       nextToken
     }
@@ -144,6 +146,7 @@ export const onDeleteMember = `subscription OnDeleteMember {
         id
         unit
         officer
+        owner
       }
       nextToken
     }
@@ -157,8 +160,8 @@ export const onDeleteMember = `subscription OnDeleteMember {
   }
 }
 `;
-export const onCreateAlarm = `subscription OnCreateAlarm {
-  onCreateAlarm {
+export const onCreateAlarm = `subscription OnCreateAlarm($owner: String) {
+  onCreateAlarm(owner: $owner) {
     id
     unit
     officer
@@ -175,11 +178,12 @@ export const onCreateAlarm = `subscription OnCreateAlarm {
         nextToken
       }
     }
+    owner
   }
 }
 `;
-export const onUpdateAlarm = `subscription OnUpdateAlarm {
-  onUpdateAlarm {
+export const onUpdateAlarm = `subscription OnUpdateAlarm($owner: String) {
+  onUpdateAlarm(owner: $owner) {
     id
     unit
     officer
@@ -196,11 +200,12 @@ export const onUpdateAlarm = `subscription OnUpdateAlarm {
         nextToken
       }
     }
+    owner
   }
 }
 `;
-export const onDeleteAlarm = `subscription OnDeleteAlarm {
-  onDeleteAlarm {
+export const onDeleteAlarm = `subscription OnDeleteAlarm($owner: String) {
+  onDeleteAlarm(owner: $owner) {
     id
     unit
     officer
@@ -217,6 +222,7 @@ export const onDeleteAlarm = `subscription OnDeleteAlarm {
         nextToken
       }
     }
+    owner
   }
 }
 `;
@@ -247,90 +253,6 @@ export const onDeleteIncident = `subscription OnDeleteIncident {
   }
 }
 `;
-export const onCreateEvaluation = `subscription OnCreateEvaluation {
-  onCreateEvaluation {
-    id
-    evaluation {
-      id
-      question
-      answers
-    }
-  }
-}
-`;
-export const onUpdateEvaluation = `subscription OnUpdateEvaluation {
-  onUpdateEvaluation {
-    id
-    evaluation {
-      id
-      question
-      answers
-    }
-  }
-}
-`;
-export const onDeleteEvaluation = `subscription OnDeleteEvaluation {
-  onDeleteEvaluation {
-    id
-    evaluation {
-      id
-      question
-      answers
-    }
-  }
-}
-`;
-export const onCreateQuestion = `subscription OnCreateQuestion {
-  onCreateQuestion {
-    id
-    question
-    answers
-  }
-}
-`;
-export const onUpdateQuestion = `subscription OnUpdateQuestion {
-  onUpdateQuestion {
-    id
-    question
-    answers
-  }
-}
-`;
-export const onDeleteQuestion = `subscription OnDeleteQuestion {
-  onDeleteQuestion {
-    id
-    question
-    answers
-  }
-}
-`;
-export const onCreateAnswer = `subscription OnCreateAnswer {
-  onCreateAnswer {
-    id
-    question
-    answer
-    valid
-  }
-}
-`;
-export const onUpdateAnswer = `subscription OnUpdateAnswer {
-  onUpdateAnswer {
-    id
-    question
-    answer
-    valid
-  }
-}
-`;
-export const onDeleteAnswer = `subscription OnDeleteAnswer {
-  onDeleteAnswer {
-    id
-    question
-    answer
-    valid
-  }
-}
-`;
 export const onCreateSimulation = `subscription OnCreateSimulation {
   onCreateSimulation {
     id
@@ -346,18 +268,6 @@ export const onCreateSimulation = `subscription OnCreateSimulation {
       simulations {
         nextToken
       }
-    }
-    industry {
-      id
-      question
-      answer
-      valid
-    }
-    department {
-      id
-      question
-      answer
-      valid
     }
     link
     reviews {
@@ -390,18 +300,6 @@ export const onUpdateSimulation = `subscription OnUpdateSimulation {
         nextToken
       }
     }
-    industry {
-      id
-      question
-      answer
-      valid
-    }
-    department {
-      id
-      question
-      answer
-      valid
-    }
     link
     reviews {
       id
@@ -432,18 +330,6 @@ export const onDeleteSimulation = `subscription OnDeleteSimulation {
       simulations {
         nextToken
       }
-    }
-    industry {
-      id
-      question
-      answer
-      valid
-    }
-    department {
-      id
-      question
-      answer
-      valid
     }
     link
     reviews {

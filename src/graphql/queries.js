@@ -74,6 +74,7 @@ export const getMember = `query GetMember($id: ID!) {
         id
         unit
         officer
+        owner
       }
       nextToken
     }
@@ -128,6 +129,7 @@ export const getAlarm = `query GetAlarm($id: ID!) {
         nextToken
       }
     }
+    owner
   }
 }
 `;
@@ -148,6 +150,7 @@ export const listAlarms = `query ListAlarms(
         rank
         expiration
       }
+      owner
     }
     nextToken
   }
@@ -178,83 +181,6 @@ export const listIncidents = `query ListIncidents(
   }
 }
 `;
-export const getEvaluation = `query GetEvaluation($id: ID!) {
-  getEvaluation(id: $id) {
-    id
-    evaluation {
-      id
-      question
-      answers
-    }
-  }
-}
-`;
-export const listEvaluations = `query ListEvaluations(
-  $filter: ModelEvaluationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listEvaluations(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      evaluation {
-        id
-        question
-        answers
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const getQuestion = `query GetQuestion($id: ID!) {
-  getQuestion(id: $id) {
-    id
-    question
-    answers
-  }
-}
-`;
-export const listQuestions = `query ListQuestions(
-  $filter: ModelQuestionFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listQuestions(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      question
-      answers
-    }
-    nextToken
-  }
-}
-`;
-export const getAnswer = `query GetAnswer($id: ID!) {
-  getAnswer(id: $id) {
-    id
-    question
-    answer
-    valid
-  }
-}
-`;
-export const listAnswers = `query ListAnswers(
-  $filter: ModelAnswerFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listAnswers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      question
-      answer
-      valid
-    }
-    nextToken
-  }
-}
-`;
 export const getSimulation = `query GetSimulation($id: ID!) {
   getSimulation(id: $id) {
     id
@@ -270,18 +196,6 @@ export const getSimulation = `query GetSimulation($id: ID!) {
       simulations {
         nextToken
       }
-    }
-    industry {
-      id
-      question
-      answer
-      valid
-    }
-    department {
-      id
-      question
-      answer
-      valid
     }
     link
     reviews {
@@ -312,18 +226,6 @@ export const listSimulations = `query ListSimulations(
         department
         rank
         expiration
-      }
-      industry {
-        id
-        question
-        answer
-        valid
-      }
-      department {
-        id
-        question
-        answer
-        valid
       }
       link
       reviews {

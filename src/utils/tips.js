@@ -3,7 +3,7 @@ const options = {
   initialReportHeight: [ 'story', 'single', '2', 'two', '3', 'three', 'rise', 'mid', 'high' ],
   initialReportOccupancy: [ 'residential', 'single-family', 'single', 'family', 'dwelling', 'multi-family', 'apartment', 'garden', 'call', 'townhome', 'town', 'home', 'condo', 'condominium', 'duplex', 'office',  'business', 'warehouse', 'medical', 'retail', 'apartment', 'house', 'Center Hall', 'commercial', 'taxpayer', 'industrial', 'building', 'Warehouse', 'tiltup', 'retail' ],
   initialReportConditions: [ 'smoke', 'showing', 'fire', 'nothing' ],
-  initialReportActions: [ 'laying', 'supply', 'line', 'lines', 'establishing', 'water', 'supply', 'entering', 'rescue', 'mode', 'quick', 'attack',  'command', 'investigation', 'investigating', 'command', 'rescue' ],
+  initialReportActions: [ 'laying', 'supply', 'line', 'lines', 'establishing', 'water', 'supply', 'entering', 'rescue', 'mode', 'quick', 'attack',  'command', 'investigation', 'investigating', 'command', 'rescue', 'stretch', 'pulling', 'stretching', 'pull' ],
   initialReportNeeds: [ 'second', '2nd', 'third', '3rd', 'alarm', 'police', 'pd', 'ambulance', 'public works', 'ems', 'officers', 'box', 'balance', 'additional','engine', 'truck','tender','tanker' ],
   initialReportDesignation: [ 'command', 'incident', 'IC', 'see', 'sea', 'eye' ],
   threeSixtyConstruction: [ 'light weight', 'lightweight', 'construction', 'ordinary', 'cut', 'stack', 'poured', 'place', 'concrete', 'tilt up', 'metal clad', 'stack', 'conventional', 'wood', 'frame', 'stucco', 'vinyl', 'sided' ],

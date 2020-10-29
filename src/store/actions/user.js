@@ -2,6 +2,8 @@ export const IS_AUTHENTICATED = 'IS_AUTHENTICATED';
 export const IS_MEMBER = 'IS_MEMBER';
 export const UPDATE_USER_PREFERENCES = 'UPDATE_USER_PREFERENCES';
 export const TOGGLE_TIPS = 'TOGGLE_TIPS';
+export const MICROPHONE_ACCESS_GRANTED = 'MICROPHONE_ACCESS_GRANTED';
+export const TOGGLE_FULLSCREEN = 'TOGGLE_FULLSCREEN';
 
 export const isAuthenticated = () => {
   return { type: IS_AUTHENTICATED };
@@ -29,3 +31,11 @@ export const updateUserPreferences = (data) => {
     },
   };
 };
+
+export const microphoneAccessGranted = () => {
+  return { type: MICROPHONE_ACCESS_GRANTED };
+};
+
+export const toggleFullscreen = () => {
+  return { type: TOGGLE_FULLSCREEN };
+}

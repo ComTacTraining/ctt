@@ -34,8 +34,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         id: action.payload.id,
-        category: '',
-        construction: [],
+        category: action.payload.category,
+        construction: action.payload.construction,
         street: action.payload.street,
         size: action.payload.size,
         stories: action.payload.stories,

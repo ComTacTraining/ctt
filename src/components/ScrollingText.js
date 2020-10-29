@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 const ScrollingText = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const ai = useSelector(state => state.ai);
-  const { scrollText } = ai;
+  const { scrollText } = useSelector(state => state.ai);
+  // const { fullscreen } = useSelector(state => state.user);
   const canvasRef = useRef();
   const done = useScrollingText(canvasRef, scrollText);
   
@@ -29,6 +29,7 @@ const ScrollingText = () => {
       dispatch(scrollingTextCompleted());
     }
   }, [done, dispatch]);
+
 
   return (
     <div data-testid='scrollingtext'>

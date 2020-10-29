@@ -1,4 +1,4 @@
-export const pcmEncode = (input) => {
+const pcmEncode = (input) => {
   let offset = 0;
   let buffer = new ArrayBuffer(input.length * 2);
   let view = new DataView(buffer);
@@ -9,36 +9,46 @@ export const pcmEncode = (input) => {
   return buffer;
 }
 
-export function downsampleBuffer(buffer, inputSampleRate = 44100, outputSampleRate = 16000) {
-      
+const downsampleBuffer = (buffer, inputSampleRate = 44100, outputSampleRate = 16000) => {
   if (outputSampleRate === inputSampleRate) {
-      return buffer;
+    return buffer;
   }
-
-  var sampleRateRatio = inputSampleRate / outputSampleRate;
-  var newLength = Math.round(buffer.length / sampleRateRatio);
-  var result = new Float32Array(newLength);
-  var offsetResult = 0;
-  var offsetBuffer = 0;
+  const sampleRateRatio = inputSampleRate / outputSampleRate;
+  const result = new Float32Array(Math.round(buffer.length / sampleRateRatio));
+  let offsetResult = 0;
+  let offsetBuffer = 0;
   
   while (offsetResult < result.length) {
+    let nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);
+    let accum = 0;
+    let count = 0;
+    
+    for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++ ) {
+      accum += buffer[i];
+      count++;
+    }
 
-      var nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);
-
-      var accum = 0,
-      count = 0;
-      
-      for (var i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++ ) {
-          accum += buffer[i];
-          count++;
-      }
-
-      result[offsetResult] = accum / count;
-      offsetResult++;
-      offsetBuffer = nextOffsetBuffer;
-
+    result[offsetResult] = accum / count;
+    offsetResult++;
+    offsetBuffer = nextOffsetBuffer;
   }
-
   return result;
-
 }
+
+const jsonAudioEventMessage = (buffer) => {
+  return {
+    headers: {
+      ':message-type': {
+        type: 'string',
+        value: 'event'
+      },
+      ':event-type': {
+        type: 'string',
+        value: 'AudioEvent'
+      }
+    },
+    body: buffer
+  };
+}
+
+export { pcmEncode, downsampleBuffer, jsonAudioEventMessage };

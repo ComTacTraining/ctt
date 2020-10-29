@@ -10,6 +10,8 @@ const initialState = {
   alarm2: ['Engine 21', 'Engine 22', 'Engine 23', 'Truck 21', 'Truck 22', 'Battalion 2'],
   alarm3: ['Engine 31', 'Engine 32', 'Engine 33', 'Truck 31', 'Truck 32', 'Battalion 3'],
   showTips: true,
+  hasMicrophoneAccess: false,
+  fullscreen: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +43,16 @@ const reducer = (state = initialState, action) => {
         alarm3: action.payload.alarm3,
         showTips: action.payload.showTips,
       };
+    case actionTypes.MICROPHONE_ACCESS_GRANTED:
+      return {
+        ...state,
+        hasMicrophoneAccess: true
+      }
+    case actionTypes.TOGGLE_FULLSCREEN:
+      return {
+        ...state,
+        fullscreen: !state.fullscreen
+      }
     default:
       return state;
   }

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
-import * as aiActions from '../store/actions/ai';
+import * as aiActions from '../../store/actions/ai';
 import { options, anyTermsMatchString, randomSelection } from 'utils/ai';
-import useInterval from '../hooks/useInterval';
 
-const Unit = (props) => {
+const Unit = ({ name }) => {
   const user = useSelector((state) => state.user);
   const { firstOnScene } = user;
   const dispatch = useDispatch();

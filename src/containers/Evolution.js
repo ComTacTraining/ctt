@@ -5,7 +5,6 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { getEvolution, getIncident } from '../graphql/queries';
 import Typography from '@material-ui/core/Typography';
 import * as evolutionActions from '../store/actions/evolution';
-import VideoLayout from './Layout/Video';
 import Simulation from '../components/Evolution';
 
 
@@ -104,9 +103,9 @@ const Evolution = () => {
     <div>
       <Typography variant='h3'>{title}</Typography>
       {evolutionId && (
-        <VideoLayout>
+        // <VideoLayout>
           <Simulation />
-        </VideoLayout>
+        // </VideoLayout>
       )}
     </div>
   );

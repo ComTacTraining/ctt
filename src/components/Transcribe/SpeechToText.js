@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Predictions } from 'aws-amplify';
 import AudioRecorder from './AudioRecorder';
-import * as aiActions from '../store/actions/ai';
+import * as aiActions from '../../store/actions/ai';
 
 const SpeechToText = props => {
   const dispatch = useDispatch();

@@ -17,10 +17,10 @@ const options = {
   ],
   dispatchCenterVoice: 'Joanna',
   incomingCommandOfficerVoice: 'Brian',
-  maxAdditionalAlarmSeconds: 100,
-  maxUnitArrivalSeconds: 60,
-  maxIncomingOfficerArrivalSeconds: 60,
+  unassignedIncidentVoice: 'Kimberly',
   educationVoice: 'Matthew',
+  maxUnitArrivalSeconds: 90,
+  maxIncomingOfficerArrivalSeconds: 120,
   dispatchCallOptions: [
     'Dispatch has received one call.',
     'Dispatch has received multiple calls.',
@@ -69,11 +69,35 @@ const options = {
     'entry',
     'egress',
   ],
+  secondAlarmTerms: [
+    'second alarm', 
+    '2nd alarm', 
+    'alarm two', 
+    'alarm 2', 
+    'second box', 
+    '2nd box',
+    'box two',
+    'box 2',
+    'commercial alarm'
+  ],
+  thirdAlarmTerms: [
+    'third alarm', 
+    '3rd alarm', 
+    'alarm three', 
+    'alarm 3',
+    'third box', 
+    '3rd box',
+    'box three',
+    'box 3',
+  ],
+  parReportTerms: ['par'],
+  canReportTerms: ['can'],
+  maxAdditionalAlarmSeconds: 100,
   icsNimsGroups: [
-    {
-      name: 'Water',
-      terms: ['supply', 'line', 'hydrant', 'water']
-    },
+    // {
+    //   name: 'Water',
+    //   terms: ['supply', 'line', 'hydrant', 'water']
+    // },
     {
       name: 'Fire Attack',
       terms: ['attack', 'attach', 'rescue', 'interior'],
@@ -262,4 +286,49 @@ const randomSelection = items => {
   return items[rand];
 };
 
-export { options, shuffleArray, anyTermsMatchString, strReplace, randomSelection };
+const properPronouns = str => {
+  return strReplace(str,
+    [' I ', ' you ', 'your', "you're", "I'm"],
+    [' you ', ' I ', 'my', "I'm", "you're"]
+  );
+}
+
+const groupDisplayToConst = (display) => {
+  switch (display) {
+    case 'Fire Attack': return 'FIRE_ATTACK';
+    case 'Ventilation': return 'VENTILATION';
+    case 'Exposure': return 'EXPOSURE';
+    case 'RIC': return 'RIC';
+    case 'Medical': return 'MEDICAL';
+    case 'Water Supply': return 'WATER';
+    default: return null;
+  }
+}
+
+const groupConstToDisplay = (name) => {
+  switch (name) {
+    case 'FIRE_ATTACK': return 'Fire Attack';
+    case 'VENTILATION': return 'Ventilation';
+    case 'EXPOSURE': return 'Exposure';
+    case 'RIC': return 'RIC';
+    case 'MEDICAL': return 'Medical';
+    case 'WATER': return 'Water Supply';
+    default: return null;
+  }
+}
+
+const isEmptyObject = (obj) => {
+  return Object.keys(obj).length === 0 && obj.constructor === Object ? true : false;
+}
+
+export { 
+  options,
+  shuffleArray,
+  anyTermsMatchString,
+  strReplace,
+  randomSelection,
+  properPronouns,
+  groupDisplayToConst,
+  groupConstToDisplay,
+  isEmptyObject
+};

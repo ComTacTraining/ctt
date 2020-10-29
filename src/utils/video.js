@@ -1,5 +1,4 @@
 const bucket = 'https://comtac.s3-us-west-2.amazonaws.com';
-const approaches = 6;
 const options = {
   autoplay: true,
   controls: true,
@@ -44,18 +43,17 @@ const playlistFromNames = (names) => {
 const playlistFromId = (evolutionId) => {
   const category = evolutionId.match(/[a-zA-Z]+/g)[0];
   const id = evolutionId.match(/\d+/g)[0];
-  const approachId = Math.floor(Math.random() * approaches + 1);
   const videoNames = [
     `${category}/${id}/intro`,
     'black',
-    `approach/${approachId}`,
+    `approach/${Math.floor(Math.random() * 6 + 1)}`,
     `${category}/${id}/loop`,
     `${category}/${id}/bravo`,
     `${category}/${id}/charlie`,
     `${category}/${id}/delta`,
     `${category}/${id}/alpha`,
     `${category}/${id}/loop`,
-    'credits',
+    'black',
   ];
   return playlistFromNames(videoNames);
 }

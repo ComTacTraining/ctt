@@ -1,43 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import AI from './AI';
+import { useSelector, useDispatch } from 'react-redux';
+// import { useHistory } from 'react-router-dom';
+import VideoLayout from '../containers/Layout/Video';
+import AI from './AI/AI';
 import ScrollingText from './ScrollingText';
 import Speak from './Speak';
+import Education from './Education';
 import KeyMapping from './KeyMapping';
-import SpeechToText from './SpeechToText';
+// import SpeechToText from './Transcribe/SpeechToText';
+// import Transcribe from './Transcribe/Transcribe';
+import Tips from './Tips';
 import VideoPlayer from './VideoPlayer';
 import { playlistFromId } from 'utils/video';
+import Command from './Command';
+import AdminPanel from './AdminPanel/AdminPanel';
+import { startTime } from '../store/actions/ai';
 
 const Evolution = () => {
-  const history = useHistory();
-  // const { scrollText } = useSelector(state => state.ai);
-  const evolution = useSelector(state => state.evolution);
-  const { id } = evolution;
+  const dispatch = useDispatch();
+  // const history = useHistory();
+  const { firstAlarmAnnounced, faceToFaceCompleted } = useSelector(state => state.ai);
+  const { id } = useSelector(state => state.evolution);
+  const { showTips } = useSelector(state => state.user);
   const [playlist, setPlaylist] = useState(false);
 
   useEffect(() => {
     if (id) {
       setPlaylist(playlistFromId(id));
+      dispatch(startTime());
     }
-  }, [id]);
+  }, [id, dispatch]);
 
-  const handlePlaylistEnded = () => {
-    // evaluation
-    // peer review
-    history.push('/profile');
-  }
+  // const handlePlaylistEnded = () => {
+  //   // evaluation
+  //   // peer review
+  //   history.push('/profile');
+  // }
+
+  
 
   return (
     <>
       {playlist && (
         <>
           <AI />
-          <ScrollingText />
           <Speak />
           <KeyMapping />
-          <SpeechToText />
-          <VideoPlayer playlist={playlist} onPlaylistEnded={handlePlaylistEnded} />
+          <VideoLayout>
+            <ScrollingText />
+            {firstAlarmAnnounced && showTips && <Tips />}
+            <VideoPlayer playlist={playlist} 
+            // onPlaylistEnded={handlePlaylistEnded} 
+            />
+          </VideoLayout>
+          <AdminPanel />
+          {/* {firstAlarmAnnounced && <SpeechToText />} */}
+          {faceToFaceCompleted && <Education />}
+          <Command />
         </>
       )}
     </>

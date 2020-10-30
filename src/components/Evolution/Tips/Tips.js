@@ -78,7 +78,7 @@ const Tips = () => {
       )}
       {(ai.threeSixtyAssessmentCompleted && ai.unitsAssigned > 2 && !ai.incidentCompleted) && (
         <div className={classes.backdrop}>
-          <Typography variant="h3" gutterBottom>Incident Withing Incident</Typography>
+          <Typography variant="h3" gutterBottom>Incident Within Incident</Typography>
           <Divider />
           <List dense={true}>
             <Tip completed={tips.incidentWithinIncident} key="incident" title="Incident Response" />

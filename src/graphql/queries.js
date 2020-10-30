@@ -68,23 +68,15 @@ export const getMember = `query GetMember($id: ID!) {
     alias
     department
     rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
     expiration
-    alarms {
-      items {
-        id
-        unit
-        officer
-        owner
-      }
-      nextToken
-    }
-    simulations {
-      items {
-        id
-        link
-      }
-      nextToken
-    }
+    owner
   }
 }
 `;
@@ -99,57 +91,14 @@ export const listMembers = `query ListMembers(
       alias
       department
       rank
+      dispatchCenter
+      firstOnScene
+      incomingCommandOfficer
+      alarm1
+      alarm2
+      alarm3
+      showTips
       expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const getAlarm = `query GetAlarm($id: ID!) {
-  getAlarm(id: $id) {
-    id
-    unit
-    officer
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    owner
-  }
-}
-`;
-export const listAlarms = `query ListAlarms(
-  $filter: ModelAlarmFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listAlarms(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      unit
-      officer
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
       owner
     }
     nextToken
@@ -176,103 +125,6 @@ export const listIncidents = `query ListIncidents(
       title
       icsNims
       command
-    }
-    nextToken
-  }
-}
-`;
-export const getSimulation = `query GetSimulation($id: ID!) {
-  getSimulation(id: $id) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    link
-    reviews {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
-    }
-  }
-}
-`;
-export const listSimulations = `query ListSimulations(
-  $filter: ModelSimulationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listSimulations(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      link
-      reviews {
-        id
-        message
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const getReview = `query GetReview($id: ID!) {
-  getReview(id: $id) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    message
-  }
-}
-`;
-export const listReviews = `query ListReviews(
-  $filter: ModelReviewFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
     }
     nextToken
   }

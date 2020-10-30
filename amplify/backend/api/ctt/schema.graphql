@@ -5,7 +5,7 @@ type Evolution
       {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
     ])
 {
-  id: ID!,
+  id: String!,
   category: Category!,
   construction: [Construction],
   street: String!,
@@ -31,6 +31,7 @@ type Evolution
 type Member 
   @model
   @auth(rules: [
+      {allow: owner },
       {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
       {allow: groups, groups: ["Members"], queries: [get, list], mutations: [update]}
     ])
@@ -39,22 +40,14 @@ type Member
   alias: String
   department: String
   rank: String
+  dispatchCenter: String
+  firstOnScene: String
+  incomingCommandOfficer: String
+  alarm1: String
+  alarm2: String
+  alarm3: String
+  showTips: Boolean
   expiration: Int
-  alarms: [Alarm] @connection(name: "MemberAlarms")
-  simulations: [Simulation] @connection(name: "MemberSimulations")
-}
-type Alarm 
-  @model
-  @auth(rules: [
-      {allow: owner },
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: [create, update, delete]}
-    ])
-{
-  id: ID!
-  unit: [String]
-  officer: String
-  member: Member @connection(name: "MemberAlarms")
 }
 type Incident 
   @model
@@ -67,29 +60,6 @@ type Incident
   title: String!
   icsNims: IcsNims! 
   command: String!
-}
-type Simulation 
-  @model
-  @auth(rules: [
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
-    ])
-{
-  id: ID!
-  member: Member @connection(name: "MemberSimulations")
-  link: String
-  reviews: [Review]
-}
-type Review 
-  @model
-  @auth(rules: [
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
-    ])
-{
-  id: ID!
-  member: Member
-  message: String
 }
 enum Category {
   COMMERCIAL_LEGACY

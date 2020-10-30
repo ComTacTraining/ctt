@@ -82,146 +82,56 @@ export const onDeleteEvolution = `subscription OnDeleteEvolution {
   }
 }
 `;
-export const onCreateMember = `subscription OnCreateMember {
-  onCreateMember {
+export const onCreateMember = `subscription OnCreateMember($owner: String) {
+  onCreateMember(owner: $owner) {
     id
     alias
     department
     rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
     expiration
-    alarms {
-      items {
-        id
-        unit
-        officer
-        owner
-      }
-      nextToken
-    }
-    simulations {
-      items {
-        id
-        link
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateMember = `subscription OnUpdateMember {
-  onUpdateMember {
-    id
-    alias
-    department
-    rank
-    expiration
-    alarms {
-      items {
-        id
-        unit
-        officer
-        owner
-      }
-      nextToken
-    }
-    simulations {
-      items {
-        id
-        link
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteMember = `subscription OnDeleteMember {
-  onDeleteMember {
-    id
-    alias
-    department
-    rank
-    expiration
-    alarms {
-      items {
-        id
-        unit
-        officer
-        owner
-      }
-      nextToken
-    }
-    simulations {
-      items {
-        id
-        link
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onCreateAlarm = `subscription OnCreateAlarm($owner: String) {
-  onCreateAlarm(owner: $owner) {
-    id
-    unit
-    officer
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
     owner
   }
 }
 `;
-export const onUpdateAlarm = `subscription OnUpdateAlarm($owner: String) {
-  onUpdateAlarm(owner: $owner) {
+export const onUpdateMember = `subscription OnUpdateMember($owner: String) {
+  onUpdateMember(owner: $owner) {
     id
-    unit
-    officer
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
+    alias
+    department
+    rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
+    expiration
     owner
   }
 }
 `;
-export const onDeleteAlarm = `subscription OnDeleteAlarm($owner: String) {
-  onDeleteAlarm(owner: $owner) {
+export const onDeleteMember = `subscription OnDeleteMember($owner: String) {
+  onDeleteMember(owner: $owner) {
     id
-    unit
-    officer
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
+    alias
+    department
+    rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
+    expiration
     owner
   }
 }
@@ -250,159 +160,6 @@ export const onDeleteIncident = `subscription OnDeleteIncident {
     title
     icsNims
     command
-  }
-}
-`;
-export const onCreateSimulation = `subscription OnCreateSimulation {
-  onCreateSimulation {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    link
-    reviews {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
-    }
-  }
-}
-`;
-export const onUpdateSimulation = `subscription OnUpdateSimulation {
-  onUpdateSimulation {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    link
-    reviews {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
-    }
-  }
-}
-`;
-export const onDeleteSimulation = `subscription OnDeleteSimulation {
-  onDeleteSimulation {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    link
-    reviews {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
-    }
-  }
-}
-`;
-export const onCreateReview = `subscription OnCreateReview {
-  onCreateReview {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    message
-  }
-}
-`;
-export const onUpdateReview = `subscription OnUpdateReview {
-  onUpdateReview {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    message
-  }
-}
-`;
-export const onDeleteReview = `subscription OnDeleteReview {
-  onDeleteReview {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    message
   }
 }
 `;

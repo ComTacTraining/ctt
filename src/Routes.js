@@ -3,7 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Admin from './components/pages/Admin/Admin';
 import Evolution from './components/pages/Evolution';
-import Profile from './components/pages/Profile/Profile';
+import Profile from './components/Profile/Profile';
 import Reviews from './components/pages/Reviews';
 import PrivacyPolicy from './components/pages/Legal/PrivacyPolicy';
 import TermsOfService from './components/pages/Legal/TermsOfService';

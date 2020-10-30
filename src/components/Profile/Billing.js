@@ -12,7 +12,7 @@ const Billing = () => {
 
   return (
     <div className={classes.root}>
-
+      
     </div>
   );
 };

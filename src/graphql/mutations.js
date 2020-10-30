@@ -100,23 +100,15 @@ export const createMember = `mutation CreateMember(
     alias
     department
     rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
     expiration
-    alarms {
-      items {
-        id
-        unit
-        officer
-        owner
-      }
-      nextToken
-    }
-    simulations {
-      items {
-        id
-        link
-      }
-      nextToken
-    }
+    owner
   }
 }
 `;
@@ -129,23 +121,15 @@ export const updateMember = `mutation UpdateMember(
     alias
     department
     rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
     expiration
-    alarms {
-      items {
-        id
-        unit
-        officer
-        owner
-      }
-      nextToken
-    }
-    simulations {
-      items {
-        id
-        link
-      }
-      nextToken
-    }
+    owner
   }
 }
 `;
@@ -158,97 +142,14 @@ export const deleteMember = `mutation DeleteMember(
     alias
     department
     rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
     expiration
-    alarms {
-      items {
-        id
-        unit
-        officer
-        owner
-      }
-      nextToken
-    }
-    simulations {
-      items {
-        id
-        link
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const createAlarm = `mutation CreateAlarm(
-  $input: CreateAlarmInput!
-  $condition: ModelAlarmConditionInput
-) {
-  createAlarm(input: $input, condition: $condition) {
-    id
-    unit
-    officer
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    owner
-  }
-}
-`;
-export const updateAlarm = `mutation UpdateAlarm(
-  $input: UpdateAlarmInput!
-  $condition: ModelAlarmConditionInput
-) {
-  updateAlarm(input: $input, condition: $condition) {
-    id
-    unit
-    officer
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    owner
-  }
-}
-`;
-export const deleteAlarm = `mutation DeleteAlarm(
-  $input: DeleteAlarmInput!
-  $condition: ModelAlarmConditionInput
-) {
-  deleteAlarm(input: $input, condition: $condition) {
-    id
-    unit
-    officer
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
     owner
   }
 }
@@ -286,177 +187,6 @@ export const deleteIncident = `mutation DeleteIncident(
     title
     icsNims
     command
-  }
-}
-`;
-export const createSimulation = `mutation CreateSimulation(
-  $input: CreateSimulationInput!
-  $condition: ModelSimulationConditionInput
-) {
-  createSimulation(input: $input, condition: $condition) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    link
-    reviews {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
-    }
-  }
-}
-`;
-export const updateSimulation = `mutation UpdateSimulation(
-  $input: UpdateSimulationInput!
-  $condition: ModelSimulationConditionInput
-) {
-  updateSimulation(input: $input, condition: $condition) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    link
-    reviews {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
-    }
-  }
-}
-`;
-export const deleteSimulation = `mutation DeleteSimulation(
-  $input: DeleteSimulationInput!
-  $condition: ModelSimulationConditionInput
-) {
-  deleteSimulation(input: $input, condition: $condition) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    link
-    reviews {
-      id
-      member {
-        id
-        alias
-        department
-        rank
-        expiration
-      }
-      message
-    }
-  }
-}
-`;
-export const createReview = `mutation CreateReview(
-  $input: CreateReviewInput!
-  $condition: ModelReviewConditionInput
-) {
-  createReview(input: $input, condition: $condition) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    message
-  }
-}
-`;
-export const updateReview = `mutation UpdateReview(
-  $input: UpdateReviewInput!
-  $condition: ModelReviewConditionInput
-) {
-  updateReview(input: $input, condition: $condition) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    message
-  }
-}
-`;
-export const deleteReview = `mutation DeleteReview(
-  $input: DeleteReviewInput!
-  $condition: ModelReviewConditionInput
-) {
-  deleteReview(input: $input, condition: $condition) {
-    id
-    member {
-      id
-      alias
-      department
-      rank
-      expiration
-      alarms {
-        nextToken
-      }
-      simulations {
-        nextToken
-      }
-    }
-    message
   }
 }
 `;

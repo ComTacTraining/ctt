@@ -27,7 +27,7 @@ const options = {
   strategicVentilation: ['ventilation','vent', 'roof', 'horizontal', 'vertical', 'positive', 'blower', 'hole'],
   strategicSalvage: ['salvage', 'recovery', 'property conservation'],
   incident: ['incident'],
-  par: ['par'. 'accountability','personnel'],
+  par: ['par', 'accountability','personnel'],
   can: ['can', 'progress', 'update', 'needs', 'conditions'],
   transferAssignments: ['engine', 'truck', 'fire attack', 'ventilation', 'exposure', 'ric', 'rescue', 'med', 'medical' ],
 }

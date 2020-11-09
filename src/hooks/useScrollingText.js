@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { options } from 'utils/scrolling-text';
+import { useState, useEffect } from "react";
+import { options } from "utils/scrolling-text";
 const START = -10000;
 
 const useScrollingText = (canvasRef, text) => {
@@ -27,33 +27,35 @@ const useScrollingText = (canvasRef, text) => {
       // const canvas = canvasRef.current;
       // const ctx = canvas.getContext('2d');
 
-      sections.forEach((section) => {
-        let words = section.toUpperCase().split(' ');
-        let line = '';
-        let space = '';
+      sections.forEach(section => {
+        let words = section.toUpperCase().split(" ");
+        let line = "";
+        let space = "";
         while (words.length > 0) {
           let word = words.shift();
           // let width = ctx.measureText(line + space + word).width;
-          let width = canvasRef.current.getContext('2d').measureText(line + space + word).width;
+          let width = canvasRef.current
+            .getContext("2d")
+            .measureText(line + space + word).width;
           // if (width < canvas.width - options.padding * 2) {
           if (width < canvasRef.current.width - options.padding * 2) {
             line += space + word;
-            space = ' ';
+            space = " ";
           } else {
-            if (space === '') {
+            if (space === "") {
               line += word;
             } else {
               words.unshift(word);
             }
             tmpLines.push(line);
-            space = '';
-            line = '';
+            space = "";
+            line = "";
           }
         }
-        if (line !== '') {
+        if (line !== "") {
           tmpLines.push(line);
         }
-        tmpLines.push(' ');
+        tmpLines.push(" ");
       });
       tmpLines.pop();
       setLines(tmpLines);
@@ -67,7 +69,7 @@ const useScrollingText = (canvasRef, text) => {
   useEffect(() => {
     const setPositions = () => {
       const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       ctx.font = options.font;
       const lineHeight = options.fontSize + options.leading;
       const totalLines = lines.length + options.bleed;
@@ -87,14 +89,14 @@ const useScrollingText = (canvasRef, text) => {
 
     const render = () => {
       const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font = options.font;
       ctx.fillStyle = options.textColor;
       ctx.strokeStyle = options.outlineColor;
       let currX = 0;
       let currY = currentPosition;
-      lines.forEach((line) => {
+      lines.forEach(line => {
         currX = Math.floor((canvas.width - ctx.measureText(line).width) / 2);
         currY += options.fontSize + options.leading;
         ctx.fillText(line, currX, currY);
@@ -108,7 +110,7 @@ const useScrollingText = (canvasRef, text) => {
         // setLines([]);
         // setStartingPosition(START);
         // setEndingPosition(START);
-        
+
         cancelAnimationFrame(requestId);
         setDone(true);
       }

@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Auth, API } from 'aws-amplify';
+import React, { useEffect, useState } from "react";
+import { Auth, API } from "aws-amplify";
 
 const Member = () => {
   const [members, setMembers] = useState([]);
   const [nextToken, setNextToken] = useState(null);
   useEffect(() => {
     const listMembers = async () => {
-      let apiName = 'AdminQueries';
-      let path = '/listUsersInGroup';
+      let apiName = "AdminQueries";
+      let path = "/listUsersInGroup";
       let request = {
         queryStringParameters: {
-          'groupname': 'Members',
-          'limit': 60,
-          'token': nextToken
+          groupname: "Members",
+          limit: 60,
+          token: nextToken
         },
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+          "Content-Type": "application/json",
+          Authorization: `${(await Auth.currentSession())
+            .getAccessToken()
+            .getJwtToken()}`
         }
-      }
+      };
       const { _nextToken, ...rest } = await API.get(apiName, path, request);
       const _members = rest.Users.map(u => {
         let attributes = {
-          sub: '',
-          email: '',
+          sub: "",
+          email: "",
           email_verified: false,
-          phone_number: '',
+          phone_number: "",
           phone_number_verified: false
         };
         for (let a of u.Attributes) {
@@ -42,11 +44,11 @@ const Member = () => {
           enabled: u.Enabled,
           created: u.UserCreatedDate,
           modified: u.LastModifiedDate
-        }
+        };
       });
       setNextToken(_nextToken);
       setMembers(_members);
-    }
+    };
     listMembers();
   }, [nextToken]);
 
@@ -68,7 +70,7 @@ const Member = () => {
           <th>Modified</th>
         </tr>
         {members.map(member => (
-          <tr>
+          <tr key={member.id}>
             <td></td>
             <td>{member.id}</td>
             <td>{member.username}</td>

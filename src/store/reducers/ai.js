@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/ai';
+import * as actionTypes from "../actions/ai";
 
 const initialState = {
   firstAlarmAnnounced: false,
@@ -19,8 +19,8 @@ const initialState = {
   secondAlarmReady: false,
   thirdAlarmReady: false,
   isPartialCommand: false,
-  partialCommand: '',
-  command: '',
+  partialCommand: "",
+  command: "",
   isRecordingMicrophone: false,
   unitsAssigned: 0,
   groupsAssigned: [],
@@ -28,13 +28,13 @@ const initialState = {
   isScrollingText: false,
   waitingToBeSpoken: [],
   log: [],
-  incidentCommandName: 'Command',
-  lastPlayedVideo: '',
+  incidentCommandName: "Command",
+  lastPlayedVideo: "",
   start: 0,
   availableVoices: []
 };
 
-const firstInFirstOut = (array) => {
+const firstInFirstOut = array => {
   let newArray = array.slice();
   newArray.splice(0, 1);
   return newArray;
@@ -45,117 +45,117 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FIRST_ALARM_ANNOUNCED:
       return {
         ...state,
-        firstAlarmAnnounced: true,
+        firstAlarmAnnounced: true
       };
     case actionTypes.INITIAL_REPORT_COMPLETED:
       return {
         ...state,
-        initialReportCompleted: true,
+        initialReportCompleted: true
       };
     case actionTypes.THREE_SIXTY_WALKTHROUGH_BEGAN:
       return {
         ...state,
-        threeSixtyWalkthroughBegan: true,
+        threeSixtyWalkthroughBegan: true
       };
     case actionTypes.THREE_SIXTY_WALKTHROUGH_COMPLETED:
       return {
         ...state,
-        threeSixtyWalkthroughCompleted: true,
+        threeSixtyWalkthroughCompleted: true
       };
     case actionTypes.THREE_SIXTY_ASSESSMENT_COMPLETED:
       return {
         ...state,
-        threeSixtyAssessmentCompleted: true,
+        threeSixtyAssessmentCompleted: true
       };
     case actionTypes.ASSIGNMENTS_COMPLETED:
       return {
         ...state,
-        assignmentsCompleted: true,
+        assignmentsCompleted: true
       };
     case actionTypes.INCIDENT_ANNOUNCED:
       return {
         ...state,
-        incidentAnnounced: true,
+        incidentAnnounced: true
       };
     case actionTypes.INCIDENT_COMPLETED:
       return {
         ...state,
-        incidentCompleted: true,
+        incidentCompleted: true
       };
     case actionTypes.INCOMING_COMMAND_OFFICER_ARRIVED:
       return {
         ...state,
-        incomingCommandOfficerArrived: true,
+        incomingCommandOfficerArrived: true
       };
     case actionTypes.FACE_TO_FACE_REQUESTED:
       return {
         ...state,
         faceToFaceRequested: true,
-        isRecordingMicrophone: true,
+        isRecordingMicrophone: true
       };
     case actionTypes.FACE_TO_FACE_COMPLETED:
       return {
         ...state,
         faceToFaceCompleted: true,
-        isRecordingMicrophone: false,
+        isRecordingMicrophone: false
       };
     case actionTypes.EDUCATION_COMPLETED:
       return {
         ...state,
-        educationCompleted: true,
+        educationCompleted: true
       };
     case actionTypes.EVALUATION_COMPLETED:
       return {
         ...state,
-        evaluationCompleted: true,
+        evaluationCompleted: true
       };
     case actionTypes.SECOND_ALARM_REQUESTED:
       return {
         ...state,
-        secondAlarmRequested: true,
+        secondAlarmRequested: true
       };
     case actionTypes.THIRD_ALARM_REQUESTED:
       return {
         ...state,
-        thirdAlarmRequested: true,
+        thirdAlarmRequested: true
       };
     case actionTypes.SECOND_ALARM_READY:
       return {
         ...state,
-        secondAlarmReady: true,
+        secondAlarmReady: true
       };
     case actionTypes.THIRD_ALARM_READY:
       return {
         ...state,
-        thirdAlarmReady: true,
+        thirdAlarmReady: true
       };
     case actionTypes.UPDATE_PARTIAL_TRANSCRIPT:
       return {
         ...state,
         isPartialCommand: true,
-        partialCommand: action.payload.text,
+        partialCommand: action.payload.text
       };
     case actionTypes.UPDATE_COMPLETED_TRANSCRIPT:
       return {
         ...state,
         isPartialCommand: false,
-        partialCommand: '',
-        command: action.payload.text,
+        partialCommand: "",
+        command: action.payload.text
       };
     case actionTypes.CLEAR_COMMAND:
       return {
         ...state,
-        command: ''
-      }
+        command: ""
+      };
     case actionTypes.START_RECORDING_MICROPHONE:
       return {
         ...state,
-        isRecordingMicrophone: true,
+        isRecordingMicrophone: true
       };
     case actionTypes.STOP_RECORDING_MICROPHONE:
       return {
         ...state,
-        isRecordingMicrophone: false,
+        isRecordingMicrophone: false
       };
     case actionTypes.INCREMENT_UNITS_ASSIGNED:
       return {
@@ -176,14 +176,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         scrollText: action.payload.text,
-        isScrollingText: true,
+        isScrollingText: true
       };
     case actionTypes.SCROLLING_TEXT_COMPLETED:
       return {
         ...state,
         scrollText: [],
         isScrollingText: false,
-        firstAlarmAnnounced: true,
+        firstAlarmAnnounced: true
       };
     case actionTypes.ADD_TO_SPEECH_QUEUE:
       return {
@@ -195,13 +195,13 @@ const reducer = (state = initialState, action) => {
             text: action.payload.text,
             voice: action.payload.voice,
             meta: action.payload.meta
-          },
-        ],
+          }
+        ]
       };
     case actionTypes.REMOVE_OLDEST_SPEECH_FROM_QUEUE:
       return {
         ...state,
-        waitingToBeSpoken: firstInFirstOut(state.waitingToBeSpoken),
+        waitingToBeSpoken: firstInFirstOut(state.waitingToBeSpoken)
       };
     case actionTypes.ADD_TO_LOG:
       return {
@@ -212,8 +212,8 @@ const reducer = (state = initialState, action) => {
             timestamp: action.payload.timestamp,
             label: action.payload.label,
             text: action.payload.text
-          },
-        ],
+          }
+        ]
       };
     case actionTypes.SET_COMMAND_NAME:
       return {
@@ -224,12 +224,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         start: Date.now()
-      }
+      };
     case actionTypes.SET_AVAILABLE_VOICES:
       return {
         ...state,
         availableVoices: action.payload.voices
-      }
+      };
     default:
       return state;
   }

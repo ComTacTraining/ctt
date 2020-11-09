@@ -1,32 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import Unit from './Unit';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Unit from "./Unit";
 // import Incident from './Incident';
-import { options } from 'utils/ai';
+import { options } from "utils/ai";
 
 // const { maxUnitArrivalSeconds } = options;
 
 const Units = () => {
-  const { threeSixtyAssessmentCompleted, incomingCommandOfficerArrived } = useSelector(state => state.ai);
-  const { alarm1, firstOnScene, incomingCommandOfficer } = useSelector(state => state.user);
+  const {
+    threeSixtyAssessmentCompleted,
+    incomingCommandOfficerArrived
+  } = useSelector(state => state.ai);
+  const { alarm1, firstOnScene, incomingCommandOfficer } = useSelector(
+    state => state.user
+  );
   const [alarmOneUnits, setAlarmOneUnits] = useState([]);
   const [availableVoices, setAvailableVoices] = useState([]);
   // const [arrivalComplete, setArrivalComplete] = useState(false);
-  const {voices, dispatchCenterVoice, incomingCommandOfficerVoice } = options;
+  const { voices, dispatchCenterVoice, incomingCommandOfficerVoice } = options;
 
   useEffect(() => {
     setAvailableVoices(
       voices
-        .filter(voice => voice !== dispatchCenterVoice && voice !== incomingCommandOfficerVoice)
-        .sort(() => { return 0.5 - Math.random() })
-      );
+        .filter(
+          voice =>
+            voice !== dispatchCenterVoice &&
+            voice !== incomingCommandOfficerVoice
+        )
+        .sort(() => {
+          return 0.5 - Math.random();
+        })
+    );
   }, [voices, dispatchCenterVoice, incomingCommandOfficerVoice]);
 
   useEffect(() => {
     if (threeSixtyAssessmentCompleted && !incomingCommandOfficerArrived) {
-      setAlarmOneUnits(alarm1.filter(alarm => alarm !== firstOnScene && alarm !== incomingCommandOfficer));
+      setAlarmOneUnits(
+        alarm1.filter(
+          alarm => alarm !== firstOnScene && alarm !== incomingCommandOfficer
+        )
+      );
     }
-  }, [threeSixtyAssessmentCompleted, incomingCommandOfficerArrived, alarm1, firstOnScene, incomingCommandOfficer]);
+  }, [
+    threeSixtyAssessmentCompleted,
+    incomingCommandOfficerArrived,
+    alarm1,
+    firstOnScene,
+    incomingCommandOfficer
+  ]);
 
   return (
     <div>

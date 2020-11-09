@@ -1,31 +1,31 @@
-import * as actionTypes from '../actions/evolution';
+import * as actionTypes from "../actions/evolution";
 
 const initialState = {
-  id: '',
-  category: '',
+  id: "",
+  category: "",
   construction: [],
-  street: '',
-  size: '',
+  street: "",
+  size: "",
   stories: 0,
-  occupancy: '',
-  conditions: '',
+  occupancy: "",
+  conditions: "",
   entryEgress: [],
-  survivability: '',
-  placement: '',
-  side: '',
-  flow: '',
-  fire: '',
-  exhaust: '',
-  smoke: '',
+  survivability: "",
+  placement: "",
+  side: "",
+  flow: "",
+  fire: "",
+  exhaust: "",
+  smoke: "",
   withstanding: false,
   attack: false,
   ventilation: false,
   exposure: false,
   ric: false,
   medical: false,
-  incidentTitle: '',
-  incidentGroup: '',
-  incidentCommand: ''
+  incidentTitle: "",
+  incidentGroup: "",
+  incidentCommand: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -54,7 +54,7 @@ const reducer = (state = initialState, action) => {
         ventilation: action.payload.ventilation,
         exposure: action.payload.eexposure,
         ric: action.payload.ric,
-        medical: action.payload.medical,
+        medical: action.payload.medical
       };
     case actionTypes.UPDATE_INCIDENT:
       return {
@@ -62,7 +62,7 @@ const reducer = (state = initialState, action) => {
         incidentTitle: action.payload.incidentTitle,
         incidentGroup: action.payload.incidentGroup,
         incidentCommand: action.payload.incidentCommand
-      }
+      };
     default:
       return state;
   }

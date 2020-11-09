@@ -1,29 +1,30 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from './AppBar';
-import Body from './Body';
-import Footer from './Footer';
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "./AppBar";
+import Body from "./Body";
+import Footer from "./Footer";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: 0,
+    marginLeft: 0
   },
   appBarSpacing: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
+    justifyContent: "flex-end"
+  }
 }));
 
 const Layout = ({ children }) => {
@@ -38,7 +39,11 @@ const Layout = ({ children }) => {
         <Footer />
       </main>
     </div>
-  )
+  );
+};
+
+Layout.propTypes = {
+  children: PropTypes.element.isRequired
 };
 
 export default Layout;

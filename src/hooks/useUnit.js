@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import useInterval from './useInterval';
-import { addToSpeechQueue } from '../store/actions/ai';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import useInterval from "./useInterval";
+import { addToSpeechQueue } from "../store/actions/ai";
 // import { options } from 'utils/ai';
 
 const useUnit = ({ name, voice, arrivalAnnouncement = null }) => {
   const dispatch = useDispatch();
-  const ai = useSelector((state) => state.ai);
+  const ai = useSelector(state => state.ai);
   const [arrived, setArrived] = useState(false);
   const [secondsUntilArrival, setSecondsUntilArrival] = useState(9999);
-  const [icsNims, setIcsNims] = useState('');
+  const [icsNims, setIcsNims] = useState("");
   const [confirmedAssignment, setConfirmedAssignment] = useState(false);
   // const [group, setGroup] = useState('');
 
@@ -22,11 +22,11 @@ const useUnit = ({ name, voice, arrivalAnnouncement = null }) => {
     arrived ? 1000 : null
   );
 
-  const speak = (text) => {
+  const speak = text => {
     const announcement = {
       label: name,
       text: text,
-      voice: voice,
+      voice: voice
     };
     dispatch(addToSpeechQueue(announcement));
   };

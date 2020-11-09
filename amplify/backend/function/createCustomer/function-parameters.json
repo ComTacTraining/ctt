@@ -1,0 +1,20 @@
+{
+    "permissions": {
+        "auth": {
+            "ctta99ddfd3": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        },
+        "api": {
+            "ctt": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

@@ -1,5 +1,6 @@
-import React from 'react';
-import Box from '@material-ui/core/Box';
+import React from "react";
+import PropTypes from "prop-types";
+import Box from "@material-ui/core/Box";
 
 const TabPanel = ({ children, value, index, ...other }) => {
   return (
@@ -10,13 +11,14 @@ const TabPanel = ({ children, value, index, ...other }) => {
       aria-labelledby={`wrapped-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
-}
+};
+TabPanel.propTypes = {
+  children: PropTypes.any,
+  value: PropTypes.number,
+  index: PropTypes.number
+};
 
 export default TabPanel;

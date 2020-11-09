@@ -1,11 +1,11 @@
 import {
   compose,
   applyMiddleware,
-  createStore as reduxCreateStore,
-} from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
-import { initialState } from './reducers/initialState';
+  createStore as reduxCreateStore
+} from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./reducers";
+import { initialState } from "./reducers/initialState";
 
 const createStore = (state = initialState) => {
   const composeEnhancer =

@@ -62,49 +62,6 @@ export const listEvolutions = `query ListEvolutions(
   }
 }
 `;
-export const getMember = `query GetMember($id: ID!) {
-  getMember(id: $id) {
-    id
-    alias
-    department
-    rank
-    dispatchCenter
-    firstOnScene
-    incomingCommandOfficer
-    alarm1
-    alarm2
-    alarm3
-    showTips
-    expiration
-    owner
-  }
-}
-`;
-export const listMembers = `query ListMembers(
-  $filter: ModelMemberFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      alias
-      department
-      rank
-      dispatchCenter
-      firstOnScene
-      incomingCommandOfficer
-      alarm1
-      alarm2
-      alarm3
-      showTips
-      expiration
-      owner
-    }
-    nextToken
-  }
-}
-`;
 export const getIncident = `query GetIncident($id: ID!) {
   getIncident(id: $id) {
     id
@@ -125,6 +82,72 @@ export const listIncidents = `query ListIncidents(
       title
       icsNims
       command
+    }
+    nextToken
+  }
+}
+`;
+export const getProfile = `query GetProfile($id: ID!) {
+  getProfile(id: $id) {
+    id
+    user
+    alias
+    department
+    rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
+  }
+}
+`;
+export const listProfiles = `query ListProfiles(
+  $filter: ModelProfileFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user
+      alias
+      department
+      rank
+      dispatchCenter
+      firstOnScene
+      incomingCommandOfficer
+      alarm1
+      alarm2
+      alarm3
+      showTips
+    }
+    nextToken
+  }
+}
+`;
+export const getSubscription = `query GetSubscription($id: ID!) {
+  getSubscription(id: $id) {
+    id
+    user
+    stripeCustomerId
+    stripeSubscriptionId
+  }
+}
+`;
+export const listSubscriptions = `query ListSubscriptions(
+  $filter: ModelSubscriptionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSubscriptions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user
+      stripeCustomerId
+      stripeSubscriptionId
     }
     nextToken
   }

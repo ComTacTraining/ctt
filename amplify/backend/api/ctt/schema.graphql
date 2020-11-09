@@ -1,42 +1,58 @@
-type Evolution 
-  @model
-  @auth(rules: [
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
-    ])
-{
-  id: String!,
-  category: Category!,
-  construction: [Construction],
-  street: String!,
-  size: Size!,
-  stories: Int!,
-  occupancy: String!,
-  conditions: Location!,
-  entryEgress: [Location],
-  survivability: Survivability!,
-  placement: Location!,
-  side: Location!,
-  flow: Flow!,
-  fire: Fire!,
-  exhaust: Location!,
+type Evolution
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Administrators"] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
+  id: String!
+  category: Category!
+  construction: [Construction]
+  street: String!
+  size: Size!
+  stories: Int!
+  occupancy: String!
+  conditions: Location!
+  entryEgress: [Location]
+  survivability: Survivability!
+  placement: Location!
+  side: Location!
+  flow: Flow!
+  fire: Fire!
+  exhaust: Location!
   smoke: Smoke!
-  withstanding: Boolean!,
-  attack: Boolean!,
-  ventilation: Boolean!,
-  exposure: Boolean!,
-  ric: Boolean!,
-  medical: Boolean!,
+  withstanding: Boolean!
+  attack: Boolean!
+  ventilation: Boolean!
+  exposure: Boolean!
+  ric: Boolean!
+  medical: Boolean!
 }
-type Member 
-  @model
-  @auth(rules: [
-      {allow: owner },
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: [update]}
-    ])
-{
+type Incident
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Administrators"] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
+  title: String!
+  icsNims: IcsNims!
+  command: String!
+}
+type Profile
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      { allow: owner, identityClaim: "email", ownerField: "customer" }
+      { allow: groups, groups: ["Administrators"] }
+    ]
+  )
+  @key(name: "byUser", fields: ["user"]) {
+  id: ID!
+  user: String!
   alias: String
   department: String
   rank: String
@@ -47,20 +63,22 @@ type Member
   alarm2: String
   alarm3: String
   showTips: Boolean
-  expiration: Int
 }
-type Incident 
-  @model
-  @auth(rules: [
-      {allow: groups, groups: ["Administrators"], queries: null, mutations: [create, update, delete]},
-      {allow: groups, groups: ["Members"], queries: [get, list], mutations: null}
-    ])
-{
+type Subscription
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      { allow: owner, identityClaim: "email", ownerField: "customer" }
+      { allow: groups, groups: ["Administrators"] }
+    ]
+  )
+  @key(name: "byUser", fields: ["user"]) {
   id: ID!
-  title: String!
-  icsNims: IcsNims! 
-  command: String!
+  user: String!
+  stripeCustomerId: String
+  stripeSubscriptionId: String
 }
+
 enum Category {
   COMMERCIAL_LEGACY
   COMMERCIAL_MODERN

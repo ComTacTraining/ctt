@@ -91,69 +91,6 @@ export const deleteEvolution = `mutation DeleteEvolution(
   }
 }
 `;
-export const createMember = `mutation CreateMember(
-  $input: CreateMemberInput!
-  $condition: ModelMemberConditionInput
-) {
-  createMember(input: $input, condition: $condition) {
-    id
-    alias
-    department
-    rank
-    dispatchCenter
-    firstOnScene
-    incomingCommandOfficer
-    alarm1
-    alarm2
-    alarm3
-    showTips
-    expiration
-    owner
-  }
-}
-`;
-export const updateMember = `mutation UpdateMember(
-  $input: UpdateMemberInput!
-  $condition: ModelMemberConditionInput
-) {
-  updateMember(input: $input, condition: $condition) {
-    id
-    alias
-    department
-    rank
-    dispatchCenter
-    firstOnScene
-    incomingCommandOfficer
-    alarm1
-    alarm2
-    alarm3
-    showTips
-    expiration
-    owner
-  }
-}
-`;
-export const deleteMember = `mutation DeleteMember(
-  $input: DeleteMemberInput!
-  $condition: ModelMemberConditionInput
-) {
-  deleteMember(input: $input, condition: $condition) {
-    id
-    alias
-    department
-    rank
-    dispatchCenter
-    firstOnScene
-    incomingCommandOfficer
-    alarm1
-    alarm2
-    alarm3
-    showTips
-    expiration
-    owner
-  }
-}
-`;
 export const createIncident = `mutation CreateIncident(
   $input: CreateIncidentInput!
   $condition: ModelIncidentConditionInput
@@ -187,6 +124,102 @@ export const deleteIncident = `mutation DeleteIncident(
     title
     icsNims
     command
+  }
+}
+`;
+export const createProfile = `mutation CreateProfile(
+  $input: CreateProfileInput!
+  $condition: ModelProfileConditionInput
+) {
+  createProfile(input: $input, condition: $condition) {
+    id
+    user
+    alias
+    department
+    rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
+  }
+}
+`;
+export const updateProfile = `mutation UpdateProfile(
+  $input: UpdateProfileInput!
+  $condition: ModelProfileConditionInput
+) {
+  updateProfile(input: $input, condition: $condition) {
+    id
+    user
+    alias
+    department
+    rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
+  }
+}
+`;
+export const deleteProfile = `mutation DeleteProfile(
+  $input: DeleteProfileInput!
+  $condition: ModelProfileConditionInput
+) {
+  deleteProfile(input: $input, condition: $condition) {
+    id
+    user
+    alias
+    department
+    rank
+    dispatchCenter
+    firstOnScene
+    incomingCommandOfficer
+    alarm1
+    alarm2
+    alarm3
+    showTips
+  }
+}
+`;
+export const createSubscription = `mutation CreateSubscription(
+  $input: CreateSubscriptionInput!
+  $condition: ModelSubscriptionConditionInput
+) {
+  createSubscription(input: $input, condition: $condition) {
+    id
+    user
+    stripeCustomerId
+    stripeSubscriptionId
+  }
+}
+`;
+export const updateSubscription = `mutation UpdateSubscription(
+  $input: UpdateSubscriptionInput!
+  $condition: ModelSubscriptionConditionInput
+) {
+  updateSubscription(input: $input, condition: $condition) {
+    id
+    user
+    stripeCustomerId
+    stripeSubscriptionId
+  }
+}
+`;
+export const deleteSubscription = `mutation DeleteSubscription(
+  $input: DeleteSubscriptionInput!
+  $condition: ModelSubscriptionConditionInput
+) {
+  deleteSubscription(input: $input, condition: $condition) {
+    id
+    user
+    stripeCustomerId
+    stripeSubscriptionId
   }
 }
 `;

@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { options, anyTermsMatchString } from 'utils/ai';
-import * as aiActions from 'store/actions/ai';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { options, anyTermsMatchString } from "utils/ai";
+import * as aiActions from "store/actions/ai";
 
 const Command = () => {
-  const { 
+  const {
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
-    secondAlarmRequested, 
+    secondAlarmRequested,
     thirdAlarmRequested,
     command
   } = useSelector(state => state.ai);
@@ -34,19 +34,28 @@ const Command = () => {
 
   // handle 360 assessment
   useEffect(() => {
-    if (threeSixtyWalkthroughCompleted && !threeSixtyAssessmentCompleted && command) {
+    if (
+      threeSixtyWalkthroughCompleted &&
+      !threeSixtyAssessmentCompleted &&
+      command
+    ) {
       if (anyTermsMatchString(command, threeSixtyAssessmentTerms)) {
         dispatch(aiActions.threeSixtyAssessmentCompleted());
       }
     }
-  }, [command, threeSixtyWalkthroughCompleted, threeSixtyAssessmentCompleted, dispatch, threeSixtyAssessmentTerms]);
-
+  }, [
+    command,
+    threeSixtyWalkthroughCompleted,
+    threeSixtyAssessmentCompleted,
+    dispatch,
+    threeSixtyAssessmentTerms
+  ]);
 
   // handle additional alarm request
   useEffect(() => {
-    const checkForAlarm = (terms) => {
+    const checkForAlarm = terms => {
       if (anyTermsMatchString(command, terms)) {
-        return true
+        return true;
       }
       return false;
     };
@@ -60,14 +69,21 @@ const Command = () => {
         dispatch(aiActions.thirdAlarmRequested());
       }
     }
-  }, [command, secondAlarmRequested, thirdAlarmRequested, secondAlarmTerms, thirdAlarmTerms, dispatch]);
+  }, [
+    command,
+    secondAlarmRequested,
+    thirdAlarmRequested,
+    secondAlarmTerms,
+    thirdAlarmTerms,
+    dispatch
+  ]);
 
   // handle additional alarm timers
   useEffect(() => {
     const max = maxAdditionalAlarmSeconds;
     let interval;
 
-    const prepareAlarm = (num) => {
+    const prepareAlarm = num => {
       const min = Math.floor(max / 2);
       const msecs = Math.floor(Math.random() * (max - min + 1) + min) * 1000;
       interval = setTimeout(() => {
@@ -77,7 +93,7 @@ const Command = () => {
           dispatch(aiActions.thirdAlarmReady());
         }
       }, msecs);
-    }
+    };
 
     if (secondAlarmRequested) {
       prepareAlarm(2);
@@ -90,11 +106,14 @@ const Command = () => {
         clearTimeout(interval);
       }
     };
-  }, [secondAlarmRequested, thirdAlarmRequested, maxAdditionalAlarmSeconds, dispatch]);
+  }, [
+    secondAlarmRequested,
+    thirdAlarmRequested,
+    maxAdditionalAlarmSeconds,
+    dispatch
+  ]);
 
-  return (
-    <div />
-  );
-}
+  return <div />;
+};
 
 export default Command;

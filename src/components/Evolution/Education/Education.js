@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateScrollingText } from 'store/actions/ai';
-import { getEducationPhrases } from 'utils/education';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateScrollingText } from "store/actions/ai";
+import { getEducationPhrases } from "utils/education";
 
 const Education = () => {
   const dispatch = useDispatch();
-  const { faceToFaceCompleted, educationCompleted } = useSelector(state => state.ai);
-  const { 
-    size, 
-    stories, 
-    occupancy, 
-    conditions, 
+  const { faceToFaceCompleted, educationCompleted } = useSelector(
+    state => state.ai
+  );
+  const {
+    size,
+    stories,
+    occupancy,
+    conditions,
     construction,
     entryEgress,
     survivability,
@@ -24,11 +26,11 @@ const Education = () => {
 
   useEffect(() => {
     if (faceToFaceCompleted && !educationCompleted) {
-      const phrases = getEducationPhrases({ 
-        firstOnScene, 
-        size, 
-        stories, 
-        occupancy, 
+      const phrases = getEducationPhrases({
+        firstOnScene,
+        size,
+        stories,
+        occupancy,
         conditions,
         construction,
         entryEgress,
@@ -42,12 +44,12 @@ const Education = () => {
       dispatch(updateScrollingText(phrases));
     }
   }, [
-    faceToFaceCompleted, 
-    educationCompleted, 
-    firstOnScene, 
-    size, 
-    stories, 
-    occupancy, 
+    faceToFaceCompleted,
+    educationCompleted,
+    firstOnScene,
+    size,
+    stories,
+    occupancy,
     conditions,
     construction,
     entryEgress,
@@ -56,13 +58,11 @@ const Education = () => {
     flow,
     exhaust,
     smoke,
-    category, 
+    category,
     dispatch
   ]);
 
-  return (
-    <div></div>
-  );
-}
+  return <div></div>;
+};
 
 export default Education;

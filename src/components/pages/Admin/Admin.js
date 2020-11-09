@@ -1,7 +1,7 @@
-import React from 'react';
-import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
-import Member from './Member';
-import Incident from './Incident';
+import React from "react";
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import Member from "./Member";
+import Incident from "./Incident";
 
 const Admin = () => {
   let match = useRouteMatch();
@@ -29,7 +29,6 @@ const Admin = () => {
           <Incident />
         </Route>
       </Switch>
-
     </div>
   );
 };

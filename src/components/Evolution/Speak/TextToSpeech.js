@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Predictions } from 'aws-amplify';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { Predictions } from "aws-amplify";
 
 const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
   // const { text, voice, meta } = incomingText;
@@ -15,7 +16,7 @@ const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
 
   useEffect(() => {
     const { text, voice } = incomingText;
-    if (text !== '' && voice !== '') {
+    if (text !== "" && voice !== "") {
       Predictions.convert({
         textToSpeech: {
           source: { text },
@@ -58,11 +59,16 @@ const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
           onFinishedSpeaking(meta);
         }
       }, duration * 1000);
-    } 
+    }
     return () => clearTimeout(timer);
   }, [duration, incomingText, onFinishedSpeaking]);
 
   return <div />;
+};
+
+TextToSpeech.propTypes = {
+  incomingText: PropTypes.object,
+  onFinishedSpeaking: PropTypes.func
 };
 
 export default TextToSpeech;

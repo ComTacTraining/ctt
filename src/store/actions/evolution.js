@@ -1,5 +1,5 @@
-export const UPDATE_EVOLUTION = 'UPDATE_EVOLUTION';
-export const UPDATE_INCIDENT = 'UPDATE_INCIDENT';
+export const UPDATE_EVOLUTION = "UPDATE_EVOLUTION";
+export const UPDATE_INCIDENT = "UPDATE_INCIDENT";
 
 export const updateEvolution = data => {
   return {

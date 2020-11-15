@@ -86,7 +86,7 @@ const Tips = () => {
           <List dense={true}>
             <Tip
               completed={tips.threeSixtyConstruction}
-              key="tsCOnstruction"
+              key="tsConstruction"
               title="Design & Construction features"
             />
             <Tip

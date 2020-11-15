@@ -84,7 +84,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-ctt-production-160644-deployment",
-					"S3Key": "amplify-builds/createCustomer-713338455a3133366964-build.zip"
+					"S3Key": "amplify-builds/createCustomer-33747142584d73653061-build.zip"
 				}
 			}
 		},

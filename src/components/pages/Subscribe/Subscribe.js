@@ -53,12 +53,12 @@ const PrivacyPolicy = () => {
 
   const handleSubscribe = async () => {
     const response = await Auth.currentAuthenticatedUser();
-    Auth.currentCredentials().then(credentials => {
+    Auth.currentCredentials().then(async credentials => {
       const lambda = new Lambda({
         credentials: Auth.essentialCredentials(credentials)
       });
-      const result = lambda.invoke({
-        FunctionName: "createCustomer",
+      const result = await lambda.invoke({
+        FunctionName: "createCustomer-production",
         Payload: JSON.stringify({ username: `${response.username}` })
       });
       console.log(result);

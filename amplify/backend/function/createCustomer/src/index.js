@@ -45,7 +45,7 @@ exports.handler = async event => {
   try {
     // const email = await getUserEmail();
     const customer = await stripe.customers.create({
-      username: `${event.username}`
+      description: `${event.username}`
     });
     const graphqlData = await axios({
       url: process.env.API_CTT_GRAPHQLAPIENDPOINTOUTPUT,
@@ -57,7 +57,7 @@ exports.handler = async event => {
         query: print(createSubscription),
         variables: {
           input: {
-            user: username,
+            user: event.username,
             stripeCustomerId: customer.id
           }
         }

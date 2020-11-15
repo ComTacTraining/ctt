@@ -136,15 +136,7 @@ const options = {
     "marginal",
     "negative"
   ],
-  threeSixtyStrategicMode: [
-    "confinement",
-    "exposure",
-    "extinguish",
-    "overhaul",
-    "rescue",
-    "salvage",
-    "ventilation"
-  ],
+  threeSixtyStrategicMode: ["defensive", "mode", "offensive", "transitional"],
   assignmentRescue: [
     "primary",
     "protect",

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Auth, API, graphqlOperation } from "aws-amplify";
+import {
+  Auth
+  // API, graphqlOperation
+} from "aws-amplify";
 import Lambda from "aws-sdk/clients/lambda";
 import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";

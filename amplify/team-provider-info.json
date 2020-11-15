@@ -10,11 +10,6 @@
             "StackName": "amplify-ctt-production-160644",
             "StackId": "arn:aws:cloudformation:us-west-2:919358325493:stack/amplify-ctt-production-160644/ae4c3200-cf94-11ea-ac4c-027518039cd6",
             "AmplifyAppId": "d3u15rtbns4kpo"
-        },
-        "categories": {
-            "auth": {
-                "ctta99ddfd3": {}
-            }
         }
     }
 }

@@ -1,10 +1,7 @@
 type Evolution
   @model(subscriptions: null)
   @auth(
-    rules: [
-      { allow: groups, groups: ["Administrators"] }
-      { allow: private, operations: [read] }
-    ]
+    rules: [{ allow: groups, groups: ["Administrators"] }, { allow: private, operations: [read] }]
   ) {
   id: String!
   category: Category!
@@ -32,10 +29,7 @@ type Evolution
 type Incident
   @model(subscriptions: null)
   @auth(
-    rules: [
-      { allow: groups, groups: ["Administrators"] }
-      { allow: private, operations: [read] }
-    ]
+    rules: [{ allow: groups, groups: ["Administrators"] }, { allow: private, operations: [read] }]
   ) {
   id: ID!
   title: String!
@@ -66,12 +60,7 @@ type Profile
 }
 type Subscription
   @model(subscriptions: null)
-  @auth(
-    rules: [
-      { allow: owner, identityClaim: "email", ownerField: "customer" }
-      { allow: groups, groups: ["Administrators"] }
-    ]
-  )
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["Administrators"] }])
   @key(name: "byUser", fields: ["user"]) {
   id: ID!
   user: String!

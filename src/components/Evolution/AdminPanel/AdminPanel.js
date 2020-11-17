@@ -223,6 +223,11 @@ const AdminPanel = () => {
                   value={evaluation.survivability}
                 />
                 <YesNoOption
+                  key="strategicMode"
+                  label="Strategic Mode"
+                  value={evaluation.strategicMode}
+                />
+                <YesNoOption
                   key="priorities"
                   label="Priorities"
                   value={evaluation.priorities}

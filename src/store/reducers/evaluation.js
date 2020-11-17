@@ -13,6 +13,7 @@ const initialState = {
   conditions: false,
   interiorPath: false,
   survivability: false,
+  strategicMode: false,
   priorities: false,
   tacticalSizeup: false,
   tacticalLocate: false,
@@ -60,6 +61,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, interiorPath: true };
     case actionTypes.ADDRESSED_SURVIVABILITY:
       return { ...state, survivability: true };
+    case actionTypes.ADDRESSED_STRATEGIC_MODE:
+      return { ...state, strategicMode: true };
     case actionTypes.ADDRESSED_PRIORITES:
       return { ...state, priorities: true };
     case actionTypes.ADDRESSED_TACTICAL_SIZEUP:

@@ -18,6 +18,7 @@ const Evaluation = () => {
     conditions,
     interiorPath,
     survivability,
+    strategicMode,
     priorities,
     tacticalSizeup,
     tacticalLocate,
@@ -224,6 +225,11 @@ const Evaluation = () => {
             action: evalActions.addressedSurvivability()
           },
           {
+            addressed: strategicMode,
+            phrases: options.strategicMode,
+            action: evalActions.addressedStrategicMode()
+          },
+          {
             addressed: priorities,
             phrases: options.priorities,
             action: evalActions.addressedPriorities()
@@ -254,6 +260,7 @@ const Evaluation = () => {
     conditions,
     interiorPath,
     survivability,
+    strategicMode,
     priorities,
     tacticalSizeup,
     tacticalLocate,

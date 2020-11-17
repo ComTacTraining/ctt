@@ -10,6 +10,7 @@ export const ADDRESSED_ENTRY_EGRESS = "ADDRESSED_ENTRY_EGRESS";
 export const ADDRESSED_CONDITIONS = "ADDRESSED_CONDITIONS";
 export const ADDRESSED_INTERIOR_PATH = "ADDRESSED_INTERIOR_PATH";
 export const ADDRESSED_SURVIVABILITY = "ADDRESSED_SURVIVABILITY";
+export const ADDRESSED_STRATEGIC_MODE = "ADDRESSED_STRATEGIC_MODE";
 export const ADDRESSED_PRIORITES = "ADDRESSED_PRIORITES";
 export const ADDRESSED_TACTICAL_SIZEUP = "ADDRESSED_TACTICAL_SIZEUP";
 export const ADDRESSED_TACTICAL_LOCATE = "ADDRESSED_TACTICAL_LOCATE";
@@ -45,6 +46,9 @@ export const addressedEntryEgress = () => ({ type: ADDRESSED_ENTRY_EGRESS });
 export const addressedConditions = () => ({ type: ADDRESSED_CONDITIONS });
 export const addressedInteriorPath = () => ({ type: ADDRESSED_INTERIOR_PATH });
 export const addressedSurvivability = () => ({ type: ADDRESSED_SURVIVABILITY });
+export const addressedStrategicMode = () => ({
+  type: ADDRESSED_STRATEGIC_MODE
+});
 export const addressedPriorities = () => ({ type: ADDRESSED_PRIORITES });
 export const addressedTacticalSizeup = () => ({
   type: ADDRESSED_TACTICAL_SIZEUP

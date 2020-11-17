@@ -17,6 +17,7 @@ export default function RadioButtonsGroup() {
   const [different, setDifferent] = useState("no");
   const [interior, setInterior] = useState("no");
   const [survivability, setSurvivability] = useState("no");
+  const [strategicMode, setStrategicMode] = useState("no");
   const [priorities, setPriorities] = useState("no");
   const [objectives, setObjectives] = useState("no");
   const [groups, setGroups] = useState("no");
@@ -136,6 +137,13 @@ export default function RadioButtonsGroup() {
         value={survivability}
         onChange={e => setSurvivability(e.target.value)}
         label="Did your 360° address a survivability profile?"
+      />
+      <Question
+        key="strategicMode"
+        name="strategicMode"
+        value={strategicMode}
+        onChange={e => setStrategicMode(e.target.value)}
+        label="Did your 360° identify your strategic mode to all personnel on the fire ground?"
       />
       <Question
         key="priorities"

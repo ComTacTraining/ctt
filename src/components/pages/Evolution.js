@@ -3,10 +3,14 @@ import { useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import Typography from "@material-ui/core/Typography";
-import { getEvolution, getIncident, getProfile } from "graphql/queries";
+import {
+  getEvolution,
+  getIncident
+  // getProfile
+} from "graphql/queries";
 import Simulation from "components/Evolution/Evolution";
 import * as evolutionActions from "store/actions/evolution";
-import * as userActions from "store/actions/user";
+// import * as userActions from "store/actions/user";
 
 const Evolution = () => {
   const dispatch = useDispatch();
@@ -133,27 +137,28 @@ const Evolution = () => {
     const getMemberQuery = async () => {
       try {
         const { username } = await Auth.currentAuthenticatedUser();
-        const member = await API.graphql(
-          graphqlOperation(getProfile, { user: `${username}` })
-        );
-        if (member.data.getMember > 0) {
-          const memberProfile = member.data.getProfile;
-          if (memberProfile) {
-            const alarm1 = memberProfile.alarm1.split(",");
-            const firstOnScene = alarm1.shift();
-            const incomingCommandOfficer = alarm1.pop();
-            const data = {
-              dispatchCenter: memberProfile.dispatchCenter,
-              firstOnScene,
-              incomingCommandOfficer,
-              alarm1: memberProfile.alarm1,
-              alarm2: memberProfile.alarm2,
-              alarm3: memberProfile.alarm3,
-              showTips: memberProfile.showTips
-            };
-            dispatch(userActions.updateUserPreferences(data));
-          }
-        }
+        console.log(username);
+        // const member = await API.graphql(
+        //   graphqlOperation(getProfile, { user: `${username}` })
+        // );
+        // if (member.data.getMember > 0) {
+        //   const memberProfile = member.data.getProfile;
+        //   if (memberProfile) {
+        //     const alarm1 = memberProfile.alarm1.split(",");
+        //     const firstOnScene = alarm1.shift();
+        //     const incomingCommandOfficer = alarm1.pop();
+        //     const data = {
+        //       dispatchCenter: memberProfile.dispatchCenter,
+        //       firstOnScene,
+        //       incomingCommandOfficer,
+        //       alarm1: memberProfile.alarm1,
+        //       alarm2: memberProfile.alarm2,
+        //       alarm3: memberProfile.alarm3,
+        //       showTips: memberProfile.showTips
+        //     };
+        //     dispatch(userActions.updateUserPreferences(data));
+        //   }
+        // }
       } catch (e) {
         console.error(e);
       }

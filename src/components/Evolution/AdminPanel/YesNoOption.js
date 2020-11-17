@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { green, red } from "@material-ui/core/colors";
 import Typography from "@material-ui/core/Typography";
@@ -28,6 +29,11 @@ const YesNoOption = ({ label, value }) => {
       {label}
     </Typography>
   );
+};
+
+YesNoOption.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.bool
 };
 
 export default YesNoOption;

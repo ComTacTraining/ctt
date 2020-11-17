@@ -119,6 +119,7 @@ const options = {
     "marginal",
     "negative"
   ],
+  strategicMode: ["defensive", "mode", "offensive", "transitional"],
   priorities: [
     "confinement",
     "exposure",

@@ -11,7 +11,7 @@ import {
 const DispatchCenter = () => {
   const {
     firstAlarmAnnounced,
-    threeSixtyAssessmentBegan: start360,
+    threeSixtyWalkthroughCompleted: started360,
     threeSixtyAssessmentCompleted: finished360,
     command,
     incidentCommandName
@@ -63,7 +63,8 @@ const DispatchCenter = () => {
     const firstAlarm = () => {
       const randomIndex = Math.floor(Math.random() * calls.length);
       const call = calls[randomIndex];
-      const dispatchAnnouncement = `Structure Fire, ${alarm1}; ${street}.`;
+      const firstAlarm = alarm1.join(", ");
+      const dispatchAnnouncement = `Structure Fire, ${firstAlarm}; ${street}.`;
       const statement = `${dispatchAnnouncement} Repeating, ${dispatchAnnouncement}`;
       dispatch(aiActions.updateScrollingText(statement));
       setSpeak({
@@ -116,14 +117,14 @@ const DispatchCenter = () => {
       };
 
       const report = () => {
-        if (!start360) {
+        if (!started360) {
           if (anyTermsMatchString(command, termsIR)) {
             return {
               acknowledgement: properPronouns(command),
               meta: "INITIAL_REPORT_RESPONSE"
             };
           }
-        } else if (start360 && !finished360) {
+        } else if (started360 && !finished360) {
           if (anyTermsMatchString(command, terms360)) {
             return {
               acknowledgement: properPronouns(command),
@@ -171,7 +172,7 @@ const DispatchCenter = () => {
     }
   }, [
     command,
-    start360,
+    started360,
     finished360,
     dispatchName,
     incidentCommandName,

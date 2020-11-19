@@ -161,8 +161,8 @@ const options = {
     "interior",
     "line",
     "lines",
-    "supress",
-    "supression"
+    "suppress",
+    "suppression"
   ],
   assignmentOverhaul: ["hot", "overhaul", "spot"],
   assignmentVentilation: [

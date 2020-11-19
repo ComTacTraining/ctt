@@ -40,8 +40,6 @@ const TextField = () => {
     <form onSubmit={handleCompletedCommand}>
       <MUITextField
         fullWidth={true}
-        multiline
-        rowsMax={4}
         id="command"
         label="Command"
         value={currentCommand}

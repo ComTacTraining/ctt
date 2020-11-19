@@ -140,11 +140,6 @@ const AdminPanel = () => {
                   value={ai.incidentCompleted}
                 />
                 <YesNoOption
-                  key="incomingCommandOfficerArrived"
-                  label="Incoming Command Arrived"
-                  value={ai.incomingCommandOfficerArrived}
-                />
-                <YesNoOption
                   key="faceToFaceRequested"
                   label="Face to Face Requested"
                   value={ai.faceToFaceRequested}

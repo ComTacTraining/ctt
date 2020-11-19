@@ -65,7 +65,6 @@ const AI = () => {
     const checkIncidentAssigned = () => {
       let found = false;
       groupsAssigned.forEach(group => {
-        console.log(`${group} ${incidentGroup}`);
         if (groupDisplayToConst(group) === incidentGroup) {
           found = true;
         }

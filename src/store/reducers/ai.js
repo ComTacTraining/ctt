@@ -9,7 +9,6 @@ const initialState = {
   assignmentsCompleted: false,
   incidentAnnounced: false,
   incidentCompleted: false,
-  incomingCommandOfficerArrived: false,
   faceToFaceRequested: false,
   faceToFaceCompleted: false,
   educationCompleted: false,
@@ -81,11 +80,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         incidentCompleted: true
-      };
-    case actionTypes.INCOMING_COMMAND_OFFICER_ARRIVED:
-      return {
-        ...state,
-        incomingCommandOfficerArrived: true
       };
     case actionTypes.FACE_TO_FACE_REQUESTED:
       return {

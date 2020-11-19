@@ -7,10 +7,9 @@ import { options } from "utils/ai";
 // const { maxUnitArrivalSeconds } = options;
 
 const Units = () => {
-  const {
-    threeSixtyAssessmentCompleted,
-    incomingCommandOfficerArrived
-  } = useSelector(state => state.ai);
+  const { threeSixtyAssessmentCompleted, faceToFaceRequested } = useSelector(
+    state => state.ai
+  );
   const { alarm1, firstOnScene, incomingCommandOfficer } = useSelector(
     state => state.user
   );
@@ -34,7 +33,7 @@ const Units = () => {
   }, [voices, dispatchCenterVoice, incomingCommandOfficerVoice]);
 
   useEffect(() => {
-    if (threeSixtyAssessmentCompleted && !incomingCommandOfficerArrived) {
+    if (threeSixtyAssessmentCompleted && !faceToFaceRequested) {
       setAlarmOneUnits(
         alarm1.filter(
           alarm => alarm !== firstOnScene && alarm !== incomingCommandOfficer
@@ -43,7 +42,7 @@ const Units = () => {
     }
   }, [
     threeSixtyAssessmentCompleted,
-    incomingCommandOfficerArrived,
+    faceToFaceRequested,
     alarm1,
     firstOnScene,
     incomingCommandOfficer

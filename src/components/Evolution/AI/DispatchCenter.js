@@ -83,13 +83,18 @@ const DispatchCenter = () => {
     const incomingCommand = async () => {
       const alarmCheck = (num = 2) => {
         const terms = num === 3 ? terms3 : terms2;
+        let alarmName = "second";
         if (anyTermsMatchString(command, terms)) {
           if (num === 3) {
-            setRequest3(true);
+            if (!request2) {
+              setRequest2(true);
+            } else {
+              setRequest3(true);
+              alarmName = "third";
+            }
           } else {
             setRequest2(true);
           }
-          const alarmName = num === 3 ? "third" : "second";
           return `${alarmName} alarm requested.`;
         }
         return null;

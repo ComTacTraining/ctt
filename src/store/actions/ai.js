@@ -8,8 +8,6 @@ export const THREE_SIXTY_ASSESSMENT_COMPLETED =
 export const ASSIGNMENTS_COMPLETED = "ASSIGNMENTS_COMPLETED";
 export const INCIDENT_ANNOUNCED = "INCIDENT_ANNOUNCED";
 export const INCIDENT_COMPLETED = "INCIDENT_COMPLETED";
-export const INCOMING_COMMAND_OFFICER_ARRIVED =
-  "INCOMING_COMMAND_OFFICER_ARRIVED";
 export const FACE_TO_FACE_REQUESTED = "FACE_TO_FACE_REQUESTED";
 export const FACE_TO_FACE_COMPLETED = "FACE_TO_FACE_COMPLETED";
 export const INCOMING_COMMAND_OFFICER_RESPONSE =
@@ -68,10 +66,6 @@ export const incidentAnnounced = () => {
 
 export const incidentCompleted = () => {
   return { type: INCIDENT_COMPLETED };
-};
-
-export const incomingCommandOfficerArrived = () => {
-  return { type: INCOMING_COMMAND_OFFICER_ARRIVED };
 };
 
 export const faceToFaceRequested = () => {

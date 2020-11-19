@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as aiActions from "store/actions/ai";
-import { options, properPronouns } from "utils/ai";
+import { options, properPronouns, isEmptyObject } from "utils/ai";
+
+const {
+  maxIncomingOfficerArrivalSeconds: maxSecs,
+  incomingCommandOfficerVoice: voice
+} = options;
 
 const IncomingCommandOfficer = props => {
   const dispatch = useDispatch();
@@ -9,32 +14,49 @@ const IncomingCommandOfficer = props => {
     firstOnScene,
     incomingCommandOfficer,
     faceToFaceRequested,
+    faceToFaceCompleted,
     command
   } = useSelector(state => state.user);
   const { incidentCompleted } = useSelector(state => state.ai);
+  const [speak, setSpeak] = useState({});
+
+  useEffect(() => {
+    const queue = () => {
+      dispatch(
+        aiActions.addToSpeechQueue({
+          label: incomingCommandOfficer,
+          text: speak.text,
+          voice: voice,
+          meta: speak.meta || null
+        })
+      );
+      setSpeak({});
+    };
+
+    if (!isEmptyObject(speak)) {
+      queue();
+    }
+  }, [speak, incomingCommandOfficer, dispatch]);
 
   useEffect(() => {
     let interval;
 
-    if (incidentCompleted) {
-      const minArrivalSeconds = Math.floor(
-        options.maxIncomingOfficerArrivalSeconds / 3
-      );
-      let timeout = Math.floor(
-        Math.random() *
-          (options.maxIncomingOfficerArrivalSeconds - minArrivalSeconds + 1) +
-          minArrivalSeconds
-      );
-      timeout *= 1000;
+    const announceArrival = () => {
+      const minArrivalSeconds = Math.floor(maxSecs / 3);
+      const timeout =
+        Math.floor(
+          Math.random() * (maxSecs - minArrivalSeconds + 1) + minArrivalSeconds
+        ) * 1000;
       interval = setTimeout(() => {
-        const announcement = {
-          label: incomingCommandOfficer,
+        setSpeak({
           text: `${firstOnScene} from ${incomingCommandOfficer} can we do a face to face?`,
-          voice: options.incomingCommandOfficerVoice
-        };
-        dispatch(aiActions.addToSpeechQueue(announcement));
-        dispatch(aiActions.faceToFaceRequested());
+          meta: "INCOMING_COMMAND_ARRIVED"
+        });
       }, timeout);
+    };
+
+    if (incidentCompleted) {
+      announceArrival();
     }
 
     return () => {
@@ -42,24 +64,25 @@ const IncomingCommandOfficer = props => {
         clearTimeout(interval);
       }
     };
-  }, [incidentCompleted, firstOnScene, incomingCommandOfficer, dispatch]);
+  }, [incidentCompleted, firstOnScene, incomingCommandOfficer]);
 
   useEffect(() => {
     const response = () => {
       const reply = properPronouns(command);
-      const announcement = {
-        label: incomingCommandOfficer,
+      setSpeak({
         text: reply,
-        voice: options.incomingCommandOfficerVoice
-      };
-      dispatch(aiActions.addToSpeechQueue(announcement));
-      dispatch(aiActions.faceToFaceCompleted());
+        meta: "INCOMING_COMMAND_RESPONSE"
+      });
     };
 
-    if (faceToFaceRequested && command) {
+    console.log("Command", command);
+    console.log("Face to Face Requested", faceToFaceRequested);
+    console.log("Face to Face Completed", faceToFaceCompleted);
+    if (command !== "" && faceToFaceRequested && !faceToFaceCompleted) {
+      console.log("Made it.");
       response();
     }
-  }, [command, faceToFaceRequested, incomingCommandOfficer, dispatch]);
+  }, [command, faceToFaceRequested, faceToFaceCompleted]);
 
   return <div />;
 };

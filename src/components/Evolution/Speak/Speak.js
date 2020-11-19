@@ -4,7 +4,9 @@ import TextToSpeech from "./TextToSpeech";
 import {
   removeOldestSpeechFromQueue,
   addToLog,
-  threeSixtyWalkthroughBegan
+  threeSixtyWalkthroughBegan,
+  faceToFaceRequested,
+  faceToFaceCompleted
 } from "store/actions/ai";
 
 const Speak = () => {
@@ -31,6 +33,12 @@ const Speak = () => {
     switch (meta) {
       case "INITIAL_REPORT_RESPONSE":
         dispatch(threeSixtyWalkthroughBegan());
+        return;
+      case "INCOMING_COMMAND_ARRIVED":
+        dispatch(faceToFaceRequested());
+        return;
+      case "INCOMING_COMMAND_RESPONSE":
+        dispatch(faceToFaceCompleted());
         return;
       default:
         return;

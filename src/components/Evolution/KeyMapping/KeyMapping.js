@@ -11,18 +11,12 @@ const KeyMapping = props => {
   const dispatch = useDispatch();
   // const isTalking = useKeyPress('Space', true);
   const isTalking = useKeyPress("Backquote");
-  const isTransferOfCommand = useKeyPress("KeyF");
+  // const isTransferOfCommand = useKeyPress("KeyF");
   const isTips = useKeyPress("Backslash");
   const [loaded, setLoaded] = useState(false);
   const [radioSoundPlaying, setRadioSoundPlaying] = useState(false);
-  const [isHavingFaceToFace, setIsHavingFaceToFace] = useState(false);
 
-  const {
-    incomingCommandOfficerArrived,
-    faceToFaceRequested,
-    faceToFaceCompleted,
-    isPartialCommand
-  } = ai;
+  const { isPartialCommand } = ai;
 
   useEffect(() => {
     if (!isPartialCommand && isTalking) {
@@ -36,29 +30,6 @@ const KeyMapping = props => {
       }
     }
   }, [isPartialCommand, isTalking, dispatch, loaded]);
-
-  useEffect(() => {
-    const checkTransferStatus = () => {
-      if (isHavingFaceToFace) {
-        dispatch(aiActions.faceToFaceCompleted());
-        setIsHavingFaceToFace(false);
-      } else if (incomingCommandOfficerArrived && !isHavingFaceToFace) {
-        dispatch(aiActions.faceToFaceRequested());
-        setIsHavingFaceToFace(true);
-      }
-    };
-
-    if (isTransferOfCommand) {
-      checkTransferStatus();
-    }
-  }, [
-    isTransferOfCommand,
-    isHavingFaceToFace,
-    incomingCommandOfficerArrived,
-    faceToFaceRequested,
-    faceToFaceCompleted,
-    dispatch
-  ]);
 
   useEffect(() => {
     if (isTips) {

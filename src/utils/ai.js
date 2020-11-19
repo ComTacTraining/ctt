@@ -92,7 +92,7 @@ const options = {
   ],
   parReportTerms: ["par"],
   canReportTerms: ["can"],
-  maxAdditionalAlarmSeconds: 10,
+  maxAdditionalAlarmSeconds: 100,
   icsNimsGroups: [
     // {
     //   name: 'Water',

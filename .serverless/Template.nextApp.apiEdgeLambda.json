@@ -1,0 +1,17 @@
+{
+  "name": "x5x8u89-dox4q5m",
+  "hash": "W/jWwb1zPAv7CepMuElwyjkyoRPvtxEtygNpXvh9ncM=",
+  "description": "API Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "/Users/moseley/code/ComTacTraining/ctt/.serverless_nextjs/api-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs12.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::919358325493:role/x5x8u89-d6bt6fa"
+  },
+  "arn": "arn:aws:lambda:us-east-1:919358325493:function:x5x8u89-dox4q5m",
+  "region": "us-east-1"
+}

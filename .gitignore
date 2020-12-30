@@ -33,9 +33,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# serverless
-.serverless*
-
 # amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*

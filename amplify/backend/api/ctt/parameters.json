@@ -1,11 +1,11 @@
 {
-    "AppSyncApiName": "ctt",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "DynamoDBEnableServerSideEncryption": "false",
-    "AuthCognitoUserPoolId": {
-        "Fn::GetAtt": [
-            "authctta99ddfd3",
-            "Outputs.UserPoolId"
-        ]
-    }
+  "AppSyncApiName": "ctt",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authctt",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

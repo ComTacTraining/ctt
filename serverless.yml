@@ -1,0 +1,15 @@
+nextApp:
+  component: "@sls-next/serverless-component@1.19.0-alpha.0"
+  inputs:
+    env:
+      STRIPE_PUBLISHABLE_KEY: ${env.STRIPE_PUBLISHABLE_KEY}
+      STRIPE_SECRET_KEY: ${env.STRIPE_SECRET_KEY}
+      STRIPE_PRICE_ID: ${env.STRIPE_PRICE_ID}
+    cloudfront:
+      defaults:
+        forward:
+          headers: [Host]
+    domain: ["newctt.com"]
+    domainType: "both"
+    domainRedirects:
+      www.newctt.com: https://newctt.com

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import useVideoPlayer from 'hooks/useVideoPlayer'
-import { samplePlaylist } from 'utils/video'
+import { guestPlaylist } from 'utils/video'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -36,7 +36,7 @@ const Home = ({ playlist }) => {
 }
 
 export const getServerSideProps = async () => {
-  const playlist = samplePlaylist()
+  const playlist = guestPlaylist()
   return {
     props: { playlist }
   }

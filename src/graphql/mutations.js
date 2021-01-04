@@ -8,12 +8,15 @@ export const createEvolution = /* GraphQL */ `
   ) {
     createEvolution(input: $input, condition: $condition) {
       id
+      number
       category
+      construction
       street
       size
       stories
       occupancy
       conditions
+      entryEgress
       survivability
       placement
       side
@@ -42,12 +45,15 @@ export const updateEvolution = /* GraphQL */ `
   ) {
     updateEvolution(input: $input, condition: $condition) {
       id
+      number
       category
+      construction
       street
       size
       stories
       occupancy
       conditions
+      entryEgress
       survivability
       placement
       side
@@ -76,12 +82,15 @@ export const deleteEvolution = /* GraphQL */ `
   ) {
     deleteEvolution(input: $input, condition: $condition) {
       id
+      number
       category
+      construction
       street
       size
       stories
       occupancy
       conditions
+      entryEgress
       survivability
       placement
       side
@@ -157,6 +166,60 @@ export const deleteIncident = /* GraphQL */ `
     }
   }
 `;
+export const createStripe = /* GraphQL */ `
+  mutation CreateStripe(
+    $input: CreateStripeInput!
+    $condition: ModelStripeConditionInput
+  ) {
+    createStripe(input: $input, condition: $condition) {
+      id
+      username
+      stripeCustomerId
+      stripeSubscriptionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateStripe = /* GraphQL */ `
+  mutation UpdateStripe(
+    $input: UpdateStripeInput!
+    $condition: ModelStripeConditionInput
+  ) {
+    updateStripe(input: $input, condition: $condition) {
+      id
+      username
+      stripeCustomerId
+      stripeSubscriptionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteStripe = /* GraphQL */ `
+  mutation DeleteStripe(
+    $input: DeleteStripeInput!
+    $condition: ModelStripeConditionInput
+  ) {
+    deleteStripe(input: $input, condition: $condition) {
+      id
+      username
+      stripeCustomerId
+      stripeSubscriptionId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createProfile = /* GraphQL */ `
   mutation CreateProfile(
     $input: CreateProfileInput!
@@ -224,6 +287,132 @@ export const deleteProfile = /* GraphQL */ `
       alarm2
       alarm3
       showTips
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createReview = /* GraphQL */ `
+  mutation CreateReview(
+    $input: CreateReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    createReview(input: $input, condition: $condition) {
+      id
+      username
+      name
+      transcript
+      score
+      selfScore
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      comments {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const updateReview = /* GraphQL */ `
+  mutation UpdateReview(
+    $input: UpdateReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    updateReview(input: $input, condition: $condition) {
+      id
+      username
+      name
+      transcript
+      score
+      selfScore
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      comments {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const deleteReview = /* GraphQL */ `
+  mutation DeleteReview(
+    $input: DeleteReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    deleteReview(input: $input, condition: $condition) {
+      id
+      username
+      name
+      transcript
+      score
+      selfScore
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      comments {
+        nextToken
+        startedAt
+      }
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      id
+      username
+      reviewId
+      message
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      id
+      username
+      reviewId
+      message
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      id
+      username
+      reviewId
+      message
       _version
       _deleted
       _lastChangedAt

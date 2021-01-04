@@ -1,11 +1,27 @@
-type Evolution @model @auth(rules: [{allow: private}]) {
+type Evolution
+  @model
+  @key(name: "byCategory", fields: ["category"], queryField: "evolutionByCategory")
+  @key(
+    name: "byCategoryNumber"
+    fields: ["category", "number"]
+    queryField: "evolutionByCategoryNumber"
+  )
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
+  number: Int
   category: Category
+  construction: [Construction]
   street: String
   size: Size
   stories: Int
   occupancy: String
   conditions: Location
+  entryEgress: [Location]
   survivability: Survivability
   placement: Location
   side: Location
@@ -21,14 +37,40 @@ type Evolution @model @auth(rules: [{allow: private}]) {
   medical: Boolean
 }
 
-type Incident @model @auth(rules: [{allow: private}]) {
+type Incident
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
   title: String!
   icsNims: IcsNims!
   command: String!
 }
 
-type Profile @model @auth(rules: [{allow: private}]) {
+type Stripe
+  @model
+  @key(name: "byUsername", fields: ["username"], queryField: "stripeByUsername")
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admin"], operations: [read, create, update, delete] }
+      { allow: private, operations: [read, create] }
+    ]
+  ) {
+  id: ID!
+  username: String!
+  stripeCustomerId: String
+  stripeSubscriptionId: String
+}
+
+type Profile
+  @model
+  @auth(
+    rules: [{ allow: owner, ownerField: "username", operations: [read, create, update, delete] }]
+  ) {
   id: ID!
   username: String!
   department: String
@@ -36,10 +78,32 @@ type Profile @model @auth(rules: [{allow: private}]) {
   dispatchCenter: String
   firstOnScene: String
   incomingCommandOfficer: String
-  alarm1: String
-  alarm2: String
-  alarm3: String
+  alarm1: [String]
+  alarm2: [String]
+  alarm3: [String]
   showTips: Boolean
+}
+
+type Review
+  @model
+  @auth(rules: [{ allow: owner, ownerField: "username" }, { allow: private, operations: [read] }]) {
+  id: ID!
+  username: String!
+  name: String!
+  transcript: String
+  score: Int
+  selfScore: Int
+  comments: [Comment] @connection(keyName: "commentsByReviewId", fields: ["id"])
+}
+
+type Comment
+  @model
+  @key(name: "commentsByReviewId", fields: ["reviewId"], queryField: "commentsByReviewId")
+  @auth(rules: [{ allow: owner, ownerField: "username" }, { allow: private, operations: [read] }]) {
+  id: ID!
+  username: String!
+  reviewId: ID!
+  message: String!
 }
 
 enum Category {

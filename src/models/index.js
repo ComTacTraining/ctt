@@ -13,6 +13,18 @@ const Category = {
   "SINGLEFAMILYMODERN": "SINGLEFAMILYMODERN"
 };
 
+const Construction = {
+  "LEGACY": "LEGACY",
+  "MODERN": "MODERN",
+  "BLOCK": "BLOCK",
+  "METALCLAD": "METALCLAD",
+  "ORDINARY": "ORDINARY",
+  "WOODFRAME": "WOODFRAME",
+  "CONCRETETILTUP": "CONCRETETILTUP",
+  "CONVENTIONAL": "CONVENTIONAL",
+  "LIGHTWEIGHT": "LIGHTWEIGHT"
+};
+
 const Size = {
   "SMALL": "SMALL",
   "MEDIUM": "MEDIUM",
@@ -64,31 +76,22 @@ const IcsNims = {
   "MEDICAL": "MEDICAL"
 };
 
-const Construction = {
-  "LEGACY": "LEGACY",
-  "MODERN": "MODERN",
-  "BLOCK": "BLOCK",
-  "METALCLAD": "METALCLAD",
-  "ORDINARY": "ORDINARY",
-  "WOODFRAME": "WOODFRAME",
-  "CONCRETETILTUP": "CONCRETETILTUP",
-  "CONVENTIONAL": "CONVENTIONAL",
-  "LIGHTWEIGHT": "LIGHTWEIGHT"
-};
-
-const { Evolution, Incident, Profile } = initSchema(schema);
+const { Evolution, Incident, Stripe, Profile, Review, Comment } = initSchema(schema);
 
 export {
   Evolution,
   Incident,
+  Stripe,
   Profile,
+  Review,
+  Comment,
   Category,
+  Construction,
   Size,
   Location,
   Survivability,
   Flow,
   Fire,
   Smoke,
-  IcsNims,
-  Construction
+  IcsNims
 };

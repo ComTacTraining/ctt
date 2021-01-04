@@ -1,5 +1,8 @@
-### Command Tactical Training
+# Command Tactical Training
 
-`amplify push`
-`amplify codegen`
-`serverless --aws-profile name --debug`
+First run of serverless:
+`serverless --aws-profile name`
+
+Check created `.serverless/` directory into repo (used by GitHub Workflows).
+
+After update via Amplify Admin UI run `amplify pull` and `amplify codegen`

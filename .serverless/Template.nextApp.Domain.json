@@ -1,0 +1,13 @@
+{
+  "region": "us-east-1",
+  "privateZone": false,
+  "domain": "newctt.com",
+  "subdomains": [
+    {
+      "domain": "www.newctt.com",
+      "distributionId": "EKOJK7Z98XS20",
+      "url": "https://d34wr6vdtg28zx.cloudfront.net",
+      "type": "awsCloudFront"
+    }
+  ]
+}

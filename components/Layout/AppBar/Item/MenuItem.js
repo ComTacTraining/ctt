@@ -3,7 +3,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Icon from '@material-ui/core/Icon'
 import ListItemText from '@material-ui/core/ListItemText'
-import Link from './Link'
+import Link from 'components/Link'
 
 const MenuItem = ({ href, title, fa, ...others }) => {
 

@@ -55,22 +55,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const AppBar = ({ window }) => {
+const AppBar = ({ window, user }) => {
   const classes = useStyles()
-  const { loading, user } = useUser()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
   const [isSignedIn, setIsSignedIn] = useState(false)
-  const [isMember, setIsMember] = useState(false)
+  // const [isMember, setIsMember] = useState(false)
+
   useEffect(() => {
-    if (!loading && user) {
+    if (user) {
       setIsSignedIn(true)
-      const subscriptionId = user.attributes['custom:subscription_id']
-      if (subscriptionId && subscriptionId !== '') {
-        setIsMember(true)
-      }
     }
-  }, [user, loading])
+    else {
+      setIsSignedIn(false)
+    }
+  }, [user])
   const open = Boolean(anchorEl)
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -127,15 +126,15 @@ const AppBar = ({ window }) => {
                 <>
                   {isSignedIn ? (
                     <>
-                      {isMember ? (
+                      {/* {isMember ? (
                         <>
                           {signedInLinks.map(l => <MobileItem key={l.key} href={l.href} title={l.title} fa={l.fa} />)}
                         </>
                       ) : (
-                        <>
+                        <> */}
                           {memberLinks.map(l => <MobileItem key={l.key} href={l.href} title={l.title} fa={l.fa} />)}
-                        </>
-                      )}
+                        {/* </>
+                      )} */}
                       <MobileItem key="signout" onClick={() => Auth.signOut()} href="#" title="Sign Out" fa="fa-door-open" />
                     </>
                   ) : (
@@ -151,15 +150,15 @@ const AppBar = ({ window }) => {
             <>
               {isSignedIn ? (
                 <>
-                  {isMember ? (
+                  {/* {isMember ? (
                     <>
                       {memberLinks.map(l => <DesktopItem key={l.key} href={l.href} title={l.title} />)}
                     </>
                   ) : (
-                    <>
+                    <> */}
                       {signedInLinks.map(l => <DesktopItem key={l.key} href={l.href} title={l.title} />)}
-                    </>
-                  )}
+                    {/* </>
+                  )} */}
                   
                   <IconButton
                     aria-label="account of current user"

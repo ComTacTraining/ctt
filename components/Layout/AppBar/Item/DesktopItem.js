@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
-import Link from './Link'
+import Link from 'components/Link'
 
 const useStyles = makeStyles(theme => ({
   link: {

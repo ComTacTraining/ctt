@@ -4,19 +4,21 @@ import Head from 'next/head'
 import { Provider } from 'react-redux'
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import Container from '@material-ui/core/Container'
-import Box from '@material-ui/core/Box'
+// import Container from '@material-ui/core/Container'
+// import Box from '@material-ui/core/Box'
 import theme from 'mui/theme'
-import AppBar from 'components/AppBar'
-import Footer from 'components/Footer'
+// import AppBar from 'components/AppBar'
+// import Footer from 'components/Footer'
 import { createStore } from 'store'
-import AmplifyStyles from 'aws/Styles'
-import Amplify from 'aws-amplify'
+// import AmplifyStyles from 'aws/Styles'
+import Amplify, { Auth } from 'aws-amplify'
 import config from 'src/aws-exports'
+import '@aws-amplify/ui/dist/style.css'
 Amplify.configure({
   config,
   ssr: true
 })
+Auth.configure(config)
 
 const store = createStore()
 
@@ -43,16 +45,16 @@ const MyApp = ({ Component, pageProps }) => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <AppBar />
+          {/* <AppBar />
           <div className={classes.offset} />
           <Container>
             <Box my={4}>
-              <AmplifyStyles>
+              <AmplifyStyles> */}
                 <Component {...pageProps} />
-              </AmplifyStyles>
+              {/* </AmplifyStyles>
             </Box>
           </Container>
-          <Footer />
+          <Footer /> */}
         </ThemeProvider>
       </Provider>
     </>

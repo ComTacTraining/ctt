@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { red, brown, green } from '@material-ui/core/colors'
+import { red, brown } from '@material-ui/core/colors'
 
 const headersFontFamily = [
   'Anton',
@@ -35,10 +35,6 @@ const theme = createMuiTheme(({
     secondary: { main: brown[200] },
     type: 'light',
   },
-  // palette: {
-  //   primary: red,
-  //   secondary: brown,
-  // },
   typography: {
     fontFamily: defaultFontFamily,
     h1: {

@@ -1,9 +1,8 @@
-import Image from 'next/image'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import { Body2, Caption } from 'mui/Typography'
 import { MD } from 'mui/Container'
-import Link from './Link'
+import Link from 'components/Link'
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -23,15 +22,15 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Footer = () => {
+const Footer = ({ authType = '' }) => {
   const classes = useStyles()
   return (
     <MD component="footer" className={classes.footer}>
       <Box mt={5}>
         <Caption color="textSecondary" align="center" className={classes.nav} gutterBottom>
-          <Link href="/privacy">Privacy Policy</Link>
-          <Link href="/terms">Terms of Service</Link>
-          <Link href="/refund">Refund Policy</Link>
+          <Link href={`${authType}/privacy`}>Privacy Policy</Link>
+          <Link href={`${authType}/terms`}>Terms of Service</Link>
+          <Link href={`${authType}/refund`}>Refund Policy</Link>
         </Caption>
         <Body2 color="textSecondary" align="center">
           {'© '}

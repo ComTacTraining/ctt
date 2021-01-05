@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { getEvolution, getIncident } from "graphql/queries";
 import Evolution from "components/Evolution/Evolution";
 import * as evolutionActions from "store/actions/evolution";
+import Layout from 'components/Layout/Auth';
 
 const Demo = () => {
   const dispatch = useDispatch();
@@ -46,10 +47,10 @@ const Demo = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <Layout>
       <Typography variant="h3">Demo</Typography>
       <Evolution />
-    </div>
+    </Layout>
   );
 };
 

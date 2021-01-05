@@ -18,7 +18,7 @@ const useVideoPlayer = (callback, playlist) => {
       videojs.registerPlugin('vjsPlaylist', vjsPlaylistPlugin)
 
       let vjsplayer = videojs(ref.current, options, () => {
-        vjsplayer.volume(0.2)
+        vjsplayer.volume(0.8)
         vjsplayer.vjsPlaylist(playlist)
         vjsplayer.vjsQualityLevels()
         vjsplayer.vjsHttpSourceSelectorMute({ default: "low" })

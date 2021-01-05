@@ -1,4 +1,4 @@
-import Layout from 'components/Layout/Guest'
+import Layout from 'components/Layout/User'
 import Terms from  'components/Legal/Terms'
 
 const TermsPage = () => {

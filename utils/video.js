@@ -1,13 +1,14 @@
 const bucket = "https://comtac.s3-us-west-2.amazonaws.com"
 const options = {
-  autoplay: true,
+  autoplay: false,
   controls: true,
   fluid: true,
   // fill: true,
   aspectRatio: "16:9",
   preload: "auto",
   controlBar: {
-    playToggle: false,
+    // playToggle: false,
+    playToggle: true,
     volumePanel: true,
     pictureInPictureToggle: false,
     currentTimeDisplay: false,

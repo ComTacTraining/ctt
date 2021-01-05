@@ -1,47 +1,12 @@
-import { useRouter } from 'next/router'
-import { makeStyles } from '@material-ui/core/styles'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import useVideoPlayer from 'hooks/useVideoPlayer'
-import { guestPlaylist } from 'utils/video'
+import Layout from 'components/Layout/Guest'
+import Home from 'components/Home'
 
-const useStyles = makeStyles(() => ({
-  root: {
-    "& .video-js.vjs-fill": {
-      display: "block"
-    },
-    "& .vjs-big-play-button": {
-      display: "none"
-    }
-  },
-}))
-
-const Home = ({ playlist }) => {
-  const router = useRouter()
-  const classes = useStyles()
-  const { ref, player } = useVideoPlayer(() => {
-    router.push('/demo')
-  }, playlist)
+const HomePage = () => {
   return (
-    <>
-      {!player && (
-        <CircularProgress />
-      )}
-      <div className={classes.root} data-testid="videoplayer">
-        <div data-vjs-player>
-          <video ref={ref} className="video-js vjs-default-skin" />
-        </div>
-      </div>
-    </>
+    <Layout>
+      <Home />
+    </Layout>
   )
 }
 
-export const getServerSideProps = async () => {
-  const playlist = guestPlaylist()
-  return {
-    props: { playlist }
-  }
-}
-
-
-
-export default Home
+export default HomePage

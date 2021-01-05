@@ -1,4 +1,4 @@
-import Layout from 'components/Layout/Guest'
+import Layout from 'components/Layout/User'
 import Privacy from 'components/Legal/Privacy'
 
 const PrivacyPage = () => {

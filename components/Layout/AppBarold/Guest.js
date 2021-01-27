@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(8),
     stroke: 1,
   },
+  link: {
+    margin: theme.spacing(1, 1.5),
+    color: theme.palette.primary.contrastText,
+  }
 }))
 
 const AppBar = ({ window }) => {
@@ -58,10 +62,6 @@ const AppBar = ({ window }) => {
     setMobileOpen(!mobileOpen);
   }
   const container = window !== undefined ? () => window().document.body : undefined
-  const signedOutLinks = [
-    { key: 'home', href: '/', title: 'Home', fa: 'fa-home' },
-    { key: 'signin', href: '/profile', title: 'Sign In', fa: 'fa-door-open' },
-  ]
   return (
     <MuiAppBar position="fixed" color="inherit" elevation={0} className={classes.appBar}>
       <Toolbar>
@@ -95,7 +95,7 @@ const AppBar = ({ window }) => {
             </Drawer>
           </Hidden>
           <Hidden xsDown implementation="css">
-            <MenuItem key='signin' href='/demo' title='Sign In'>Sign In</MenuItem>
+            <Link variant="button" color="textPrimary" href='/demo' className={classes.link}>Sign In</Link>
           </Hidden>
         </nav>
       </Toolbar>

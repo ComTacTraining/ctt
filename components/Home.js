@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import useVideoPlayer from 'hooks/useVideoPlayer'
-import { guestPlaylist } from 'utils/video'
+import { visitorPlaylist } from 'utils/video'
 // import { samplePlaylist } from 'utils/video'
 
 const useStyles = makeStyles(() => ({
@@ -20,8 +20,8 @@ const Home = () => {
   const router = useRouter()
   const classes = useStyles()
   const { ref, player } = useVideoPlayer(() => {
-    router.push('/demo')
-  }, guestPlaylist())
+    router.push('/signup')
+  }, visitorPlaylist())
   return (
     <>
       {!player && (

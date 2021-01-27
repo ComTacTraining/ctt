@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import TextToSpeech from "./TextToSpeech";
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import {
   removeOldestSpeechFromQueue,
   addToLog,
   threeSixtyWalkthroughBegan,
   faceToFaceRequested,
   faceToFaceCompleted
-} from "store/actions/ai";
+} from 'store/actions/ai'
 
 const Speak = () => {
   const dispatch = useDispatch();
   const ai = useSelector(state => state.ai);
   const { waitingToBeSpoken, isRecordingMicrophone } = ai;
 
-  const [speech, setSpeech] = useState({ text: "", voice: "" });
+  const [speech, setSpeech] = useState({ text: '', voice: '', meta: null });
 
   useEffect(() => {
     if (waitingToBeSpoken.length > 0 && !isRecordingMicrophone) {

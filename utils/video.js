@@ -59,7 +59,7 @@ const playlistFromId = evolutionId => {
   return playlistFromNames(videoNames)
 };
 
-const guestPlaylist = () => {
+const visitorPlaylist = () => {
   return playlistFromNames(["welcome", "instructions"])
 }
 
@@ -67,4 +67,4 @@ const samplePlaylist = () => {
   return playlistFromNames(["sample1", "sample2"])
 }
 
-export { options, playlistFromNames, playlistFromId, guestPlaylist, samplePlaylist }
+export { options, playlistFromNames, playlistFromId, visitorPlaylist, samplePlaylist }

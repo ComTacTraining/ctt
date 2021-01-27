@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import Tip from "./Tip";
+import { H3 } from 'mui/Typography'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,9 +34,9 @@ const Tips = () => {
     <div className={classes.root}>
       {ai.firstAlarmAnnounced && !ai.threeSixtyWalkthroughBegan && (
         <div className={classes.backdrop}>
-          <Typography variant="h3" gutterBottom>
+          <H3 gutterBottom>
             Initial Report Tips
-          </Typography>
+          </H3>
           <Divider />
           <List dense={true}>
             <Tip
@@ -79,9 +79,9 @@ const Tips = () => {
       )}
       {ai.threeSixtyWalkthroughCompleted && !ai.threeSixtyAssessmentCompleted && (
         <div className={classes.backdrop}>
-          <Typography variant="h3" gutterBottom>
+          <H3 gutterBottom>
             360&deg; Assessment Tips
-          </Typography>
+          </H3>
           <Divider />
           <List dense={true}>
             <Tip
@@ -119,9 +119,9 @@ const Tips = () => {
       )}
       {ai.threeSixtyAssessmentCompleted && !ai.assignmentsCompleted && (
         <div className={classes.backdrop}>
-          <Typography variant="h3" gutterBottom>
+          <H3 variant="h3" gutterBottom>
             Assignment Tips
-          </Typography>
+          </H3>
           <Divider />
           <List dense={true}>
             <Tip
@@ -166,9 +166,9 @@ const Tips = () => {
         ai.unitsAssigned > 2 &&
         !ai.incidentCompleted && (
           <div className={classes.backdrop}>
-            <Typography variant="h3" gutterBottom>
+            <H3 gutterBottom>
               Incident Within Incident
-            </Typography>
+            </H3>
             <Divider />
             <List dense={true}>
               <Tip

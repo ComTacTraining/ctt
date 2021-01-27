@@ -1,12 +1,5 @@
-import Layout from 'components/Layout/Guest'
 import Privacy from 'components/Legal/Privacy'
 
-const PrivacyPage = () => {
-  return (
-    <Layout>
-      <Privacy />
-    </Layout>
-  )
-}
+const PrivacyPage = () => <Privacy />
 
 export default PrivacyPage

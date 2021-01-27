@@ -1,5 +1,5 @@
-import { useReducer, useState, useEffect } from 'react'
 import { Auth, Hub } from 'aws-amplify'
+import { useEffect, useReducer, useState } from 'react'
 
 const amplifyAuthReducer = (state, action) => {
   switch (action.type) {
@@ -33,6 +33,7 @@ const useAmplifyAuth = () => {
   const initialState = {
     isLoading: true,
     isError: false,
+    isMember: false,
     user: null,
     errorMessage: ''
   }

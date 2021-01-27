@@ -1,5 +1,5 @@
 nextApp:
-  component: "@sls-next/serverless-component@1.19.0-alpha.0"
+  component: "@sls-next/serverless-component@1.19.0-alpha.30"
   inputs:
     env:
       STRIPE_PUBLISHABLE_KEY: ${env.STRIPE_PUBLISHABLE_KEY}

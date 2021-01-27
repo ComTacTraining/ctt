@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+// import Amplify from 'aws-amplify'
 import {
   Authenticator,
   SignIn,
@@ -15,6 +16,11 @@ import AppBar from 'components/Layout/AppBar/User'
 import GuestAppBar from 'components/Layout/AppBar/Guest'
 import Footer from 'components/Layout/Footer'
 import { authTheme } from 'components/Layout/authTheme'
+// import config from 'src/aws-exports'
+// Amplify.configure({
+//   config,
+//   ssr: true
+// })
 
 const useStyles = makeStyles(theme => ({
   offset: theme.mixins.toolbar

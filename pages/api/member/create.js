@@ -1,5 +1,5 @@
-import { withSSRContext } from 'aws-amplify'
-import Stripe from 'stripe'
+import { withSSRContext } from 'aws-amplify';
+import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 export default async (req, res) => {
@@ -35,8 +35,8 @@ export default async (req, res) => {
       //   )}`
       // )
       await Auth.updateUserAttributes(user, {
-        'custom:customer_id': customer.id,
-        'custom:subscription_id': subscription.id,
+        'custom:stripecustomerid': customer.id,
+        'custom:stripesubscriptionid': subscription.id,
         'custom:expired': '0'
       })
       res.status(200).json({

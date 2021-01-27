@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box'
 import { Body2, Caption } from 'mui/Typography'
 import { MD } from 'mui/Container'
 import Link from 'components/Link'
+import { footer as footerRoutes } from 'utils/routes'
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -22,15 +23,13 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Footer = ({ authType = '' }) => {
+const Footer = () => {
   const classes = useStyles()
   return (
     <MD component="footer" className={classes.footer}>
       <Box mt={5}>
         <Caption color="textSecondary" align="center" className={classes.nav} gutterBottom>
-          <Link href={`${authType}/privacy`}>Privacy Policy</Link>
-          <Link href={`${authType}/terms`}>Terms of Service</Link>
-          <Link href={`${authType}/refund`}>Refund Policy</Link>
+          {footerRoutes.map(route => <Link key={route.key} href={route.href}>{route.title}</Link>)}
         </Caption>
         <Body2 color="textSecondary" align="center">
           {'© '}

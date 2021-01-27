@@ -9,7 +9,8 @@
 /coverage
 
 # next.js
-/.next/
+/.next
+/.serverless_nextjs
 /out/
 
 # production
@@ -66,4 +67,3 @@ amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
-.serverless_nextjs/

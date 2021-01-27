@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
-// import Image from 'next/image'
-import { Auth } from 'aws-amplify'
 import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -15,11 +13,12 @@ import Divider from '@material-ui/core/Divider'
 import Icon from '@material-ui/core/Icon'
 import MuiLink from '@material-ui/core/Link'
 import { H6 } from 'mui/Typography'
-import useUser from 'hooks/useUser'
 import Link from './Link'
-import SignIn from './SignIn'
-import MobileItem from './MobileItem'
-import DesktopItem from './DesktopItem'
+// import SignIn from './SignIn'
+import MobileItem from './Layout/MobileItem'
+import DesktopItem from './Layout/DesktopItem'
+import { UserContext } from './Auth/UserContext'
+import { visitor, guest, member } from 'utils/routes'
 
 const drawerWidth = 240;
 
@@ -53,23 +52,15 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(8),
     stroke: 1,
   },
+  offset: theme.mixins.toolbar
 }))
 
-const AppBar = ({ window, user }) => {
+const AppBar = ({ window }) => {
   const classes = useStyles()
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [isSignedIn, setIsSignedIn] = useState(false)
-  // const [isMember, setIsMember] = useState(false)
+  const { user, isMember, handleSignOut } = React.useContext(UserContext)
+  const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [anchorEl, setAnchorEl] = React.useState(null)
 
-  useEffect(() => {
-    if (user) {
-      setIsSignedIn(true)
-    }
-    else {
-      setIsSignedIn(false)
-    }
-  }, [user])
   const open = Boolean(anchorEl)
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -81,121 +72,51 @@ const AppBar = ({ window, user }) => {
     setAnchorEl(null)
   }
   const container = window !== undefined ? () => window().document.body : undefined
-  const signedOutLinks = [
-    { key: 'home', href: '/', title: 'Home', fa: 'fa-home' },
-    { key: 'signin', href: '/profile', title: 'Sign In', fa: 'fa-door-open' },
-  ]
-  const signedInLinks = [
-    { key: 'subscribe', href: '/subscribe', title: 'Subscribe', fa: 'fa-user-circle' },
-    { key: 'demo', href: '/demo', title: 'Demo', fa: 'fa-tv' },
-  ]
-  const memberLinks = [
-    { key: 'profile', href: '/profile', title: 'Profile', fa: 'fa-user-circle' },
-    { key: 'commercial', href: '/evolution/commercial', title: 'Commercial', fa: 'fa-store' },
-    { key: 'industrial', href: '/evolution/industrial', title: 'Industrial', fa: 'fa-warehouse' },
-    { key: 'multi-family', href: '/evolution/multi-family', title: 'Multi-Family', fa: 'fa-building' },
-    { key: 'single-family', href: '/evolution/single-family', title: 'Single-Family', fa: 'fa-home' },
-  ]
+
+  const routes = user ? (isMember ? member : guest) : visitor
+  
   return (
-    <MuiAppBar position="fixed" color="inherit" elevation={0} className={classes.appBar}>
-      <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="open drawer" onClick={handleDrawerToggle}>
-          <Icon className="fas fa-bars" />
-        </IconButton>
-        <Link href="/" color="inherit" className="class.logo">
-          <img src="/logo-stroke.png" alt="Logo" width={42} height={42} className={classes.logo} />
-        </Link>
-        <H6 className={classes.title} noWrap>
-          <Link href="/" color="inherit">
-            Command Tactical Training
+    <>
+      <MuiAppBar position="fixed" color="inherit" elevation={0} className={classes.appBar}>
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="open drawer" onClick={handleDrawerToggle}>
+            <Icon className="fas fa-bars" />
+          </IconButton>
+          <Link href="/" color="inherit" className="class.logo">
+            <img src="/logo-stroke.png" alt="Logo" width={42} height={42} className={classes.logo} />
           </Link>
-        </H6>
-        <nav>
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor="left"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{ paper: classes.drawerPaper }}
-            >
-              <div className={classes.toolbar} />
-              <Divider />
-              <List>
-                <>
-                  {isSignedIn ? (
-                    <>
-                      {/* {isMember ? (
-                        <>
-                          {signedInLinks.map(l => <MobileItem key={l.key} href={l.href} title={l.title} fa={l.fa} />)}
-                        </>
-                      ) : (
-                        <> */}
-                          {memberLinks.map(l => <MobileItem key={l.key} href={l.href} title={l.title} fa={l.fa} />)}
-                        {/* </>
-                      )} */}
-                      <MobileItem key="signout" onClick={() => Auth.signOut()} href="#" title="Sign Out" fa="fa-door-open" />
-                    </>
-                  ) : (
-                    <>
-                      {signedOutLinks.map(l => <MobileItem key={l.key} href={l.href} title={l.title} fa={l.fa} />)}
-                    </>
-                  )}
-                </>
-              </List>
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <>
-              {isSignedIn ? (
-                <>
-                  {/* {isMember ? (
-                    <>
-                      {memberLinks.map(l => <DesktopItem key={l.key} href={l.href} title={l.title} />)}
-                    </>
-                  ) : (
-                    <> */}
-                      {signedInLinks.map(l => <DesktopItem key={l.key} href={l.href} title={l.title} />)}
-                    {/* </>
-                  )} */}
-                  
-                  <IconButton
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                  >
-                    <Icon className="fas fa-user-circle" />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={open}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose}><Link href="/profile">Profile</Link></MenuItem>
-                    <MenuItem onClick={() => Auth.signOut()}><MuiLink>Logout</MuiLink></MenuItem>
-                  </Menu>
-                </>
-              ) : (
-                <SignIn />
-              )}
-            </>
-          </Hidden>
-        </nav>
-      </Toolbar>
-    </MuiAppBar>
+          <H6 className={classes.title} noWrap>
+            <Link href="/" color="inherit">
+              Command Tactical Training
+            </Link>
+          </H6>
+          <nav>
+            <Hidden smUp implementation="css">
+              <Drawer
+                container={container}
+                variant="temporary"
+                anchor="left"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                classes={{ paper: classes.drawerPaper }}
+              >
+                <div className={classes.toolbar} />
+                <Divider />
+                <List>
+                  {routes.map(route => <MobileItem {...route} />)}
+                  {user && (<MobileItem key='mobile.signout' href='#' onClick={() => handleSignOut()} title='Sign Out' fa='fa-door-open' />)}
+                </List>
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              {routes.map(route => <DesktopItem {...route} />)}
+              {user && (<DesktopItem key='desktop.signout' href='#' onClick={() => handleSignOut()} title='Sign Out' />)}
+            </Hidden>
+          </nav>
+        </Toolbar>
+      </MuiAppBar>
+      <div className={classes.offset} />
+    </>
   )
 }
 

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { Predictions } from "aws-amplify";
+import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { Predictions, Auth } from 'aws-amplify';
+
 
 const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
   // const { text, voice, meta } = incomingText;
@@ -15,18 +16,27 @@ const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
   }, []);
 
   useEffect(() => {
-    const { text, voice } = incomingText;
-    if (text !== "" && voice !== "") {
-      Predictions.convert({
-        textToSpeech: {
-          source: { text },
-          voiceId: voice
-        }
-      })
-        .then(result => {
-          setEncodedAudio(result);
+    const { text, voice } = incomingText
+
+    const processText = async () => {
+      try {
+        await Auth.currentAuthenticatedUser()
+        console.log(`Have auth. voice: ${voice} text: ${text}`)
+        const result = await Predictions.convert({
+          textToSpeech: {
+            source: { text },
+            voiceId: voice
+          }
         })
-        .catch(err => console.log(err));
+        setEncodedAudio(result)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    if (text !== "" && voice !== "") {
+      console.log(text, voice)
+      processText()
     }
   }, [incomingText]);
 

@@ -17,7 +17,7 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import config from 'src/aws-exports'
+import config from 'aws-exports'
 import { createStore } from 'store'
 
 Amplify.configure({

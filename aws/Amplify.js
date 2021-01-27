@@ -1,5 +1,5 @@
 import Amplify from 'aws-amplify'
-import config from 'src/aws-exports'
+import config from 'aws-exports'
 
 const isLocalhost = () => {
   // Check if client side

@@ -12,18 +12,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { startTime } from 'store/actions/ai'
 import { playlistFromId } from 'utils/video'
 
-// import Amplify, { Auth } from 'aws-amplify';
-// import Predictions, { AmazonAIPredictionsProvider } from '@aws-amplify/predictions';
-// import config from 'src/aws-exports'
-
-// Amplify.configure({
-//   config,
-//   ssr: true
-// })
-// Amplify.register(Predictions)
-// Amplify.addPluggable(new AmazonAIPredictionsProvider());
-// Auth.configure(config)
-
 const Demo = () => {
   const { user }  = React.useContext(UserContext)
   const router = useRouter()

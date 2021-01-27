@@ -1,13 +1,8 @@
-import Auth from '@aws-amplify/auth'
-import Predictions
-  // { AmazonAIPredictionsProvider } 
-  from '@aws-amplify/predictions'
 import '@aws-amplify/ui/dist/style.css'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
-import Amplify from 'aws-amplify'
 import AppBar from 'components/AppBar'
 import { UserContext } from 'components/Auth/UserContext'
 import Footer from 'components/Footer'
@@ -17,18 +12,8 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import config from 'aws-exports'
 import { createStore } from 'store'
-
-Amplify.configure({
-  config,
-  ssr: true
-})
-// Amplify.register(Predictions)
-// Amplify.addPluggable(new AmazonAIPredictionsProvider())
-Auth.configure(config)
-Predictions.configure(config)
-// Predictions.addPluggable(new AmazonAIPredictionsProvider())
+import 'aws/configure'
 
 const store = createStore()
 
@@ -62,13 +47,11 @@ const MyApp = ({ Component, pageProps }) => {
           <CssBaseline />
           <UserContext.Provider value={value}>
             <AppBar />
-            {/* <Container> */}
               <Box my={4}>
                 <Container maxWidth='md' component='main'>
                   <Component {...pageProps} />
                 </Container>
               </Box>
-            {/* </Container> */}
             <Footer />
           </UserContext.Provider>
         </ThemeProvider>

@@ -1,5 +1,5 @@
 import { API } from 'aws-amplify'
-// import { listReviews } from 'src/graphql/queries'
+// import { listReviews } from 'graphql/queries'
 
 export default async (_, res) => {
   res.json({ reviews: 'Reviews' })

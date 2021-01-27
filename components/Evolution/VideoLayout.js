@@ -5,9 +5,8 @@ import useWindowDimensions from "hooks/useWindowDimensions";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
-    height: "100%",
-    margin: "0 auto",
+    maxWidth: "40%",
+    // height: "100%",
     backgroundColor: "#000"
   },
   center: {

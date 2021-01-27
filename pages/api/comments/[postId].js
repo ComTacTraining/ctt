@@ -1,5 +1,5 @@
 import { withSSRContext } from 'aws-amplify'
-// import { commentsByReviewId } from 'src/graphql/queries'
+// import { commentsByReviewId } from 'graphql/queries'
 
 export default async (req, res) => {
   const { query: { postId }} = req;

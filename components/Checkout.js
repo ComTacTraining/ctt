@@ -85,11 +85,9 @@ const Checkout = props => {
   };
 
   const handleSubscription = subscription => {
-    const { latest_invoice } = subscription
-    const { payment_intent } = latest_invoice
 
-    if (payment_intent) {
-      const { client_secret, status } = payment_intent
+    try {
+      const { client_secret, status } = subscription.latest_invoice.payment_intent
 
       if (status === "requires_action") {
         stripe.confirmCardPayment(client_secret).then(function(result) {
@@ -105,8 +103,8 @@ const Checkout = props => {
         // No additional information was needed
         setSuccess(true)
       }
-    } else {
-      console.log(`handleSubscription:: No payment information received!`)
+    } catch (error) {
+      console.log(`handleSubscription:: No payment information received!`. error)
     }
   }
 

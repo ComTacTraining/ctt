@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import * as React from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -7,6 +7,8 @@ import { Contained } from 'mui/Button'
 import useForm from 'hooks/useForm'
 import useUser from 'hooks/useUser'
 import { H4, P } from 'mui/Typography'
+import { UserContext } from 'components/Auth/UserContext'
+import Loading from 'components/Loading'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,9 +35,9 @@ const Checkout = props => {
   const classes =  useStyles()
   const stripe = useStripe()
   const elements = useElements()
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState('')
-  const { user, loading } = useUser()
+  const [success, setSuccess] = React.useState(false)
+  const [error, setError] = React.useState('')
+  const { user, isLoading }  = React.useContext(UserContext)
 
   const initialFormFields = {
     cardName: '',
@@ -43,7 +45,7 @@ const Checkout = props => {
     city: '',
     state: '',
     zip: '',
-    email: '',
+    email: user.attributes['email'],
     phone: '' 
   }
   const { values, handleChange, handleSubmit } = useForm(async () => {
@@ -83,30 +85,29 @@ const Checkout = props => {
   };
 
   const handleSubscription = subscription => {
-    setSuccess(true)
-    // const { latest_invoice } = subscription
-    // const { payment_intent } = latest_invoice
+    const { latest_invoice } = subscription
+    const { payment_intent } = latest_invoice
 
-    // if (payment_intent) {
-    //   const { client_secret, status } = payment_intent
+    if (payment_intent) {
+      const { client_secret, status } = payment_intent
 
-    //   if (status === "requires_action") {
-    //     stripe.confirmCardPayment(client_secret).then(function(result) {
-    //       if (result.error) {
-    //         // The card was declined (i.e. insufficient funds, card has expired, etc)
-    //         setError(result.error.message)
-    //       } else {
-    //         // Success!
-    //         setSuccess(true)
-    //       }
-    //     });
-    //   } else {
-    //     // No additional information was needed
-    //     setSuccess(true)
-    //   }
-    // } else {
-    //   console.log(`handleSubscription:: No payment information received!`)
-    // }
+      if (status === "requires_action") {
+        stripe.confirmCardPayment(client_secret).then(function(result) {
+          if (result.error) {
+            // The card was declined (i.e. insufficient funds, card has expired, etc)
+            setError(result.error.message)
+          } else {
+            // Success!
+            setSuccess(true)
+          }
+        });
+      } else {
+        // No additional information was needed
+        setSuccess(true)
+      }
+    } else {
+      console.log(`handleSubscription:: No payment information received!`)
+    }
   }
 
   return (
@@ -142,7 +143,7 @@ const Checkout = props => {
                 <TextField id="zip" name="zip" label="Zipcode" variant="outlined" fullWidth onChange={handleChange} value={values.zipcode} />
               </Grid>
               <Grid item xs={6}>
-                <TextField id="email" name="email" label="Email" variant="outlined" fullWidth onChange={handleChange} value={values.email} />
+                <TextField id="email" name="email" label="Email" variant="outlined" fullWidth disabled value={values.email} />
               </Grid>
               <Grid item xs={6}>
                 <TextField id="phone" name="phone" label="Phone #" variant="outlined" fullWidth onChange={handleChange} value={values.phone} />

@@ -1,9 +1,15 @@
+// import { UserContext } from 'components/Auth/UserContext'
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Predictions, Auth } from 'aws-amplify';
+// import { Predictions, Auth } from 'aws-amplify';
+import Auth from '@aws-amplify/auth'
+import Predictions from '@aws-amplify/predictions'
+// Predictions.configure(config)
+// Predictions.addPluggable(new AmazonAIPredictionsProvider())
 
 
 const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
+  // const { user, isLoading }  = React.useContext(UserContext)
   // const { text, voice, meta } = incomingText;
   const [audioCtx, setAudioCtx] = useState(null);
   const [encodedAudio, setEncodedAudio] = useState(null);
@@ -21,7 +27,6 @@ const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
     const processText = async () => {
       try {
         await Auth.currentAuthenticatedUser()
-        console.log(`Have auth. voice: ${voice} text: ${text}`)
         const result = await Predictions.convert({
           textToSpeech: {
             source: { text },
@@ -35,7 +40,7 @@ const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {
     }
 
     if (text !== "" && voice !== "") {
-      console.log(text, voice)
+      // console.log(text, voice)
       processText()
     }
   }, [incomingText]);

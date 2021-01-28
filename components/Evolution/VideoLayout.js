@@ -2,16 +2,21 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import useWindowDimensions from "hooks/useWindowDimensions";
+import { Box } from 'mui/Layout'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: "40%",
-    // height: "100%",
-    backgroundColor: "#000"
+    display: 'flex',
+    alignItems: 'flex-start',
+    backgroundColor: "#000",
+    zIndex: '0'
   },
   center: {
     margin: "0 auto",
-    position: "relative"
+    position: "relative",
+    width: 'auto',
+    height: 'auto',
+    zIndex: '1'
   }
 }));
 
@@ -40,13 +45,18 @@ const Video = ({ children }) => {
     }
   }, [width, height]);
 
+  // return (
+  //   <div className={classes.root}>
+  //     <div className={classes.center} style={dimensions}>
+  //       {children}
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div className={classes.root}>
-      <div className={classes.center} style={dimensions}>
-        {children}
-      </div>
-    </div>
-  );
+    <Box>
+      {children}
+    </Box>
+  )
 };
 
 Video.propTypes = {

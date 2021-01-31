@@ -1,9 +1,10 @@
 import Evolution from 'components/Evolution'
+import { withMemberAuth } from 'components/Auth/HOC'
 
-const Page = () => {
+const EvolutionPage = () => {
   return (
     <Evolution />
   )
 }
 
-export default Page
+export default withMemberAuth(EvolutionPage)

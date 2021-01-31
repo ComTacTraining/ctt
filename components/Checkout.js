@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import { Contained } from 'mui/Button'
 import useForm from 'hooks/useForm'
-import useUser from 'hooks/useUser'
 import { H4, P } from 'mui/Typography'
 import { UserContext } from 'components/Auth/UserContext'
 import Loading from 'components/Loading'
+import Link from 'components/Link'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +37,7 @@ const Checkout = props => {
   const elements = useElements()
   const [success, setSuccess] = React.useState(false)
   const [error, setError] = React.useState('')
-  const { user, isLoading }  = React.useContext(UserContext)
+  const { user }  = React.useContext(UserContext)
 
   const initialFormFields = {
     cardName: '',
@@ -45,10 +45,10 @@ const Checkout = props => {
     city: '',
     state: '',
     zip: '',
-    email: user.attributes['email'],
+    email: '',
     phone: '' 
   }
-  const { values, handleChange, handleSubmit } = useForm(async () => {
+  const { values, handleChange, updateValue, handleSubmit } = useForm(async () => {
     const result = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -66,6 +66,13 @@ const Checkout = props => {
     })
     await handleStripePaymentMethod(result)
   }, initialFormFields)
+
+  React.useEffect(() => {
+    if (user) {
+      updateValue({ key: 'email', val: user.attributes.email })
+    }
+  }, [user])
+
 
   const handleStripePaymentMethod = async result => {
     if (result.error) {
@@ -114,6 +121,7 @@ const Checkout = props => {
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <H4 className={classes.success}>Thank you for your membership!</H4>
+            <Link href='/profile'>Visit your profile</Link>
           </Grid>
         </Grid>
       ) : (

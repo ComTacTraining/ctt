@@ -15,7 +15,10 @@ const useForm = (callback, initialFormFields = {}) => {
       [evt.target.name]: evt.target.value
     }))
   }
-  return { handleChange, handleSubmit, values }
+  const updateValue = ({ key, val }) => {
+    setValues({...values, [key]: val })
+  }
+  return { handleChange, updateValue, handleSubmit, values }
 }
 
 export default useForm

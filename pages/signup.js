@@ -2,9 +2,11 @@ import { AmplifyAuthenticator, AmplifyContainer, AmplifySignUp } from '@aws-ampl
 import Alert from '@material-ui/lab/Alert'
 import Styles from 'aws/Styles'
 import { UserContext } from 'components/Auth/UserContext'
+import { useRouter } from 'next/router'
 import * as React from 'react'
 
-const SignUp = () => {
+const SignUpPage = () => {
+  const router = useRouter()
   const { user, errorMessage, handleClearError }  = React.useContext(UserContext)
   const [displayedError, setDisplayedError] = React.useState('')
 
@@ -20,7 +22,7 @@ const SignUp = () => {
     }
   }, [errorMessage])
   
-  return !user ? (
+  return user ? router.push('/demo') : (
     <>
       {displayedError !== '' && (
         <Alert severity='warning' onClose={handleClearError}>
@@ -39,9 +41,7 @@ const SignUp = () => {
         </AmplifyContainer>
       </Styles>
     </>
-  ) : (
-    <pre>{JSON.stringify(user)}</pre>
   )
 }
 
-export default SignUp
+export default SignUpPage

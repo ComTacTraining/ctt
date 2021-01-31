@@ -1,25 +1,27 @@
-import { UserContext } from 'components/Auth/UserContext'
+
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import AI from 'components/Evolution/AI/AI'
 import ScrollingText from 'components/Evolution/ScrollingText/ScrollingText'
 import Speak from 'components/Evolution/Speak/Speak'
 import Tips from 'components/Evolution/Tips/Tips'
-import VideoLayout from 'components/Evolution/VideoLayout'
 import VideoPlayer from 'components/Evolution/VideoPlayer/VideoPlayer'
+import VideoLayout from 'components/Evolution/VideoLayout'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { startTime } from 'store/actions/ai'
 import { playlistFromId } from 'utils/video'
+import { UserContext } from 'components/Auth/UserContext'
 
 const Demo = () => {
-  const { user }  = React.useContext(UserContext)
   const router = useRouter()
   const dispatch = useDispatch()
   const {
     firstAlarmAnnounced,
     faceToFaceCompleted,
   } = useSelector(state => state.ai)
+  const { user } = React.useContext(UserContext)
+  
   const [playlist, setPlaylist] = React.useState(false)
 
   React.useEffect(() => {
@@ -34,7 +36,7 @@ const Demo = () => {
     }
   }, [faceToFaceCompleted])
 
-  return (
+  return !user ? null : (
     <>
       {playlist && (
         <>

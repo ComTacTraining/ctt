@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 // import { Predictions, Auth } from 'aws-amplify';
 import Auth from '@aws-amplify/auth'
-import Predictions from '@aws-amplify/predictions'
+// import Predictions from '@aws-amplify/predictions'
+import Predictions, { AmazonAIPredictionsProvider } from '@aws-amplify/predictions'
 // Predictions.configure(config)
-// Predictions.addPluggable(new AmazonAIPredictionsProvider())
+Predictions.addPluggable(new AmazonAIPredictionsProvider())
 
 
 const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {

@@ -1,7 +1,8 @@
 import Evolution from 'components/Evolution'
 import { useRouter } from 'next/router'
+import { withMemberAuth } from 'components/Auth/HOC'
 
-const Page = () => {
+const EvolutionPage = () => {
   const router = useRouter()
   const { category, construction, id } = router.query
   return (
@@ -9,4 +10,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default withMemberAuth(EvolutionPage)

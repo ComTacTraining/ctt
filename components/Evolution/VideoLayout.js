@@ -45,17 +45,12 @@ const Video = ({ children }) => {
     }
   }, [width, height]);
 
-  // return (
-  //   <div className={classes.root}>
-  //     <div className={classes.center} style={dimensions}>
-  //       {children}
-  //     </div>
-  //   </div>
-  // );
   return (
-    <Box>
-      {children}
-    </Box>
+    <div className={classes.root}>
+      <div className={classes.center} style={dimensions}>
+        {children}
+      </div>
+    </div>
   )
 };
 

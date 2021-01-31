@@ -13,7 +13,20 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 import { createStore } from 'store'
-import 'aws/configure'
+import Amplify from 'aws-amplify'
+import Auth from '@aws-amplify/auth'
+import Predictions, { AmazonAIPredictionsProvider } from '@aws-amplify/predictions'
+
+import config from 'aws-exports'
+Amplify.configure({
+  config,
+  ssr: true
+})
+// Amplify.register(Predictions)
+// Amplify.addPluggable(new AmazonAIPredictionsProvider())
+Auth.configure(config)
+Predictions.configure(config)
+// Predictions.addPluggable(new AmazonAIPredictionsProvider())
 
 const store = createStore()
 
@@ -26,14 +39,14 @@ const MyApp = ({ Component, pageProps }) => {
   }, [])
 
   const {
-    state: { user, isLoading, isMember, errorMessage },
+    state: { user, isLoading, isMember, isAdmin, errorMessage },
     handleSignOut,
     handleClearError
   } = useAmplifyAuth()
 
   const value = React.useMemo(() => (
-    { user, isLoading, isMember, errorMessage, handleSignOut, handleClearError }
-  ), [user, isLoading, isMember, errorMessage, handleSignOut, handleClearError])
+    { user, isLoading, isMember, isAdmin, errorMessage, handleSignOut, handleClearError }
+  ), [user, isLoading, isMember, isAdmin, errorMessage, handleSignOut, handleClearError])
 
   return (
     <>
@@ -48,7 +61,7 @@ const MyApp = ({ Component, pageProps }) => {
           <UserContext.Provider value={value}>
             <AppBar />
               <Box my={4}>
-                <Container maxWidth='md' component='main'>
+                <Container maxWidth='xl' component='main'>
                   <Component {...pageProps} />
                 </Container>
               </Box>

@@ -14,7 +14,9 @@ const amplifyAuthReducer = (state, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        user: action.payload.user
+        user: action.payload.user,
+        isMember: action.payload.isMember,
+        isAdmin: action.payload.isAdmin,
       }
     case 'FETCH_USER_DATA_FAILURE':
       return { ...state, isLoading: false, isError: true }
@@ -34,6 +36,7 @@ const useAmplifyAuth = () => {
     isLoading: true,
     isError: false,
     isMember: false,
+    isAdmin: false,
     user: null,
     errorMessage: ''
   }
@@ -53,7 +56,11 @@ const useAmplifyAuth = () => {
           if (data) {
             dispatch({
               type: 'FETCH_USER_DATA_SUCCESS',
-              payload: { user: data }
+              payload: { 
+                user: data, 
+                isMember: data.attributes['custom:expired'] && data.attributes['custom:expired'] === '0' ? true : false,
+                isAdmin: data.signInUserSession.idToken.payload['cognito:groups'] && data.signInUserSession.idToken.payload['cognito:groups'].includes('Admin') ? true : false
+              }
             })
           }
         }
@@ -72,7 +79,7 @@ const useAmplifyAuth = () => {
     }
 
     const onAuthEvent = payload => {
-      console.log(`auth event: ${payload.event} with data: ${payload.data.message}`)
+      // console.log(`auth event: ${payload.event} with data: ${payload.data.message}`)
       switch (payload.event) {
         case 'signIn':
           if (isMounted) {

@@ -4,17 +4,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import Icon from '@material-ui/core/Icon'
-import MuiLink from '@material-ui/core/Link'
 import { H6 } from 'mui/Typography'
 import Link from './Link'
-// import SignIn from './SignIn'
 import MobileItem from './Layout/MobileItem'
 import DesktopItem from './Layout/DesktopItem'
 import { UserContext } from './Auth/UserContext'
@@ -59,18 +55,11 @@ const AppBar = ({ window }) => {
   const classes = useStyles()
   const { user, isMember, handleSignOut } = React.useContext(UserContext)
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [anchorEl, setAnchorEl] = React.useState(null)
 
-  const open = Boolean(anchorEl)
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   }
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+
   const container = window !== undefined ? () => window().document.body : undefined
 
   const routes = user ? (isMember ? member : guest) : visitor

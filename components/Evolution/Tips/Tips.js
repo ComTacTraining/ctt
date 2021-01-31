@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import Tip from "./Tip";
-import { H3 } from 'mui/Typography'
+import { H4 } from 'mui/Typography'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
     textAlign: "left"
   },
   backdrop: {
-    backgroundColor: "rgba(0, 0, 0, 0.3)"
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    padding: theme.spacing(1)
   }
 }));
 
@@ -34,9 +35,9 @@ const Tips = () => {
     <div className={classes.root}>
       {ai.firstAlarmAnnounced && !ai.threeSixtyWalkthroughBegan && (
         <div className={classes.backdrop}>
-          <H3 gutterBottom>
+          <H4 gutterBottom>
             Initial Report Tips
-          </H3>
+          </H4>
           <Divider />
           <List dense={true}>
             <Tip
@@ -79,9 +80,9 @@ const Tips = () => {
       )}
       {ai.threeSixtyWalkthroughCompleted && !ai.threeSixtyAssessmentCompleted && (
         <div className={classes.backdrop}>
-          <H3 gutterBottom>
+          <H4 gutterBottom>
             360&deg; Assessment Tips
-          </H3>
+          </H4>
           <Divider />
           <List dense={true}>
             <Tip
@@ -119,9 +120,9 @@ const Tips = () => {
       )}
       {ai.threeSixtyAssessmentCompleted && !ai.assignmentsCompleted && (
         <div className={classes.backdrop}>
-          <H3 variant="h3" gutterBottom>
+          <H4 variant="h3" gutterBottom>
             Assignment Tips
-          </H3>
+          </H4>
           <Divider />
           <List dense={true}>
             <Tip
@@ -166,9 +167,9 @@ const Tips = () => {
         ai.unitsAssigned > 2 &&
         !ai.incidentCompleted && (
           <div className={classes.backdrop}>
-            <H3 gutterBottom>
+            <H4 gutterBottom>
               Incident Within Incident
-            </H3>
+            </H4>
             <Divider />
             <List dense={true}>
               <Tip

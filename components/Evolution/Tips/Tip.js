@@ -22,8 +22,8 @@ const useStyles = makeStyles(() => ({
 const Tip = ({ title, completed }) => {
   const classes = useStyles();
   return (
-    <ListItem alignItems="flex-start">
-      <ListItemIcon>
+    <ListItem>
+      <ListItemIcon style={{minWidth: '24px'}}>
         {completed ? (
           <AddressedIcon className={classes.completed} />
         ) : (

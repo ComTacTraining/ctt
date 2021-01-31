@@ -20,7 +20,7 @@ const Demo = () => {
     firstAlarmAnnounced,
     faceToFaceCompleted,
   } = useSelector(state => state.ai)
-  const { user } = React.useContext(UserContext)
+  const { user, isAdmin } = React.useContext(UserContext)
   
   const [playlist, setPlaylist] = React.useState(false)
 
@@ -47,7 +47,7 @@ const Demo = () => {
             {firstAlarmAnnounced && <Tips />}
             <VideoPlayer playlist={playlist} />
           </VideoLayout>
-          <AdminPanel />
+          {isAdmin && <AdminPanel />}
         </>
       )}
     </>

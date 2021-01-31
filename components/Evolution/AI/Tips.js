@@ -26,7 +26,7 @@ const Tips = () => {
     for (let i = 0; i < full.length; i++) {
       text = `${text} ${full[i]}`;
     }
-    return `${text} ${partial}`;
+    return `${text} ${partial}`.toLowerCase();
   };
 
   useEffect(() => {

@@ -47,7 +47,7 @@ const Demo = () => {
             {firstAlarmAnnounced && <Tips />}
             <VideoPlayer playlist={playlist} />
           </VideoLayout>
-          {isAdmin && <AdminPanel />}
+          <AdminPanel />
         </>
       )}
     </>

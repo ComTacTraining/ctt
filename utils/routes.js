@@ -6,6 +6,7 @@ export const visitor = [
 export const guest = [
   { key: 'guest.subscribe', href: '/subscribe', title: 'Subscribe', fa: 'fa-user-circle' },
   { key: 'guest.demo', href: '/demo', title: 'Demo', fa: 'fa-tv' },
+  { key: 'guest.voicedemo', href: '/voicedemo', title: 'Voice Demo', fa: 'fa-microphone' },
 ]
 
 export const member = [

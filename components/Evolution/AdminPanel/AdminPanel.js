@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -59,7 +60,7 @@ const a11yProps = index => ({
   "aria-controls": `simple-tabpanel-${index}`
 });
 
-const AdminPanel = () => {
+const AdminPanel = ({ withVoice = false }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const ai = useSelector(state => state.ai);
@@ -335,7 +336,7 @@ const AdminPanel = () => {
                 {ai.isPartialCommand ? ai.partialCommand : ai.command}
                 <br />
               </Typography>
-              {ai.firstAlarmAnnounced && <TextField key="textfield" />}
+              {!withVoice && ai.firstAlarmAnnounced && <TextField key="textfield" />}
               <Typography key="log_title_type" variant="caption">
                 <strong>Log: </strong>
                 <br />
@@ -347,6 +348,10 @@ const AdminPanel = () => {
       </Grid>
     </Grid>
   );
-};
+}
+
+AdminPanel.propTypes = {
+  withVoice: PropTypes.bool
+}
 
 export default AdminPanel;

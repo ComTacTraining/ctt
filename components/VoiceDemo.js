@@ -12,10 +12,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { startTime } from 'store/actions/ai'
 import { playlistFromId } from 'utils/video'
 import { UserContext } from 'components/Auth/UserContext'
+// import useKeyPress from 'hooks/useKeyPress'
+import KeyMapping from 'components/Evolution/KeyMapping/KeyMapping'
+import Radio from 'components/Evolution/Transcribe/Radio'
 
 const Demo = () => {
   const router = useRouter()
   const dispatch = useDispatch()
+  // const isTalking = useKeyPress('Space')
   const {
     firstAlarmAnnounced,
     faceToFaceCompleted,
@@ -40,6 +44,12 @@ const Demo = () => {
     <>
       {playlist && (
         <>
+          {firstAlarmAnnounced && (
+            <>
+              <KeyMapping />
+              <Radio />
+            </>
+          )}
           <AI />
           <Speak />
           <VideoLayout>
@@ -47,7 +57,7 @@ const Demo = () => {
             {firstAlarmAnnounced && <Tips />}
             <VideoPlayer playlist={playlist} />
           </VideoLayout>
-          <AdminPanel />
+          <AdminPanel withVoice={true} />
         </>
       )}
     </>

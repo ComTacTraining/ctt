@@ -24,4 +24,5 @@ amplifytools.xcconfig
 build/
 dist/
 node_modules/
+credentials.js
 #aws-exports.js

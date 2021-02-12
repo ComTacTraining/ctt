@@ -17,6 +17,7 @@ import Log from "./Log";
 import { groupConstToDisplay } from "utils/ai";
 import TabPanel from "./TabPanel";
 import { faceToFaceCompleted, educationCompleted } from "store/actions/ai";
+import Speech2Text from "../Transcribe/Speech2Text";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -337,6 +338,7 @@ const AdminPanel = ({ withVoice = false }) => {
                 <br />
               </Typography>
               {!withVoice && ai.firstAlarmAnnounced && <TextField key="textfield" />}
+              {withVoice && ai.firstAlarmAnnounced && <Speech2Text />}
               <Typography key="log_title_type" variant="caption">
                 <strong>Log: </strong>
                 <br />

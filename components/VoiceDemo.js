@@ -46,8 +46,8 @@ const Demo = () => {
         <>
           {firstAlarmAnnounced && (
             <>
-              <KeyMapping />
-              <Radio />
+              {/* <KeyMapping />
+              <Radio /> */}
             </>
           )}
           <AI />

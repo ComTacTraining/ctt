@@ -9,12 +9,13 @@ import {
 
   import { AWS_ACCESS_ID, AWS_SECRET_KEY } from '../../../credentials';
 
-const audioUtils        = require('./audioUtils');  // for encoding audio data as PCM
-const crypto            = require('crypto'); // tot sign our pre-signed URL
-const v4                = require('./aws-signature-v4'); // to generate our pre-signed URL
-const marshaller        = require("@aws-sdk/eventstream-marshaller"); // for converting binary event stream messages to and from JSON
-const util_utf8_node    = require("@aws-sdk/util-utf8-node"); // utilities for encoding and decoding UTF8
-const mic               = require('microphone-stream'); // collect microphone input as a stream of raw bytes
+  import * as util_utf8_node from '@aws-sdk/util-utf8-node';
+  import * as marshaller from '@aws-sdk/eventstream-marshaller';
+  
+  import crypto from 'crypto';
+  import mic from 'microphone-stream';
+  import { pcmEncode, downsampleBuffer } from './audioUtils';
+  import { createPresignedURL } from './aws-signature-v4';
 
 // our converter between binary event streams messages and JSON
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(util_utf8_node.toUtf8, util_utf8_node.fromUtf8);
@@ -28,6 +29,7 @@ let transcribeException = false;
 // const access_id = process.env.AWS_ACCESS_ID;
 // const secret_key = process.env.AWS_SECRET_KEY;
 
+// console.log('accees id ', access_id);
 const access_id = AWS_ACCESS_ID;
 const secret_key = AWS_SECRET_KEY;
 
@@ -164,7 +166,7 @@ const Speech2Text = props => {
 
         // Pre-signed URLs are a way to authenticate a request (or WebSocket connection, in this case)
         // via Query Parameters. Learn more: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
-        let url = createPresignedUrl();
+        let url = _createPresignedUrl();
 
         //open up our WebSocket connection
         socket = new WebSocket(url);
@@ -270,8 +272,8 @@ const Speech2Text = props => {
             return;
 
         // downsample and convert the raw audio bytes to PCM
-        let downsampledBuffer = audioUtils.downsampleBuffer(raw, inputSampleRate, sampleRate);
-        let pcmEncodedBuffer = audioUtils.pcmEncode(downsampledBuffer);
+        let downsampledBuffer = downsampleBuffer(raw, inputSampleRate, sampleRate);
+        let pcmEncodedBuffer = pcmEncode(downsampledBuffer);
 
         // add the right JSON headers and structure to the message
         let audioEventMessage = getAudioEventMessage(Buffer.from(pcmEncodedBuffer));
@@ -299,11 +301,11 @@ const Speech2Text = props => {
         };
     }
 
-    const createPresignedUrl = () => {
+    const _createPresignedUrl = () => {
         let endpoint = "transcribestreaming." + region + ".amazonaws.com:8443";
 
         // get a preauthenticated URL that we can use to establish our WebSocket
-        return v4.createPresignedURL(
+        return createPresignedURL(
             'GET',
             endpoint,
             '/stream-transcription-websocket',

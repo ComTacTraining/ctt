@@ -13,11 +13,11 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import TuneIcon from "@material-ui/icons/Tune";
 import YesNoOption from "./YesNoOption";
 import TextField from "../Transcribe/TextField";
+import Speech2Text from "../Transcribe/Speech2Text";
 import Log from "./Log";
 import { groupConstToDisplay } from "utils/ai";
 import TabPanel from "./TabPanel";
 import { faceToFaceCompleted, educationCompleted } from "store/actions/ai";
-import Speech2Text from "../Transcribe/Speech2Text";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,7 +61,7 @@ const a11yProps = index => ({
   "aria-controls": `simple-tabpanel-${index}`
 });
 
-const AdminPanel = ({ withVoice = false }) => {
+const AdminPanel = ({ withVoice = false, accessId, secretKey }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const ai = useSelector(state => state.ai);
@@ -338,7 +338,7 @@ const AdminPanel = ({ withVoice = false }) => {
                 <br />
               </Typography>
               {!withVoice && ai.firstAlarmAnnounced && <TextField key="textfield" />}
-              {withVoice && ai.firstAlarmAnnounced && <Speech2Text />}
+              {withVoice && ai.firstAlarmAnnounced && <Speech2Text accessId={accessId} secretKey={secretKey}/>}
               <Typography key="log_title_type" variant="caption">
                 <strong>Log: </strong>
                 <br />

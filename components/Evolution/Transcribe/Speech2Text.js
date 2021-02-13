@@ -7,7 +7,6 @@ import {
     addToLog
   } from "store/actions/ai";
 
-  import { AWS_ACCESS_ID, AWS_SECRET_KEY } from '../../../credentials';
 
   import * as util_utf8_node from '@aws-sdk/util-utf8-node';
   import * as marshaller from '@aws-sdk/eventstream-marshaller';
@@ -26,12 +25,6 @@ let socket;
 let micStream;
 let socketError = false;
 let transcribeException = false;
-// const access_id = process.env.AWS_ACCESS_ID;
-// const secret_key = process.env.AWS_SECRET_KEY;
-
-// console.log('accees id ', access_id);
-const access_id = AWS_ACCESS_ID;
-const secret_key = AWS_SECRET_KEY;
 
 
 const SOCKET_STATE = {
@@ -61,7 +54,8 @@ const Speech2Text = props => {
     const [transcription, setTranscription] = useState('');
 
     const [currentBotState, setCurrentBotState] = useState(BOT_STATE.READY);
-    
+    const [accessId, setAccessId] = useState(props.accessId);
+    const [secretKey, setSecretKey] = useState(props.secretKey);
     const startTime = useRef(null);
     const endTime = useRef(null);
 
@@ -311,8 +305,8 @@ const Speech2Text = props => {
             '/stream-transcription-websocket',
             'transcribe',
             crypto.createHash('sha256').update('', 'utf8').digest('hex'), {
-                'key': access_id,
-                'secret': secret_key,
+                'key': accessId,
+                'secret': secretKey,
                 'sessionToken': '',
                 'protocol': 'wss',
                 'expires': 15,

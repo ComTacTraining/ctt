@@ -8,6 +8,9 @@ const useKeyPress = (targetCode, preventDefault = false) => {
       if (event.code === targetCode) {
         setKeyPressed(true);
       }
+      if (event.code === 'Space') {
+        event.preventDefault();
+      }
     };
 
     const upHandler = event => {

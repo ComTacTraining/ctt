@@ -6,7 +6,13 @@ import Auth from '@aws-amplify/auth'
 // import Predictions from '@aws-amplify/predictions'
 import Predictions, { AmazonAIPredictionsProvider } from '@aws-amplify/predictions'
 // Predictions.configure(config)
-Predictions.addPluggable(new AmazonAIPredictionsProvider())
+
+try {
+  Predictions.addPluggable(new AmazonAIPredictionsProvider())
+} catch (err) {
+  console.log(err)
+}
+
 
 
 const TextToSpeech = ({ incomingText, onFinishedSpeaking }) => {

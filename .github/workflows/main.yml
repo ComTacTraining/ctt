@@ -2,9 +2,9 @@
 name: CI
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 jobs:
   build:
@@ -28,3 +28,5 @@ jobs:
           STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
+          TRANSCRIBE_ACCESS_ID: ${{ secrets.TRANSCRIBE_ACCESS_ID }}
+          TRANSCRIBE_SECRET_KEY: ${{ secrets.TRANSCRIBE_SECRET_KEY }}

@@ -1,14 +1,14 @@
 {
-  "id": "E344J94H32JMPW",
-  "arn": "arn:aws:cloudfront::919358325493:distribution/E344J94H32JMPW",
-  "url": "https://d1e74nuks4zvdy.cloudfront.net",
+  "id": "E2XMK8HYW7JMU0",
+  "arn": "arn:aws:cloudfront::919358325493:distribution/E2XMK8HYW7JMU0",
+  "url": "https://d20wkro5xt8bv0.cloudfront.net",
   "region": "us-east-1",
   "enabled": true,
   "comment": "",
   "priceClass": "PriceClass_All",
   "origins": [
     {
-      "url": "http://6plo0es-oiur0a5.s3.us-east-1.amazonaws.com",
+      "url": "http://18f9d8g-krcy16w.s3.us-east-1.amazonaws.com",
       "private": true,
       "pathPatterns": {
         "_next/static/*": {
@@ -45,29 +45,7 @@
             "PATCH"
           ],
           "lambda@edge": {
-            "origin-request": "arn:aws:lambda:us-east-1:919358325493:function:6plo0es-kuo86m:2"
-          }
-        },
-        "_next/image*": {
-          "minTTL": 0,
-          "defaultTTL": 60,
-          "maxTTL": 31536000,
-          "allowedHttpMethods": [
-            "HEAD",
-            "DELETE",
-            "POST",
-            "GET",
-            "OPTIONS",
-            "PUT",
-            "PATCH"
-          ],
-          "forward": {
-            "headers": [
-              "Accept"
-            ]
-          },
-          "lambda@edge": {
-            "origin-request": "arn:aws:lambda:us-east-1:919358325493:function:6plo0es-tbv11rf:2"
+            "origin-request": "arn:aws:lambda:us-east-1:919358325493:function:18f9d8g-21xxe76:2"
           }
         },
         "_next/data/*": {
@@ -79,8 +57,8 @@
             "GET"
           ],
           "lambda@edge": {
-            "origin-response": "arn:aws:lambda:us-east-1:919358325493:function:6plo0es-5yfrtnq:2",
-            "origin-request": "arn:aws:lambda:us-east-1:919358325493:function:6plo0es-5yfrtnq:2"
+            "origin-response": "arn:aws:lambda:us-east-1:919358325493:function:18f9d8g-d6xf2nh:2",
+            "origin-request": "arn:aws:lambda:us-east-1:919358325493:function:18f9d8g-d6xf2nh:2"
           }
         }
       }
@@ -92,11 +70,11 @@
     "defaultTTL": 0,
     "maxTTL": 31536000,
     "forward": {
+      "cookies": "all",
+      "queryString": true,
       "headers": [
         "Host"
-      ],
-      "cookies": "all",
-      "queryString": true
+      ]
     },
     "allowedHttpMethods": [
       "HEAD",
@@ -108,8 +86,8 @@
       "PATCH"
     ],
     "lambda@edge": {
-      "origin-request": "arn:aws:lambda:us-east-1:919358325493:function:6plo0es-5yfrtnq:2",
-      "origin-response": "arn:aws:lambda:us-east-1:919358325493:function:6plo0es-5yfrtnq:2"
+      "origin-request": "arn:aws:lambda:us-east-1:919358325493:function:18f9d8g-d6xf2nh:2",
+      "origin-response": "arn:aws:lambda:us-east-1:919358325493:function:18f9d8g-d6xf2nh:2"
     },
     "compress": true
   }

@@ -1,8 +1,8 @@
 import crypto from 'crypto';
 import { createPresignedURL } from '../../../components/Evolution/Transcribe/aws-signature-v4';
 
-const accessId = process.env.AWS_ACCESS_ID
-const secretKey = process.env.AWS_SECRET_KEY
+const accessId = process.env.TRANSCRIBE_ACCESS_ID
+const secretKey = process.env.TRANSCRIBE_SECRET_KEY
 
 export default async (req, res) => {
   if (req.method === "POST") {    

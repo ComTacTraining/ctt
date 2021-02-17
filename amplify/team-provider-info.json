@@ -1,19 +1,20 @@
 {
-  "prod": {
+  "production": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-ctt-prod-95105-authRole",
-      "UnauthRoleArn": "arn:aws:iam::919358325493:role/amplify-ctt-prod-95105-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::919358325493:role/amplify-ctt-prod-95105-authRole",
-      "Region": "us-west-2",
-      "DeploymentBucketName": "amplify-ctt-prod-95105-deployment",
-      "UnauthRoleName": "amplify-ctt-prod-95105-unauthRole",
-      "StackName": "amplify-ctt-prod-95105",
-      "StackId": "arn:aws:cloudformation:us-west-2:919358325493:stack/amplify-ctt-prod-95105/3c0e2de0-60c8-11eb-9443-06cec0598c81",
-      "AmplifyAppId": "d3uaht0c0yo8wf"
+      "AuthRoleName": "amplify-ctt-production-113220-authRole",
+      "UnauthRoleArn": "arn:aws:iam::919358325493:role/amplify-ctt-production-113220-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::919358325493:role/amplify-ctt-production-113220-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ctt-production-113220-deployment",
+      "UnauthRoleName": "amplify-ctt-production-113220-unauthRole",
+      "StackName": "amplify-ctt-production-113220",
+      "StackId": "arn:aws:cloudformation:us-east-1:919358325493:stack/amplify-ctt-production-113220/dc1c4b20-7156-11eb-94f2-12872187ca4d",
+      "AmplifyAppId": "d2q4fpnn4fbqvo"
     },
     "categories": {
       "auth": {
-        "ctt23c65552": {}
+        "ctt0071b465": {},
+        "userPoolGroups": {}
       }
     }
   }

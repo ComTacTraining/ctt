@@ -230,7 +230,7 @@ const Speech2Text = props => {
 
                 // fix encoding for accented characters
                 transcript = decodeURIComponent(escape(transcript));
-
+                console.log(transcript);
                 // update the textarea with the latest result
                 setTranscription(transcript);
                 dispatch(updatePartialTranscript(transcript));

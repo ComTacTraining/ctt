@@ -1,18 +1,24 @@
 import crypto from 'crypto';
 import { createPresignedURL } from '../../../components/Evolution/Transcribe/aws-signature-v4';
-
-const accessId = process.env.TRANSCRIBE_ACCESS_ID
-const secretKey = process.env.TRANSCRIBE_SECRET_KEY
+import Amplify, { withSSRContext } from 'aws-amplify';
+import config from 'aws-exports';
+Amplify.configure({
+  config,
+  ssr: true
+})
+const accessId = process.env.AWS_ACCESS_ID
+const secretKey = process.env.AWS_SECRET_KEY
 
 export default async (req, res) => {
   if (req.method === "POST") {    
-    // const { Auth } = withSSRContext({ req })
+    const { Auth } = withSSRContext({ req })
     const { 
       region,
       languageCode,
       sampleRate
     } = JSON.parse(req.body)
     try {
+      const user = await Auth.currentAuthenticatedUser();
       let endpoint = "transcribestreaming." + region + ".amazonaws.com:8443";
 
         // get a preauthenticated URL that we can use to establish our WebSocket

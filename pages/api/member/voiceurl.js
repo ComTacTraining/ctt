@@ -18,10 +18,9 @@ export default async (req, res) => {
       sampleRate
     } = JSON.parse(req.body)
     try {
-      const user = await Auth.currentAuthenticatedUser();
-      let endpoint = "transcribestreaming." + region + ".amazonaws.com:8443";
+        const user = await Auth.currentAuthenticatedUser();
+        let endpoint = "transcribestreaming." + region + ".amazonaws.com:8443";
 
-        // get a preauthenticated URL that we can use to establish our WebSocket
         let resUrl = createPresignedURL(
             'GET',
             endpoint,
@@ -38,9 +37,9 @@ export default async (req, res) => {
             }
         );
 
-      res.status(200).json({
-        url: resUrl
-      })
+        res.status(200).json({
+            url: resUrl
+        })
     } catch (e) {
       res.status(500).json({ statusCode: 500, message: e.message })
     }

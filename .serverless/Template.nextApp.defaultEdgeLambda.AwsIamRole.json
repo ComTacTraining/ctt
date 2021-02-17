@@ -1,9 +1,9 @@
 {
-  "name": "dloy4uu-dw75d45h",
-  "arn": "arn:aws:iam::919358325493:role/dloy4uu-dw75d45h",
+  "name": "fhpner-rghjp8",
+  "arn": "arn:aws:iam::919358325493:role/fhpner-rghjp8",
   "service": [
-    "lambda.amazonaws.com",
-    "edgelambda.amazonaws.com"
+    "edgelambda.amazonaws.com",
+    "lambda.amazonaws.com"
   ],
   "policy": {
     "Version": "2012-10-17",
@@ -19,7 +19,7 @@
       },
       {
         "Effect": "Allow",
-        "Resource": "arn:aws:s3:::dloy4uu-nlcav5v/*",
+        "Resource": "arn:aws:s3:::fhpner-x54dlxs/*",
         "Action": [
           "s3:GetObject",
           "s3:PutObject"

@@ -8,13 +8,11 @@ import {
   } from "store/actions/ai";
 
 
-  import * as util_utf8_node from '@aws-sdk/util-utf8-node';
-  import * as marshaller from '@aws-sdk/eventstream-marshaller';
-  
-  import crypto from 'crypto';
-  import mic from 'microphone-stream';
-  import { pcmEncode, downsampleBuffer } from './audioUtils';
-  import { createPresignedURL } from './aws-signature-v4';
+import * as util_utf8_node from '@aws-sdk/util-utf8-node';
+import * as marshaller from '@aws-sdk/eventstream-marshaller';
+
+import mic from 'microphone-stream';
+import { pcmEncode, downsampleBuffer } from './audioUtils';
 
 // our converter between binary event streams messages and JSON
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(util_utf8_node.toUtf8, util_utf8_node.fromUtf8);
@@ -54,8 +52,6 @@ const Speech2Text = props => {
     const [transcription, setTranscription] = useState('');
 
     const [currentBotState, setCurrentBotState] = useState(BOT_STATE.READY);
-    const [accessId, setAccessId] = useState(props.accessId);
-    const [secretKey, setSecretKey] = useState(props.secretKey);
     const startTime = useRef(null);
     const endTime = useRef(null);
 
@@ -139,7 +135,6 @@ const Speech2Text = props => {
             .then(streamAudioToWebSocket) 
             .catch(function (error) {
                 alert('There was an error streaming your audio to Amazon Transcribe. Please try again.');
-                // toggleStartStop();
             });
     }
 
@@ -148,7 +143,7 @@ const Speech2Text = props => {
     }
 
     
-    const streamAudioToWebSocket = (userMediaStream) => {
+    const streamAudioToWebSocket = async (userMediaStream) => {
         //let's get the mic input from the browser, via the microphone-stream module
         micStream = new mic();
 
@@ -160,7 +155,19 @@ const Speech2Text = props => {
 
         // Pre-signed URLs are a way to authenticate a request (or WebSocket connection, in this case)
         // via Query Parameters. Learn more: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
-        let url = _createPresignedUrl();
+        const response = await fetch("api/member/voiceurl", {
+            method: "POST",
+            mode: "same-origin",
+            body: JSON.stringify({
+                region: region,
+                languageCode: languageCode,
+                sampleRate: sampleRate
+            })
+        });
+
+        const resUrl = await response.json()
+
+        let url = resUrl.url;
 
         //open up our WebSocket connection
         socket = new WebSocket(url);
@@ -193,7 +200,7 @@ const Speech2Text = props => {
             }
             else {
                 transcribeException = true;
-                alert(messageBody.Message);
+                console.log(messageBody.Message);
             }
         };
 
@@ -293,27 +300,6 @@ const Speech2Text = props => {
             },
             body: buffer
         };
-    }
-
-    const _createPresignedUrl = () => {
-        let endpoint = "transcribestreaming." + region + ".amazonaws.com:8443";
-
-        // get a preauthenticated URL that we can use to establish our WebSocket
-        return createPresignedURL(
-            'GET',
-            endpoint,
-            '/stream-transcription-websocket',
-            'transcribe',
-            crypto.createHash('sha256').update('', 'utf8').digest('hex'), {
-                'key': accessId,
-                'secret': secretKey,
-                'sessionToken': '',
-                'protocol': 'wss',
-                'expires': 15,
-                'region': region,
-                'query': "language-code=" + languageCode + "&media-encoding=pcm&sample-rate=" + sampleRate
-            }
-        );
     }
 
     return (

@@ -16,7 +16,7 @@ import { UserContext } from 'components/Auth/UserContext'
 import KeyMapping from 'components/Evolution/KeyMapping/KeyMapping'
 import Radio from 'components/Evolution/Transcribe/Radio'
 
-const VoiceDemo = ({ accessId, secretKey }) => {
+const VoiceDemo = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   // const isTalking = useKeyPress('Space')
@@ -58,7 +58,7 @@ const VoiceDemo = ({ accessId, secretKey }) => {
             {firstAlarmAnnounced && <Tips />}
             <VideoPlayer playlist={playlist} />
           </VideoLayout>
-          <AdminPanel withVoice={true} accessId={accessId} secretKey={secretKey} />
+          <AdminPanel withVoice={true} />
         </>
       )}
     </>

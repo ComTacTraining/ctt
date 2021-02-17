@@ -61,7 +61,7 @@ const a11yProps = index => ({
   "aria-controls": `simple-tabpanel-${index}`
 });
 
-const AdminPanel = ({ withVoice = false, accessId, secretKey }) => {
+const AdminPanel = ({ withVoice = false }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const ai = useSelector(state => state.ai);
@@ -338,7 +338,7 @@ const AdminPanel = ({ withVoice = false, accessId, secretKey }) => {
                 <br />
               </Typography>
               {!withVoice && ai.firstAlarmAnnounced && <TextField key="textfield" />}
-              {withVoice && ai.firstAlarmAnnounced && <Speech2Text accessId={accessId} secretKey={secretKey}/>}
+              {withVoice && ai.firstAlarmAnnounced && <Speech2Text />}
               <Typography key="log_title_type" variant="caption">
                 <strong>Log: </strong>
                 <br />

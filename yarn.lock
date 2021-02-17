@@ -3357,9 +3357,15 @@ merge-stream@^2.0.0:
   integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
 
 microphone-stream@^5.2.0:
+<<<<<<< HEAD
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/microphone-stream/-/microphone-stream-5.3.1.tgz#d0440ad79e29cf49af5f0ec200c137c5ac292508"
+  integrity sha512-Q0zqZC4GpLVatoT0J7bocVDt2IWRfciF0B32XvAvWCgLX3R7s6VnKZ1mbTefSUpmZ8vcdA2Nz2sFCqAQSGyh6A==
+=======
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/microphone-stream/-/microphone-stream-5.2.0.tgz#70985ca40f014ca54474aa61c3692f211c1ae136"
   integrity sha512-eeItI9tZx9NnC5so5+T2JrJexKONYa+YBrbwVDxUD0ao9J5J6kA5STqRk4NyFdZ9N0ufqZQBbwLPuYDRgLZDiQ==
+>>>>>>> 1475d99feee2168c1ae527eedf5b8fad6398fbbc
   dependencies:
     buffer-from "^1.1.1"
     readable-stream "^3.6.0"

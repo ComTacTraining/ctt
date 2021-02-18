@@ -22,8 +22,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET }}
           aws-region: us-east-1
-      - name: Download `.serverless` state from S3
-        run: aws s3 sync s3://ctt-serverless/production/.serverless .serverless --delete
       - name: Deploy Next.js app
         run: npx serverless
         env:
@@ -32,5 +30,3 @@ jobs:
           STRIPE_PRICE_ID: ${{ secrets.STRIPE_PRICE_ID }}
           TRANSCRIBE_ACCESS_ID: ${{ secrets.TRANSCRIBE_ACCESS_ID }}
           TRANSCRIBE_SECRET_KEY: ${{ secrets.TRANSCRIBE_SECRET_KEY }}
-      - name: Upload `.serverless` state to S3
-        run: aws s3 sync .serverless s3://ctt-serverless/production/.serverless --delete

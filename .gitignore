@@ -1,5 +1,5 @@
 /.next
-/.serverless
+#/.serverless
 /.serverless_nextjs
 .DS_Store
 npm-debug.log*

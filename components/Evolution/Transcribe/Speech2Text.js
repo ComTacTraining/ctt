@@ -7,22 +7,10 @@ import {
     addToLog
   } from "store/actions/ai";
 
-
 import * as util_utf8_node from '@aws-sdk/util-utf8-node';
 import * as marshaller from '@aws-sdk/eventstream-marshaller';
-
 import mic from 'microphone-stream';
 import { pcmEncode, downsampleBuffer } from './audioUtils';
-
-// our converter between binary event streams messages and JSON
-const eventStreamMarshaller = new marshaller.EventStreamMarshaller(util_utf8_node.toUtf8, util_utf8_node.fromUtf8);
-
-// our global variables for managing state
-let inputSampleRate;
-let socket;
-let micStream;
-let socketError = false;
-let transcribeException = false;
 
 
 const SOCKET_STATE = {
@@ -39,7 +27,12 @@ const BOT_STATE = {
     AGAIN: 'Try again',
 
 }
+
 let currentSocketState = SOCKET_STATE.CLOSED;
+const eventStreamMarshaller = new marshaller.EventStreamMarshaller(util_utf8_node.toUtf8, util_utf8_node.fromUtf8);
+let micStream;
+let socketError = false;
+let transcribeException = false;
 
 
 const Speech2Text = props => {
@@ -54,55 +47,75 @@ const Speech2Text = props => {
     const [currentBotState, setCurrentBotState] = useState(BOT_STATE.READY);
     const startTime = useRef(null);
     const endTime = useRef(null);
+    const socket = useRef(null);
+    const firstStart = useRef(true); 
+    const isSocketCreated = useRef(false);
+    const inputSampleRate = useRef(0);
 
     useEffect(() => {
-        if (!window.navigator.mediaDevices.getUserMedia) {
-            alert('We support the latest versions of Chrome, Firefox, Safari, and Edge. Update your browser and try your request again.');
-        
+        if(firstStart.current) {
+            firstStart.current = false;
+            if (!window.navigator.mediaDevices.getUserMedia) {
+                alert('We support the latest versions of Chrome, Firefox, Safari, and Edge. Update your browser and try your request again.');
+            }
         }
+        
+        
+        return(() => {
+            if(firstStart.current) {
+                onStopConverting();
+                clearInterval(startTime.current);
+                clearInterval(endTime.current);
+            }
+            
+        });
     }, []);
 
     useEffect(() => {
         if(isTalking) {
             clearInterval(endTime.current);
             startTime.current = setInterval(() => {
-                if(!socket) {
+                if(socket.current) {
+                }
+                
+                if(!socket.current) {
                     onStartConverting();
                     setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
-                } else if(socket.readyState === socket.CONNECTING) {
+                } else if(socket.current.readyState === socket.current.CONNECTING) {
                     setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
-                } else if(socket.readyState === socket.OPEN) {
+                } else if(socket.current.readyState === socket.current.OPEN) {
                     setConnectingState(SOCKET_STATE.READY, BOT_STATE.LISTENING);
-                } else if(socket.readyState === socket.CLOSING) {
+                } else if(socket.current.readyState === socket.current.CLOSING) {
                     setConnectingState(SOCKET_STATE.CLOSING, BOT_STATE.AGAIN);
-                } else if(socket.readyState === socket.CLOSED) {
+                } else if(socket.current.readyState === socket.current.CLOSED) {
                     if(currentSocketState !== SOCKET_STATE.CONNECTING) {
                         setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
                         onStartConverting();
-                    }
-                    
+                    }    
                 }
-            }, 300);
+            }, 100);
         } else {
             clearInterval(startTime.current);
             endTime.current = setInterval(() => {
-                if(!socket) {
-                } else if(socket.readyState === socket.CONNECTING) {
+                if(socket.current) {
+                }
+                if(!socket.current) {
+                } else if(socket.current.readyState === socket.current.CONNECTING) {
                     setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
-                } else if(socket.readyState === socket.OPEN) {
+                } else if(socket.current.readyState === socket.current.OPEN) {
                     if (currentSocketState !== SOCKET_STATE.CLOSING) {
                         setConnectingState(SOCKET_STATE.CLOSING, BOT_STATE.WAIT);
                         onStopConverting();
                     }
 
-                } else if(socket.readyState === socket.CLOSING) {
+                } else if(socket.current.readyState === socket.current.CLOSING) {
                     setConnectingState(SOCKET_STATE.CLOSING, BOT_STATE.WAIT);
-                } else if(socket.readyState === socket.CLOSED) {
+                } else if(socket.current.readyState === socket.current.CLOSED) {
                     setConnectingState(SOCKET_STATE.CLOSED, BOT_STATE.READY);
                     setTranscription('')
                     clearInterval(endTime.current);
                 }
-            }, 1100);
+            }, 300);
         }
     }, [isTalking]);
 
@@ -123,15 +136,17 @@ const Speech2Text = props => {
     }
 
     const onStartConverting = () => {
+        if (isSocketCreated.current) {
+            return;
+        }
+        isSocketCreated.current = true;
         setLanguage();
         setLocation();
 
-        // first we get the microphone input from the browser (as a promise)...
         window.navigator.mediaDevices.getUserMedia({
                 video: false,
                 audio: true
             })
-            // ...then we convert the mic stream to binary event stream messages when the promise resolves 
             .then(streamAudioToWebSocket) 
             .catch(function (error) {
                 alert('There was an error streaming your audio to Amazon Transcribe. Please try again.');
@@ -139,22 +154,23 @@ const Speech2Text = props => {
     }
 
     const onStopConverting = () => {
+        if(!isSocketCreated.current) {
+            return;
+        }
+        isSocketCreated.current = false;
         closeSocket();
     }
 
     
     const streamAudioToWebSocket = async (userMediaStream) => {
-        //let's get the mic input from the browser, via the microphone-stream module
         micStream = new mic();
 
         micStream.on("format", function(data) {
-            inputSampleRate = data.sampleRate;
+            inputSampleRate.current = data.sampleRate;
         });
 
         micStream.setStream(userMediaStream);
 
-        // Pre-signed URLs are a way to authenticate a request (or WebSocket connection, in this case)
-        // via Query Parameters. Learn more: https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
         const response = await fetch("api/member/voiceurl", {
             method: "POST",
             mode: "same-origin",
@@ -169,30 +185,24 @@ const Speech2Text = props => {
 
         let url = resUrl.url;
 
-        //open up our WebSocket connection
-        socket = new WebSocket(url);
-        socket.binaryType = "arraybuffer";
+        socket.current = new WebSocket(url);
+        socket.current.binaryType = "arraybuffer";
 
-        // when we get audio data from the mic, send it to the WebSocket if possible
-        socket.onopen = function() {
+        socket.current.onopen = function() {
             micStream.on('data', function(rawAudioChunk) {
-                // the audio stream is raw audio bytes. Transcribe expects PCM with additional metadata, encoded as binary
                 let binary = convertAudioToBinaryMessage(rawAudioChunk);
 
-                if (socket.readyState === socket.OPEN)
-                    socket.send(binary);
+                if (socket.current.readyState === socket.current.OPEN)
+                    socket.current.send(binary);
             }
         )};
 
-        // handle messages, errors, and close events
         wireSocketEvents();
     }
 
 
     const wireSocketEvents = () => {
-        // handle inbound messages from Amazon Transcribe
-        socket.onmessage = function (message) {
-            //convert the binary event stream message to JSON
+        socket.current.onmessage = function (message) {
             let messageWrapper = eventStreamMarshaller.unmarshall(Buffer(message.data));
             let messageBody = JSON.parse(String.fromCharCode.apply(String, messageWrapper.body));
             if (messageWrapper.headers[":message-type"].value === "event") {
@@ -204,15 +214,14 @@ const Speech2Text = props => {
             }
         };
 
-        socket.onerror = function () {
+        socket.current.onerror = function () {
             socketError = true;
             alert('WebSocket connection error. Try again.');
         };
         
-        socket.onclose = function (closeEvent) {
+        socket.current.onclose = function (closeEvent) {
             micStream.stop();
-            
-            // the close event immediately follows the error event; only handle one.
+            isSocketCreated.current = false;
             if (!socketError && !transcribeException) {
                 if (closeEvent.code != 1000) {
                     alert('</i><strong>Streaming Exception</strong><br>' + closeEvent.reason);
@@ -228,13 +237,10 @@ const Speech2Text = props => {
             if (results[0].Alternatives.length > 0) {
                 let transcript = results[0].Alternatives[0].Transcript;
 
-                // fix encoding for accented characters
                 transcript = decodeURIComponent(escape(transcript));
-                console.log(transcript);
-                // update the textarea with the latest result
+
                 setTranscription(transcript);
                 dispatch(updatePartialTranscript(transcript));
-                // if this transcript segment is final, add it to the overall transcription
                 if (!results[0].IsPartial) {
                     dispatch(updateCompletedTranscript(transcript));
                     dispatch(
@@ -251,17 +257,16 @@ const Speech2Text = props => {
     }
 
     const closeSocket = () => {
-        if(!socket) {
+        if(!socket.current) {
             return;
         }
         
-        if (socket.readyState === socket.OPEN) {
+        if (socket.current.readyState === socket.current.OPEN) {
             micStream.stop();
 
-            // Send an empty frame so that Transcribe initiates a closure of the WebSocket after submitting all transcripts
             let emptyMessage = getAudioEventMessage(Buffer.from(new Buffer([])));
             let emptyBuffer = eventStreamMarshaller.marshall(emptyMessage);
-            socket.send(emptyBuffer);
+            socket.current.send(emptyBuffer);
         }
     }
 
@@ -272,21 +277,17 @@ const Speech2Text = props => {
         if (raw == null)
             return;
 
-        // downsample and convert the raw audio bytes to PCM
-        let downsampledBuffer = downsampleBuffer(raw, inputSampleRate, sampleRate);
+        let downsampledBuffer = downsampleBuffer(raw, inputSampleRate.current, sampleRate);
         let pcmEncodedBuffer = pcmEncode(downsampledBuffer);
 
-        // add the right JSON headers and structure to the message
         let audioEventMessage = getAudioEventMessage(Buffer.from(pcmEncodedBuffer));
 
-        //convert the JSON object + headers into a binary event stream message
         let binary = eventStreamMarshaller.marshall(audioEventMessage);
 
         return binary;
     }
 
     const getAudioEventMessage = (buffer) => {
-        // wrap the audio data in a JSON envelope
         return {
             headers: {
                 ':message-type': {

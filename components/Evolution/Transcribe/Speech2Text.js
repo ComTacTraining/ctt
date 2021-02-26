@@ -21,7 +21,7 @@ const SOCKET_STATE = {
 }
 
 const BOT_STATE = {
-    WAIT: 'pleas wait',
+    WAIT: 'Connecting',
     READY: 'I am ready',
     LISTENING: 'Listening',
     AGAIN: 'Try again',
@@ -51,21 +51,47 @@ const Speech2Text = props => {
     const firstStart = useRef(true); 
     const isSocketCreated = useRef(false);
     const inputSampleRate = useRef(0);
+    const isPressed = useRef(false);
 
     useEffect(() => {
         if(firstStart.current) {
             firstStart.current = false;
             if (!window.navigator.mediaDevices.getUserMedia) {
                 alert('We support the latest versions of Chrome, Firefox, Safari, and Edge. Update your browser and try your request again.');
+            } else {
+                startTime.current = setInterval(() => {
+                    if(socket.current){
+                    }
+                    if(!socket.current) {
+                        onStartConverting();
+                        setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
+                    } else if(socket.current.readyState === socket.current.CONNECTING) {
+                        setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
+                    } else if(socket.current.readyState === socket.current.OPEN) {
+                        if(isPressed.current) {
+                            setConnectingState(SOCKET_STATE.READY, BOT_STATE.LISTENING);
+
+                        } else {
+                            setConnectingState(SOCKET_STATE.READY, BOT_STATE.READY);
+                        }
+                    } else if(socket.current.readyState === socket.current.CLOSING) {
+                        setConnectingState(SOCKET_STATE.CLOSING, BOT_STATE.AGAIN);
+                    } else if(socket.current.readyState === socket.current.CLOSED) {
+                        if(currentSocketState !== SOCKET_STATE.CONNECTING) {
+                            setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
+                            onStartConverting();
+                        }    
+                    }
+                }, 1000);
             }
         }
         
         
         return(() => {
-            if(firstStart.current) {
-                onStopConverting();
+            if(!firstStart.current) {
                 clearInterval(startTime.current);
-                clearInterval(endTime.current);
+                onStopConverting();
+                clearTimeout(endTime.current);
             }
             
         });
@@ -73,50 +99,15 @@ const Speech2Text = props => {
 
     useEffect(() => {
         if(isTalking) {
-            clearInterval(endTime.current);
-            startTime.current = setInterval(() => {
-                if(socket.current) {
-                }
-                
-                if(!socket.current) {
-                    onStartConverting();
-                    setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
-                } else if(socket.current.readyState === socket.current.CONNECTING) {
-                    setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
-                } else if(socket.current.readyState === socket.current.OPEN) {
-                    setConnectingState(SOCKET_STATE.READY, BOT_STATE.LISTENING);
-                } else if(socket.current.readyState === socket.current.CLOSING) {
-                    setConnectingState(SOCKET_STATE.CLOSING, BOT_STATE.AGAIN);
-                } else if(socket.current.readyState === socket.current.CLOSED) {
-                    if(currentSocketState !== SOCKET_STATE.CONNECTING) {
-                        setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
-                        onStartConverting();
-                    }    
-                }
-            }, 100);
+            clearTimeout(endTime.current);
+            isPressed.current = isTalking;
         } else {
-            clearInterval(startTime.current);
-            endTime.current = setInterval(() => {
-                if(socket.current) {
-                }
-                if(!socket.current) {
-                } else if(socket.current.readyState === socket.current.CONNECTING) {
-                    setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
-                } else if(socket.current.readyState === socket.current.OPEN) {
-                    if (currentSocketState !== SOCKET_STATE.CLOSING) {
-                        setConnectingState(SOCKET_STATE.CLOSING, BOT_STATE.WAIT);
-                        onStopConverting();
-                    }
-
-                } else if(socket.current.readyState === socket.current.CLOSING) {
-                    setConnectingState(SOCKET_STATE.CLOSING, BOT_STATE.WAIT);
-                } else if(socket.current.readyState === socket.current.CLOSED) {
-                    setConnectingState(SOCKET_STATE.CLOSED, BOT_STATE.READY);
-                    setTranscription('')
-                    clearInterval(endTime.current);
-                }
-            }, 300);
+            endTime.current = setTimeout(() => {
+                isPressed.current = isTalking;
+                setTranscription("");
+            }, 3000);
         }
+
     }, [isTalking]);
 
     const setConnectingState = (_socketState, _botState) => {
@@ -191,9 +182,9 @@ const Speech2Text = props => {
         socket.current.onopen = function() {
             micStream.on('data', function(rawAudioChunk) {
                 let binary = convertAudioToBinaryMessage(rawAudioChunk);
-
-                if (socket.current.readyState === socket.current.OPEN)
+                if ((socket.current.readyState === socket.current.OPEN) && isPressed.current) {
                     socket.current.send(binary);
+                }
             }
         )};
 
@@ -216,15 +207,16 @@ const Speech2Text = props => {
 
         socket.current.onerror = function () {
             socketError = true;
-            alert('WebSocket connection error. Try again.');
+            console.log('WebSocket connection error. Try again.');
         };
         
         socket.current.onclose = function (closeEvent) {
             micStream.stop();
             isSocketCreated.current = false;
+
             if (!socketError && !transcribeException) {
                 if (closeEvent.code != 1000) {
-                    alert('</i><strong>Streaming Exception</strong><br>' + closeEvent.reason);
+                    console.log('</i><strong>Streaming Exception</strong><br>' + closeEvent.reason);
                 }
             }
         };

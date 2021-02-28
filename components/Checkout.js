@@ -9,10 +9,11 @@ import { H4, P } from 'mui/Typography'
 import { UserContext } from 'components/Auth/UserContext'
 import Loading from 'components/Loading'
 import Link from 'components/Link'
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
     // '& .MuiFormControl-root': {
     //   margin: theme.spacing(1),
     //   maxWidth: '100%'
@@ -29,91 +30,117 @@ const useStyles = makeStyles((theme) => ({
   success: {
     color: theme.palette.success.main
   }
-}));
+}))
 
-const Checkout = props => {
-  const classes =  useStyles()
+const Checkout = (props) => {
+  const classes = useStyles()
   const stripe = useStripe()
   const elements = useElements()
   const [success, setSuccess] = React.useState(false)
   const [error, setError] = React.useState('')
-  const { user }  = React.useContext(UserContext)
+  const { user, handleSubscription } = React.useContext(UserContext)
 
   const initialFormFields = {
     cardName: '',
     address: '',
     city: '',
     state: '',
-    zip: '',
     email: '',
-    phone: '' 
+    phone: ''
   }
-  const { values, handleChange, updateValue, handleSubmit } = useForm(async () => {
-    const result = await stripe.createPaymentMethod({
-      type: "card",
-      card: elements.getElement(CardElement),
-      billing_details: {
-        address: {
-          city: values.city,
-          line1: values.address,
-          postal_code: values.zip,
-          state: values.state
-        },
-        email: values.email,
-        name: values.cardName,
-        phone: values.phone
+  const { values, handleChange, updateValue, handleSubmit } = useForm(
+    async () => {
+      const result = await stripe.createPaymentMethod({
+        type: 'card',
+        card: elements.getElement(CardElement),
+        billing_details: {
+          address: {
+            city: values.city,
+            line1: values.address,
+            state: values.state
+          },
+          email: values.email,
+          name: values.cardName,
+          phone: values.phone
+        }
+      })
+      const paymentMethod = result.paymentMethod
+      if (result.error) {
+        setError(result.error.message)
+      } else {
+        await createStripeCustomer({
+          paymentMethodId: paymentMethod.id,
+          email: values.email
+        })
       }
-    })
-    await handleStripePaymentMethod(result)
-  }, initialFormFields)
+    },
+    initialFormFields
+  )
+
+  const createStripeCustomer = async ({ paymentMethodId, email }) => {
+    try {
+      const customerResponse = await axios.post(
+        '/api/stripe/customers/create',
+        {
+          paymentMethodId: paymentMethodId,
+          email: email
+        }
+      )
+      const customer = customerResponse.data
+      if (customer.id) {
+        createStripeSubscription(customer.id)
+      }
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
+  const createStripeSubscription = async (customerId) => {
+    try {
+      const subscriptionResponse = await axios.post(
+        '/api/stripe/subscriptions/create',
+        {
+          customerId: customerId
+        }
+      )
+      const subscription = subscriptionResponse.data
+      const done = subscription.status !== 'requires_action' ? true : false
+      if (!done && subscription.clientSecret) {
+        const confirmed = await confirmCardPayment(subscription.clientSecret)
+        if (confirmed) {
+          await handleSubscription({
+            customerId,
+            subscriptionId: subscription.id
+          })
+          setSuccess(true)
+        }
+      }
+      if (done) {
+        await handleSubscription({
+          customerId,
+          subscriptionId: subscription.id
+        })
+        setSuccess(true)
+      }
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
+  const confirmCardPayment = async (clientSecret) => {
+    const result = await stripe.confirmCardPayment(clientSecret)
+    if (!result.error) {
+      return true
+    }
+    setError(result.error.message)
+    return false
+  }
 
   React.useEffect(() => {
     if (user) {
       updateValue({ key: 'email', val: user.attributes.email })
     }
   }, [user])
-
-
-  const handleStripePaymentMethod = async result => {
-    if (result.error) {
-      setError(result.error.message)
-    } else {
-      const response = await fetch("api/member/create", {
-        method: "POST",
-        mode: "same-origin",
-        body: JSON.stringify({
-          paymentMethodId: result.paymentMethod.id
-        })
-      })
-
-      const subscription = await response.json()
-      handleSubscription(subscription)
-    }
-  };
-
-  const handleSubscription = subscription => {
-
-    try {
-      const { client_secret, status } = subscription.latest_invoice.payment_intent
-
-      if (status === "requires_action") {
-        stripe.confirmCardPayment(client_secret).then(function(result) {
-          if (result.error) {
-            // The card was declined (i.e. insufficient funds, card has expired, etc)
-            setError(result.error.message)
-          } else {
-            // Success!
-            setSuccess(true)
-          }
-        });
-      } else {
-        // No additional information was needed
-        setSuccess(true)
-      }
-    } catch (error) {
-      console.log(`handleSubscription:: No payment information received!`. error)
-    }
-  }
 
   return (
     <>
@@ -134,31 +161,80 @@ const Checkout = props => {
                 </Grid>
               )}
               <Grid item xs={12}>
-                <TextField id="cardName" name="cardName" label="Name on card" variant="outlined" fullWidth onChange={handleChange} value={values.cardName} />
+                <TextField
+                  id='cardName'
+                  name='cardName'
+                  label='Name on card'
+                  variant='outlined'
+                  fullWidth
+                  onChange={handleChange}
+                  value={values.cardName}
+                />
               </Grid>
               <Grid item xs={12}>
-                <TextField id="address" name="address" label="Address" variant="outlined" fullWidth onChange={handleChange} value={values.address} />
+                <TextField
+                  id='address'
+                  name='address'
+                  label='Address'
+                  variant='outlined'
+                  fullWidth
+                  onChange={handleChange}
+                  value={values.address}
+                />
+              </Grid>
+              <Grid item xs={9}>
+                <TextField
+                  id='city'
+                  name='city'
+                  label='City'
+                  variant='outlined'
+                  fullWidth
+                  onChange={handleChange}
+                  value={values.city}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  id='state'
+                  name='state'
+                  label='State'
+                  variant='outlined'
+                  fullWidth
+                  onChange={handleChange}
+                  value={values.state}
+                />
               </Grid>
               <Grid item xs={6}>
-                <TextField id="city" name="city" label="City" variant="outlined" fullWidth onChange={handleChange} value={values.city} />
-              </Grid>
-              <Grid item xs={2}>
-                <TextField id="state" name="state" label="State" variant="outlined" fullWidth onChange={handleChange} value={values.state} />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField id="zip" name="zip" label="Zipcode" variant="outlined" fullWidth onChange={handleChange} value={values.zipcode} />
+                <TextField
+                  id='email'
+                  name='email'
+                  label='Email'
+                  variant='outlined'
+                  fullWidth
+                  disabled
+                  value={values.email}
+                />
               </Grid>
               <Grid item xs={6}>
-                <TextField id="email" name="email" label="Email" variant="outlined" fullWidth disabled value={values.email} />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField id="phone" name="phone" label="Phone #" variant="outlined" fullWidth onChange={handleChange} value={values.phone} />
+                <TextField
+                  id='phone'
+                  name='phone'
+                  label='Phone #'
+                  variant='outlined'
+                  fullWidth
+                  onChange={handleChange}
+                  value={values.phone}
+                />
               </Grid>
               <Grid item xs={12}>
                 <CardElement />
               </Grid>
               <Grid item xs={12}>
-                <Contained type="submit" color="primary" disabled={!stripe||!user} className={classes.btn}>
+                <Contained
+                  type='submit'
+                  color='primary'
+                  disabled={!stripe || !user}
+                  className={classes.btn}>
                   Submit
                 </Contained>
               </Grid>
@@ -167,6 +243,6 @@ const Checkout = props => {
         </form>
       )}
     </>
-  );
-};
-export default Checkout;
+  )
+}
+export default Checkout

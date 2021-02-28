@@ -1,11 +1,36 @@
-const Test = ({ pk }) => {
-  return <div>pk: {pk}</div>
+import * as React from 'react'
+import Amplify, { withSSRContext } from 'aws-amplify'
+import axios from 'axios'
+import config from 'aws-exports'
+
+Amplify.configure({ ...config, ssr: true })
+
+const Test = ({ pk, testUser }) => {
+  const [user, setUser] = React.useState(null)
+  React.useEffect(() => {
+    const a = async () => {
+      const b = await axios.get('/api/member/test')
+      setUser(b)
+    }
+    a()
+  }, [])
+
+  return (
+    <div>
+      <p key='1'>pk: {pk}</p>
+      {user && <p>{JSON.stringify(user)}</p>}
+      {testUser}
+    </div>
+  )
 }
 
-export const getServerSideProps = () => {
+export const getServerSideProps = async (req) => {
+  const { Auth } = withSSRContext({ req })
+  const testUser = await Auth.currentAuthenticatedUser()
   return {
     props: {
-      pk: process.env.TRANSCRIBE_ACCESS_ID
+      pk: process.env.TRANSCRIBE_ACCESS_ID,
+      testUser
     }
   }
 }

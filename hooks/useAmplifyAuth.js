@@ -16,14 +16,23 @@ const amplifyAuthReducer = (state, action) => {
         isError: false,
         user: action.payload.user,
         isMember: action.payload.isMember,
-        isAdmin: action.payload.isAdmin,
+        isAdmin: action.payload.isAdmin
+      }
+    case 'UPDATE_TO_MEMBER':
+      return {
+        ...state,
+        isMember: true
       }
     case 'FETCH_USER_DATA_FAILURE':
       return { ...state, isLoading: false, isError: true }
     case 'RESET_USER_DATA':
       return { ...state, user: null }
     case 'ERROR_MESSAGE':
-      return { ...state, isError: true, errorMessage: action.payload.errorMessage }
+      return {
+        ...state,
+        isError: true,
+        errorMessage: action.payload.errorMessage
+      }
     case 'CLEAR_ERROR_MESSAGE':
       return { ...state, isError: false, errorMessage: '' }
     default:
@@ -56,10 +65,20 @@ const useAmplifyAuth = () => {
           if (data) {
             dispatch({
               type: 'FETCH_USER_DATA_SUCCESS',
-              payload: { 
-                user: data, 
-                isMember: data.attributes['custom:expired'] && data.attributes['custom:expired'] === '0' ? true : false,
-                isAdmin: data.signInUserSession.idToken.payload['cognito:groups'] && data.signInUserSession.idToken.payload['cognito:groups'].includes('Admin') ? true : false
+              payload: {
+                user: data,
+                isMember:
+                  data.attributes['custom:expired'] &&
+                  data.attributes['custom:expired'] === '0'
+                    ? true
+                    : false,
+                isAdmin:
+                  data.signInUserSession.idToken.payload['cognito:groups'] &&
+                  data.signInUserSession.idToken.payload[
+                    'cognito:groups'
+                  ].includes('Admin')
+                    ? true
+                    : false
               }
             })
           }
@@ -72,13 +91,13 @@ const useAmplifyAuth = () => {
     }
 
     const HubListener = () => {
-      Hub.listen('auth', data => {
+      Hub.listen('auth', (data) => {
         const { payload } = data
         onAuthEvent(payload)
       })
     }
 
-    const onAuthEvent = payload => {
+    const onAuthEvent = (payload) => {
       // console.log(`auth event: ${payload.event} with data: ${payload.data.message}`)
       switch (payload.event) {
         case 'signIn':
@@ -87,10 +106,16 @@ const useAmplifyAuth = () => {
           }
           break
         case 'signUp_failure':
-          dispatch({ type: 'ERROR_MESSAGE', payload: { errorMessage: payload.data.message } })
+          dispatch({
+            type: 'ERROR_MESSAGE',
+            payload: { errorMessage: payload.data.message }
+          })
           break
         case 'signIn_failure':
-          dispatch({ type: 'ERROR_MESSAGE', payload: { errorMessage: payload.data.message } })
+          dispatch({
+            type: 'ERROR_MESSAGE',
+            payload: { errorMessage: payload.data.message }
+          })
           break
         default:
           return
@@ -120,7 +145,26 @@ const useAmplifyAuth = () => {
     dispatch({ type: 'CLEAR_ERROR_MESSAGE' })
   }
 
-  return { state, handleSignOut, handleClearError }
+  const handleSubscription = async ({ customerId, subscriptionId }) => {
+    if (state.user) {
+      try {
+        await Auth.updateUserAttributes(state.user, {
+          'custom:stripecustomerid': customerId,
+          'custom:stripesubscriptionid': subscriptionId,
+          'custom:expired': '0'
+        })
+        dispatch({ type: 'UPGRADE_TO_MEMBER' })
+      } catch (error) {
+        console.error()
+      }
+    } else {
+      console.error(
+        `Error establishing a user to save customerId: ${customerId} and subscription id: ${subscriptionId}`
+      )
+    }
+  }
+
+  return { state, handleSignOut, handleClearError, handleSubscription }
 }
 
 export default useAmplifyAuth

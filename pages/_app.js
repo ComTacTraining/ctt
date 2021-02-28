@@ -14,21 +14,12 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 import { createStore } from 'store'
 import Amplify from 'aws-amplify'
-import Auth from '@aws-amplify/auth'
-import Predictions, {
-  AmazonAIPredictionsProvider
-} from '@aws-amplify/predictions'
 
 import config from 'aws-exports'
 Amplify.configure({
   ...config,
   ssr: true
 })
-// Amplify.register(Predictions)
-// Amplify.addPluggable(new AmazonAIPredictionsProvider())
-Auth.configure(config)
-Predictions.configure(config)
-// Predictions.addPluggable(new AmazonAIPredictionsProvider())
 
 const store = createStore()
 
@@ -43,7 +34,8 @@ const MyApp = ({ Component, pageProps }) => {
   const {
     state: { user, isLoading, isMember, isAdmin, errorMessage },
     handleSignOut,
-    handleClearError
+    handleClearError,
+    handleSubscription
   } = useAmplifyAuth()
 
   const value = React.useMemo(
@@ -54,7 +46,8 @@ const MyApp = ({ Component, pageProps }) => {
       isAdmin,
       errorMessage,
       handleSignOut,
-      handleClearError
+      handleClearError,
+      handleSubscription
     }),
     [
       user,
@@ -63,7 +56,8 @@ const MyApp = ({ Component, pageProps }) => {
       isAdmin,
       errorMessage,
       handleSignOut,
-      handleClearError
+      handleClearError,
+      handleSubscription
     ]
   )
 

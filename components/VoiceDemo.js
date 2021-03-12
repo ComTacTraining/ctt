@@ -14,7 +14,9 @@ import { playlistFromId } from 'utils/video'
 import { UserContext } from 'components/Auth/UserContext'
 // import useKeyPress from 'hooks/useKeyPress'
 import KeyMapping from 'components/Evolution/KeyMapping/KeyMapping'
-import Radio from 'components/Evolution/Transcribe/Radio'
+import Radio from 'components/Evolution/Transcribe/Radio';
+import RadioSound from 'components/Evolution/Transcribe/RadioSound';
+import Speech2Text from "components/Evolution/Transcribe/Speech2Text";
 
 const VoiceDemo = () => {
   const router = useRouter()
@@ -46,9 +48,9 @@ const VoiceDemo = () => {
         <>
           {firstAlarmAnnounced && (
             <>
-              {/* <KeyMapping />
-              <Radio /> */}
-              {/* <Speech2Text /> */}
+              {/* <KeyMapping /> */}
+              <RadioSound />
+              <Speech2Text />
             </>
           )}
           <AI />

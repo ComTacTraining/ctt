@@ -23,6 +23,8 @@ export const UPDATE_COMPLETED_TRANSCRIPT = "UPDATE_COMPLETED_TRANSCRIPT";
 export const CLEAR_COMMAND = "CLEAR_COMMAND";
 export const START_RECORDING_MICROPHONE = "START_RECORDING_MICROPHONE";
 export const STOP_RECORDING_MICROPHONE = "STOP_RECORDING_MICROPHONE";
+export const START_LISTENING_MICROPHONE = "START_LISTENING_MICROPHONE";
+export const STOP_LISTENING_MICROPHONE = "STOP_LISTENING_MICROPHONE";
 export const INCREMENT_UNITS_ASSIGNED = "INCREMENT_UNITS_ASSIGNED";
 export const ADD_ASSIGNED_GROUP = "ADD_ASSIGNED_GROUP";
 export const UPDATE_LAST_PLAYED_VIDEO = "UPDATE_LAST_PLAYED_VIDEO";
@@ -35,6 +37,7 @@ export const ADD_TO_LOG = "ADD_TO_LOG";
 export const SET_COMMAND_NAME = "SET_COMMAND_NAME";
 export const START_TIME = "START_TIME";
 export const SET_AVAILABLE_VOICES = "SET_AVAILABLE_VOICES";
+export const UPDATE_SPEECH_BOT_STATE = "UPDATE_SPEECH_BOT_STATE";
 
 export const firstAlarmAnnounced = () => {
   return { type: FIRST_ALARM_ANNOUNCED };
@@ -109,6 +112,15 @@ export const updatePartialTranscript = text => {
   };
 };
 
+export const updateSpeechBotState = text => {
+  return {
+    type: UPDATE_SPEECH_BOT_STATE,
+    payload: {
+      text: text
+    }
+  };
+};
+
 export const updateCompletedTranscript = text => {
   return {
     type: UPDATE_COMPLETED_TRANSCRIPT,
@@ -128,12 +140,24 @@ export const startRecordingMicrophone = () => {
   };
 };
 
+
 export const stopRecordingMicrophone = () => {
   return {
     type: STOP_RECORDING_MICROPHONE
   };
 };
 
+export const startListeningMicrophone = () => {
+  return {
+    type: START_LISTENING_MICROPHONE
+  };
+};
+
+export const stopListeningMicrophone = () => {
+  return {
+    type: STOP_LISTENING_MICROPHONE
+  };
+};
 export const incrementUnitsAssigned = () => {
   return {
     type: INCREMENT_UNITS_ASSIGNED

@@ -17,6 +17,7 @@ const Speak = () => {
   const [speech, setSpeech] = useState({ text: '', voice: '', meta: null });
 
   useEffect(() => {
+    console.log("waitingToBeSpoken ", waitingToBeSpoken);
     if (waitingToBeSpoken.length > 0 && !isRecordingMicrophone) {
       const label = waitingToBeSpoken[0].label;
       const text = waitingToBeSpoken[0].text;
@@ -26,8 +27,9 @@ const Speak = () => {
 
       setSpeech({ text, voice, meta });
       dispatch(addToLog({ timestamp, label, text }));
+      console.log("speaking");
     }
-  }, [waitingToBeSpoken, isRecordingMicrophone, dispatch]);
+  }, [waitingToBeSpoken, dispatch]);
 
   const metaTriggersAfterSpeech = meta => {
     switch (meta) {

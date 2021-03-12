@@ -20,7 +20,9 @@ const initialState = {
   isPartialCommand: false,
   partialCommand: "",
   command: "",
+  speechBotState: "",
   isRecordingMicrophone: false,
+  isListeningMicrophone: false,
   unitsAssigned: 0,
   groupsAssigned: [],
   scrollText: [],
@@ -129,6 +131,11 @@ const reducer = (state = initialState, action) => {
         isPartialCommand: true,
         partialCommand: action.payload.text
       };
+    case actionTypes.UPDATE_SPEECH_BOT_STATE:
+      return {
+        ...state,
+        speechBotState: action.payload.text
+      }
     case actionTypes.UPDATE_COMPLETED_TRANSCRIPT:
       return {
         ...state,
@@ -150,6 +157,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isRecordingMicrophone: false
+      };
+    case actionTypes.START_LISTENING_MICROPHONE:
+      return {
+        ...state,
+        isListeningMicrophone: true
+      };
+    case actionTypes.STOP_LISTENING_MICROPHONE:
+      return {
+        ...state,
+        isListeningMicrophone: false
       };
     case actionTypes.INCREMENT_UNITS_ASSIGNED:
       return {

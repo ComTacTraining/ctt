@@ -13,11 +13,11 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import TuneIcon from "@material-ui/icons/Tune";
 import YesNoOption from "./YesNoOption";
 import TextField from "../Transcribe/TextField";
-import Speech2Text from "../Transcribe/Speech2Text";
 import Log from "./Log";
 import { groupConstToDisplay } from "utils/ai";
 import TabPanel from "./TabPanel";
 import { faceToFaceCompleted, educationCompleted } from "store/actions/ai";
+import VoiceTextField from "../Transcribe/VoiceTextField";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -338,7 +338,7 @@ const AdminPanel = ({ withVoice = false }) => {
                 <br />
               </Typography>
               {!withVoice && ai.firstAlarmAnnounced && <TextField key="textfield" />}
-              {withVoice && ai.firstAlarmAnnounced && <Speech2Text />}
+              {withVoice && ai.firstAlarmAnnounced && <VoiceTextField />}
               <Typography key="log_title_type" variant="caption">
                 <strong>Log: </strong>
                 <br />

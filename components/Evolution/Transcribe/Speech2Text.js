@@ -4,7 +4,12 @@ import useKeyPress from "hooks/useKeyPress";
 import {
     updatePartialTranscript,
     updateCompletedTranscript,
-    addToLog
+    addToLog,
+    updateSpeechBotState,
+    startListeningMicrophone,
+    stopListeningMicrophone,
+    startRecordingMicrophone,
+    stopRecordingMicrophone
   } from "store/actions/ai";
 
 import * as util_utf8_node from '@aws-sdk/util-utf8-node';
@@ -38,20 +43,20 @@ let transcribeException = false;
 const Speech2Text = props => {
     const dispatch = useDispatch();
     const { firstOnScene } = useSelector(state => state.user);
-    const isTalking = useKeyPress('Space', true);
+    const isPressed = useKeyPress('Space', true);
     const [languageCode, setLanguageCode] = useState('en-US');
     const [region, setRegion] = useState('us-east-1');
     const [sampleRate, setSampleRate] = useState(44100);
-    const [transcription, setTranscription] = useState('');
 
-    const [currentBotState, setCurrentBotState] = useState(BOT_STATE.READY);
     const startTime = useRef(null);
     const endTime = useRef(null);
     const socket = useRef(null);
     const firstStart = useRef(true); 
     const isSocketCreated = useRef(false);
     const inputSampleRate = useRef(0);
-    const isPressed = useRef(false);
+    const isTalking = useRef(false);
+    const savePartialScripts = useRef('');
+    const currentBotState = useRef(BOT_STATE.CONNECTING);
 
     useEffect(() => {
         if(firstStart.current) {
@@ -68,7 +73,7 @@ const Speech2Text = props => {
                     } else if(socket.current.readyState === socket.current.CONNECTING) {
                         setConnectingState(SOCKET_STATE.CONNECTING, BOT_STATE.WAIT);
                     } else if(socket.current.readyState === socket.current.OPEN) {
-                        if(isPressed.current) {
+                        if(isTalking.current) {
                             setConnectingState(SOCKET_STATE.READY, BOT_STATE.LISTENING);
 
                         } else {
@@ -92,27 +97,54 @@ const Speech2Text = props => {
                 clearInterval(startTime.current);
                 onStopConverting();
                 clearTimeout(endTime.current);
+                savePartialScripts.current = '';
             }
             
         });
     }, []);
 
     useEffect(() => {
-        if(isTalking) {
+        if(isPressed) {
             clearTimeout(endTime.current);
-            isPressed.current = isTalking;
+            savePartialScripts.current = '';
+
+            if(socket.current.readyState === socket.current.OPEN) {
+                isTalking.current = true;
+                // dispatch(startListeningMicrophone());
+                dispatch(startRecordingMicrophone());
+                currentBotState.current = BOT_STATE.LISTENING;
+            } else {
+                isTalking.current = false;
+            }
         } else {
+            if(!isTalking.current) return;
+            // dispatch(stopListeningMicrophone());
+            dispatch(stopRecordingMicrophone());
             endTime.current = setTimeout(() => {
-                isPressed.current = isTalking;
-                setTranscription("");
-            }, 3000);
+                isTalking.current = false;
+                if(savePartialScripts.current !== '') {
+                    dispatch(updateCompletedTranscript(savePartialScripts.current));
+                    dispatch(
+                        addToLog({
+                            timestamp: Date.now(),
+                            label: firstOnScene,
+                            text: savePartialScripts.current
+                        })
+                    );
+                    savePartialScripts.current = '';
+
+                }
+                
+            }, 2000);
         }
 
-    }, [isTalking]);
+    }, [isPressed]);
 
     const setConnectingState = (_socketState, _botState) => {
-        setCurrentBotState(_botState);
         currentSocketState = _socketState;
+        currentBotState.current = _botState;
+        dispatch(updateSpeechBotState(_botState));
+
     }
 
     const setLanguage = () => {
@@ -182,7 +214,7 @@ const Speech2Text = props => {
         socket.current.onopen = function() {
             micStream.on('data', function(rawAudioChunk) {
                 let binary = convertAudioToBinaryMessage(rawAudioChunk);
-                if ((socket.current.readyState === socket.current.OPEN) && isPressed.current) {
+                if ((socket.current.readyState === socket.current.OPEN) && isTalking.current) {
                     socket.current.send(binary);
                 }
             }
@@ -231,18 +263,9 @@ const Speech2Text = props => {
 
                 transcript = decodeURIComponent(escape(transcript));
 
-                setTranscription(transcript);
-                dispatch(updatePartialTranscript(transcript));
+                dispatch(updatePartialTranscript(savePartialScripts.current + transcript));
                 if (!results[0].IsPartial) {
-                    dispatch(updateCompletedTranscript(transcript));
-                    dispatch(
-                        addToLog({
-                          timestamp: Date.now(),
-                          label: firstOnScene,
-                          text: transcript
-                        })
-                      );
-
+                    savePartialScripts.current = savePartialScripts.current + transcript;
                 }
             }
         }
@@ -297,15 +320,7 @@ const Speech2Text = props => {
 
     return (
         <div id="speech-text">
-            <h3>{currentBotState}</h3>
-             <textarea
-                rows="4" 
-                cols="50" 
-                readOnly 
-                value={transcription}
-                >
-                {transcription}
-            </textarea>
+
         </div>
     );
 }

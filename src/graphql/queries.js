@@ -70,6 +70,37 @@ export const listEvolutions = /* GraphQL */ `
     }
   }
 `;
+export const getIncident = /* GraphQL */ `
+  query GetIncident($id: ID!) {
+    getIncident(id: $id) {
+      id
+      title
+      icsNims
+      command
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listIncidents = /* GraphQL */ `
+  query ListIncidents(
+    $filter: ModelIncidentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listIncidents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        icsNims
+        command
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const evolutionByCategory = /* GraphQL */ `
   query EvolutionByCategory(
     $category: Category
@@ -157,37 +188,6 @@ export const evolutionByCategoryNumber = /* GraphQL */ `
         exposure
         ric
         medical
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getIncident = /* GraphQL */ `
-  query GetIncident($id: ID!) {
-    getIncident(id: $id) {
-      id
-      title
-      icsNims
-      command
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listIncidents = /* GraphQL */ `
-  query ListIncidents(
-    $filter: ModelIncidentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listIncidents(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        title
-        icsNims
-        command
         createdAt
         updatedAt
       }

@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "sims",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authctt0071b465",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

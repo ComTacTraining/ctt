@@ -1,8 +1,16 @@
-import { useState, useEffect } from 'react'
+import * as React from 'react'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { API } from 'aws-amplify'
-import { H3, P } from 'mui/Typography'
+// import { API, graphqlOperation } from 'aws-amplify'
+import { H3 } from 'mui/Typography'
 import Simulation from './Evolution/Evolution'
+// import {
+//   evolutionByCategory,
+//   evolutionByCategoryNumber
+// } from 'src/graphql/queries'
+import { evolutions } from 'fixtures/evolutions'
+import { incidents } from 'fixtures/incidents'
+import { getEvolution, getIncident } from '~/src/graphql/queries'
 
 // import React, { useState, useEffect } from "react";
 // import { useDispatch } from "react-redux";
@@ -43,25 +51,27 @@ const randomId = (category, construction) => {
 
 const randomCategory = () => {
   const categories = [
-    { id: 1, building: 'commercial' }, 
-    { id: 2, building: 'industrial' }, 
-    { id: 3, building: 'multi-family' }, 
+    { id: 1, building: 'commercial' },
+    { id: 2, building: 'industrial' },
+    { id: 3, building: 'multi-family' },
     { id: 4, building: 'single-family' }
   ]
   const randId = randomInteger(1, 4)
-  const cat = categories.find(c => c.id === randId)
+  const cat = categories.find((c) => c.id === randId)
   return cat.building
 }
 
 const Evolution = ({ category = '', construction = '', id = 0 }) => {
-  const [evolutionId, setEvolutionId] = useState()
-  const [title, setTitle] = useState('Evolution')
-  useEffect(() => {
+  const dispatch = useDispatch()
+  const [evolutionId, setEvolutionId] = React.useState()
+  const [title, setTitle] = React.useState('Evolution')
+
+  React.useEffect(() => {
     const setupEvolution = (category, construction, id) => {
       let evoId = ''
       let evoTitle = ''
       if (category === 'commercial') {
-        evoId = "c"
+        evoId = 'c'
         evoTitle = 'Commercial'
       } else if (category === 'industrial') {
         evoId = 'i'
@@ -73,11 +83,11 @@ const Evolution = ({ category = '', construction = '', id = 0 }) => {
         evoId = 'sf'
         evoTitle = 'Single-Famly'
       }
-      if (construction === "modern") {
-        evoId = `${evoId}m${id}`;
+      if (construction === 'modern') {
+        evoId = `${evoId}m${id}`
         evoTitle = `${evoTitle} Modern ${id}`
       } else {
-        evoId = `${evoId}l${id}`;
+        evoId = `${evoId}l${id}`
         evoTitle = `${evoTitle} Legacy ${id}`
       }
       setEvolutionId(evoId)
@@ -85,10 +95,10 @@ const Evolution = ({ category = '', construction = '', id = 0 }) => {
     }
 
     if (category !== '' && construction !== '' && id !== 0) {
-      setupEvolution(category, construction, id);
+      setupEvolution(category, construction, id)
     } else if (category !== '' && construction !== '') {
       const randId = randomId(category, construction)
-      setupEvolution(category, construction, randId);
+      setupEvolution(category, construction, randId)
     } else if (category !== '') {
       const randConstruction = randomConstruction()
       const randId = randomId(category, randConstruction)
@@ -99,7 +109,63 @@ const Evolution = ({ category = '', construction = '', id = 0 }) => {
       const randId = randomId(randCategory, randConstruction)
       setupEvolution(randCategory, randConstruction, randId)
     }
-  }, [category, construction, id]);
+  }, [category, construction, id])
+
+  React.useEffect(() => {
+    // const getEvolutionQuery = async () => {
+    //   try {
+    //     const request = await API.graphql({
+    //       query: evolutionByCategoryNumber,
+    //       variables: {
+    //         category: 'COMMERCIALLEGACY',
+    //         number: 1
+    //       }
+    //     })
+    //     const request = await API.graphql(
+    //       graphqlOperation(evolutionByCategoryNumber, {
+    //         category: `COMMERCIALLEGACY`,
+    //         number: `1`,
+    //         limit: 1
+    //       })
+    //     )
+    //     console.log(request.data.evolutionByCategory)
+    //     dispatch(
+    //       evolutionActions.updateEvolution(request.data.evolutionByCategory)
+    //     )
+    //   } catch (e) {
+    //     console.error(e)
+    //   }
+    // }
+
+    // const getIncidentQuery = async () => {
+    //   try {
+    //     const incidentId = Math.floor(Math.random() * 46) + 1
+    //     const request = await API.graphql(
+    //       graphqlOperation(getIncident, { id: `${incidentId}` })
+    //     )
+    //     dispatch(evolutionActions.updateIncident(request.data.getIncident))
+    //   } catch (e) {
+    //     console.error(e)
+    //   }
+    // }
+
+    const getEvolution = () => {
+      const evo = evolutions.find((e) => e.id === evolutionId)
+      const incidentCount = incidents.length
+      const incidentIndex = Math.floor(math.random() * incidentCount) + 1
+      const incident = incidents[incidentIndex]
+      dispatch(evolutionActions.updateEvolution(evo))
+      // dispatch(in)
+    }
+
+    if (evolutionId) {
+      // getEvolutionQuery()
+      // getIncidentQuery()
+      getEvolution()
+      getIncident()
+    }
+  }, [evolutionId, dispatch])
+
   return (
     <>
       <H3>{title}</H3>

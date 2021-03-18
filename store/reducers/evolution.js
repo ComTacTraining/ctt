@@ -1,32 +1,33 @@
-import * as actionTypes from "../actions/evolution";
+import * as actionTypes from '../actions/evolution'
 
 const initialState = {
-  id: "sfm23",
-  category: "SINGLEFAMILYMODERN",
-  construction: ["MODERN"],
-  street: "623 Luna Park",
-  size: "MEDIUM",
+  id: 'sfm23',
+  category: 'SINGLEFAMILYMODERN',
+  construction: ['MODERN'],
+  street: '623 Luna Park',
+  size: 'MEDIUM',
   stories: 1,
-  occupancy: "Single Family Dwelling",
-  conditions: "CHARLIE",
-  entryEgress: ["ALPHA", "BRAVO", "CHARLIE"],
-  survivability: "MARGINAL",
-  placement: "CHARLIE",
-  side: "CHARLIE",
-  flow: "BIDIRECTIONAL",
-  fire: "ROOMCONTENTS",
-  exhaust: "CHARLIE",
-  smoke: "BLACKLAMINAR",
+  occupancy: 'Single Family Dwelling',
+  conditions: 'CHARLIE',
+  entryEgress: ['ALPHA', 'BRAVO', 'CHARLIE'],
+  survivability: 'MARGINAL',
+  placement: 'CHARLIE',
+  side: 'CHARLIE',
+  flow: 'BIDIRECTIONAL',
+  fire: 'ROOMCONTENTS',
+  exhaust: 'CHARLIE',
+  smoke: 'BLACKLAMINAR',
   withstanding: false,
   attack: true,
   ventilation: true,
   exposure: true,
   ric: true,
   medical: true,
-  incidentTitle: "Ladder Slip Injuries",
-  incidentGroup: "VENTILATION",
-  incidentCommand: "Command from __NAME__ firefighter has been injured on a ground ladder that has slipped, he rode the ladder to the ground and hit his head. He is unconcious."
-};
+  incidentTitle: 'Ladder Slip Injuries',
+  incidentGroup: 'VENTILATION',
+  incidentCommand:
+    'Command from __NAME__ firefighter has been injured on a ground ladder that has slipped, he rode the ladder to the ground and hit his head. He is unconscious.'
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -55,19 +56,19 @@ const reducer = (state = initialState, action) => {
         exposure: action.payload.eexposure,
         ric: action.payload.ric,
         medical: action.payload.medical
-      };
+      }
     case actionTypes.UPDATE_INCIDENT:
       return {
         ...state,
         incidentTitle: action.payload.incidentTitle,
         incidentGroup: action.payload.incidentGroup,
         incidentCommand: action.payload.incidentCommand
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer
 
-export { initialState };
+export { initialState }

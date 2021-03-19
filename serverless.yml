@@ -1,5 +1,5 @@
 nextApp:
-  component: '@sls-next/serverless-component@1.18.0'
+  component: '@sls-next/serverless-component@1.19.0-alpha.33'
   inputs:
     env:
       STRIPE_PUBLISHABLE_KEY: ${env.STRIPE_PUBLISHABLE_KEY}
@@ -11,7 +11,7 @@ nextApp:
       defaults:
         forward:
           headers: [Host]
-    domain: ['newctt.com']
+    domain: 'newctt.com'
     domainType: 'both'
     domainRedirects:
       www.newctt.com: https://newctt.com

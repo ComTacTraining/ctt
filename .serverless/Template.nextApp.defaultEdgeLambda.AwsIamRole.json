@@ -1,6 +1,6 @@
 {
-  "name": "fhpner-rghjp8",
-  "arn": "arn:aws:iam::919358325493:role/fhpner-rghjp8",
+  "name": "dul35mb-iku8wyl",
+  "arn": "arn:aws:iam::919358325493:role/dul35mb-iku8wyl",
   "service": [
     "edgelambda.amazonaws.com",
     "lambda.amazonaws.com"
@@ -19,7 +19,7 @@
       },
       {
         "Effect": "Allow",
-        "Resource": "arn:aws:s3:::fhpner-x54dlxs/*",
+        "Resource": "arn:aws:s3:::dul35mb-lwm1bm/*",
         "Action": [
           "s3:GetObject",
           "s3:PutObject"

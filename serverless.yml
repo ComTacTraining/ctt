@@ -7,11 +7,4 @@ nextApp:
       STRIPE_PRICE_ID: ${env.STRIPE_PRICE_ID}
       TRANSCRIBE_ACCESS_ID: ${env.TRANSCRIBE_ACCESS_ID}
       TRANSCRIBE_SECRET_KEY: ${env.TRANSCRIBE_SECRET_KEY}
-    cloudfront:
-      defaults:
-        forward:
-          headers: [Host]
     domain: 'newctt.com'
-    domainType: 'both'
-    domainRedirects:
-      www.newctt.com: https://newctt.com

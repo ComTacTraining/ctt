@@ -5,8 +5,8 @@
   "subdomains": [
     {
       "domain": "www.newctt.com",
-      "distributionId": "E3JEV7VFKGUOU2",
-      "url": "https://d3vxec6srt5yg6.cloudfront.net",
+      "distributionId": "E27OZBAEYFWLW6",
+      "url": "https://ddpmuwlt3e5t2.cloudfront.net",
       "type": "awsCloudFront"
     }
   ]

@@ -12,10 +12,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { startTime } from 'store/actions/ai'
 import { playlistFromId } from 'utils/video'
 import { UserContext } from 'components/Auth/UserContext'
-import RadioSound from 'components/Evolution/Transcribe/RadioSound'
-import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
 
-const Demo = () => {
+const TextDemo = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { firstAlarmAnnounced, faceToFaceCompleted } = useSelector(
@@ -41,12 +39,6 @@ const Demo = () => {
     <>
       {playlist && (
         <>
-          {firstAlarmAnnounced && (
-            <>
-              <RadioSound />
-              <Speech2Text />
-            </>
-          )}
           <AI />
           <Speak />
           <TextToSpeech />
@@ -55,10 +47,11 @@ const Demo = () => {
             {firstAlarmAnnounced && <Tips />}
             <VideoPlayer playlist={playlist} />
           </VideoLayout>
+          <AdminPanel />
         </>
       )}
     </>
   )
 }
 
-export default Demo
+export default TextDemo

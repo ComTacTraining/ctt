@@ -14,16 +14,16 @@ import Link from './Link'
 import MobileItem from './Layout/MobileItem'
 import DesktopItem from './Layout/DesktopItem'
 import { UserContext } from './Auth/UserContext'
-import { visitor, guest, member } from 'utils/routes'
+import { visitor, guest, member, admin } from 'utils/routes'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+      display: 'none'
+    }
   },
   title: {
     flexGrow: 1,
@@ -32,74 +32,110 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
-      flexShrink: 0,
-    },
+      flexShrink: 0
+    }
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
     backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   toolbar: theme.mixins.toolbar,
   logo: {
     marginRight: theme.spacing(8),
-    stroke: 1,
+    stroke: 1
   },
   offset: theme.mixins.toolbar
 }))
 
 const AppBar = ({ window }) => {
   const classes = useStyles()
-  const { user, isMember, handleSignOut } = React.useContext(UserContext)
+  const { user, isMember, isAdmin, handleSignOut } = React.useContext(
+    UserContext
+  )
   const [mobileOpen, setMobileOpen] = React.useState(false)
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    setMobileOpen(!mobileOpen)
   }
 
-  const container = window !== undefined ? () => window().document.body : undefined
+  const container =
+    window !== undefined ? () => window().document.body : undefined
 
-  const routes = user ? (isMember ? member : guest) : visitor
-  
+  const routes = user ? (isAdmin ? admin : isMember ? member : guest) : visitor
+
   return (
     <>
-      <MuiAppBar position="fixed" color="inherit" elevation={0} className={classes.appBar}>
+      <MuiAppBar
+        position='fixed'
+        color='inherit'
+        elevation={0}
+        className={classes.appBar}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="open drawer" onClick={handleDrawerToggle}>
-            <Icon className="fas fa-bars" />
+          <IconButton
+            edge='start'
+            className={classes.menuButton}
+            color='inherit'
+            aria-label='open drawer'
+            onClick={handleDrawerToggle}>
+            <Icon className='fas fa-bars' />
           </IconButton>
-          <Link href="/" color="inherit" className="class.logo">
-            <img src="/logo-stroke.png" alt="Logo" width={42} height={42} className={classes.logo} />
+          <Link href='/' color='inherit' className='class.logo'>
+            <img
+              src='/logo-stroke.png'
+              alt='Logo'
+              width={42}
+              height={42}
+              className={classes.logo}
+            />
           </Link>
           <H6 className={classes.title} noWrap>
-            <Link href="/" color="inherit">
+            <Link href='/' color='inherit'>
               Command Tactical Training
             </Link>
           </H6>
           <nav>
-            <Hidden smUp implementation="css">
+            <Hidden smUp implementation='css'>
               <Drawer
                 container={container}
-                variant="temporary"
-                anchor="left"
+                variant='temporary'
+                anchor='left'
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
-                classes={{ paper: classes.drawerPaper }}
-              >
+                classes={{ paper: classes.drawerPaper }}>
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
-                  {routes.map(route => <MobileItem {...route} />)}
-                  {user && (<MobileItem key='mobile.signout' href='#' onClick={() => handleSignOut()} title='Sign Out' fa='fa-door-open' />)}
+                  {routes.map((route) => (
+                    <MobileItem {...route} />
+                  ))}
+                  {user && (
+                    <MobileItem
+                      key='mobile.signout'
+                      href='#'
+                      onClick={() => handleSignOut()}
+                      title='Sign Out'
+                      fa='fa-door-open'
+                    />
+                  )}
                 </List>
               </Drawer>
             </Hidden>
-            <Hidden xsDown implementation="css">
-              {routes.map(route => <DesktopItem {...route} />)}
-              {user && (<DesktopItem key='desktop.signout' href='#' onClick={() => handleSignOut()} title='Sign Out' />)}
+            <Hidden xsDown implementation='css'>
+              {routes.map((route) => (
+                <DesktopItem {...route} />
+              ))}
+              {user && (
+                <DesktopItem
+                  key='desktop.signout'
+                  href='#'
+                  onClick={() => handleSignOut()}
+                  title='Sign Out'
+                />
+              )}
             </Hidden>
           </nav>
         </Toolbar>

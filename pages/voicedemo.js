@@ -1,5 +1,5 @@
 import VoiceDemo from 'components/VoiceDemo'
-import { withGuestAuth } from 'components/Auth/HOC'
+import { withAdminAuth } from 'components/Auth/HOC'
 
 const VoiceDemoPage = ({ accessId, secretKey }) => (
   <VoiceDemo accessId={accessId} secretKey={secretKey} />
@@ -13,4 +13,4 @@ export const getServerSideProps = async () => {
     }
   }
 }
-export default withGuestAuth(VoiceDemoPage)
+export default withAdminAuth(VoiceDemoPage)

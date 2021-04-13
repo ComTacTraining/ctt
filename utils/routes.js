@@ -52,13 +52,14 @@ export const member = [
 ]
 
 export const admin = [
-  { key: 'guest.textdemo', href: '/textdemo', title: 'Text Demo', fa: 'fa-tv' },
+  { key: 'guest.guestdemo', href: '/demo', title: 'Guest Demo', fa: 'fa-tv' },
   {
     key: 'guest.voicedemo',
     href: '/voicedemo',
     title: 'Voice Demo',
     fa: 'fa-microphone'
-  }
+  },
+  { key: 'guest.textdemo', href: '/textdemo', title: 'Text Demo', fa: 'fa-tv' }
   // {
   //   key: 'member.commercial',
   //   href: '/evolution/commercial',

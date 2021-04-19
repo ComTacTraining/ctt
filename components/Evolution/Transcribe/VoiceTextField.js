@@ -13,7 +13,7 @@ const VoiceTextField = () => {
 
     return (
         <div id="speech-text">
-            <h1>{speechBotState}</h1>
+            <h3>{speechBotState}</h3>
             <textarea
                 rows="5" 
                 cols="100" 

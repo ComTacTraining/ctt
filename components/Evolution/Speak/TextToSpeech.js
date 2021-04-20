@@ -9,7 +9,7 @@ import {
   threeSixtyWalkthroughBegan,
   faceToFaceRequested,
   faceToFaceCompleted,
-  speakBegan,
+  useRadio,
   speakCompleted
 } from 'store/actions/ai'
 
@@ -40,7 +40,7 @@ const TextToSpeech = () => {
     const { text, voice } = textToSpeech
 
     const processText = async () => {
-      dispatch(speakBegan())
+      dispatch(useRadio())
       try {
         await Auth.currentAuthenticatedUser()
         const result = await Predictions.convert({

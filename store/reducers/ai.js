@@ -143,7 +143,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         isPartialCommand: false,
         partialCommand: '',
-        command: action.payload.text
+        command: action.payload.text,
+        radioInUse: false
       }
     case actionTypes.CLEAR_COMMAND:
       return {
@@ -220,7 +221,7 @@ const reducer = (state = initialState, action) => {
           meta: action.payload.meta
         }
       }
-    case actionTypes.SPEAK_BEGAN:
+    case actionTypes.USE_RADIO:
       return {
         ...state,
         radioInUse: true

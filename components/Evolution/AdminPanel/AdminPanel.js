@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import EventAvailableIcon from "@material-ui/icons/EventAvailable";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import TuneIcon from "@material-ui/icons/Tune";
-import YesNoOption from "./YesNoOption";
-import TextField from "../Transcribe/TextField";
-import Log from "./Log";
-import { groupConstToDisplay } from "utils/ai";
-import TabPanel from "./TabPanel";
-import { faceToFaceCompleted, educationCompleted } from "store/actions/ai";
-import VoiceTextField from "../Transcribe/VoiceTextField";
+import { useSelector, useDispatch } from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import EventAvailableIcon from '@material-ui/icons/EventAvailable'
+import AssignmentIcon from '@material-ui/icons/Assignment'
+import TuneIcon from '@material-ui/icons/Tune'
+import YesNoOption from './YesNoOption'
+import TextField from '../Transcribe/TextField'
+import Log from './Log'
+import { groupConstToDisplay } from 'utils/ai'
+import TabPanel from './TabPanel'
+import { faceToFaceCompleted, educationCompleted } from 'store/actions/ai'
+import VoiceTextField from '../Transcribe/VoiceTextField'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary
   },
   heading: {
@@ -36,12 +36,12 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary
   },
   icon: {
-    verticalAlign: "bottom",
+    verticalAlign: 'bottom',
     height: 20,
     width: 20
   },
   details: {
-    alignItems: "flex-start"
+    alignItems: 'flex-start'
   },
   helper: {
     borderLeft: `2px solid ${theme.palette.divider}`,
@@ -49,279 +49,278 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     color: theme.palette.primary.main,
-    textDecoration: "none",
-    "&:hover": {
-      textDecoration: "underline"
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline'
     }
   }
-}));
+}))
 
-const a11yProps = index => ({
+const a11yProps = (index) => ({
   id: `simple-tab-${index}`,
-  "aria-controls": `simple-tabpanel-${index}`
-});
+  'aria-controls': `simple-tabpanel-${index}`
+})
 
 const AdminPanel = ({ withVoice = false }) => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const ai = useSelector(state => state.ai);
-  const evaluation = useSelector(state => state.evaluation);
-  const { incidentGroup } = useSelector(state => state.evolution);
-  const [iwiGroup, setIwiGroup] = useState("");
-  const [selectedTab, setSelectedTab] = useState(0);
+  const classes = useStyles()
+  const dispatch = useDispatch()
+  const ai = useSelector((state) => state.ai)
+  const evaluation = useSelector((state) => state.evaluation)
+  const { incidentGroup } = useSelector((state) => state.evolution)
+  const [iwiGroup, setIwiGroup] = useState('')
+  const [selectedTab, setSelectedTab] = useState(0)
 
   useEffect(() => {
     if (incidentGroup) {
-      setIwiGroup(groupConstToDisplay(incidentGroup));
+      setIwiGroup(groupConstToDisplay(incidentGroup))
     }
-  }, [incidentGroup]);
+  }, [incidentGroup])
 
   const handleTabSelection = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
+    setSelectedTab(newValue)
+  }
 
   const handleEndFaceToFace = () => {
-    dispatch(faceToFaceCompleted());
-  };
+    dispatch(faceToFaceCompleted())
+  }
 
   const handleShowEvaluation = () => {
-    dispatch(educationCompleted());
-  };
+    dispatch(educationCompleted())
+  }
 
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
-        <Grid container justify="center" spacing={1}>
-          <Grid key="col1" item xs={4}>
+        <Grid container justify='center' spacing={1}>
+          <Grid key='col1' item xs={4}>
             <Paper className={classes.paper}>
               <Tabs
                 value={selectedTab}
                 onChange={handleTabSelection}
-                indicatorColor="primary"
-                textColor="primary"
-                centered
-              >
+                indicatorColor='primary'
+                textColor='primary'
+                centered>
                 <Tab icon={<EventAvailableIcon />} {...a11yProps(0)} />
                 <Tab icon={<AssignmentIcon />} {...a11yProps(1)} />
                 <Tab icon={<TuneIcon />} {...a11yProps(2)} />
               </Tabs>
               <TabPanel value={selectedTab} index={0}>
                 <YesNoOption
-                  key="firstAlarmAnnounced"
-                  label="First Alarm Announced"
+                  key='firstAlarmAnnounced'
+                  label='First Alarm Announced'
                   value={ai.firstAlarmAnnounced}
                 />
                 <YesNoOption
-                  key="initialReportCompleted"
-                  label="Initial Report Completed"
+                  key='initialReportCompleted'
+                  label='Initial Report Completed'
                   value={ai.initialReportCompleted}
                 />
                 <YesNoOption
-                  key="threeSixtyWalkthroughBegan"
-                  label="360&deg; Walkthrough Began"
+                  key='threeSixtyWalkthroughBegan'
+                  label='360&deg; Walkthrough Began'
                   value={ai.threeSixtyWalkthroughBegan}
                 />
                 <YesNoOption
-                  key="threeSixtyWalkthroughCompleted"
-                  label="360&deg; Walkthrough Completed"
+                  key='threeSixtyWalkthroughCompleted'
+                  label='360&deg; Walkthrough Completed'
                   value={ai.threeSixtyWalkthroughCompleted}
                 />
                 <YesNoOption
-                  key="threeSixtyAssessmentCompleted"
-                  label="360&deg; Assessment Completed"
+                  key='threeSixtyAssessmentCompleted'
+                  label='360&deg; Assessment Completed'
                   value={ai.threeSixtyAssessmentCompleted}
                 />
                 <YesNoOption
-                  key="assignmentsCompleted"
-                  label="Assignments Completed"
+                  key='assignmentsCompleted'
+                  label='Assignments Completed'
                   value={ai.assignmentsCompleted}
                 />
                 <YesNoOption
-                  key="incidentCompleted"
-                  label="Incident Within Incident Completed"
+                  key='incidentCompleted'
+                  label='Incident Within Incident Completed'
                   value={ai.incidentCompleted}
                 />
                 <YesNoOption
-                  key="faceToFaceRequested"
-                  label="Face to Face Requested"
+                  key='faceToFaceRequested'
+                  label='Face to Face Requested'
                   value={ai.faceToFaceRequested}
                 />
                 <YesNoOption
-                  key="faceToFaceCompleted"
-                  label="Face to Face Completed"
+                  key='faceToFaceCompleted'
+                  label='Face to Face Completed'
                   value={ai.faceToFaceCompleted}
                 />
                 <YesNoOption
-                  key="educationCompleted"
-                  label="Education Completed"
+                  key='educationCompleted'
+                  label='Education Completed'
                   value={ai.educationCompleted}
                 />
                 <YesNoOption
-                  key="evaluationCompleted"
-                  label="Evaluation Completed"
+                  key='evaluationCompleted'
+                  label='Evaluation Completed'
                   value={ai.evaluationCompleted}
                 />
               </TabPanel>
               <TabPanel value={selectedTab} index={1}>
-                <YesNoOption key="size" label="Size" value={evaluation.size} />
+                <YesNoOption key='size' label='Size' value={evaluation.size} />
                 <YesNoOption
-                  key="height"
-                  label="Height"
+                  key='height'
+                  label='Height'
                   value={evaluation.height}
                 />
                 <YesNoOption
-                  key="occupancy"
-                  label="Occupancy"
+                  key='occupancy'
+                  label='Occupancy'
                   value={evaluation.occupancy}
                 />
                 <YesNoOption
-                  key="witnessed"
-                  label="Witnessed Conditions"
+                  key='witnessed'
+                  label='Witnessed Conditions'
                   value={evaluation.witnessed}
                 />
                 <YesNoOption
-                  key="actions"
-                  label="Actions"
+                  key='actions'
+                  label='Actions'
                   value={evaluation.actions}
                 />
                 <YesNoOption
-                  key="needs"
-                  label="Needs"
+                  key='needs'
+                  label='Needs'
                   value={evaluation.needs}
                 />
                 <YesNoOption
-                  key="designation"
-                  label="Command Designation"
+                  key='designation'
+                  label='Command Designation'
                   value={evaluation.designation}
                 />
                 <YesNoOption
-                  key="construction"
-                  label="Construction"
+                  key='construction'
+                  label='Construction'
                   value={evaluation.construction}
                 />
                 <YesNoOption
-                  key="entryEgress"
-                  label="Entry Egress"
+                  key='entryEgress'
+                  label='Entry Egress'
                   value={evaluation.entryEgress}
                 />
                 <YesNoOption
-                  key="conditions"
-                  label="Conditions"
+                  key='conditions'
+                  label='Conditions'
                   value={evaluation.conditions}
                 />
                 <YesNoOption
-                  key="interiorPath"
-                  label="Interior Path"
+                  key='interiorPath'
+                  label='Interior Path'
                   value={evaluation.interiorPath}
                 />
                 <YesNoOption
-                  key="survivability"
-                  label="Survivability"
+                  key='survivability'
+                  label='Survivability'
                   value={evaluation.survivability}
                 />
                 <YesNoOption
-                  key="strategicMode"
-                  label="Strategic Mode"
+                  key='strategicMode'
+                  label='Strategic Mode'
                   value={evaluation.strategicMode}
                 />
                 <YesNoOption
-                  key="priorities"
-                  label="Priorities"
+                  key='priorities'
+                  label='Priorities'
                   value={evaluation.priorities}
                 />
                 <YesNoOption
-                  key="tacticalSizeup"
-                  label="Size Up"
+                  key='tacticalSizeup'
+                  label='Size Up'
                   value={evaluation.tacticalSizeup}
                 />
                 <YesNoOption
-                  key="tacticalLocate"
-                  label="Locate"
+                  key='tacticalLocate'
+                  label='Locate'
                   value={evaluation.tacticalLocate}
                 />
                 <YesNoOption
-                  key="tacticalIdentify"
-                  label="Identify"
+                  key='tacticalIdentify'
+                  label='Identify'
                   value={evaluation.tacticalIdentify}
                 />
                 <YesNoOption
-                  key="tacticalCool"
-                  label="Cool"
+                  key='tacticalCool'
+                  label='Cool'
                   value={evaluation.tacticalCool}
                 />
                 <YesNoOption
-                  key="tacticalExtinguish"
-                  label="Extinguish"
+                  key='tacticalExtinguish'
+                  label='Extinguish'
                   value={evaluation.tacticalExtinguish}
                 />
                 <YesNoOption
-                  key="tacticalRescue"
-                  label="Rescue"
+                  key='tacticalRescue'
+                  label='Rescue'
                   value={evaluation.tacticalRescue}
                 />
                 <YesNoOption
-                  key="tacticalSalvage"
-                  label="Salvage"
+                  key='tacticalSalvage'
+                  label='Salvage'
                   value={evaluation.tacticalSalvage}
                 />
                 <YesNoOption
-                  key="strategicRescue"
-                  label="Rescue"
+                  key='strategicRescue'
+                  label='Rescue'
                   value={evaluation.strategicRescue}
                 />
                 <YesNoOption
-                  key="strategicExposures"
-                  label="Exposures"
+                  key='strategicExposures'
+                  label='Exposures'
                   value={evaluation.strategicExposures}
                 />
                 <YesNoOption
-                  key="strategicConfinement"
-                  label="Confinement"
+                  key='strategicConfinement'
+                  label='Confinement'
                   value={evaluation.strategicConfinement}
                 />
                 <YesNoOption
-                  key="strategicExtinguishment"
-                  label="Extinguishment"
+                  key='strategicExtinguishment'
+                  label='Extinguishment'
                   value={evaluation.strategicExtinguishment}
                 />
                 <YesNoOption
-                  key="strategicOverhaul"
-                  label="Overhaul"
+                  key='strategicOverhaul'
+                  label='Overhaul'
                   value={evaluation.strategicOverhaul}
                 />
                 <YesNoOption
-                  key="strategicVentilation"
-                  label="Ventilation"
+                  key='strategicVentilation'
+                  label='Ventilation'
                   value={evaluation.strategicVentilation}
                 />
                 <YesNoOption
-                  key="strategicSalvage"
-                  label="Salvage"
+                  key='strategicSalvage'
+                  label='Salvage'
                   value={evaluation.strategicSalvage}
                 />
                 <YesNoOption
-                  key="incident"
-                  label="Incident Within Incident"
+                  key='incident'
+                  label='Incident Within Incident'
                   value={evaluation.incident}
                 />
                 <YesNoOption
-                  key="par"
-                  label="PAR Report"
+                  key='par'
+                  label='PAR Report'
                   value={evaluation.par}
                 />
                 <YesNoOption
-                  key="can"
-                  label="CAN Report"
+                  key='can'
+                  label='CAN Report'
                   value={evaluation.can}
                 />
                 <YesNoOption
-                  key="transferAssignments"
-                  label="Transfer of Command Assignments"
+                  key='transferAssignments'
+                  label='Transfer of Command Assignments'
                   value={evaluation.transferAssignments}
                 />
               </TabPanel>
               <TabPanel value={selectedTab} index={2}>
-                <Typography key="events_title" variant="caption">
+                <Typography key='events_title' variant='caption'>
                   Incident Group: {iwiGroup}
                   <br />
                 </Typography>
@@ -330,16 +329,16 @@ const AdminPanel = ({ withVoice = false }) => {
               </TabPanel>
             </Paper>
           </Grid>
-          <Grid key="col2" item xs={8}>
+          <Grid key='col2' item xs={8}>
             <Paper className={classes.paper}>
-              <Typography key="current_command" variant="caption">
+              <Typography key='current_command' variant='caption'>
                 <strong>Current Command: </strong>
                 {ai.isPartialCommand ? ai.partialCommand : ai.command}
                 <br />
               </Typography>
-              {!withVoice && ai.firstAlarmAnnounced && <TextField key="textfield" />}
+              {!withVoice && <TextField key='textfield' />}
               {withVoice && ai.firstAlarmAnnounced && <VoiceTextField />}
-              <Typography key="log_title_type" variant="caption">
+              <Typography key='log_title_type' variant='caption'>
                 <strong>Log: </strong>
                 <br />
               </Typography>
@@ -349,11 +348,11 @@ const AdminPanel = ({ withVoice = false }) => {
         </Grid>
       </Grid>
     </Grid>
-  );
+  )
 }
 
 AdminPanel.propTypes = {
   withVoice: PropTypes.bool
 }
 
-export default AdminPanel;
+export default AdminPanel

@@ -10702,7 +10702,7 @@ export const evolutions = [
   {
     id: 'sfm1',
     number: 1,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2509 Whitnall HWY',
     size: 'MEDIUM',
@@ -10727,7 +10727,7 @@ export const evolutions = [
   {
     id: 'sfm2',
     number: 2,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '4383 Hubbard Place',
     size: 'LARGE',
@@ -10752,7 +10752,7 @@ export const evolutions = [
   {
     id: 'sfm3',
     number: 3,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '4389 Las Flores Court',
     size: 'MEDIUM',
@@ -10777,7 +10777,7 @@ export const evolutions = [
   {
     id: 'sfm4',
     number: 4,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2505 Saint Pierre Road',
     size: 'LARGE',
@@ -10802,7 +10802,7 @@ export const evolutions = [
   {
     id: 'sfm5',
     number: 5,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1013 Tahoe Place',
     size: 'MEDIUM',
@@ -10827,7 +10827,7 @@ export const evolutions = [
   {
     id: 'sfm6',
     number: 6,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2798 Van Horne Avenue',
     size: 'MEDIUM',
@@ -10852,7 +10852,7 @@ export const evolutions = [
   {
     id: 'sfm7',
     number: 7,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '16138 Albertine Street',
     size: 'SMALL',
@@ -10877,7 +10877,7 @@ export const evolutions = [
   {
     id: 'sfm8',
     number: 8,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '12431 Sagebrook Road',
     size: 'MEDIUM',
@@ -10902,7 +10902,7 @@ export const evolutions = [
   {
     id: 'sfm9',
     number: 9,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '7967 Silver Lake Boulevard',
     size: 'MEDIUM',
@@ -10927,7 +10927,7 @@ export const evolutions = [
   {
     id: 'sfm10',
     number: 10,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '7011 Le Doux Road',
     size: 'MEDIUM',
@@ -10952,7 +10952,7 @@ export const evolutions = [
   {
     id: 'sfm11',
     number: 11,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '3918 Ovada Place',
     size: 'LARGE',
@@ -10977,7 +10977,7 @@ export const evolutions = [
   {
     id: 'sfm12',
     number: 12,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2203 77th Street',
     size: 'MEDIUM',
@@ -11002,7 +11002,7 @@ export const evolutions = [
   {
     id: 'sfm13',
     number: 13,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5504 Village Road',
     size: 'MEDIUM',
@@ -11027,7 +11027,7 @@ export const evolutions = [
   {
     id: 'sfm14',
     number: 14,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '8840 Hedges Way',
     size: 'MEDIUM',
@@ -11052,7 +11052,7 @@ export const evolutions = [
   {
     id: 'sfm15',
     number: 15,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1804 Junaluska Way',
     size: 'MEDIUM',
@@ -11077,7 +11077,7 @@ export const evolutions = [
   {
     id: 'sfm16',
     number: 16,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5157 Holman Avenue',
     size: 'MEDIUM',
@@ -11102,7 +11102,7 @@ export const evolutions = [
   {
     id: 'sfm17',
     number: 17,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '9337 Delrosa WALK',
     size: 'MEDIUM',
@@ -11127,7 +11127,7 @@ export const evolutions = [
   {
     id: 'sfm18',
     number: 18,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29646 Louise Avenue',
     size: 'MEDIUM',
@@ -11152,7 +11152,7 @@ export const evolutions = [
   {
     id: 'sfm19',
     number: 19,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29668 Amapola Lane',
     size: 'MEDIUM',
@@ -11177,7 +11177,7 @@ export const evolutions = [
   {
     id: 'sfm20',
     number: 20,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29657 Como Circle',
     size: 'LARGE',
@@ -11202,7 +11202,7 @@ export const evolutions = [
   {
     id: 'sfm21',
     number: 21,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5538 Peterson Avenue',
     size: 'LARGE',
@@ -11227,7 +11227,7 @@ export const evolutions = [
   {
     id: 'sfm22',
     number: 22,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '651 Caithness Street',
     size: 'MEDIUM',
@@ -11252,7 +11252,7 @@ export const evolutions = [
   {
     id: 'sfm23',
     number: 23,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '623 Luna Park',
     size: 'MEDIUM',
@@ -11277,7 +11277,7 @@ export const evolutions = [
   {
     id: 'sfm24',
     number: 24,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '583 Park Lane Place',
     size: 'MEDIUM',
@@ -11302,7 +11302,7 @@ export const evolutions = [
   {
     id: 'sfm25',
     number: 25,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '20360 Grenadier Drive',
     size: 'MEDIUM',
@@ -11327,7 +11327,7 @@ export const evolutions = [
   {
     id: 'sfm26',
     number: 26,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5976 Mini Way',
     size: 'LARGE',
@@ -11352,7 +11352,7 @@ export const evolutions = [
   {
     id: 'sfm27',
     number: 27,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '6167 238th Street',
     size: 'LARGE',
@@ -11377,7 +11377,7 @@ export const evolutions = [
   {
     id: 'sfm28',
     number: 28,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5767 Alta Street',
     size: 'LARGE',
@@ -11402,7 +11402,7 @@ export const evolutions = [
   {
     id: 'sfm29',
     number: 29,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '17887 126th Street',
     size: 'LARGE',
@@ -11427,7 +11427,7 @@ export const evolutions = [
   {
     id: 'sfm30',
     number: 30,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '17866 El Roble Lane',
     size: 'LARGE',
@@ -11452,7 +11452,7 @@ export const evolutions = [
   {
     id: 'sfm31',
     number: 31,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5869 Waterview Street',
     size: 'MEDIUM',
@@ -11477,7 +11477,7 @@ export const evolutions = [
   {
     id: 'sfm32',
     number: 32,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '528 Calabria Way',
     size: 'LARGE',
@@ -11502,7 +11502,7 @@ export const evolutions = [
   {
     id: 'sfm33',
     number: 33,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '567 Chiang Kai-Shek HWY',
     size: 'LARGE',
@@ -11527,7 +11527,7 @@ export const evolutions = [
   {
     id: 'sfm34',
     number: 34,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '585 Alhama Drive',
     size: 'LARGE',
@@ -11552,7 +11552,7 @@ export const evolutions = [
   {
     id: 'sfm35',
     number: 35,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '503 Kittys Lane',
     size: 'LARGE',
@@ -11577,7 +11577,7 @@ export const evolutions = [
   {
     id: 'sfm36',
     number: 36,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '629 Brussels Avenue',
     size: 'LARGE',
@@ -11602,7 +11602,7 @@ export const evolutions = [
   {
     id: 'sfm37',
     number: 37,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '7553 La Montana Place',
     size: 'LARGE',
@@ -11627,7 +11627,7 @@ export const evolutions = [
   {
     id: 'sfm38',
     number: 38,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29645 Richelieu TER',
     size: 'LARGE',
@@ -11652,7 +11652,7 @@ export const evolutions = [
   {
     id: 'sfm39',
     number: 39,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '643 Shamrock Place',
     size: 'LARGE',
@@ -11677,7 +11677,7 @@ export const evolutions = [
   {
     id: 'sfm40',
     number: 40,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1524 Cindy Lane',
     size: 'LARGE',
@@ -11702,7 +11702,7 @@ export const evolutions = [
   {
     id: 'sfm41',
     number: 41,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1520 Higman Avenue',
     size: 'MEDIUM',
@@ -11727,7 +11727,7 @@ export const evolutions = [
   {
     id: 'sfm42',
     number: 42,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1538 Wer Lane',
     size: 'LARGE',
@@ -11752,7 +11752,7 @@ export const evolutions = [
   {
     id: 'sfm43',
     number: 43,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '4114 Miller Drive',
     size: 'LARGE',
@@ -11777,7 +11777,7 @@ export const evolutions = [
   {
     id: 'sfm44',
     number: 44,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '24707 Elmwood Avenue',
     size: 'MEDIUM',
@@ -11802,7 +11802,7 @@ export const evolutions = [
   {
     id: 'sfm45',
     number: 45,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1592 35th Street',
     size: 'LARGE',
@@ -11827,7 +11827,7 @@ export const evolutions = [
   {
     id: 'sfm46',
     number: 46,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1428 Valleybrink Road',
     size: 'LARGE',
@@ -11852,7 +11852,7 @@ export const evolutions = [
   {
     id: 'sfm47',
     number: 47,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1622 Cassara Avenue',
     size: 'MEDIUM',
@@ -11877,7 +11877,7 @@ export const evolutions = [
   {
     id: 'sfm48',
     number: 48,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '24706 Bradbury Road',
     size: 'LARGE',
@@ -11902,7 +11902,7 @@ export const evolutions = [
   {
     id: 'sfm49',
     number: 49,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1650 101st Street',
     size: 'LARGE',
@@ -11927,7 +11927,7 @@ export const evolutions = [
   {
     id: 'sfm50',
     number: 50,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29634 Charlemont Avenue',
     size: 'LARGE',
@@ -11952,7 +11952,7 @@ export const evolutions = [
   {
     id: 'sfm51',
     number: 51,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2926 Highland Avenue',
     size: 'MEDIUM',
@@ -11977,7 +11977,7 @@ export const evolutions = [
   {
     id: 'sfm52',
     number: 52,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '654 Parsons Drive',
     size: 'MEDIUM',
@@ -12002,7 +12002,7 @@ export const evolutions = [
   {
     id: 'sfm53',
     number: 53,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29238 Redlands Drive',
     size: 'MEDIUM',
@@ -12027,7 +12027,7 @@ export const evolutions = [
   {
     id: 'sfm54',
     number: 54,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2509 Whitnall HWY',
     size: 'MEDIUM',
@@ -12052,7 +12052,7 @@ export const evolutions = [
   {
     id: 'sfm55',
     number: 55,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29259 Hubbard Place',
     size: 'MEDIUM',
@@ -12077,7 +12077,7 @@ export const evolutions = [
   {
     id: 'sfm56',
     number: 56,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29281 Las Flores Court',
     size: 'LARGE',
@@ -12102,7 +12102,7 @@ export const evolutions = [
   {
     id: 'sfm57',
     number: 57,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '10031 Saint Pierre Road',
     size: 'MEDIUM',
@@ -12127,7 +12127,7 @@ export const evolutions = [
   {
     id: 'sfm58',
     number: 58,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '30189 Tahoe Place',
     size: 'MEDIUM',
@@ -12152,7 +12152,7 @@ export const evolutions = [
   {
     id: 'sfm59',
     number: 59,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29559 Van Horne Avenue',
     size: 'LARGE',
@@ -12177,7 +12177,7 @@ export const evolutions = [
   {
     id: 'sfm60',
     number: 60,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29538 Albertine Street',
     size: 'LARGE',
@@ -12202,7 +12202,7 @@ export const evolutions = [
   {
     id: 'sfm61',
     number: 61,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29645 Sagebrook Road',
     size: 'LARGE',
@@ -12227,7 +12227,7 @@ export const evolutions = [
   {
     id: 'sfm62',
     number: 62,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '7967 Silver Lake Boulevard',
     size: 'MEDIUM',
@@ -12252,7 +12252,7 @@ export const evolutions = [
   {
     id: 'sfm63',
     number: 63,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '428 Le Doux Road',
     size: 'LARGE',
@@ -12277,7 +12277,7 @@ export const evolutions = [
   {
     id: 'sfm64',
     number: 64,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '3918 Ovada Place',
     size: 'MEDIUM',
@@ -12302,7 +12302,7 @@ export const evolutions = [
   {
     id: 'sfm65',
     number: 65,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2203 77th Street',
     size: 'MEDIUM',
@@ -12327,7 +12327,7 @@ export const evolutions = [
   {
     id: 'sfm66',
     number: 66,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '412 Village Road',
     size: 'MEDIUM',
@@ -12352,7 +12352,7 @@ export const evolutions = [
   {
     id: 'sfm67',
     number: 67,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '8840 Hedges Way',
     size: 'MEDIUM',
@@ -12377,7 +12377,7 @@ export const evolutions = [
   {
     id: 'sfm68',
     number: 68,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '408 Junaluska Way',
     size: 'MEDIUM',
@@ -12402,7 +12402,7 @@ export const evolutions = [
   {
     id: 'sfm69',
     number: 69,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '408 Holman Avenue',
     size: 'MEDIUM',
@@ -12427,7 +12427,7 @@ export const evolutions = [
   {
     id: 'sfm70',
     number: 70,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '4269 Delrosa WALK',
     size: 'MEDIUM',
@@ -12452,7 +12452,7 @@ export const evolutions = [
   {
     id: 'sfm71',
     number: 71,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29646 Louise Avenue',
     size: 'LARGE',
@@ -12477,7 +12477,7 @@ export const evolutions = [
   {
     id: 'sfm72',
     number: 72,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '4189 Amapola Lane',
     size: 'LARGE',
@@ -12502,7 +12502,7 @@ export const evolutions = [
   {
     id: 'sfm73',
     number: 73,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '29657 Como Circle',
     size: 'LARGE',
@@ -12527,7 +12527,7 @@ export const evolutions = [
   {
     id: 'sfm74',
     number: 74,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5538 Peterson Avenue',
     size: 'LARGE',
@@ -12552,7 +12552,7 @@ export const evolutions = [
   {
     id: 'sfm75',
     number: 75,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '651 Caithness Street',
     size: 'LARGE',
@@ -12577,7 +12577,7 @@ export const evolutions = [
   {
     id: 'sfm76',
     number: 76,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '623 Luna Park',
     size: 'LARGE',
@@ -12602,7 +12602,7 @@ export const evolutions = [
   {
     id: 'sfm77',
     number: 77,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '24729 Park Lane Place',
     size: 'MEDIUM',
@@ -12627,7 +12627,7 @@ export const evolutions = [
   {
     id: 'sfm78',
     number: 78,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '24764 Grenadier Drive',
     size: 'LARGE',
@@ -12652,7 +12652,7 @@ export const evolutions = [
   {
     id: 'sfm79',
     number: 79,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '24717 Rita Avenue',
     size: 'MEDIUM',
@@ -12677,7 +12677,7 @@ export const evolutions = [
   {
     id: 'sfm80',
     number: 80,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '556 Lincoln Avenue',
     size: 'MEDIUM',
@@ -12702,7 +12702,7 @@ export const evolutions = [
   {
     id: 'sfm81',
     number: 81,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2509 Whitnall Highway',
     size: 'MEDIUM',
@@ -12727,7 +12727,7 @@ export const evolutions = [
   {
     id: 'sfm82',
     number: 82,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '4383 Hubbard Place',
     size: 'LARGE',
@@ -12752,7 +12752,7 @@ export const evolutions = [
   {
     id: 'sfm83',
     number: 83,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '4389 Las Flores Court',
     size: 'MEDIUM',
@@ -12777,7 +12777,7 @@ export const evolutions = [
   {
     id: 'sfm84',
     number: 84,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2505 Saint Pierre Road',
     size: 'LARGE',
@@ -12802,7 +12802,7 @@ export const evolutions = [
   {
     id: 'sfm85',
     number: 85,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1013 Tahoe Place',
     size: 'MEDIUM',
@@ -12827,7 +12827,7 @@ export const evolutions = [
   {
     id: 'sfm86',
     number: 86,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2798 Van Horne Avenue',
     size: 'MEDIUM',
@@ -12852,7 +12852,7 @@ export const evolutions = [
   {
     id: 'sfm87',
     number: 87,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '16138 Albertine Street',
     size: 'SMALL',
@@ -12877,7 +12877,7 @@ export const evolutions = [
   {
     id: 'sfm88',
     number: 88,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '12431 Sagebrook Road',
     size: 'MEDIUM',
@@ -12902,7 +12902,7 @@ export const evolutions = [
   {
     id: 'sfm89',
     number: 89,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '7967 Silver Lake Boulevard',
     size: 'MEDIUM',
@@ -12927,7 +12927,7 @@ export const evolutions = [
   {
     id: 'sfm90',
     number: 90,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '7011 Le Doux Road',
     size: 'MEDIUM',
@@ -12952,7 +12952,7 @@ export const evolutions = [
   {
     id: 'sfm91',
     number: 91,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '3918 Ovada Place',
     size: 'LARGE',
@@ -12977,7 +12977,7 @@ export const evolutions = [
   {
     id: 'sfm92',
     number: 92,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '2203 77th Street',
     size: 'MEDIUM',
@@ -13002,7 +13002,7 @@ export const evolutions = [
   {
     id: 'sfm93',
     number: 93,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '5504 Village Road',
     size: 'MEDIUM',
@@ -13027,7 +13027,7 @@ export const evolutions = [
   {
     id: 'sfm94',
     number: 94,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '8840 Hedges Way',
     size: 'MEDIUM',
@@ -13052,7 +13052,7 @@ export const evolutions = [
   {
     id: 'sfm95',
     number: 95,
-    category: 'SINGLE_FAMILY_MODERN',
+    category: 'SINGLEFAMILYMODERN',
     construction: ['MODERN'],
     street: '1804 Junaluska Way',
     size: 'MEDIUM',

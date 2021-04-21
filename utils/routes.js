@@ -52,26 +52,38 @@ export const member = [
 ]
 
 export const admin = [
-  { key: 'guest.guestdemo', href: '/demo', title: 'Guest Demo', fa: 'fa-tv' },
+  { key: 'admin.guestdemo', href: '/demo', title: 'Guest Demo', fa: 'fa-tv' },
   {
-    key: 'guest.voicedemo',
+    key: 'voicedemo',
     href: '/voicedemo',
     title: 'Voice Demo',
     fa: 'fa-microphone'
   },
-  { key: 'guest.textdemo', href: '/textdemo', title: 'Text Demo', fa: 'fa-tv' }
+  { key: 'admin.textdemo', href: '/textdemo', title: 'Text Demo', fa: 'fa-tv' },
   // {
-  //   key: 'member.commercial',
+  //   key: 'admin.commercial',
   //   href: '/evolution/commercial',
   //   title: 'Commercial',
   //   fa: 'fa-store'
   // },
-  // {
-  //   key: 'admin.seed',
-  //   href: '/admin/seed',
-  //   title: 'Seed',
-  //   fa: 'fa-seedling'
-  // }
+  {
+    key: 'admin.incidents',
+    href: '/admin/incidents',
+    title: 'Incidents',
+    fa: 'fa-seedling'
+  },
+  {
+    key: 'admin.evolutions',
+    href: '/admin/evolutions',
+    title: 'Evolutions',
+    fa: 'fa-seedling'
+  },
+  {
+    key: 'admin.profile',
+    href: '/profile',
+    title: 'Profile',
+    fa: 'fa-user-circle'
+  }
 ]
 
 export const footer = [

@@ -5,9 +5,7 @@ import { withMemberAuth } from 'components/Auth/HOC'
 const EvolutionPage = () => {
   const router = useRouter()
   const { category } = router.query
-  return (
-    <Evolution category={category} />
-  )
+  return <Evolution category={category} />
 }
 
 export default withMemberAuth(EvolutionPage)

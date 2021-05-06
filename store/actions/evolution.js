@@ -1,11 +1,12 @@
-export const UPDATE_EVOLUTION = "UPDATE_EVOLUTION";
-export const UPDATE_INCIDENT = "UPDATE_INCIDENT";
+export const UPDATE_EVOLUTION = 'UPDATE_EVOLUTION'
+export const UPDATE_INCIDENT = 'UPDATE_INCIDENT'
 
-export const updateEvolution = data => {
+export const updateEvolution = (data) => {
   return {
     type: UPDATE_EVOLUTION,
     payload: {
       id: data.id,
+      alias: data.alias,
       category: data.category,
       construction: data.construction,
       street: data.street,
@@ -28,10 +29,10 @@ export const updateEvolution = data => {
       ric: data.ric,
       medical: data.medical
     }
-  };
-};
+  }
+}
 
-export const updateIncident = data => {
+export const updateIncident = (data) => {
   return {
     type: UPDATE_INCIDENT,
     payload: {
@@ -39,5 +40,5 @@ export const updateIncident = data => {
       incidentGroup: data.icsNims,
       incidentCommand: data.command
     }
-  };
-};
+  }
+}

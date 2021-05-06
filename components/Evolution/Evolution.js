@@ -1,43 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import VideoLayout from "./VideoLayout";
-import AI from "./AI/AI";
-import ScrollingText from "./ScrollingText/ScrollingText";
-import Speak from "./Speak/Speak";
-import Education from "./Education/Education";
-import KeyMapping from "./KeyMapping/KeyMapping";
-import Tips from "./Tips/Tips";
-import VideoPlayer from "./VideoPlayer/VideoPlayer";
-import AdminPanel from "./AdminPanel/AdminPanel";
-import Evaluation from "./Evaluation/Evaluation";
-import { playlistFromId } from "utils/video";
-import { startTime } from "store/actions/ai";
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import VideoLayout from './VideoLayout'
+import AI from './AI/AI'
+import ScrollingText from './ScrollingText/ScrollingText'
+import Speak from './Speak/Speak'
+import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
+import Education from './Education/Education'
+import Tips from './Tips/Tips'
+import VideoPlayer from './VideoPlayer/VideoPlayer'
+// import AdminPanel from './AdminPanel/AdminPanel'
+import Evaluation from './Evaluation/Evaluation'
+import { playlistFromId } from 'utils/video'
+import { startTime } from 'store/actions/ai'
+import RadioSound from 'components/Evolution/Transcribe/RadioSound'
+import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
 
 const Evolution = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const {
     firstAlarmAnnounced,
     faceToFaceCompleted,
     educationCompleted
-  } = useSelector(state => state.ai);
-  const { id } = useSelector(state => state.evolution);
-  const { showTips } = useSelector(state => state.user);
-  const [playlist, setPlaylist] = useState(false);
+  } = useSelector((state) => state.ai)
+  const { alias } = useSelector((state) => state.evolution)
+  const { showTips } = useSelector((state) => state.user)
+  const [playlist, setPlaylist] = useState(false)
 
   useEffect(() => {
-    if (id) {
-      setPlaylist(playlistFromId(id));
-      dispatch(startTime());
+    if (alias !== '') {
+      const pl = playlistFromId(alias)
+      setPlaylist(pl)
+      dispatch(startTime())
     }
-  }, [id, dispatch]);
+  }, [alias, dispatch])
 
   return (
     <>
       {playlist && (
         <>
+          {firstAlarmAnnounced && (
+            <>
+              <RadioSound />
+              <Speech2Text />
+            </>
+          )}
           <AI />
           <Speak />
-          <KeyMapping />
+          <TextToSpeech />
           {!educationCompleted && (
             <VideoLayout>
               <ScrollingText />
@@ -47,11 +56,11 @@ const Evolution = () => {
           )}
           {faceToFaceCompleted && <Education />}
           {educationCompleted && <Evaluation />}
-          <AdminPanel />
+          {/* <AdminPanel /> */}
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Evolution;
+export default Evolution

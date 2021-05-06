@@ -3,21 +3,16 @@ import { UserContext } from 'components/Auth/UserContext'
 import { H3, P } from 'mui/Typography'
 
 const Profile = () => {
-    const { user, isMember, isAdmin } = React.useContext(UserContext)
+  const { user } = React.useContext(UserContext)
 
-    return !user ? null : (
-        <>
-            <H3>Profile</H3>
-            <P>Email: {user.attributes.email}</P>
-            <P>Email Verified: {user.attributes.email_verified ? 'Yes' : 'No'}</P>
-            <P>Subscription ID: {user.attributes['custom:stripesubscriptionid']}</P>
-            <P>Username/ID: {user.username}</P>
-            <P>Groups: {user.signInUserSession.idToken.payload['cognito:groups'] ? user.signInUserSession.idToken.payload['cognito:groups'].map(g => `${g} `) : ''}</P>
-            <pre>{JSON.stringify(user,null,2)}</pre>
-            {isMember && <P>Member's Only</P>}
-            {isAdmin && <P>Admin's Only</P>}
-        </>
-    )
+  return !user ? null : (
+    <>
+      <H3>Profile</H3>
+      <P>Todo: Add custom alarms</P>
+      <P>Todo: Add custom dispatch center</P>
+      <P>Todo: Add tips default</P>
+    </>
+  )
 }
 
 export default Profile

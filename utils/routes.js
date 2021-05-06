@@ -79,10 +79,10 @@ export const admin = [
     fa: 'fa-seedling'
   },
   {
-    key: 'admin.profile',
-    href: '/profile',
-    title: 'Profile',
-    fa: 'fa-user-circle'
+    key: 'admin.debug',
+    href: '/admin/debug',
+    title: 'Debug',
+    fa: 'fa-bug'
   }
 ]
 

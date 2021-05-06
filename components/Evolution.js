@@ -1,30 +1,11 @@
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-// import { API, graphqlOperation } from 'aws-amplify'
+import { API } from 'aws-amplify'
 import { H3 } from 'mui/Typography'
-import Simulation from './Evolution/Evolution'
-// import {
-//   evolutionByCategory,
-//   evolutionByCategoryNumber
-// } from 'src/graphql/queries'
-import { evolutions } from 'fixtures/evolutions'
-import { incidents } from 'fixtures/incidents'
-import { getEvolution, getIncident } from '~/src/graphql/queries'
-
-// import React, { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { useParams, useHistory } from "react-router-dom";
-// import { Auth, API, graphqlOperation } from "aws-amplify";
-// import Typography from "@material-ui/core/Typography";
-// import {
-//   getEvolution,
-//   getIncident
-//   // getProfile
-// } from "graphql/queries";
-// import Simulation from "components/Evolution/Evolution";
-// import * as evolutionActions from "store/actions/evolution";
-// // import * as userActions from "store/actions/user";
+import Simulation from 'components/Evolution/Evolution'
+import { evolutionByCategoryNumber } from 'src/graphql/queries'
+import * as evolutionActions from 'store/actions/evolution'
 
 const randomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
@@ -49,135 +30,89 @@ const randomId = (category, construction) => {
   }
 }
 
-const randomCategory = () => {
-  const categories = [
-    { id: 1, building: 'commercial' },
-    { id: 2, building: 'industrial' },
-    { id: 3, building: 'multi-family' },
-    { id: 4, building: 'single-family' }
-  ]
-  const randId = randomInteger(1, 4)
-  const cat = categories.find((c) => c.id === randId)
-  return cat.building
-}
-
-const Evolution = ({ category = '', construction = '', id = 0 }) => {
+const Evolution = ({ category }) => {
   const dispatch = useDispatch()
-  const [evolutionId, setEvolutionId] = React.useState()
+  const [evolutionId, setEvolutionId] = React.useState(null)
   const [title, setTitle] = React.useState('Evolution')
+  const [queryCategory, setQueryCategory] = React.useState(null)
+  const [queryNumber, setQueryNumber] = React.useState(0)
 
   React.useEffect(() => {
-    const setupEvolution = (category, construction, id) => {
-      let evoId = ''
-      let evoTitle = ''
-      if (category === 'commercial') {
-        evoId = 'c'
-        evoTitle = 'Commercial'
-      } else if (category === 'industrial') {
-        evoId = 'i'
-        evoTitle = 'Industrial'
-      } else if (category === 'multi-family') {
-        evoId = 'mf'
-        evoTitle = 'Multi-Family'
-      } else if (category === 'single-family') {
-        evoId = 'sf'
-        evoTitle = 'Single-Famly'
-      }
-      if (construction === 'modern') {
-        evoId = `${evoId}m${id}`
-        evoTitle = `${evoTitle} Modern ${id}`
-      } else {
-        evoId = `${evoId}l${id}`
-        evoTitle = `${evoTitle} Legacy ${id}`
-      }
-      setEvolutionId(evoId)
-      setTitle(evoTitle)
+    const construction = randomConstruction()
+    const id = randomId(category, construction)
+    let evoId = ''
+    let evoTitle = ''
+    let evoCat = ''
+    if (category === 'commercial') {
+      evoId = 'c'
+      evoTitle = 'Commercial'
+      evoCat = 'COMMERCIAL'
+    } else if (category === 'industrial') {
+      evoId = 'i'
+      evoTitle = 'Industrial'
+      evoCat = 'INDUSTRIAL'
+    } else if (category === 'multi-family') {
+      evoId = 'mf'
+      evoTitle = 'Multi-Family'
+      evoCat = 'MULTIFAMILY'
+    } else if (category === 'single-family') {
+      evoId = 'sf'
+      evoTitle = 'Single-Famly'
+      evoCat = 'SINGLEFAMILY'
     }
-
-    if (category !== '' && construction !== '' && id !== 0) {
-      setupEvolution(category, construction, id)
-    } else if (category !== '' && construction !== '') {
-      const randId = randomId(category, construction)
-      setupEvolution(category, construction, randId)
-    } else if (category !== '') {
-      const randConstruction = randomConstruction()
-      const randId = randomId(category, randConstruction)
-      setupEvolution(category, randConstruction, randId)
+    if (construction === 'modern') {
+      evoId = `${evoId}m${id}`
+      evoTitle = `${evoTitle} Modern ${id}`
+      evoCat = `${evoCat}MODERN`
     } else {
-      const randCategory = randomCategory()
-      const randConstruction = randomConstruction()
-      const randId = randomId(randCategory, randConstruction)
-      setupEvolution(randCategory, randConstruction, randId)
+      evoId = `${evoId}l${id}`
+      evoTitle = `${evoTitle} Legacy ${id}`
+      evoCat = `${evoCat}LEGACY`
     }
-  }, [category, construction, id])
+    setEvolutionId(evoId)
+    setTitle(evoTitle)
+    setQueryCategory(evoCat)
+    setQueryNumber(id)
+  }, [category])
 
   React.useEffect(() => {
-    // const getEvolutionQuery = async () => {
-    //   try {
-    //     const request = await API.graphql({
-    //       query: evolutionByCategoryNumber,
-    //       variables: {
-    //         category: 'COMMERCIALLEGACY',
-    //         number: 1
-    //       }
-    //     })
-    //     const request = await API.graphql(
-    //       graphqlOperation(evolutionByCategoryNumber, {
-    //         category: `COMMERCIALLEGACY`,
-    //         number: `1`,
-    //         limit: 1
-    //       })
-    //     )
-    //     console.log(request.data.evolutionByCategory)
-    //     dispatch(
-    //       evolutionActions.updateEvolution(request.data.evolutionByCategory)
-    //     )
-    //   } catch (e) {
-    //     console.error(e)
-    //   }
-    // }
-
-    // const getIncidentQuery = async () => {
-    //   try {
-    //     const incidentId = Math.floor(Math.random() * 46) + 1
-    //     const request = await API.graphql(
-    //       graphqlOperation(getIncident, { id: `${incidentId}` })
-    //     )
-    //     dispatch(evolutionActions.updateIncident(request.data.getIncident))
-    //   } catch (e) {
-    //     console.error(e)
-    //   }
-    // }
-
-    const getEvolution = () => {
-      const evo = evolutions.find((e) => e.id === evolutionId)
-      const incidentCount = incidents.length
-      const incidentIndex = Math.floor(math.random() * incidentCount) + 1
-      const incident = incidents[incidentIndex]
-      dispatch(evolutionActions.updateEvolution(evo))
-      // dispatch(in)
+    const getEvolution = async () => {
+      try {
+        const request = await API.graphql({
+          query: evolutionByCategoryNumber,
+          variables: {
+            category: queryCategory,
+            number: { eq: queryNumber }
+          }
+        })
+        const [evo] = request.data.evolutionByCategoryNumber.items
+        const evoData = { ...evo, alias: evolutionId }
+        dispatch(evolutionActions.updateEvolution(evoData))
+      } catch (e) {
+        console.error(e)
+      }
     }
 
-    if (evolutionId) {
-      // getEvolutionQuery()
-      // getIncidentQuery()
+    if (
+      evolutionId &&
+      queryNumber !== 0 &&
+      queryCategory !== 'LEGACY' &&
+      queryCategory !== 'MODERN'
+    ) {
       getEvolution()
-      getIncident()
     }
-  }, [evolutionId, dispatch])
+  }, [evolutionId, queryCategory, queryNumber, dispatch])
 
   return (
     <>
       <H3>{title}</H3>
-      {evolutionId && <Simulation id={evolutionId} />}
+      {evolutionId && <Simulation />}
     </>
   )
 }
 
 Evolution.propTypes = {
-  category: PropTypes.string,
-  construction: PropTypes.string,
-  id: PropTypes.number
+  category: PropTypes.string
 }
 
 export default Evolution

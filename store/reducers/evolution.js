@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions/evolution'
 
 const initialState = {
-  id: 'sfm23',
+  id: '',
+  alias: '',
   category: 'SINGLEFAMILYMODERN',
   construction: ['MODERN'],
   street: '623 Luna Park',
@@ -35,6 +36,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         id: action.payload.id,
+        alias: action.payload.alias,
         category: action.payload.category,
         construction: action.payload.construction,
         street: action.payload.street,

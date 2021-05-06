@@ -35,10 +35,10 @@ const Speech2Text = props => {
 
     const didUnmount = useRef(false);
     const inputSampleRate = useRef(0);
-    const micStream = useRef();
+    const micStream = useRef(null);
     const [audioBinary, setAudioBinary] = useState();
 
-    const { isListeningMicrophone, isRecordingMicrophone } = useSelector(state => state.ai);
+    const { speechBotState, isRecordingMicrophone } = useSelector(state => state.ai);
     const getSocketUrl = useCallback(async () => {
         try {
             const response = await fetch("api/member/voiceurl", {
@@ -88,8 +88,8 @@ const Speech2Text = props => {
         shouldReconnect: (closeEvent) => {
             return didUnmount.current === false;
         },
-        reconnectAttempts: 1000,
-        reconnectInterval: 2000,
+        reconnectAttempts: 10000,
+        reconnectInterval: 1000,
 
       });
 
@@ -102,14 +102,6 @@ const Speech2Text = props => {
       }[readyState];
 
       useEffect(() => {
-        window.navigator.mediaDevices.getUserMedia({
-            video: false,
-            audio: true
-        })
-        .then(streamAudioToWebSocket) 
-        .catch(function (error) {
-            alert('There was an error streaming your audio to Amazon Transcribe. Please try again.');
-        });
         return () => {
             didUnmount.current = true;
             closeSocket();
@@ -117,36 +109,68 @@ const Speech2Text = props => {
       }, []);
 
       useEffect(() => {
+        console.log(connectionStatus)
         if(connectionStatus === "Open") {
             getWebSocket().binaryType = 'arraybuffer';
-            dispatch(updateSpeechBotState("Press the space bar to speak."));
-            if(isPressed) {
-                sendMessage(audioBinary);
-                dispatch(startRecordingMicrophone());
-                dispatch(updatePartialTranscript(lastTranscript + " " + currentTranscript));
-                dispatch(updateSpeechBotState("Listening now...."));
-            } else {
-                if(isRecordingMicrophone) {
-                    dispatch(stopRecordingMicrophone());
-                    if((lastTranscript !== "") || (currentTranscript !== "")) {
-                        dispatch(updateCompletedTranscript(lastTranscript + " " + currentTranscript));
-                        dispatch(
-                            addToLog({
-                                timestamp: Date.now(),
-                                label: firstOnScene,
-                                text: lastTranscript
-                            })
-                        );
-                        setLastTranscript("");
-                        setCurrentTranscript("");
-                    }
-                }
+            if(speechBotState !== "Processing...") {
+                dispatch(updateSpeechBotState("Press the space bar to speak."));
+            }
+
+            if(isPressed && !isRecordingMicrophone) {
                 
+                dispatch(startRecordingMicrophone());
+                dispatch(updateSpeechBotState("Listening now...."));
+            } else if (!isPressed  && isRecordingMicrophone){
+                dispatch(updateSpeechBotState("Processing..."));
+                setTimeout(() => {
+                    dispatch(updateSpeechBotState("Press the space bar to speak."));
+                    dispatch(stopRecordingMicrophone());
+                }, 2000);                
             }
         } else {
             dispatch(updateSpeechBotState("Please wait while connecting..."));
         }
-      }, [readyState, isPressed, audioBinary, lastTranscript, currentTranscript, isRecordingMicrophone]);
+    }, [readyState, isPressed]);
+
+      useEffect(() => {
+          if (isRecordingMicrophone) {
+            dispatch(updatePartialTranscript(lastTranscript + " " + currentTranscript));
+          } else {
+            if((lastTranscript !== "") || (currentTranscript !== "")) {
+                dispatch(updateCompletedTranscript(lastTranscript + " " + currentTranscript));
+                dispatch(
+                    addToLog({
+                        timestamp: Date.now(),
+                        label: firstOnScene,
+                        text: lastTranscript
+                    })
+                );
+                setLastTranscript("");
+                setCurrentTranscript("");
+            }
+          }
+      }, [isRecordingMicrophone, lastTranscript, currentTranscript]);
+
+      useEffect(() => {
+          sendMessage(audioBinary);
+      }, [audioBinary]);
+
+      useEffect(() => {
+          if (isRecordingMicrophone) {
+            window.navigator.mediaDevices.getUserMedia({
+                video: false,
+                audio: true
+            })
+            .then(streamAudioToWebSocket) 
+            .catch(function (error) {
+                alert('There was an error streaming your audio to Amazon Transcribe. Please try again.');
+            });
+          } else {
+              if (micStream.current) {
+                micStream.current.stop();
+              }
+          }
+      }, [isRecordingMicrophone]);
 
 
       const handleEventStreamMessage = (messageJson) => {
@@ -159,7 +183,7 @@ const Speech2Text = props => {
                 transcript = decodeURIComponent(escape(transcript));
                 setCurrentTranscript(transcript);
                 if (!results[0].IsPartial) {
-                    setLastTranscript((prevLastTranscript) => (prevLastTranscript+transcript));
+                    setLastTranscript((prevLastTranscript) => (prevLastTranscript+ " " + transcript));
                     setCurrentTranscript("");
                 }
             }

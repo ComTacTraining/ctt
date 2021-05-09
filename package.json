@@ -35,7 +35,7 @@
     "redux-thunk": "^2.3.0",
     "stripe": "^8.127.0",
     "url-loader": "^4.1.1",
-    "use-sound": "^2.0.1",
+    "use-sound": "2.0.1",
     "video.js": "^7.10.2",
     "videojs-contrib-quality-levels": "^2.0.9",
     "videojs-http-source-selector-mute": "^1.0.2",

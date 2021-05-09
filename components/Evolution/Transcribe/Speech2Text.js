@@ -41,7 +41,7 @@ const Speech2Text = props => {
     const { speechBotState, isRecordingMicrophone } = useSelector(state => state.ai);
     const getSocketUrl = useCallback(async () => {
         try {
-            const response = await fetch("api/member/voiceurl", {
+            const response = await fetch("/api/member/voiceurl", {
                 method: "POST",
                 mode: "same-origin",
                 body: JSON.stringify({

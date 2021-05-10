@@ -6,6 +6,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import Icon from '@material-ui/core/Icon'
@@ -57,9 +59,28 @@ const AppBar = ({ window }) => {
     UserContext
   )
   const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [visitorAnchor, setVisitorAnchor] = React.useState(null)
+  const [openVisitor, setOpenVisitor] = React.useState(false)
+  const [guestAnchor, setGuestAnchor] = React.useState(null)
+  const [openGuest, setOpenGuest] = React.useState(false)
+  const [memberAnchor, setMemberAnchor] = React.useState(null)
+  const [openMember, setOpenMember] = React.useState(false)
+  const [adminAnchor, setAdminAnchor] = React.useState(null)
+  const [openAdmin, setOpenAdmin] = React.useState(false)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
+  }
+
+  const closeMenu = () => {
+    setOpenVisitor(false)
+    setOpenGuest(false)
+    setOpenMember(false)
+    setOpenAdmin(false)
+    setVisitorAnchor(null)
+    setGuestAnchor(null)
+    setMemberAnchor(null)
+    setAdminAnchor(null)
   }
 
   const container =
@@ -125,9 +146,161 @@ const AppBar = ({ window }) => {
               </Drawer>
             </Hidden>
             <Hidden xsDown implementation='css'>
-              {routes.map((route) => (
-                <DesktopItem {...route} />
-              ))}
+              {isAdmin ? (
+                <>
+                  <DesktopItem
+                    key='desktop.visitor'
+                    href='#'
+                    onClick={(e) => {
+                      setOpenVisitor(true)
+                      setVisitorAnchor(e.currentTarget)
+                    }}
+                    title='Visitor'
+                  />
+                  <Menu
+                    id='visitor-appbar'
+                    anchorEl={visitorAnchor}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={openVisitor}
+                    onClose={closeMenu}>
+                    <MenuItem>
+                      <Link href='/' onClick={closeMenu}>
+                        Welcome
+                      </Link>
+                    </MenuItem>
+                  </Menu>
+                  <DesktopItem
+                    key='desktop.guest'
+                    href='#'
+                    onClick={(e) => {
+                      setOpenGuest(true)
+                      setGuestAnchor(e.currentTarget)
+                    }}
+                    title='Guest'
+                  />
+                  <Menu
+                    id='guest-appbar'
+                    anchorEl={guestAnchor}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={openGuest}
+                    onClose={closeMenu}>
+                    <MenuItem>
+                      <Link href='/demo' onClick={closeMenu}>
+                        Demo
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href='/subscribe' onClick={closeMenu}>
+                        Subscribe
+                      </Link>
+                    </MenuItem>
+                  </Menu>
+                  <DesktopItem
+                    key='desktop.member'
+                    href='#'
+                    onClick={(e) => {
+                      setOpenMember(true)
+                      setMemberAnchor(e.currentTarget)
+                    }}
+                    title='Member'
+                  />
+                  <Menu
+                    id='member-appbar'
+                    anchorEl={memberAnchor}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={openMember}
+                    onClose={closeMenu}>
+                    <MenuItem onClick={closeMenu}>
+                      <Link href='/profile'>Profile</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href='/evolution/commercial' onClick={closeMenu}>
+                        Commercial
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href='/evolution/industrial' onClick={closeMenu}>
+                        Industrial
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href='/evolution/single-family' onClick={closeMenu}>
+                        Single Family
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href='/evolution/multi-family' onClick={closeMenu}>
+                        Mutli Family
+                      </Link>
+                    </MenuItem>
+                  </Menu>
+                  <DesktopItem
+                    key='desktop.admin'
+                    href='#'
+                    onClick={(e) => {
+                      setOpenAdmin(true)
+                      setAdminAnchor(e.currentTarget)
+                    }}
+                    title='Admin'
+                  />
+                  <Menu
+                    id='admin-appbar'
+                    anchorEl={adminAnchor}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={openAdmin}
+                    onClose={closeMenu}>
+                    <MenuItem>
+                      <Link href='/admin/evolutions' onClick={closeMenu}>
+                        Evolutions
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href='/admin/incidents' onClick={closeMenu}>
+                        Incidents
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href='/admin/debug' onClick={closeMenu}>
+                        Debug
+                      </Link>
+                    </MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                routes.map((route) => <DesktopItem {...route} />)
+              )}
               {user && (
                 <DesktopItem
                   key='desktop.signout'

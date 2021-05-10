@@ -57,7 +57,7 @@ const Evolution = ({ category }) => {
       evoCat = 'MULTIFAMILY'
     } else if (category === 'single-family') {
       evoId = 'sf'
-      evoTitle = 'Single-Famly'
+      evoTitle = 'Single-Family'
       evoCat = 'SINGLEFAMILY'
     }
     if (construction === 'modern') {

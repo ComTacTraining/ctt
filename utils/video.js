@@ -1,14 +1,12 @@
-const bucket = "https://comtac.s3-us-west-2.amazonaws.com"
+const bucket = 'https://comtac.s3-us-west-2.amazonaws.com'
 const options = {
   autoplay: false,
   controls: true,
   fluid: true,
-  // fill: true,
-  aspectRatio: "16:9",
-  preload: "auto",
+  aspectRatio: '16:9',
+  preload: 'auto',
   controlBar: {
-    // playToggle: false,
-    playToggle: true,
+    playToggle: false,
     volumePanel: true,
     pictureInPictureToggle: false,
     currentTimeDisplay: false,
@@ -24,29 +22,32 @@ const options = {
     descriptionsButton: false,
     subsCapsButton: false,
     audioTrackButton: false,
-    fullscreenToggle: true
+    fullscreenToggle: false
+  },
+  userActions: {
+    doubleClick: false
   }
 }
 
-const playlistFromNames = names => {
-  return names.map(name => {
+const playlistFromNames = (names) => {
+  return names.map((name) => {
     return {
       sources: [
         {
           src: `${bucket}/${name}/playlist.m3u8`,
-          type: "application/x-mpegURL"
+          type: 'application/x-mpegURL'
         }
       ]
     }
   })
 }
 
-const playlistFromId = evolutionId => {
+const playlistFromId = (evolutionId) => {
   const category = evolutionId.match(/[a-zA-Z]+/g)[0]
   const id = evolutionId.match(/\d+/g)[0]
   const videoNames = [
     `${category}/${id}/intro`,
-    "black",
+    'black',
     `approach/${Math.floor(Math.random() * 6 + 1)}`,
     `${category}/${id}/loop`,
     `${category}/${id}/bravo`,
@@ -54,17 +55,23 @@ const playlistFromId = evolutionId => {
     `${category}/${id}/delta`,
     `${category}/${id}/alpha`,
     `${category}/${id}/loop`,
-    "black"
+    'black'
   ]
   return playlistFromNames(videoNames)
-};
+}
 
 const visitorPlaylist = () => {
-  return playlistFromNames(["welcome", "instructions"])
+  return playlistFromNames(['welcome', 'instructions'])
 }
 
 const samplePlaylist = () => {
-  return playlistFromNames(["sample1", "sample2"])
+  return playlistFromNames(['sample1', 'sample2'])
 }
 
-export { options, playlistFromNames, playlistFromId, visitorPlaylist, samplePlaylist }
+export {
+  options,
+  playlistFromNames,
+  playlistFromId,
+  visitorPlaylist,
+  samplePlaylist
+}

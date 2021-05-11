@@ -101,6 +101,13 @@ const Speech2Text = props => {
         [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
       }[readyState];
 
+      const BOTSTATE = {
+          "PROCESSING": 'Processing ...',
+          "LISTENINIG": 'Listening now ...',
+          "PRESSKEY": 'Press the space bar to speak.',
+          "WAITING": 'Please wait while connecting...',
+      };
+
       useEffect(() => {
         return () => {
             didUnmount.current = true;
@@ -112,23 +119,23 @@ const Speech2Text = props => {
         console.log(connectionStatus)
         if(connectionStatus === "Open") {
             getWebSocket().binaryType = 'arraybuffer';
-            if(speechBotState !== "Processing...") {
-                dispatch(updateSpeechBotState("Press the space bar to speak."));
+            if(speechBotState !== BOTSTATE.PROCESSING && speechBotState !== BOTSTATE.PRESSKEY) {
+                dispatch(updateSpeechBotState(BOTSTATE.PRESSKEY));
             }
 
-            if(isPressed && !isRecordingMicrophone) {
-                
+            if(isPressed && !isRecordingMicrophone && speechBotState !== BOTSTATE.LISTENINIG) {    
                 dispatch(startRecordingMicrophone());
-                dispatch(updateSpeechBotState("Listening now...."));
-            } else if (!isPressed  && isRecordingMicrophone){
-                dispatch(updateSpeechBotState("Processing..."));
+                dispatch(updateSpeechBotState(BOTSTATE.LISTENINIG));
+            } else if (!isPressed  && isRecordingMicrophone && speechBotState !== BOTSTATE.PROCESSING){
+                dispatch(updateSpeechBotState(BOTSTATE.PROCESSING));
                 setTimeout(() => {
-                    dispatch(updateSpeechBotState("Press the space bar to speak."));
+                    dispatch(updateSpeechBotState(BOTSTATE.PRESSKEY));
                     dispatch(stopRecordingMicrophone());
                 }, 2000);                
             }
-        } else {
-            dispatch(updateSpeechBotState("Please wait while connecting..."));
+        } else if (speechBotState !== BOTSTATE.WAITING){
+
+            dispatch(updateSpeechBotState(BOTSTATE.WAITING));
         }
     }, [readyState, isPressed]);
 

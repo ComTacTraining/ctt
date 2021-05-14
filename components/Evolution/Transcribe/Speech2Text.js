@@ -38,7 +38,7 @@ const Speech2Text = props => {
     const micStream = useRef(null);
     const [audioBinary, setAudioBinary] = useState();
 
-    const { speechBotState, isRecordingMicrophone } = useSelector(state => state.ai);
+    const { speechBotState, isRecordingMicrophone, radioInUse } = useSelector(state => state.ai);
     const getSocketUrl = useCallback(async () => {
         try {
             const response = await fetch("/api/member/voiceurl", {
@@ -116,14 +116,14 @@ const Speech2Text = props => {
       }, []);
 
       useEffect(() => {
-        console.log(connectionStatus)
+        console.log("radioInUse", radioInUse);
         if(connectionStatus === "Open") {
             getWebSocket().binaryType = 'arraybuffer';
             if(speechBotState !== BOTSTATE.PROCESSING && speechBotState !== BOTSTATE.PRESSKEY) {
                 dispatch(updateSpeechBotState(BOTSTATE.PRESSKEY));
             }
 
-            if(isPressed && !isRecordingMicrophone && speechBotState !== BOTSTATE.LISTENINIG) {    
+            if(isPressed && !isRecordingMicrophone && speechBotState !== BOTSTATE.LISTENINIG && !radioInUse) {    
                 dispatch(startRecordingMicrophone());
                 dispatch(updateSpeechBotState(BOTSTATE.LISTENINIG));
             } else if (!isPressed  && isRecordingMicrophone && speechBotState !== BOTSTATE.PROCESSING){

@@ -22,9 +22,10 @@ const options = {
     descriptionsButton: false,
     subsCapsButton: false,
     audioTrackButton: false,
-    fullscreenToggle: false
+    fullscreenToggle: true
   },
   userActions: {
+    singleClick: false,
     doubleClick: false
   }
 }

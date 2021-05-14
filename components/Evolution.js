@@ -105,7 +105,7 @@ const Evolution = ({ category }) => {
 
   return (
     <>
-      <H3>{title}</H3>
+      {/* <H3>{title}</H3> */}
       {evolutionId && <Simulation />}
     </>
   )

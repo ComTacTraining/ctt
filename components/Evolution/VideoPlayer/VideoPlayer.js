@@ -8,7 +8,6 @@ import httpSourceSelectorMutePlugin from 'videojs-http-source-selector-mute'
 import vjsPlaylistPlugin from 'videojs-playlist'
 import 'video.js/dist/video-js.min.css'
 import * as aiActions from 'store/actions/ai'
-import { toggleFullscreen } from 'store/actions/user'
 import { options } from 'utils/video'
 
 const useStyles = makeStyles(() => ({
@@ -17,6 +16,9 @@ const useStyles = makeStyles(() => ({
       display: 'block'
     },
     '& .vjs-big-play-button': {
+      display: 'none'
+    },
+    '& .vjs-fullscreen-control': {
       display: 'none'
     }
   },
@@ -66,15 +68,6 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
       }
     }
   }, [playlist])
-
-  useEffect(() => {
-    const videoFullScreen = () => {
-      dispatch(toggleFullscreen())
-    }
-    if (player) {
-      player.on('fullscreenchange', () => videoFullScreen())
-    }
-  }, [player, dispatch])
 
   useEffect(() => {
     const videoEnded = () => {

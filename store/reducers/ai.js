@@ -264,6 +264,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         availableVoices: action.payload.voices
       }
+    case actionTypes.RESET_AI:
+      return {
+        ...initialState
+      }
     default:
       return state
   }

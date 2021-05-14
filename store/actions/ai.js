@@ -40,6 +40,7 @@ export const SET_COMMAND_NAME = 'SET_COMMAND_NAME'
 export const START_TIME = 'START_TIME'
 export const SET_AVAILABLE_VOICES = 'SET_AVAILABLE_VOICES'
 export const UPDATE_SPEECH_BOT_STATE = 'UPDATE_SPEECH_BOT_STATE'
+export const RESET_AI = 'RESET_AI'
 
 export const firstAlarmAnnounced = () => {
   return { type: FIRST_ALARM_ANNOUNCED }
@@ -271,5 +272,11 @@ export const setAvailableVoices = (voices) => {
     payload: {
       voices: voices
     }
+  }
+}
+
+export const resetAI = () => {
+  return {
+    type: RESET_AI
   }
 }

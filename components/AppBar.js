@@ -152,6 +152,7 @@ const AppBar = ({ window }) => {
                     key='desktop.visitor'
                     href='#'
                     onClick={(e) => {
+                      e.preventDefault()
                       setOpenVisitor(true)
                       setVisitorAnchor(e.currentTarget)
                     }}
@@ -181,6 +182,7 @@ const AppBar = ({ window }) => {
                     key='desktop.guest'
                     href='#'
                     onClick={(e) => {
+                      e.preventDefault()
                       setOpenGuest(true)
                       setGuestAnchor(e.currentTarget)
                     }}
@@ -215,6 +217,7 @@ const AppBar = ({ window }) => {
                     key='desktop.member'
                     href='#'
                     onClick={(e) => {
+                      e.preventDefault()
                       setOpenMember(true)
                       setMemberAnchor(e.currentTarget)
                     }}
@@ -254,7 +257,7 @@ const AppBar = ({ window }) => {
                     </MenuItem>
                     <MenuItem>
                       <Link href='/evolution/multi-family' onClick={closeMenu}>
-                        Mutli Family
+                        Multi Family
                       </Link>
                     </MenuItem>
                   </Menu>
@@ -262,6 +265,7 @@ const AppBar = ({ window }) => {
                     key='desktop.admin'
                     href='#'
                     onClick={(e) => {
+                      e.preventDefault()
                       setOpenAdmin(true)
                       setAdminAnchor(e.currentTarget)
                     }}

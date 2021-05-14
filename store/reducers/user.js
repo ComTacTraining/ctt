@@ -1,65 +1,44 @@
-import * as actionTypes from "../actions/user";
+import * as actionTypes from '../actions/user'
 
 const initialState = {
-  isAuthenticated: false,
-  username: "",
-  email: "",
-  isMember: false,
-  dispatchCenter: "Dispatch",
-  firstOnScene: "Engine 1",
-  incomingCommandOfficer: "Battalion 1",
+  dispatchCenter: 'Dispatch',
+  firstOnScene: 'Engine 1',
+  incomingCommandOfficer: 'Battalion 1',
   alarm1: [
-    "Engine 1",
-    "Engine 2",
-    "Engine 3",
-    "Truck 1",
-    "Truck 2",
-    "Battalion 1"
+    'Engine 1',
+    'Engine 2',
+    'Engine 3',
+    'Truck 1',
+    'Truck 2',
+    'Battalion 1'
   ],
   alarm2: [
-    "Engine 21",
-    "Engine 22",
-    "Engine 23",
-    "Truck 21",
-    "Truck 22",
-    "Battalion 2"
+    'Engine 21',
+    'Engine 22',
+    'Engine 23',
+    'Truck 21',
+    'Truck 22',
+    'Battalion 2'
   ],
   alarm3: [
-    "Engine 31",
-    "Engine 32",
-    "Engine 33",
-    "Truck 31",
-    "Truck 32",
-    "Battalion 3"
+    'Engine 31',
+    'Engine 32',
+    'Engine 33',
+    'Truck 31',
+    'Truck 32',
+    'Battalion 3'
   ],
   showTips: true,
-  hasMicrophoneAccess: false,
-  fullscreen: false
-};
+  usingMic: true
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.IS_AUTHENTICATED:
-      return {
-        ...state,
-        isAuthenticated: true
-      };
-    case actionTypes.SET_LOGGED_IN_USER:
-      return {
-        ...state,
-        username: action.payload.username,
-        email: action.payload.email
-      };
-    case actionTypes.IS_MEMBER:
-      return {
-        ...state,
-        isMember: true
-      };
     case actionTypes.TOGGLE_TIPS:
       return {
         ...state,
         showTips: !state.showTips
-      };
+      }
     case actionTypes.UPDATE_USER_PREFERENCES:
       return {
         ...state,
@@ -70,22 +49,17 @@ const reducer = (state = initialState, action) => {
         alarm2: action.payload.alarm2,
         alarm3: action.payload.alarm3,
         showTips: action.payload.showTips
-      };
-    case actionTypes.MICROPHONE_ACCESS_GRANTED:
+      }
+    case actionTypes.TOGGLE_USING_MIC:
       return {
         ...state,
-        hasMicrophoneAccess: true
-      };
-    case actionTypes.TOGGLE_FULLSCREEN:
-      return {
-        ...state,
-        fullscreen: !state.fullscreen
-      };
+        usingMic: !state.usingMic
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer
 
-export { initialState };
+export { initialState }

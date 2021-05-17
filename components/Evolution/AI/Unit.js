@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   addToSpeechQueue,
   incrementUnitsAssigned,
   addAssignedGroup,
   incidentAnnounced
-} from "store/actions/ai";
+} from 'store/actions/ai'
 import {
   options,
   anyTermsMatchString,
   randomSelection,
   properPronouns
-} from "utils/ai";
+} from 'utils/ai'
 
 const {
   maxUnitArrivalSeconds,
@@ -20,13 +20,13 @@ const {
   parReportTerms,
   icsNimsGroups,
   parReport
-} = options;
+} = options
 
 const Unit = ({ name, voice, index }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const { command, incidentCommandName, unitsAssigned } = useSelector(
-    state => state.ai
-  );
+    (state) => state.ai
+  )
   const {
     incidentGroup,
     incidentCommand,
@@ -36,11 +36,11 @@ const Unit = ({ name, voice, index }) => {
     exposure,
     ric,
     medical
-  } = useSelector(state => state.evolution);
-  const [unitName] = useState(name);
-  const [announcement, setAnnouncement] = useState("");
-  const [arrived, setArrived] = useState(false);
-  const [icsNimsGroup, setIcsNimsGroup] = useState("");
+  } = useSelector((state) => state.evolution)
+  const [unitName] = useState(name)
+  const [announcement, setAnnouncement] = useState('')
+  const [arrived, setArrived] = useState(false)
+  const [icsNimsGroup, setIcsNimsGroup] = useState('')
 
   useEffect(() => {
     const unitSpeech = () => {
@@ -48,122 +48,121 @@ const Unit = ({ name, voice, index }) => {
         label: unitName,
         text: announcement,
         voice: voice
-      };
-      dispatch(addToSpeechQueue(speech));
-      setAnnouncement("");
-    };
+      }
+      dispatch(addToSpeechQueue(speech))
+      setAnnouncement('')
+    }
 
     if (announcement) {
-      unitSpeech();
+      unitSpeech()
     }
-  }, [announcement, unitName, voice, dispatch]);
+  }, [announcement, unitName, voice, dispatch])
 
   useEffect(() => {
-    let interval;
+    let interval
 
     if (unitName) {
-      let timeout = 0;
+      let timeout = 0
       if (index === 0) {
-        timeout = 3;
+        timeout = 3
       } else {
-        const minUnitArrivalSeconds = Math.floor(maxUnitArrivalSeconds / 3);
+        const minUnitArrivalSeconds = Math.floor(maxUnitArrivalSeconds / 3)
         timeout = Math.floor(
           Math.random() * (maxUnitArrivalSeconds - minUnitArrivalSeconds + 1) +
             minUnitArrivalSeconds
-        );
-        timeout *= 1000;
+        )
+        timeout *= 1000
       }
       interval = setTimeout(() => {
-        setAnnouncement(
-          `${unitName} on scene staged requesting an assignment.`
-        );
-        setArrived(true);
-      }, timeout);
+        setAnnouncement(`${unitName} on scene staged requesting an assignment.`)
+        setArrived(true)
+      }, timeout)
     }
 
-    return () => clearTimeout(interval);
-  }, [unitName, index, dispatch]);
+    return () => clearTimeout(interval)
+  }, [unitName, index, dispatch])
 
   useEffect(() => {
     const checkForAssignment = () => {
-      icsNimsGroups.forEach(group => {
+      icsNimsGroups.forEach((group) => {
         if (anyTermsMatchString(command, group.terms)) {
-          setIcsNimsGroup(group.name);
+          setIcsNimsGroup(group.name)
           const possibleResponses = [
             `${unitName} copies, I am ${group.name}.`,
             `${incidentCommandName} from ${unitName}. I copy I am ${group.name} group.`,
             `${incidentCommandName} from ${unitName}. I am ${group.name} group.`,
             `${incidentCommandName} from ${unitName}. I copy I will be ${group.name} group.`
-          ];
-          const assignmentAcknowledgement = randomSelection(possibleResponses);
-          const commandRepeat = properPronouns(command);
-          setAnnouncement(`${assignmentAcknowledgement} ${commandRepeat}`);
-          dispatch(incrementUnitsAssigned());
-          dispatch(addAssignedGroup(group.name));
+          ]
+          const assignmentAcknowledgement = randomSelection(possibleResponses)
+          const commandRepeat = properPronouns(command)
+          setAnnouncement(`${assignmentAcknowledgement} ${commandRepeat}`)
+          dispatch(incrementUnitsAssigned())
+          dispatch(addAssignedGroup(group.name))
         }
-      });
-    };
+      })
+    }
 
     const checkIfAddressed = () => {
       if (anyTermsMatchString(command, unitName)) {
-        checkForAssignment();
+        checkForAssignment()
       }
-    };
+    }
 
     if (!icsNimsGroup && arrived && command) {
-      checkIfAddressed();
+      checkIfAddressed()
     }
-  }, [arrived, command, icsNimsGroup, unitName, incidentCommandName, dispatch]);
+  }, [arrived, command, icsNimsGroup, unitName, incidentCommandName, dispatch])
 
   useEffect(() => {
     const checkForNeeds = () => {
       switch (icsNimsGroup) {
-        case "Fire Attack":
-          return attack;
-        case "Ventilation":
-          return ventilation;
-        case "Exposure":
-          return exposure;
-        case "RIC":
-          return ric;
-        case "Medical":
-          return medical;
+        case 'Fire Attack':
+          return attack
+        case 'Ventilation':
+          return ventilation
+        case 'Exposure':
+          return exposure
+        case 'RIC':
+          return ric
+        case 'Medical':
+          return medical
         default:
-          return false;
+          return false
       }
-    };
+    }
 
-    const getType = needs => {
-      let type = withstanding ? "WITHSTANDING_WITH" : "NOT_WITHSTANDING_WITH";
-      type += needs ? "_NEEDS" : "OUT_NEEDS";
-      return type;
-    };
+    const getType = (needs) => {
+      let type = withstanding ? 'WITHSTANDING_WITH' : 'NOT_WITHSTANDING_WITH'
+      type += needs ? '_NEEDS' : 'OUT_NEEDS'
+      return type
+    }
 
     const checkForCanReport = () => {
       if (anyTermsMatchString(command, canReportTerms)) {
-        const group = icsNimsGroups.find(group => group.name === icsNimsGroup);
-        const type = getType(checkForNeeds());
-        const canReport = group.canReports.find(report => report.type === type)
-          .response;
-        setAnnouncement(canReport);
+        const group = icsNimsGroups.find((group) => group.name === icsNimsGroup)
+        const type = getType(checkForNeeds())
+        const canReport = group.canReports.find(
+          (report) => report.type === type
+        ).response
+        setAnnouncement(canReport)
       }
-    };
+    }
 
     const checkForParReport = () => {
       if (anyTermsMatchString(command, parReportTerms)) {
-        setAnnouncement(parReport);
+        setAnnouncement(parReport)
       }
-    };
+    }
 
     const checkIfAddressed = () => {
       if (anyTermsMatchString(command, [unitName, icsNimsGroup])) {
-        checkForCanReport();
-        checkForParReport();
+        checkForCanReport()
+        checkForParReport()
       }
-    };
+    }
 
     if (icsNimsGroup && command) {
-      checkIfAddressed();
+      checkIfAddressed()
     }
   }, [
     icsNimsGroup,
@@ -175,50 +174,50 @@ const Unit = ({ name, voice, index }) => {
     exposure,
     ric,
     medical
-  ]);
+  ])
 
   useEffect(() => {
     const normalizedGroup = () => {
-      let group = "";
+      let group = ''
       switch (incidentGroup) {
-        case "FIRE_ATTACK":
-          group = "Fire Attack";
-          break;
-        case "VENTILATION":
-          group = "Ventilation";
-          break;
-        case "EXPOSURE":
-          group = "Exposure";
-          break;
-        case "RIC":
-          group = "RIC";
-          break;
-        case "MEDICAL":
-          group = "Medical";
-          break;
+        case 'FIRE_ATTACK':
+          group = 'Fire Attack'
+          break
+        case 'VENTILATION':
+          group = 'Ventilation'
+          break
+        case 'EXPOSURE':
+          group = 'Exposure'
+          break
+        case 'RIC':
+          group = 'RIC'
+          break
+        case 'MEDICAL':
+          group = 'Medical'
+          break
         default:
-          break;
+          break
       }
-      return group;
-    };
+      return group
+    }
 
     if (icsNimsGroup && unitsAssigned > 2) {
-      const group = normalizedGroup();
+      const group = normalizedGroup()
       if (group === icsNimsGroup) {
-        const announcement = incidentCommand.replace("{NAME}", icsNimsGroup);
-        setAnnouncement(announcement);
-        dispatch(incidentAnnounced());
+        const announcement = incidentCommand.replace('__NAME__', icsNimsGroup)
+        setAnnouncement(announcement)
+        dispatch(incidentAnnounced())
       }
     }
-  }, [icsNimsGroup, unitsAssigned, incidentGroup, incidentCommand, dispatch]);
+  }, [icsNimsGroup, unitsAssigned, incidentGroup, incidentCommand, dispatch])
 
-  return <div></div>;
-};
+  return <div></div>
+}
 
 Unit.propTypes = {
   name: PropTypes.string.isRequired,
   voice: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired
-};
+}
 
-export default Unit;
+export default Unit

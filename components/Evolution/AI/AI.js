@@ -76,7 +76,7 @@ const AI = () => {
       const groupName = groupConstToDisplay(incidentGroup)
       const speech = {
         label: groupName,
-        text: incidentCommand.replace('{NAME}', groupName),
+        text: incidentCommand.replace('__NAME__', groupName),
         voice: unassignedIncidentVoice
       }
       dispatch(aiActions.addToSpeechQueue(speech))

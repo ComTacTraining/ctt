@@ -16,6 +16,7 @@ import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
 import { UserContext } from 'components/Auth/UserContext'
 import { startTime, resetAI } from 'store/actions/ai'
+import { resetTips } from 'store/actions/tips'
 import { playlistFromId } from 'utils/video'
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +43,7 @@ const Demo = () => {
 
   React.useEffect(() => {
     dispatch(resetAI())
+    dispatch(resetTips())
   }, [dispatch])
 
   React.useEffect(() => {

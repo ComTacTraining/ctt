@@ -1,4 +1,4 @@
-import * as actionTypes from "../actions/tips";
+import * as actionTypes from '../actions/tips'
 
 const initialState = {
   initialReportSize: false,
@@ -22,57 +22,59 @@ const initialState = {
   assignmentVentilation: false,
   assignmentSalvage: false,
   incidentWithinIncident: false
-};
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADDRESSED_INITIAL_REPORT_SIZE:
-      return { ...state, initialReportSize: true };
+      return { ...state, initialReportSize: true }
     case actionTypes.ADDRESSED_INITIAL_REPORT_HEIGHT:
-      return { ...state, initialReportHeight: true };
+      return { ...state, initialReportHeight: true }
     case actionTypes.ADDRESSED_INITIAL_REPORT_OCCUPANCY:
-      return { ...state, initialReportOccupancy: true };
+      return { ...state, initialReportOccupancy: true }
     case actionTypes.ADDRESSED_INITIAL_REPORT_CONDITIONS:
-      return { ...state, initialReportConditions: true };
+      return { ...state, initialReportConditions: true }
     case actionTypes.ADDRESSED_INITIAL_REPORT_ACTIONS:
-      return { ...state, initialReportActions: true };
+      return { ...state, initialReportActions: true }
     case actionTypes.ADDRESSED_INITIAL_REPORT_NEEDS:
-      return { ...state, initialReportNeeds: true };
+      return { ...state, initialReportNeeds: true }
     case actionTypes.ADDRESSED_INITIAL_REPORT_DESIGNATION:
-      return { ...state, initialReportDesignation: true };
+      return { ...state, initialReportDesignation: true }
     case actionTypes.ADDRESSED_THREE_SIXTY_CONSTRUCTION:
-      return { ...state, threeSixtyConstruction: true };
+      return { ...state, threeSixtyConstruction: true }
     case actionTypes.ADDRESSED_THREE_SIXTY_ENTRY_EGRESS:
-      return { ...state, threeSixtyEntryEgress: true };
+      return { ...state, threeSixtyEntryEgress: true }
     case actionTypes.ADDRESSED_THREE_SIXTY_CONDITIONS:
-      return { ...state, threeSixtyConditions: true };
+      return { ...state, threeSixtyConditions: true }
     case actionTypes.ADDRESSED_THREE_SIXTY_INTERIOR_PATH:
-      return { ...state, threeSixtyInteriorPath: true };
+      return { ...state, threeSixtyInteriorPath: true }
     case actionTypes.ADDRESSED_THREE_SIXTY_SURVIVABILITY:
-      return { ...state, threeSixtySurvivability: true };
+      return { ...state, threeSixtySurvivability: true }
     case actionTypes.ADDRESSED_THREE_SIXTY_STRATEGIC_MODE:
-      return { ...state, threeSixtyStrategicMode: true };
+      return { ...state, threeSixtyStrategicMode: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_RESCUE:
-      return { ...state, assignmentRescue: true };
+      return { ...state, assignmentRescue: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_EXPOSURE:
-      return { ...state, assignmentExposure: true };
+      return { ...state, assignmentExposure: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_CONFINEMENT:
-      return { ...state, assignmentConfinement: true };
+      return { ...state, assignmentConfinement: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_EXTINGUISHMENT:
-      return { ...state, assignmentExtinguishment: true };
+      return { ...state, assignmentExtinguishment: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_OVERHAUL:
-      return { ...state, assignmentOverhaul: true };
+      return { ...state, assignmentOverhaul: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_VENTILATION:
-      return { ...state, assignmentVentilation: true };
+      return { ...state, assignmentVentilation: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_SALVAGE:
-      return { ...state, assignmentSalvage: true };
+      return { ...state, assignmentSalvage: true }
     case actionTypes.ADDRESSED_INCIDENT_WITHIN_INCIDENT:
-      return { ...state, incidentWithinIncident: true };
+      return { ...state, incidentWithinIncident: true }
+    case actionTypes.RESET_TIPS:
+      return { ...initialState }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer
 
-export { initialState };
+export { initialState }

@@ -15,6 +15,8 @@ import AdminPanel from './AdminPanel/AdminPanel'
 import Evaluation from './Evaluation/Evaluation'
 import { playlistFromId } from 'utils/video'
 import { startTime, resetAI } from 'store/actions/ai'
+import { resetTips } from 'store/actions/tips'
+import { resetEvaluation } from 'store/actions/evaluation'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
 import { UserContext } from 'components/Auth/UserContext'
@@ -32,11 +34,8 @@ const useStyles = makeStyles((theme) => ({
 const Evolution = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const {
-    firstAlarmAnnounced,
-    faceToFaceCompleted,
-    educationCompleted
-  } = useSelector((state) => state.ai)
+  const { firstAlarmAnnounced, faceToFaceCompleted, educationCompleted } =
+    useSelector((state) => state.ai)
   const { alias } = useSelector((state) => state.evolution)
   const { showTips } = useSelector((state) => state.user)
   const [playlist, setPlaylist] = React.useState(false)
@@ -46,6 +45,8 @@ const Evolution = () => {
 
   React.useEffect(() => {
     dispatch(resetAI())
+    dispatch(resetTips())
+    dispatch(resetEvaluation())
   }, [dispatch])
 
   React.useEffect(() => {

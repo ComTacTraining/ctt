@@ -1,36 +1,49 @@
-import { useState, useEffect } from "react";
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 const useKeyPress = (targetCode, preventDefault = false) => {
-  const [keyPressed, setKeyPressed] = useState(false);
+  const { usingMic } = useSelector((state) => state.user)
+  const [keyPressed, setKeyPressed] = React.useState(false)
+  const [isListening, setIsListening] = React.useState(false)
 
-  useEffect(() => {
-    const downHandler = event => {
+  React.useEffect(() => {
+    const downHandler = (event) => {
       if (event.code === targetCode) {
-        setKeyPressed(true);
+        setKeyPressed(true)
       }
       if (event.code === 'Space') {
-        event.preventDefault();
+        event.preventDefault()
       }
-    };
+    }
 
-    const upHandler = event => {
+    const upHandler = (event) => {
       if (preventDefault) {
-        event.preventDefault();
+        event.preventDefault()
       }
       if (event.code === targetCode) {
-        setKeyPressed(false);
+        setKeyPressed(false)
       }
-    };
+    }
 
-    window.addEventListener("keydown", downHandler);
-    window.addEventListener("keyup", upHandler);
+    if (usingMic) {
+      window.addEventListener('keydown', downHandler)
+      window.addEventListener('keyup', upHandler)
+      setIsListening(true)
+    } else if (isListening) {
+      window.removeEventListener('keydown', downHandler)
+      window.removeEventListener('keyup', upHandler)
+      setIsListening(false)
+    }
+
     return () => {
-      window.removeEventListener("keydown", downHandler);
-      window.removeEventListener("keyup", upHandler);
-    };
-  }, [targetCode, preventDefault]);
+      if (isListening) {
+        window.removeEventListener('keydown', downHandler)
+        window.removeEventListener('keyup', upHandler)
+      }
+    }
+  }, [targetCode, preventDefault, usingMic, isListening])
 
-  return keyPressed;
-};
+  return keyPressed
+}
 
-export default useKeyPress;
+export default useKeyPress

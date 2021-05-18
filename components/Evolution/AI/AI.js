@@ -96,12 +96,6 @@ const AI = () => {
     dispatch
   ])
 
-  useEffect(() => {
-    if (incidentAnnounced && !incidentCompleted && command) {
-      dispatch(aiActions.incidentCompleted())
-    }
-  }, [incidentAnnounced, incidentCompleted, command, dispatch])
-
   return (
     <div className='Ai'>
       {introFinished && <DispatchCenter />}

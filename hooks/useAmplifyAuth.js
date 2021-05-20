@@ -18,7 +18,7 @@ const amplifyAuthReducer = (state, action) => {
         isMember: action.payload.isMember,
         isAdmin: action.payload.isAdmin
       }
-    case 'UPDATE_TO_MEMBER':
+    case 'UPGRADE_TO_MEMBER':
       return {
         ...state,
         isMember: true
@@ -98,7 +98,6 @@ const useAmplifyAuth = () => {
     }
 
     const onAuthEvent = (payload) => {
-      // console.log(`auth event: ${payload.event} with data: ${payload.data.message}`)
       switch (payload.event) {
         case 'signIn':
           if (isMounted) {

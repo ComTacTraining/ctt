@@ -8,6 +8,7 @@ import httpSourceSelectorMutePlugin from 'videojs-http-source-selector-mute'
 import vjsPlaylistPlugin from 'videojs-playlist'
 import 'video.js/dist/video-js.min.css'
 import * as aiActions from 'store/actions/ai'
+import { updateMasterVolume } from 'store/actions/user'
 import { options } from 'utils/video'
 
 const useStyles = makeStyles(() => ({
@@ -36,6 +37,7 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
     threeSixtyWalkthroughCompleted: end360,
     faceToFaceCompleted
   } = useSelector((state) => state.ai)
+  const { masterVolume } = useSelector((state) => state.user)
   const classes = useStyles()
   const videoRef = useRef()
   const [player, setPlayer] = useState()
@@ -53,7 +55,7 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
     const vjsplayer = videojs(videoRef.current, options, () => {
       setPlayer(vjsplayer)
     })
-    vjsplayer.volume(0.2)
+    vjsplayer.volume(masterVolume)
     vjsplayer.vjsPlaylist(playlist)
     vjsplayer.playlist.autoadvance(0)
     vjsplayer.vjsQualityLevels()
@@ -89,8 +91,14 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
         onPlaylistEnded()
       }
     }
+
+    const volumeChanged = () => {
+      dispatch(updateMasterVolume(player.volume()))
+    }
+
     if (player) {
       player.on('ended', () => videoEnded())
+      player.on('volumechange', () => volumeChanged())
     }
   }, [player, playlistLength, onPlaylistEnded])
 

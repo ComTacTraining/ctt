@@ -29,7 +29,8 @@ const initialState = {
     'Battalion 3'
   ],
   showTips: true,
-  usingMic: true
+  usingMic: true,
+  masterVolume: 0.5
 }
 
 const reducer = (state = initialState, action) => {
@@ -54,6 +55,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         usingMic: !state.usingMic
+      }
+    case actionTypes.UPDATE_MASTER_VOLUME:
+      return {
+        ...state,
+        masterVolume: action.payload.level
       }
     default:
       return state

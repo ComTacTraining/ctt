@@ -1,26 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux'
-import React, { useEffect, useState } from 'react'
-// import Sound from 'react-sound';
-import useSound from 'use-sound';
-import chirpSoundSource from "../../../public/mdc1200.mp3";
-import { Chip } from '@material-ui/core';
-
+import * as React from 'react'
+import { useSelector } from 'react-redux'
+import useSound from 'use-sound'
 
 const RadioSound = () => {
-    const dispatch = useDispatch();
-    const { isListeningMicrophone, isRecordingMicrophone } = useSelector(state => state.ai)
-    const [ play ] = useSound(chirpSoundSource);
-    useEffect(() => {
-        play();
-        }, [isRecordingMicrophone]);
+  const { isRecordingMicrophone } = useSelector((state) => state.ai)
+  const { masterVolume } = useSelector((state) => state.user)
+  const [play] = useSound('/mdc1200.mp3', { volume: masterVolume })
+  React.useEffect(() => {
+    play()
+  }, [isRecordingMicrophone])
 
-
-
-    return (
-        <div id='Radio'>
-            
-        </div>
-    )
+  return <div id='Radio'></div>
 }
 
-export default RadioSound;
+export default RadioSound

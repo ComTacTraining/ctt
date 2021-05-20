@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import Auth from '@aws-amplify/auth'
@@ -16,14 +16,16 @@ import {
 const TextToSpeech = () => {
   const dispatch = useDispatch()
   const { radioInUse, textToSpeech } = useSelector((state) => state.ai)
-  const [audioCtx, setAudioCtx] = useState(null)
-  const [encodedAudio, setEncodedAudio] = useState(null)
-  const [decodedAudio, setDecodedAudio] = useState(null)
-  const [duration, setDuration] = useState(0)
-  const [finishedSpeaking, setFinishedSpeaking] = useState(false)
-  const [lastText, setLastText] = useState('')
+  const { masterVolume } = useSelector((state) => state.user)
+  const [audioCtx, setAudioCtx] = React.useState(null)
+  const [gainNode, setGainNode] = React.useState(null)
+  const [encodedAudio, setEncodedAudio] = React.useState(null)
+  const [decodedAudio, setDecodedAudio] = React.useState(null)
+  const [duration, setDuration] = React.useState(0)
+  const [finishedSpeaking, setFinishedSpeaking] = React.useState(false)
+  const [lastText, setLastText] = React.useState('')
 
-  useEffect(() => {
+  React.useEffect(() => {
     try {
       Predictions.addPluggable(new AmazonAIPredictionsProvider())
     } catch (err) {
@@ -36,7 +38,22 @@ const TextToSpeech = () => {
     }
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
+    if (audioCtx) {
+      const gainNode = audioCtx.createGain()
+      gainNode.gain.value = masterVolume
+      gainNode.connect(audioCtx.destination)
+      setGainNode(gainNode)
+    }
+  }, [audioCtx])
+
+  React.useEffect(() => {
+    if (gainNode && audioCtx) {
+      gainNode.gain.setValueAtTime(masterVolume, audioCtx.currentTime)
+    }
+  }, [masterVolume, gainNode, audioCtx])
+
+  React.useEffect(() => {
     const { text, voice } = textToSpeech
 
     const processText = async () => {
@@ -61,7 +78,7 @@ const TextToSpeech = () => {
     }
   }, [textToSpeech, radioInUse, lastText])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (encodedAudio) {
       audioCtx.decodeAudioData(
         encodedAudio.audioStream,
@@ -71,17 +88,17 @@ const TextToSpeech = () => {
     }
   }, [encodedAudio, audioCtx])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (decodedAudio) {
       setDuration(Math.ceil(decodedAudio.duration) + 1)
       const source = audioCtx.createBufferSource()
       source.buffer = decodedAudio
-      source.connect(audioCtx.destination)
+      source.connect(gainNode)
       source.start(0)
     }
-  }, [decodedAudio, audioCtx])
+  }, [decodedAudio, audioCtx, gainNode])
 
-  useEffect(() => {
+  React.useEffect(() => {
     let timer
     if (duration > 0) {
       timer = setTimeout(() => {
@@ -92,7 +109,7 @@ const TextToSpeech = () => {
     return () => clearTimeout(timer)
   }, [duration])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const { meta } = textToSpeech
     if (finishedSpeaking) {
       dispatch(speakCompleted())

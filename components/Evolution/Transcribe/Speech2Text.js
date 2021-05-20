@@ -244,7 +244,9 @@ const Speech2Text = props => {
         };
     }
     const closeSocket = () => {
-        micStream.current.stop();
+        if(micStream.current) {
+            micStream.current.stop();
+        }
         if (connectionStatus === "Open") {
 
             let emptyMessage = getAudioEventMessage(Buffer.from(new Buffer([])));

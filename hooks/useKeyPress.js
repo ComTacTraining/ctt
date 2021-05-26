@@ -1,19 +1,16 @@
 import * as React from 'react'
-import { useSelector } from 'react-redux'
 
 const useKeyPress = (targetCode, preventDefault = false) => {
-  const { usingMic } = useSelector((state) => state.user)
   const [keyPressed, setKeyPressed] = React.useState(false)
-  const [isListening, setIsListening] = React.useState(false)
 
   React.useEffect(() => {
     const downHandler = (event) => {
       if (event.code === targetCode) {
         setKeyPressed(true)
       }
-      if (event.code === 'Space') {
-        event.preventDefault()
-      }
+      // if (event.code === 'Space') {
+      //   event.preventDefault()
+      // }
     }
 
     const upHandler = (event) => {
@@ -25,23 +22,14 @@ const useKeyPress = (targetCode, preventDefault = false) => {
       }
     }
 
-    if (usingMic) {
-      window.addEventListener('keydown', downHandler)
-      window.addEventListener('keyup', upHandler)
-      setIsListening(true)
-    } else if (isListening) {
-      window.removeEventListener('keydown', downHandler)
-      window.removeEventListener('keyup', upHandler)
-      setIsListening(false)
-    }
+    window.addEventListener('keydown', downHandler)
+    window.addEventListener('keyup', upHandler)
 
     return () => {
-      if (isListening) {
-        window.removeEventListener('keydown', downHandler)
-        window.removeEventListener('keyup', upHandler)
-      }
+      window.removeEventListener('keydown', downHandler)
+      window.removeEventListener('keyup', upHandler)
     }
-  }, [targetCode, preventDefault, usingMic, isListening])
+  }, [targetCode, preventDefault])
 
   return keyPressed
 }

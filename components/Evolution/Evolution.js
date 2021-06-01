@@ -11,7 +11,8 @@ import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import Education from './Education/Education'
 import Tips from './Tips/Tips'
 import VideoPlayer from './VideoPlayer/VideoPlayer'
-import AdminPanel from './AdminPanel/AdminPanel'
+import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
+import Command from 'components/Evolution/AdminPanel/Command'
 import Evaluation from './Evaluation/Evaluation'
 import { playlistFromId } from 'utils/video'
 import { startTime, resetAI } from 'store/actions/ai'
@@ -39,7 +40,7 @@ const Evolution = () => {
   const { alias } = useSelector((state) => state.evolution)
   const { showTips } = useSelector((state) => state.user)
   const [playlist, setPlaylist] = React.useState(false)
-  const [showDebug, setShowDebug] = React.useState(false)
+  const [showDebug, setShowDebug] = React.useState(true)
 
   const { isAdmin } = React.useContext(UserContext)
 
@@ -57,18 +58,22 @@ const Evolution = () => {
     }
   }, [alias, dispatch])
 
+  const toggleShowDebug = () => {
+    setShowDebug(!showDebug)
+  }
+
   return (
     <>
       {playlist && (
         <Grid container spacing={1}>
-          {isAdmin && !showDebug && (
+          {isAdmin && (
             <Grid item xs={12} className={classes.adminButton}>
-              <Contained onClick={() => setShowDebug(true)}>
-                Show Admin Panel
+              <Contained onClick={toggleShowDebug}>
+                {showDebug ? 'Hide' : 'Show'} Admin Panel
               </Contained>
             </Grid>
           )}
-          <Grid item xs={showDebug ? 9 : 12}>
+          <Grid item xs={showDebug ? 6 : 12}>
             {firstAlarmAnnounced && (
               <>
                 <RadioSound />
@@ -87,20 +92,15 @@ const Evolution = () => {
             )}
             {faceToFaceCompleted && <Education />}
             {educationCompleted && <Evaluation />}
-            {/* <AdminPanel /> */}
+            {isAdmin && showDebug && <Command />}
           </Grid>
           {isAdmin && showDebug && (
-            <Grid item xs={3} alignContent='center'>
-              <Grid container>
-                <Grid item xs={12} className={classes.closePanel}>
-                  <Contained
-                    onClick={() => setShowDebug(false)}
-                    className={classes.extraSpacing}>
-                    Hide Admin Panel
-                  </Contained>
+            <Grid item xs={6}>
+              <Grid container alignContent='center'>
+                <Grid item xs={12}>
+                  <AdminPanel />
                 </Grid>
               </Grid>
-              <AdminPanel />
             </Grid>
           )}
         </Grid>

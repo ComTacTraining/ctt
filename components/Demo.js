@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 
 import { Contained } from 'mui/Button'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
+import Command from 'components/Evolution/AdminPanel/Command'
 import AI from 'components/Evolution/AI/AI'
 import ScrollingText from 'components/Evolution/ScrollingText/ScrollingText'
 import Speak from 'components/Evolution/Speak/Speak'
@@ -19,7 +20,6 @@ import { UserContext } from 'components/Auth/UserContext'
 import { startTime, resetAI } from 'store/actions/ai'
 import { resetTips } from 'store/actions/tips'
 import { playlistFromId } from 'utils/video'
-import Command from 'components/Evolution/AdminPanel/Command'
 
 const useStyles = makeStyles((theme) => ({
   adminButton: {

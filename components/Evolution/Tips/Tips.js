@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import Tip from './Tip'
-import { H5 } from 'mui/Typography'
+import { H6 } from 'mui/Typography'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     top: 'auto',
     left: 'auto',
     zIndex: 999,
-    padding: '2rem',
+    padding: '1rem',
     color: 'white',
     textAlign: 'left'
   },
@@ -35,7 +35,7 @@ const Tips = () => {
     <div className={classes.root}>
       {ai.firstAlarmAnnounced && !ai.threeSixtyWalkthroughBegan && (
         <div className={classes.backdrop}>
-          <H5 gutterBottom>Initial Report Tips</H5>
+          <H6>Initial Report Tips</H6>
           <Divider />
           <List dense={true}>
             <Tip
@@ -78,7 +78,7 @@ const Tips = () => {
       )}
       {ai.threeSixtyWalkthroughCompleted && !ai.threeSixtyAssessmentCompleted && (
         <div className={classes.backdrop}>
-          <H5 gutterBottom>360&deg; Assessment Tips</H5>
+          <H6>360&deg; Assessment Tips</H6>
           <Divider />
           <List dense={true}>
             <Tip
@@ -116,7 +116,7 @@ const Tips = () => {
       )}
       {ai.threeSixtyAssessmentCompleted && !ai.assignmentsCompleted && (
         <div className={classes.backdrop}>
-          <H5 gutterBottom>Assignment Tips</H5>
+          <H6>Assignment Tips</H6>
           <Divider />
           <List dense={true}>
             <Tip

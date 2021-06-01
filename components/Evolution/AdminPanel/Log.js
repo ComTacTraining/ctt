@@ -4,14 +4,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import Paper from '@material-ui/core/Paper'
-import { H6 } from 'mui/Typography'
+import { Body1, Body2 } from 'mui/Typography'
 
 const useStyles = makeStyles((theme) => ({
-  log: {
-    overflowY: 'auto',
-    maxHeight: '100vh',
-    marginBottom: theme.spacing(2)
+  inline: {
+    display: 'inline',
+    fontWeight: 'bold'
   }
 }))
 
@@ -22,7 +20,7 @@ const Log = () => {
   const pad = (num) => (num < 10 ? `0${num}` : `${num}`)
 
   const listItemText = (item) => {
-    const primary = `${item.label}: ${item.text}`
+    // const primary = `${item.label}</strong>: ${item.text}`</>
     let secondary = ''
     const millisecs = item.timestamp - start
     let secs = Math.floor(millisecs / 1000)
@@ -45,18 +43,27 @@ const Log = () => {
       secondary += ':'
       secondary += pad(secs)
     }
-    return <ListItemText primary={primary} secondary={secondary} />
+    return (
+      <ListItemText
+        primary={
+          <>
+            <Body2 component='span' className={classes.inline}>
+              {item.label}:
+            </Body2>{' '}
+            <Body2 component='span'>{item.text}</Body2>
+          </>
+        }
+        secondary={secondary}
+      />
+    )
   }
 
   return (
-    <Paper className={classes.log}>
-      <H6 align='center'>Log</H6>
-      <List dense>
-        {log.map((item) => (
-          <ListItem key={item.timestamp}>{listItemText(item)}</ListItem>
-        ))}
-      </List>
-    </Paper>
+    <List dense>
+      {log.map((item) => (
+        <ListItem key={item.timestamp}>{listItemText(item)}</ListItem>
+      ))}
+    </List>
   )
 }
 

@@ -25,6 +25,8 @@ export const START_RECORDING_MICROPHONE = 'START_RECORDING_MICROPHONE'
 export const STOP_RECORDING_MICROPHONE = 'STOP_RECORDING_MICROPHONE'
 export const START_LISTENING_MICROPHONE = 'START_LISTENING_MICROPHONE'
 export const STOP_LISTENING_MICROPHONE = 'STOP_LISTENING_MICROPHONE'
+export const ADD_UNIT_ARRIVAL = 'ADD_UNIT_ARRIVAL'
+export const ADD_UNIT_GROUP_ASSIGNMENTS = 'ADD_UNIT_GROUP_ASSIGNMENTS'
 export const INCREMENT_UNITS_ASSIGNED = 'INCREMENT_UNITS_ASSIGNED'
 export const ADD_ASSIGNED_GROUP = 'ADD_ASSIGNED_GROUP'
 export const UPDATE_LAST_PLAYED_VIDEO = 'UPDATE_LAST_PLAYED_VIDEO'
@@ -160,6 +162,27 @@ export const stopListeningMicrophone = () => {
     type: STOP_LISTENING_MICROPHONE
   }
 }
+
+export const addUnitArrival = (data) => {
+  return {
+    type: ADD_UNIT_ARRIVAL,
+    payload: {
+      name: data.name,
+      arrival: data.arrival
+    }
+  }
+}
+
+export const addUnitGroupAssignment = (data) => {
+  return {
+    type: ADD_UNIT_GROUP_ASSIGNMENTS,
+    payload: {
+      name: data.name,
+      group: data.group
+    }
+  }
+}
+
 export const incrementUnitsAssigned = () => {
   return {
     type: INCREMENT_UNITS_ASSIGNED

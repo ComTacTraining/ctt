@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+
 import { Contained } from 'mui/Button'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import AI from 'components/Evolution/AI/AI'
@@ -18,13 +19,11 @@ import { UserContext } from 'components/Auth/UserContext'
 import { startTime, resetAI } from 'store/actions/ai'
 import { resetTips } from 'store/actions/tips'
 import { playlistFromId } from 'utils/video'
+import Command from 'components/Evolution/AdminPanel/Command'
 
 const useStyles = makeStyles((theme) => ({
   adminButton: {
     marginBottom: theme.spacing(4),
-    textAlign: 'center'
-  },
-  closePanel: {
     textAlign: 'center'
   }
 }))
@@ -33,7 +32,7 @@ const Demo = () => {
   const classes = useStyles()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [showDebug, setShowDebug] = React.useState(false)
+  const [showDebug, setShowDebug] = React.useState(true)
   const { firstAlarmAnnounced, faceToFaceCompleted } = useSelector(
     (state) => state.ai
   )
@@ -58,18 +57,22 @@ const Demo = () => {
     }
   }, [faceToFaceCompleted])
 
+  const toggleShowDebug = () => {
+    setShowDebug(!showDebug)
+  }
+
   return !user ? null : (
     <>
       {playlist && (
         <Grid container spacing={1}>
-          {isAdmin && !showDebug && (
+          {isAdmin && (
             <Grid item xs={12} className={classes.adminButton}>
-              <Contained onClick={() => setShowDebug(true)}>
-                Show Admin Panel
+              <Contained onClick={toggleShowDebug}>
+                {showDebug ? 'Hide' : 'Show'} Admin Panel
               </Contained>
             </Grid>
           )}
-          <Grid item xs={showDebug ? 9 : 12}>
+          <Grid item xs={showDebug ? 6 : 12}>
             {firstAlarmAnnounced && (
               <>
                 <RadioSound />
@@ -84,19 +87,15 @@ const Demo = () => {
               {firstAlarmAnnounced && <Tips />}
               <VideoPlayer playlist={playlist} />
             </VideoLayout>
+            {isAdmin && showDebug && <Command />}
           </Grid>
           {isAdmin && showDebug && (
-            <Grid item xs={3} alignContent='center'>
-              <Grid container>
-                <Grid item xs={12} className={classes.closePanel}>
-                  <Contained
-                    onClick={() => setShowDebug(false)}
-                    className={classes.extraSpacing}>
-                    Hide Admin Panel
-                  </Contained>
+            <Grid item xs={6}>
+              <Grid container alignContent='center'>
+                <Grid item xs={12}>
+                  <AdminPanel />
                 </Grid>
               </Grid>
-              <AdminPanel />
             </Grid>
           )}
         </Grid>

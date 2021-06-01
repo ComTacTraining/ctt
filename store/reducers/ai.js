@@ -23,6 +23,8 @@ const initialState = {
   speechBotState: '',
   isRecordingMicrophone: false,
   isListeningMicrophone: false,
+  unitArrivals: [],
+  unitAssignments: [],
   unitsAssigned: 0,
   groupsAssigned: [],
   scrollText: [],
@@ -170,6 +172,22 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isListeningMicrophone: false
+      }
+    case actionTypes.ADD_UNIT_ARRIVAL:
+      return {
+        ...state,
+        unitArrivals: [
+          ...state.unitArrivals,
+          { name: action.payload.name, arrival: action.payload.arrival }
+        ]
+      }
+    case actionTypes.ADD_UNIT_GROUP_ASSIGNMENTS:
+      return {
+        ...state,
+        unitAssignments: [
+          ...state.unitAssignments,
+          { name: action.payload.name, group: action.payload.group }
+        ]
       }
     case actionTypes.INCREMENT_UNITS_ASSIGNED:
       return {

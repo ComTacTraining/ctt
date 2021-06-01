@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   addToSpeechQueue,
+  addUnitArrival,
+  addUnitGroupAssignment,
   incrementUnitsAssigned,
   addAssignedGroup,
   incidentAnnounced
@@ -65,6 +67,7 @@ const Unit = ({ name, voice, index }) => {
       let timeout = 0
       if (index === 0) {
         timeout = 3
+        dispatch(addUnitArrival({ name: unitName, arrival: Date.now() }))
       } else {
         const minUnitArrivalSeconds = Math.floor(maxUnitArrivalSeconds / 3)
         timeout = Math.floor(
@@ -72,6 +75,9 @@ const Unit = ({ name, voice, index }) => {
             minUnitArrivalSeconds
         )
         timeout *= 1000
+        dispatch(
+          addUnitArrival({ name: unitName, arrival: Date.now() + timeout })
+        )
       }
       interval = setTimeout(() => {
         setAnnouncement(`${unitName} on scene staged requesting an assignment.`)
@@ -88,7 +94,6 @@ const Unit = ({ name, voice, index }) => {
         if (anyTermsMatchString(command, group.terms)) {
           setIcsNimsGroup(group.name)
           const possibleResponses = [
-            `${unitName} copies, I am ${group.name}.`,
             `${incidentCommandName} from ${unitName}. I copy I am ${group.name} group.`,
             `${incidentCommandName} from ${unitName}. I am ${group.name} group.`,
             `${incidentCommandName} from ${unitName}. I copy I will be ${group.name} group.`
@@ -98,6 +103,9 @@ const Unit = ({ name, voice, index }) => {
           setAnnouncement(`${assignmentAcknowledgement} ${commandRepeat}`)
           dispatch(incrementUnitsAssigned())
           dispatch(addAssignedGroup(group.name))
+          dispatch(
+            addUnitGroupAssignment({ name: unitName, group: group.name })
+          )
         }
       })
     }

@@ -35,7 +35,7 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
     firstAlarmAnnounced,
     threeSixtyWalkthroughBegan: start360,
     threeSixtyWalkthroughCompleted: end360,
-    faceToFaceCompleted
+    educationCompleted
   } = useSelector((state) => state.ai)
   const { masterVolume } = useSelector((state) => state.user)
   const classes = useStyles()
@@ -125,12 +125,12 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
   }, [lastVideo, player, start360, end360])
 
   useEffect(() => {
-    if (faceToFaceCompleted && lastVideo === 'loop') {
+    if (educationCompleted && lastVideo === 'loop') {
       const currId = player.playlist.currentItem()
       player.playlist.currentItem(currId + 1)
       player.play()
     }
-  }, [lastVideo, player, faceToFaceCompleted])
+  }, [lastVideo, player, educationCompleted])
 
   return (
     <div className={classes.root} data-testid='videoplayer'>

@@ -9,6 +9,7 @@ import {
   threeSixtyWalkthroughBegan,
   faceToFaceRequested,
   faceToFaceCompleted,
+  educationCompleted,
   useRadio,
   speakCompleted
 } from 'store/actions/ai'
@@ -121,6 +122,9 @@ const TextToSpeech = () => {
       }
       if (meta === 'INCOMING_COMMAND_RESPONSE') {
         dispatch(faceToFaceCompleted())
+      }
+      if (meta === 'EDUCATION_COMPLETED') {
+        dispatch(educationCompleted())
       }
       setFinishedSpeaking(false)
     }

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { green } from '@material-ui/core/colors'
+import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -12,6 +13,7 @@ import MicIcon from '@material-ui/icons/Mic'
 import MicNoneIcon from '@material-ui/icons/MicNone'
 import MicOffIcon from '@material-ui/icons/MicOff'
 import KeyboardIcon from '@material-ui/icons/Keyboard'
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver'
 import TextField from '../Transcribe/TextField'
 import { toggleUsingMic } from 'store/actions/user'
 import { P, Bold, Caption, Subtitle1 } from 'mui/Typography'
@@ -70,6 +72,9 @@ const Command = () => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls='command-content'
         id='command-header'>
+        <Box mr={1}>
+          <RecordVoiceOverIcon />
+        </Box>
         <Subtitle1>Command</Subtitle1>
       </AccordionSummary>
       <AccordionDetails>

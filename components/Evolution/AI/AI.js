@@ -26,8 +26,7 @@ const AI = () => {
     incidentAnnounced,
     incidentCompleted,
     groupsAssigned,
-    lastPlayedVideo,
-    command
+    lastPlayedVideo
   } = useSelector((state) => state.ai)
 
   const { street, incidentGroup, incidentCommand } = useSelector(

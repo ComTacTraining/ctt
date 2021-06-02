@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateScrollingText } from "store/actions/ai";
-import { getEducationPhrases } from "utils/education";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  // updateScrollingText,
+  addToSpeechQueue
+} from 'store/actions/ai'
+import { getEducationPhrases } from 'utils/education'
+import { options } from 'utils/ai'
 
 const Education = () => {
-  const dispatch = useDispatch();
+  const { educationVoice } = options
+  const dispatch = useDispatch()
   const { faceToFaceCompleted, educationCompleted } = useSelector(
-    state => state.ai
-  );
+    (state) => state.ai
+  )
   const {
     size,
     stories,
@@ -21,8 +26,8 @@ const Education = () => {
     flow,
     smoke,
     category
-  } = useSelector(state => state.evolution);
-  const { firstOnScene } = useSelector(state => state.user);
+  } = useSelector((state) => state.evolution)
+  const { firstOnScene } = useSelector((state) => state.user)
 
   useEffect(() => {
     if (faceToFaceCompleted && !educationCompleted) {
@@ -40,8 +45,18 @@ const Education = () => {
         exhaust,
         smoke,
         category
-      });
-      dispatch(updateScrollingText(phrases));
+      })
+      // dispatch(updateScrollingText(phrases));
+      phrases.map((phrase, i) => {
+        dispatch(
+          addToSpeechQueue({
+            label: '[Education]',
+            text: phrase,
+            voice: educationVoice,
+            meta: phrases.length - 1 === i ? 'EDUCATION_COMPLETED' : null
+          })
+        )
+      })
     }
   }, [
     faceToFaceCompleted,
@@ -60,9 +75,9 @@ const Education = () => {
     smoke,
     category,
     dispatch
-  ]);
+  ])
 
-  return <div></div>;
-};
+  return <div></div>
+}
 
-export default Education;
+export default Education

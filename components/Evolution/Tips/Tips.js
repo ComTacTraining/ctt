@@ -114,7 +114,7 @@ const Tips = () => {
           </List>
         </div>
       )}
-      {ai.threeSixtyAssessmentCompleted && !ai.assignmentsCompleted && (
+      {ai.threeSixtyAssessmentCompleted && !ai.faceToFaceCompleted && (
         <div className={classes.backdrop}>
           <H6>Assignment Tips</H6>
           <Divider />

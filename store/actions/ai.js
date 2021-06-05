@@ -28,6 +28,7 @@ export const STOP_LISTENING_MICROPHONE = 'STOP_LISTENING_MICROPHONE'
 export const ADD_UNIT_ARRIVAL = 'ADD_UNIT_ARRIVAL'
 export const ADD_UNIT_GROUP_ASSIGNMENTS = 'ADD_UNIT_GROUP_ASSIGNMENTS'
 export const INCREMENT_UNITS_ASSIGNED = 'INCREMENT_UNITS_ASSIGNED'
+export const UPDATE_UNITS_ASSIGNED = 'UPDATE_UNITS_ASSIGNED'
 export const ADD_ASSIGNED_GROUP = 'ADD_ASSIGNED_GROUP'
 export const UPDATE_LAST_PLAYED_VIDEO = 'UPDATE_LAST_PLAYED_VIDEO'
 export const UPDATE_SCROLLING_TEXT = 'UPDATE_SCROLLING_TEXT'
@@ -186,6 +187,15 @@ export const addUnitGroupAssignment = (data) => {
 export const incrementUnitsAssigned = () => {
   return {
     type: INCREMENT_UNITS_ASSIGNED
+  }
+}
+
+export const updateUnitsAssigned = (num) => {
+  return {
+    type: UPDATE_UNITS_ASSIGNED,
+    payload: {
+      units: num
+    }
   }
 }
 

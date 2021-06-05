@@ -1,0 +1,140 @@
+import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles'
+import Box from '@material-ui/core/Box'
+import { Contained } from 'mui/Button'
+import * as aiActions from 'store/actions/ai'
+
+const useStyles = makeStyles((theme) => ({
+  btn: {
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  }
+}))
+
+const Skip = () => {
+  const classes = useStyles()
+  const dispatch = useDispatch()
+  const [hideInitialReport, setHideInitialReport] = React.useState(false)
+  const [hide360, setHide360] = React.useState(false)
+  const [hideAssignments, setHideAssignments] = React.useState(false)
+  const [hideFaceToFace, setHideFaceToFace] = React.useState(false)
+  const [hideEducation, setHideEducation] = React.useState(false)
+
+  const {
+    // firstAlarmAnnounced,
+    // initialReportCompleted,
+    threeSixtyWalkthroughBegan,
+    // threeSixtyWalkthroughCompleted,
+    threeSixtyAssessmentCompleted,
+    // assignmentsCompleted,
+    // incidentAnnounced,
+    // incidentCompleted,
+    faceToFaceRequested,
+    faceToFaceCompleted,
+    educationCompleted
+    // unitsAssigned
+  } = useSelector((state) => state.ai)
+
+  React.useEffect(() => {
+    if (threeSixtyWalkthroughBegan) {
+      setHideInitialReport(true)
+    }
+  }, [threeSixtyWalkthroughBegan])
+
+  React.useEffect(() => {
+    if (threeSixtyAssessmentCompleted) {
+      setHide360(true)
+    }
+  }, [threeSixtyAssessmentCompleted])
+
+  React.useEffect(() => {
+    if (faceToFaceRequested) {
+      setHideAssignments(true)
+    }
+  }, [faceToFaceRequested])
+
+  React.useEffect(() => {
+    if (faceToFaceCompleted) {
+      setHideFaceToFace(true)
+    }
+  }, [faceToFaceCompleted])
+
+  React.useEffect(() => {
+    if (educationCompleted) {
+      setHideEducation(true)
+    }
+  }, [educationCompleted])
+
+  const skipInitialReport = () => {
+    dispatch(aiActions.firstAlarmAnnounced())
+    dispatch(aiActions.initialReportCompleted())
+    dispatch(aiActions.threeSixtyWalkthroughBegan())
+  }
+
+  const skip360Assessment = () => {
+    dispatch(aiActions.threeSixtyWalkthroughCompleted())
+    dispatch(aiActions.threeSixtyAssessmentCompleted())
+  }
+
+  const skipAssignments = () => {
+    dispatch(aiActions.updateUnitsAssigned(2))
+    dispatch(aiActions.incidentAnnounced())
+    dispatch(aiActions.incidentCompleted())
+  }
+
+  const skipFaceToFace = () => {
+    dispatch(aiActions.faceToFaceRequested())
+    dispatch(aiActions.faceToFaceCompleted())
+  }
+  const skipEducation = () => {
+    dispatch(aiActions.educationCompleted())
+  }
+
+  return (
+    <Box alignItems='flex-start'>
+      {!hideInitialReport && (
+        <Contained
+          size='small'
+          className={classes.btn}
+          onClick={() => skipInitialReport()}>
+          Initial Report
+        </Contained>
+      )}
+      {hideInitialReport && !hide360 && (
+        <Contained
+          size='small'
+          className={classes.btn}
+          onClick={() => skip360Assessment()}>
+          360
+        </Contained>
+      )}
+      {hide360 && !hideAssignments && (
+        <Contained
+          size='small'
+          className={classes.btn}
+          onClick={() => skipAssignments()}>
+          Assignments
+        </Contained>
+      )}
+      {hideAssignments && !hideFaceToFace && (
+        <Contained
+          size='small'
+          className={classes.btn}
+          onClick={() => skipFaceToFace()}>
+          Face-to-Face
+        </Contained>
+      )}
+      {hideFaceToFace && !hideEducation && (
+        <Contained
+          size='small'
+          className={classes.btn}
+          onClick={() => skipEducation()}>
+          Education
+        </Contained>
+      )}
+    </Box>
+  )
+}
+
+export default Skip

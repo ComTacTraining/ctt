@@ -109,10 +109,26 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
   }, [lastVideo, dispatch])
 
   useEffect(() => {
-    if (player && firstAlarmAnnounced) {
-      const skip = lastVideo === 'black' ? 1 : 2
+    if (player && lastVideo === '' && firstAlarmAnnounced) {
+      const id = educationCompleted ? 9 : end360 ? 8 : start360 ? 4 : 3
+      console.log(id)
+      // const currId = player.playlist.currentItem()
+      player.playlist.currentItem(id)
+      player.play()
+    }
+  }, [
+    player,
+    lastVideo,
+    firstAlarmAnnounced,
+    start360,
+    end360,
+    educationCompleted
+  ])
+
+  useEffect(() => {
+    if (firstAlarmAnnounced && lastVideo === 'black') {
       const currId = player.playlist.currentItem()
-      player.playlist.currentItem(currId + skip)
+      player.playlist.currentItem(currId + 1)
       player.play()
     }
   }, [lastVideo, player, firstAlarmAnnounced])

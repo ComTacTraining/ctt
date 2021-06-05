@@ -194,6 +194,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         unitsAssigned: state.unitsAssigned + 1
       }
+    case actionTypes.UPDATE_UNITS_ASSIGNED:
+      return {
+        ...state,
+        unitsAssigned: action.payload.units
+      }
     case actionTypes.ADD_ASSIGNED_GROUP:
       return {
         ...state,

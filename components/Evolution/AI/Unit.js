@@ -111,7 +111,14 @@ const Unit = ({ name, voice, index }) => {
     }
 
     const checkIfAddressed = () => {
-      if (anyTermsMatchString(command, unitName)) {
+      const noPunctuation = command
+        .replace(/[^\w\s]|_/g, '')
+        .replace(/\s+/g, ' ')
+        .toLowerCase()
+      const cmd = noPunctuation
+        .replace('engine to', 'engine 2')
+        .replace('truck to', 'truck 2')
+      if (anyTermsMatchString(cmd, unitName)) {
         checkForAssignment()
       }
     }

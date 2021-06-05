@@ -109,9 +109,10 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
   }, [lastVideo, dispatch])
 
   useEffect(() => {
-    if (firstAlarmAnnounced && lastVideo === 'black') {
+    if (player && firstAlarmAnnounced) {
+      const skip = lastVideo === 'black' ? 1 : 2
       const currId = player.playlist.currentItem()
-      player.playlist.currentItem(currId + 1)
+      player.playlist.currentItem(currId + skip)
       player.play()
     }
   }, [lastVideo, player, firstAlarmAnnounced])

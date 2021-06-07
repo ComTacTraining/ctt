@@ -13,12 +13,15 @@ import {
   Grid,
   TextField,
   Checkbox,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from '@material-ui/core'
 
 // styles
 import { makeStyles } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
   checkboxContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -26,45 +29,54 @@ export const useStyles = makeStyles(() => ({
   IncommingWarningLabel: {
     color: '#D0021B',
   },
+  firstOnSceenColor: {
+    color: theme.palette.info.main,
+    fontWeight: 900,
+    padding: 5,
+  },
+  incomingCommandColor: {
+    color: theme.palette.success.main,
+    fontWeight: 900,
+    padding: 5,
+  },
+  normalUnitColor: {
+    color: theme.palette.secondary.main,
+    fontWeight: 900,
+    padding: 5,
+  },
 }))
 
 export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
   const classes = useStyles()
-  const [newItem, setNewItem] = useState({ label: [], value: '' })
+  const [newItem, setNewItem] = useState({ label: '', value: '' })
   const [exists, setExists] = useState('')
 
   const handleSelected = (ev) => {
-    if (newItem.label.indexOf(ev.target.name) !== -1)
-      setNewItem({
-        ...newItem,
-        label: newItem.label.filter((item) => item !== ev.target.name),
-      })
-    else setNewItem({ ...newItem, label: [...newItem.label, ev.target.name] })
+    if (newItem.label !== ev.target.name)
+      setNewItem({ ...newItem, label: ev.target.name })
+    else setNewItem({ ...newItem, label: '' })
   }
 
   const handleChange = (ev) =>
     setNewItem({ ...newItem, [ev.target.name]: ev.target.value })
 
   const handleClose = () => {
-    setNewItem({ label: [], value: '' })
+    setNewItem({ label: '', value: '' })
     setExists([])
     setOpen(false)
   }
 
   const handleSave = () => {
     const haveCommand =
-      data.filter((item) => item.label.indexOf('command') !== -1).length > 0
-    const haveScreen =
-      data.filter((item) => item.label.indexOf('screen') !== -1).length > 0
-    const updateExists = []
+      data.filter((item) => item.label === 'command').length > 0
+    const haveScreen = data.filter((item) => item.label === 'screen').length > 0
 
-    if (haveCommand && newItem.label.indexOf('command') !== -1)
-      updateExists.push('command')
-    if (haveScreen && newItem.label.indexOf('screen') !== -1)
-      updateExists.push('screen')
-    if (newItem.value === '') updateExists.push('noText')
-
-    if (updateExists.length > 0) setExists(updateExists)
+    if (
+      (haveCommand && newItem.label === 'command') ||
+      (haveScreen && newItem.label === 'screen')
+    )
+      setExists(newItem.label)
+    else if (newItem.value === '') setExists('command')
     else {
       setData([...data, { ...newItem }])
       handleClose()
@@ -80,7 +92,7 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
     >
-      <DialogTitle id='alert-dialog-title' style={{ width: '380px' }}>
+      <DialogTitle id='alert-dialog-title'>
         Add new unit of alarm {idx}
       </DialogTitle>
       <DialogContent>
@@ -99,50 +111,43 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
         {idx === 1 && (
           <>
             <Grid item xs={12} className={classes.checkboxContainer}>
-              <Checkbox
+              <Radio
                 name='screen'
-                label='Show Tips'
-                variant='outlined'
-                checked={newItem.label.indexOf('screen') !== -1}
+                inputProps={{ 'aria-label': 'A' }}
+                checked={newItem.label === 'screen'}
                 onChange={handleSelected}
-                className={classes.OnSceneCheckbox}
               />
-              <Overline>First On Scene</Overline>
+              <Overline className={classes.firstOnSceenColor}>First On Scene</Overline>
             </Grid>
             <Grid item xs={12} className={classes.checkboxContainer}>
-              <Checkbox
+              <Radio
                 name='command'
-                label='Show Tips'
-                variant='outlined'
-                checked={newItem.label.indexOf('command') !== -1}
+                inputProps={{ 'aria-label': 'A' }}
+                checked={newItem.label === 'command'}
                 onChange={handleSelected}
-                className={classes.IncommingCheckbox}
               />
-              <Overline className={classes.IncommingLabel}>
-                Incomming Command Center
-              </Overline>
+              <Overline className={classes.incomingCommandColor}>Incoming Command Center</Overline>
+            </Grid>
+            <Grid item xs={12} className={classes.checkboxContainer}>
+              <Radio
+                name=''
+                inputProps={{ 'aria-label': 'A' }}
+                checked={newItem.label === ''}
+                onChange={handleSelected}
+              />
+              <Overline className={classes.normalUnitColor}>None</Overline>
             </Grid>
           </>
         )}
 
-        <Grid container spacing={1}>
+        <Grid container spacing={1} style={{ margin: '20px 0' }}>
           <Grid item xs={6}>
-            <Contained
-              fullWidth
-              color='primary'
-              onClick={handleSave}
-              style={{ margin: '20px 0' }}
-            >
+            <Contained fullWidth color='primary' onClick={handleSave}>
               Save
             </Contained>
           </Grid>
           <Grid item xs={6}>
-            <Contained
-              fullWidth
-              color='primary'
-              onClick={handleClose}
-              style={{ margin: '20px 0' }}
-            >
+            <Contained fullWidth color='primary' onClick={handleClose}>
               Cancel
             </Contained>
           </Grid>
@@ -153,7 +158,7 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
             <Grid item xs={12}>
               <P
                 className={classes.IncommingWarningLabel}
-                style={{ display: exists.indexOf('screen') === -1 && 'none' }}
+                style={{ display: exists !== 'screen' && 'none' }}
               >
                 There is already screen value, please delete the previous screen
                 and try again.
@@ -162,7 +167,7 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
             <Grid item xs={12}>
               <P
                 className={classes.IncommingWarningLabel}
-                style={{ display: exists.indexOf('command') === -1 && 'none' }}
+                style={{ display: exists !== 'command' && 'none' }}
               >
                 There is already incomming command value, please delete the
                 previous command and try again.
@@ -171,7 +176,7 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
             <Grid item xs={12}>
               <P
                 className={classes.IncommingWarningLabel}
-                style={{ display: exists.indexOf('noText') === -1 && 'none' }}
+                style={{ display: exists !== 'noText' && 'none' }}
               >
                 Please insert a title
               </P>

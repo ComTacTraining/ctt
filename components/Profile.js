@@ -1,95 +1,181 @@
 // main tools
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // mui components
+import { Grid, TextField, Checkbox } from '@material-ui/core'
 import {
-  Grid,
-  TextField,
-  Checkbox,
-  Button,
-  FormControl,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from '@material-ui/core'
 
 // custom components
 import { CustomAlarm } from './CustomAlarm'
 import { Contained } from 'mui/Button'
-import { H3, P } from 'mui/Typography'
+import { H3, Subtitle1, P } from 'mui/Typography'
+
+// action
+import { updateUserPreferences } from '../store/actions/user'
 
 // styles
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  editBtn: {
-    maxWidth: '10rem',
-    textAlign: 'center',
-    alignSelf: 'center',
-    marginRight: '20px',
-    margin: `${theme.spacing(2)}px auto`,
-  },
-  updateBtn: {
-    maxWidth: '10rem',
-    textAlign: 'center',
-    marginRight: '20px',
-    margin: `${theme.spacing(2)}px auto`,
-  },
-  cancelBtn: {
-    maxWidth: '10rem',
-    textAlign: 'center',
-    margin: `${theme.spacing(2)}px auto`,
-  },
-  ShowTipsLabel: {
-    width: '80px',
-    float: 'left',
-  },
-  chip: {
-    margin: theme.spacing(0.5),
-  },
+const useStyles = makeStyles(() => ({
+  root: { flexGrow: 1, paddingTop: 50 },
+  tipsContainer: { margin: '10px 0', display: 'flex' },
+  allowTip: { padding: 0 },
+  WarningLabel: { fontSize: 15 }
 }))
 
 const Profile = () => {
   // Local Variables
+  const dispatch = useDispatch()
   const classes = useStyles()
+  const [alarmCondition, setAlarmCondition] = useState(false)
   const [editable, setEditable] = useState(false)
   const [isShowTips, setIsShowTips] = useState(false)
-  const [data, setData] = useState({
-    dispatchCenter: '',
-    firstOnScene: '',
-    incomingCommandOfficer: '',
-    alarms: Array(3).fill([]),
-  })
+  const { dispatchCenter, firstOnScene, incomingCommandOfficer, alarm1, alarm2, alarm3, showTips } = useSelector(state => state.user)
+  const [dispatchCenterVal, setDispatchCenterVal] = useState("");
+  const [data, setData] = useState(null);
+  const [savedData, setSavedData] = useState(null);
+  const [warningAlarmText, setWarningAlarmText] = useState("");
 
+  useEffect(() => {
+    setIsShowTips(showTips)
+    setDispatchCenterVal(dispatchCenter);
+    loadOriginData();
+  }, [])
+
+  const loadOriginData = () => {
+    
+    let tempAlarmData = []
+    let alarms = [alarm1, alarm2, alarm3]
+    for(let i = 0; i<3; i ++) {
+      tempAlarmData[i] = []
+      alarms[i].map((item) => {
+        if(item === firstOnScene) {
+          tempAlarmData[i] = [...tempAlarmData[i], {label: 'screen', value: item}]
+        } else if(item === incomingCommandOfficer){
+          tempAlarmData[i] = [...tempAlarmData[i], {label: 'command', value: item}]
+        } else {
+          tempAlarmData[i] = [...tempAlarmData[i], {label: '', value: item}]
+        }
+      })
+    }
+
+    setSavedData({
+      dispatchCenter,
+      firstOnScene,
+      incomingCommandOfficer,
+      showTips,
+      alarms: [...tempAlarmData]
+    });
+
+    setData({
+      dispatchCenter,
+      firstOnScene,
+      incomingCommandOfficer,
+      showTips,
+      alarms: [...tempAlarmData]
+    });
+  }
+  
   // Handler Actions
   const handleEditable = () => setEditable(true)
 
   const handleCheckbox = (ev) => setIsShowTips(ev.target.checked)
 
-  const handleChange = (ev) =>
+  const handleChangeDispatchCenter = (ev) => {
+    setDispatchCenterVal(ev.target.value)
     setData({ ...data, [ev.target.name]: ev.target.value })
-
-  const handleCancel = () => {
-    setEditable(false)
-    setData({ ...data, alarms: data.alarms })
   }
 
-  const handleSave = (ev) => {
-    ev.preventDefault()
+  const handleChangeData = (idx, alarmData) => {
+    let newData = {...data}
+    newData.alarms[idx-1] = alarmData
+    setData({...newData})
+  }
 
-    console.log('Submit')
+  const handleCancel = () => {
+    setEditable(false);
+    setData({
+      dispatchCenter: savedData.dispatchCenter, 
+      firstOnScene: savedData.firstOnScene, 
+      incomingCommandOfficer: savedData.incomingCommandOfficer,
+      showTips: savedData.showTips, 
+      alarms: [...savedData.alarms]});
+    setIsShowTips(savedData.showTips)
+    setDispatchCenterVal(savedData.dispatchCenter)
+  }
+
+  const handleConvertDataStyle = () => {
+    let tempData = {};
+    let alarms = [];
+    tempData.dispatchCenter = data.dispatchCenter
+    for(let i = 0; i < 3; i ++) {
+      alarms[i] = []
+      data.alarms[i].map((item) => {
+        alarms[i] = [...alarms[i], item.value]
+      })
+    }
+    data.alarms[0].map((item) => {
+      if(item.label === 'screen') {
+        tempData.firstOnScene = item.value
+      } else if(item.label === 'command') {
+        tempData.incomingCommandOfficer = item.value
+      }
+    })
+    tempData.alarm1 = alarms[0]
+    tempData.alarm2 = alarms[1]
+    tempData.alarm3 = alarms[2]
+    tempData.showTips = isShowTips
+    return tempData
+  }
+
+  const checkAlarmValidation = () => {
+    if(data.alarms[1].length < 1 || data.alarms[2].length < 1) {
+      setWarningAlarmText("Alarm2 and Alarm3 must have more than 1 unit");
+      return false;
+    }
+    if((data.alarms[0].filter((item) => item.label === 'command').length === 0) || (data.alarms[0].filter((item) => item.label === 'screen').length === 0)) {
+      setWarningAlarmText("Alarm1 must has FirstOnScene and Incoming Command Officer");
+      return false;
+    } else if (data.alarms[0].length < 3) {
+      setWarningAlarmText("Alarm1 must have more than 3 units including FirstOnScene and Incoming Command Officer");
+      return false;
+    }
+    return true; 
+  }
+
+  const handleSave = async (ev) => {
+    ev.preventDefault()
+    if(checkAlarmValidation()) {
+      setEditable(false);
+      setAlarmCondition(false);
+      let newData = handleConvertDataStyle()
+      dispatch(updateUserPreferences(newData));
+      setSavedData({
+        dispatchCenter: data.dispatchCenter, 
+        firstOnScene: data.firstOnScene, 
+        incomingCommandOfficer: data.incomingCommandOfficer,
+        showTips: data.showTips, 
+        alarms: [...data.alarms]});
+    } else {
+      setAlarmCondition(true);
+    }
+  }
+
+  const handleClose = () => {
+    setAlarmCondition(false)
   }
 
   return (
     <>
       <H3>Profile</H3>
-      <P>Todo: Add custom alarms</P>
-      <P>Todo: Add custom dispatch center</P>
-      <P>Todo: Add tips default</P>
-
       <div className={classes.root}>
         <Grid container spacing={1}>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <TextField
               id='dispatchCenter'
               name='dispatchCenter'
@@ -97,47 +183,23 @@ const Profile = () => {
               disabled={!editable}
               variant='outlined'
               fullWidth
-              onChange={handleChange}
-              value={data.dispatchCenter}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              id='firstOnScene'
-              name='firstOnScene'
-              label='First On Scene'
-              disabled={!editable}
-              variant='outlined'
-              fullWidth
-              onChange={handleChange}
-              value={data.firstOnScene}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              id='incomingCommandOfficer'
-              name='incomingCommandOfficer'
-              label='Incoming Command Officer'
-              disabled={!editable}
-              variant='outlined'
-              fullWidth
-              onChange={handleChange}
-              value={data.incomingCommandOfficer}
+              onChange={handleChangeDispatchCenter}
+              value={dispatchCenterVal}
             />
           </Grid>
 
-          {data.alarms.map((alarmData, idx) => (
+          {data && data.alarms.map((alarmData, idx) => (
             <CustomAlarm
               key={idx}
               alarmIdx={idx + 1}
               editable={editable}
-              save={setData}
+              save={handleChangeData}
               initialData={alarmData}
             />
           ))}
 
-          <Grid item xs={12} style={{ paddingTop: 20 }}>
-            <P className={classes.ShowTipsLabel}>Show Tips:</P>
+          <Grid item xs={12} className={classes.tipsContainer}>
+            <Subtitle1>Show Tips:</Subtitle1>
             <Checkbox
               id='showTips'
               name='showTips'
@@ -146,35 +208,58 @@ const Profile = () => {
               disabled={!editable}
               onChange={handleCheckbox}
               checked={isShowTips}
-              style={{ padding: 0 }}
+              className={classes.allowTip}
             />
           </Grid>
 
-          <Grid item>
+          <Dialog
+            open={alarmCondition}
+            fullWidth
+            maxWidth='xs'
+            onClose={handleClose}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'
+          >
+            <DialogTitle id='alert-dialog-title'>
+              Warning
+            </DialogTitle>
+            <DialogContent>
+              <Grid item xs={12}>
+                <P
+                  className={classes.WarningLabel}
+                >
+                  {warningAlarmText}
+                </P>
+              </Grid>
+              <Grid container spacing={1} style={{ margin: '20px 0' }}>
+                <Grid item xs={12}>
+                  <Contained fullWidth color='primary' onClick={handleClose}>
+                    Close
+                  </Contained>
+                </Grid>
+              </Grid>
+            </DialogContent>
+          </Dialog>
+
+          <Grid item container spacing={2}>
             {!editable ? (
-              <Contained
-                color='primary'
-                className={classes.editBtn}
-                onClick={handleEditable}
-              >
-                Edit
-              </Contained>
+              <Grid item>
+                <Contained color='primary' onClick={handleEditable}>
+                  Edit
+                </Contained>
+              </Grid>
             ) : (
               <>
-                <Contained
-                  color='primary'
-                  className={classes.updateBtn}
-                  onClick={handleSave}
-                >
-                  Update
-                </Contained>
-                <Contained
-                  color='primary'
-                  className={classes.cancelBtn}
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </Contained>
+                <Grid item>
+                  <Contained color='primary' onClick={handleSave}>
+                    Update
+                  </Contained>
+                </Grid>
+                <Grid item>
+                  <Contained color='primary' onClick={handleCancel}>
+                    Cancel
+                  </Contained>
+                </Grid>
               </>
             )}
           </Grid>

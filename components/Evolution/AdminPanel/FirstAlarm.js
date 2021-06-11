@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useSelector } from 'react-redux'
-import { orange, green, red } from '@material-ui/core/colors'
+import { orange, green } from '@material-ui/core/colors'
 import TableContainer from '@material-ui/core/TableContainer'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -12,36 +12,33 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import CancelIcon from '@material-ui/icons/Cancel'
 import TimerIcon from '@material-ui/icons/Timer'
 import useInterval from 'hooks/useInterval'
-import { options } from 'utils/ai'
 
 const largeNumber = 9999
 
-const Units = () => {
+const FirstAlarm = () => {
   const [units, setUnits] = React.useState([])
   const [numUnits, setNumUnits] = React.useState(0)
   const [secondsInit, setSecondsInit] = React.useState(false)
   const [allArrived, setAllArrived] = React.useState(false)
   const [longestWait, setLongestWait] = React.useState(0)
   const [unitsAssigned, setUnitsAssigned] = React.useState(0)
+  const [officerSeconds, setOfficerSeconds] = React.useState(largeNumber)
 
   const { alarm1, firstOnScene, incomingCommandOfficer } = useSelector(
     (state) => state.user
   )
 
+  const { attack, ventilation, exposure, ric, medical } = useSelector(
+    (state) => state.evolution
+  )
+
   const {
-    // incidentGroup,
-    // incidentCommand,
-    // withstanding,
-    attack,
-    ventilation,
-    exposure,
-    ric,
-    medical
-  } = useSelector((state) => state.evolution)
-
-  const { unitArrivals, unitAssignments } = useSelector((state) => state.ai)
-
-  const { icsNimsGroups } = options
+    unitArrivals,
+    unitAssignments,
+    incidentCompleted,
+    assignmentsCompleted,
+    incomingCommandArrival
+  } = useSelector((state) => state.ai)
 
   useInterval(
     () => {
@@ -50,6 +47,15 @@ const Units = () => {
       }
     },
     allArrived ? null : 1000
+  )
+
+  useInterval(
+    () => {
+      if (officerSeconds !== largeNumber) {
+        setOfficerSeconds(officerSeconds - 1)
+      }
+    },
+    officerSeconds > 0 ? 1000 : null
   )
 
   React.useEffect(() => {
@@ -125,6 +131,15 @@ const Units = () => {
   }, [longestWait])
 
   React.useEffect(() => {
+    if (incomingCommandArrival !== 0) {
+      const secondsUntilArrival = Math.round(
+        (incomingCommandArrival - Date.now()) / 1000
+      )
+      setOfficerSeconds(secondsUntilArrival)
+    }
+  }, [incomingCommandArrival])
+
+  React.useEffect(() => {
     const getNeeds = (group) => {
       switch (group) {
         case 'Fire Attack':
@@ -159,16 +174,6 @@ const Units = () => {
     }
   }, [unitsAssigned, unitAssignments])
 
-  // const updateUnitGroup = ({ name, group }) => {
-  //   setUnits(
-  //     units.map((unit) => (unit.name === name ? { ...unit, group } : unit))
-  //   )
-  // }
-
-  // {
-  //   options.icsNimsGroups.map((group) => <P>{group.name}</P>)
-  // }
-
   return (
     <TableContainer>
       <Table size='small' aria-label='units'>
@@ -181,41 +186,65 @@ const Units = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {units.map((unit) => (
-            <TableRow key={unit.name}>
-              <TableCell component='th' scope='row'>
-                {unit.name}
-              </TableCell>
-              <TableCell align='right'>
-                {unit.arrived ? (
-                  <CheckCircleIcon style={{ color: green[600] }} />
-                ) : unit.seconds === largeNumber ? (
-                  <MoreHorizIcon />
-                ) : (
-                  <>
-                    {unit.seconds}
-                    <TimerIcon />
-                  </>
-                )}
-              </TableCell>
-              <TableCell align='right'>
-                {unit.group === '' ? <MoreHorizIcon /> : unit.group}
-              </TableCell>
-              <TableCell align='right'>
-                {unit.group === '' ? (
-                  <MoreHorizIcon />
-                ) : unit.needs ? (
-                  <CheckCircleIcon style={{ color: orange[500] }} />
-                ) : (
-                  <CancelIcon color='action' />
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
+          <>
+            {!assignmentsCompleted &&
+              units.map((unit) => (
+                <TableRow key={unit.name}>
+                  <TableCell component='th' scope='row'>
+                    {unit.name}
+                  </TableCell>
+                  <TableCell align='right'>
+                    {unit.arrived ? (
+                      <CheckCircleIcon style={{ color: green[600] }} />
+                    ) : unit.seconds === largeNumber ? (
+                      <MoreHorizIcon />
+                    ) : (
+                      <>
+                        {unit.seconds}
+                        <TimerIcon />
+                      </>
+                    )}
+                  </TableCell>
+                  <TableCell align='right'>
+                    {unit.group === '' ? <MoreHorizIcon /> : unit.group}
+                  </TableCell>
+                  <TableCell align='right'>
+                    {unit.group === '' ? (
+                      <MoreHorizIcon />
+                    ) : unit.needs ? (
+                      <CheckCircleIcon style={{ color: orange[500] }} />
+                    ) : (
+                      <CancelIcon color='action' />
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            {officerSeconds !== largeNumber && (
+              <TableRow key='incomingCommandOfficer'>
+                <TableCell component='th' scope='row'>
+                  {incomingCommandOfficer}
+                </TableCell>
+                <TableCell align='right'>
+                  {officerSeconds === 0 ? (
+                    <CheckCircleIcon style={{ color: green[600] }} />
+                  ) : officerSeconds === largeNumber ? (
+                    <MoreHorizIcon />
+                  ) : (
+                    <>
+                      {officerSeconds}
+                      <TimerIcon />
+                    </>
+                  )}
+                </TableCell>
+                <TableCell>N/A</TableCell>
+                <TableCell>N/A</TableCell>
+              </TableRow>
+            )}
+          </>
         </TableBody>
       </Table>
     </TableContainer>
   )
 }
 
-export default Units
+export default FirstAlarm

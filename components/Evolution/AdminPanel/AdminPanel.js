@@ -9,7 +9,7 @@ import FastForwardIcon from '@material-ui/icons/FastForward'
 import { Subtitle1 } from 'mui/Typography'
 
 import Log from './Log'
-import Units from './Units'
+import FirstAlarm from './FirstAlarm'
 import Skip from './Skip'
 
 const AdminPanel = () => {
@@ -23,10 +23,10 @@ const AdminPanel = () => {
           <Box mr={1}>
             <PeopleIcon />
           </Box>
-          <Subtitle1>Units</Subtitle1>
+          <Subtitle1>First Alarm</Subtitle1>
         </AccordionSummary>
         <AccordionDetails>
-          <Units />
+          <FirstAlarm />
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded={true}>

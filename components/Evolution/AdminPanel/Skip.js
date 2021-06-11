@@ -18,6 +18,7 @@ const Skip = () => {
   const [hideInitialReport, setHideInitialReport] = React.useState(false)
   const [hide360, setHide360] = React.useState(false)
   const [hideAssignments, setHideAssignments] = React.useState(false)
+  const [hideOfficerArrival, setHideOfficerArrival] = React.useState(false)
   const [hideFaceToFace, setHideFaceToFace] = React.useState(false)
   const [hideEducation, setHideEducation] = React.useState(false)
 
@@ -27,12 +28,14 @@ const Skip = () => {
     threeSixtyWalkthroughBegan,
     // threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
-    // assignmentsCompleted,
+    assignmentsCompleted,
     // incidentAnnounced,
     // incidentCompleted,
     faceToFaceRequested,
     faceToFaceCompleted,
-    educationCompleted
+    educationCompleted,
+    // incomingCommandArrival,
+    incomingCommandArrived
     // unitsAssigned
   } = useSelector((state) => state.ai)
 
@@ -49,7 +52,20 @@ const Skip = () => {
   }, [threeSixtyAssessmentCompleted])
 
   React.useEffect(() => {
+    if (assignmentsCompleted) {
+      setHideAssignments(true)
+    }
+  }, [assignmentsCompleted])
+
+  React.useEffect(() => {
+    if (incomingCommandArrived) {
+      setHideOfficerArrival(true)
+    }
+  }, [incomingCommandArrived])
+
+  React.useEffect(() => {
     if (faceToFaceRequested) {
+      setHideOfficerArrival(true)
       setHideAssignments(true)
     }
   }, [faceToFaceRequested])
@@ -81,6 +97,11 @@ const Skip = () => {
     dispatch(aiActions.updateUnitsAssigned(2))
     dispatch(aiActions.incidentAnnounced())
     dispatch(aiActions.incidentCompleted())
+    dispatch(aiActions.assignmentsCompleted())
+  }
+
+  const skipOfficerWait = () => {
+    dispatch(aiActions.incomingCommandArrived())
   }
 
   const skipFaceToFace = () => {
@@ -106,7 +127,7 @@ const Skip = () => {
           size='small'
           className={classes.btn}
           onClick={() => skip360Assessment()}>
-          360
+          360°
         </Contained>
       )}
       {hide360 && !hideAssignments && (
@@ -117,7 +138,15 @@ const Skip = () => {
           Assignments
         </Contained>
       )}
-      {hideAssignments && !hideFaceToFace && (
+      {hideAssignments && !hideOfficerArrival && (
+        <Contained
+          size='small'
+          className={classes.btn}
+          onClick={() => skipOfficerWait()}>
+          Officer Arrival
+        </Contained>
+      )}
+      {hideOfficerArrival && !hideFaceToFace && (
         <Contained
           size='small'
           className={classes.btn}

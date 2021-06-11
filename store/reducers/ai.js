@@ -24,6 +24,8 @@ const initialState = {
   isRecordingMicrophone: false,
   isListeningMicrophone: false,
   unitArrivals: [],
+  incomingCommandArrival: 0,
+  incomingCommandArrived: false,
   unitAssignments: [],
   unitsAssigned: 0,
   groupsAssigned: [],
@@ -180,6 +182,16 @@ const reducer = (state = initialState, action) => {
           ...state.unitArrivals,
           { name: action.payload.name, arrival: action.payload.arrival }
         ]
+      }
+    case actionTypes.ADD_INCOMING_COMMAND_ARRIVAL:
+      return {
+        ...state,
+        incomingCommandArrival: action.payload.arrival
+      }
+    case actionTypes.INCOMING_COMMAND_ARRIVED:
+      return {
+        ...state,
+        incomingCommandArrived: true
       }
     case actionTypes.ADD_UNIT_GROUP_ASSIGNMENTS:
       return {

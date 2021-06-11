@@ -114,56 +114,58 @@ const Tips = () => {
           </List>
         </div>
       )}
-      {ai.threeSixtyAssessmentCompleted && !ai.faceToFaceCompleted && (
-        <div className={classes.backdrop}>
-          <H6>Assignment Tips</H6>
-          <Divider />
-          <List dense={true}>
-            <Tip
-              completed={tips.assignmentRescue}
-              key='assignRescue'
-              title='Rescue'
-            />
-            <Tip
-              completed={tips.assignmentExposure}
-              key='assignExposures'
-              title='Exposures'
-            />
-            <Tip
-              completed={tips.assignmentConfinement}
-              key='assignConfinement'
-              title='Confinement'
-            />
-            <Tip
-              completed={tips.assignmentExtinguishment}
-              key='assignExtinguishment'
-              title='Extinguishment'
-            />
-            <Tip
-              completed={tips.assignmentOverhaul}
-              key='assignOverhaul'
-              title='Overhaul'
-            />
-            <Tip
-              completed={tips.assignmentVentilation}
-              key='assignVentilation'
-              title='Ventilation'
-            />
-            <Tip
-              completed={tips.assignmentSalvage}
-              key='assignSalvage'
-              title='Salvage'
-            />
-            {ai.threeSixtyAssessmentCompleted && ai.unitsAssigned > 2 && (
+      {!ai.assignmentsCompleted &&
+        ai.threeSixtyAssessmentCompleted &&
+        !ai.faceToFaceCompleted && (
+          <div className={classes.backdrop}>
+            <H6>Assignment Tips</H6>
+            <Divider />
+            <List dense={true}>
               <Tip
-                completed={tips.incidentWithinIncident}
-                key='incident'
-                title='Incident Within Incident Response'
+                completed={tips.assignmentRescue}
+                key='assignRescue'
+                title='Rescue'
               />
-            )}
-          </List>
-        </div>
-      )}
+              <Tip
+                completed={tips.assignmentExposure}
+                key='assignExposures'
+                title='Exposures'
+              />
+              <Tip
+                completed={tips.assignmentConfinement}
+                key='assignConfinement'
+                title='Confinement'
+              />
+              <Tip
+                completed={tips.assignmentExtinguishment}
+                key='assignExtinguishment'
+                title='Extinguishment'
+              />
+              <Tip
+                completed={tips.assignmentOverhaul}
+                key='assignOverhaul'
+                title='Overhaul'
+              />
+              <Tip
+                completed={tips.assignmentVentilation}
+                key='assignVentilation'
+                title='Ventilation'
+              />
+              <Tip
+                completed={tips.assignmentSalvage}
+                key='assignSalvage'
+                title='Salvage'
+              />
+              {ai.threeSixtyAssessmentCompleted && ai.unitsAssigned > 2 && (
+                <Tip
+                  completed={tips.incidentWithinIncident}
+                  key='incident'
+                  title='Incident Within Incident Response'
+                />
+              )}
+            </List>
+          </div>
+        )}
     </div>
   )
 }

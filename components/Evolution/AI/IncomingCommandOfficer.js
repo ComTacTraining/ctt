@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import * as aiActions from "store/actions/ai";
-import { options, properPronouns, isEmptyObject } from "utils/ai";
+import * as React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import * as aiActions from 'store/actions/ai'
+import { options, properPronouns, isEmptyObject } from 'utils/ai'
 
 const {
   maxIncomingOfficerArrivalSeconds: maxSecs,
   incomingCommandOfficerVoice: voice
-} = options;
+} = options
 
-const IncomingCommandOfficer = props => {
-  const dispatch = useDispatch();
+const IncomingCommandOfficer = () => {
+  const dispatch = useDispatch()
   const {
     firstOnScene,
     incomingCommandOfficer,
     faceToFaceRequested,
     faceToFaceCompleted,
     command
-  } = useSelector(state => state.user);
-  const { incidentCompleted } = useSelector(state => state.ai);
-  const [speak, setSpeak] = useState({});
+  } = useSelector((state) => state.user)
+  const { incidentCompleted, incomingCommandArrived } = useSelector(
+    (state) => state.ai
+  )
+  const [speak, setSpeak] = React.useState({})
 
-  useEffect(() => {
+  React.useEffect(() => {
     const queue = () => {
       dispatch(
         aiActions.addToSpeechQueue({
@@ -29,62 +31,68 @@ const IncomingCommandOfficer = props => {
           voice: voice,
           meta: speak.meta || null
         })
-      );
-      setSpeak({});
-    };
+      )
+      setSpeak({})
+    }
 
     if (!isEmptyObject(speak)) {
-      queue();
+      queue()
     }
-  }, [speak, incomingCommandOfficer, dispatch]);
+  }, [speak, incomingCommandOfficer, dispatch])
 
-  useEffect(() => {
-    let interval;
+  React.useEffect(() => {
+    let interval
 
     const announceArrival = () => {
-      const minArrivalSeconds = Math.floor(maxSecs / 3);
-      const timeout =
-        Math.floor(
-          Math.random() * (maxSecs - minArrivalSeconds + 1) + minArrivalSeconds
-        ) * 1000;
+      const minArrivalSeconds = Math.floor(maxSecs / 3)
+      const timeout = incomingCommandArrived
+        ? 100
+        : Math.floor(
+            Math.random() * (maxSecs - minArrivalSeconds + 1) +
+              minArrivalSeconds
+          ) * 1000
+      dispatch(
+        aiActions.addIncomingCommandArrival({ arrival: Date.now() + timeout })
+      )
       interval = setTimeout(() => {
         setSpeak({
           text: `${firstOnScene} from ${incomingCommandOfficer} can we do a face to face?`,
-          meta: "INCOMING_COMMAND_ARRIVED"
-        });
-      }, timeout);
-    };
+          meta: 'INCOMING_COMMAND_ARRIVED'
+        })
+      }, timeout)
+    }
 
-    if (incidentCompleted) {
-      announceArrival();
+    if (incidentCompleted || incomingCommandArrived) {
+      announceArrival()
     }
 
     return () => {
       if (interval) {
-        clearTimeout(interval);
+        clearTimeout(interval)
       }
-    };
-  }, [incidentCompleted, firstOnScene, incomingCommandOfficer]);
+    }
+  }, [
+    incidentCompleted,
+    incomingCommandArrived,
+    firstOnScene,
+    incomingCommandOfficer
+  ])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const response = () => {
-      const reply = properPronouns(command);
+      const reply = properPronouns(command)
       setSpeak({
         text: reply,
-        meta: "INCOMING_COMMAND_RESPONSE"
-      });
-    };
-
-    console.log("Command", command);
-    console.log("Face to Face Requested", faceToFaceRequested);
-    console.log("Face to Face Completed", faceToFaceCompleted);
-    if (command !== "" && faceToFaceRequested && !faceToFaceCompleted) {
-      console.log("Made it.");
-      response();
+        meta: 'INCOMING_COMMAND_RESPONSE'
+      })
     }
-  }, [command, faceToFaceRequested, faceToFaceCompleted]);
 
-  return <div />;
-};
+    if (command !== '' && faceToFaceRequested && !faceToFaceCompleted) {
+      response()
+    }
+  }, [command, faceToFaceRequested, faceToFaceCompleted])
 
-export default IncomingCommandOfficer;
+  return <div />
+}
+
+export default IncomingCommandOfficer

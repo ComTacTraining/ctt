@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import { Contained } from 'mui/Button'
 import VideoLayout from './VideoLayout'
+import Status from 'components/Evolution/Command/Status'
 import AI from './AI/AI'
 import ScrollingText from './ScrollingText/ScrollingText'
 import Speak from './Speak/Speak'
@@ -86,6 +87,7 @@ const Evolution = () => {
             {!educationCompleted && (
               <VideoLayout>
                 <ScrollingText />
+                <Status />
                 {firstAlarmAnnounced && showTips && <Tips />}
                 <VideoPlayer playlist={playlist} />
               </VideoLayout>

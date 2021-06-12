@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 
 import { Contained } from 'mui/Button'
+import Status from 'components/Evolution/Command/Status'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import Command from 'components/Evolution/AdminPanel/Command'
 import AI from 'components/Evolution/AI/AI'
@@ -84,6 +85,7 @@ const Demo = () => {
             <TextToSpeech />
             <VideoLayout>
               <ScrollingText />
+              <Status />
               {firstAlarmAnnounced && <Tips />}
               <VideoPlayer playlist={playlist} />
             </VideoLayout>

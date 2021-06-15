@@ -4,7 +4,6 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 import AppBar from 'components/AppBar'
-import LoadUserPreferences from 'components/LoadUserPrefereces';
 import { UserContext } from 'components/Auth/UserContext'
 import Footer from 'components/Footer'
 import useAmplifyAuth from 'hooks/useAmplifyAuth'
@@ -31,8 +30,6 @@ const MyApp = ({ Component, pageProps }) => {
       jssStyles.parentElement.removeChild(jssStyles)
     }
   }, [])
-
-
 
   const {
     state: { user, isLoading, isMember, isAdmin, errorMessage },
@@ -67,7 +64,6 @@ const MyApp = ({ Component, pageProps }) => {
     ]
   )
 
-
   return (
     <>
       <Head>
@@ -85,7 +81,6 @@ const MyApp = ({ Component, pageProps }) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <UserContext.Provider value={value}>
-            <LoadUserPreferences />
             <AppBar />
             <Box my={4}>
               <Container maxWidth='xl' component='main'>

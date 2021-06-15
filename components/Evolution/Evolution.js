@@ -18,10 +18,12 @@ import Evaluation from './Evaluation/Evaluation'
 import { playlistFromId } from 'utils/video'
 import { startTime, resetAI } from 'store/actions/ai'
 import { resetTips } from 'store/actions/tips'
+import { updateUserPreferences } from 'store/actions/user'
 import { resetEvaluation } from 'store/actions/evaluation'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
 import { UserContext } from 'components/Auth/UserContext'
+import LoadUserPreferences from 'components/LoadUserPrefereces'
 
 const useStyles = makeStyles((theme) => ({
   adminButton: {
@@ -40,7 +42,8 @@ const Evolution = () => {
     (state) => state.ai
   )
   const { alias } = useSelector((state) => state.evolution)
-  const { showTips } = useSelector((state) => state.user)
+  const { showTips, preferencesLoaded } = useSelector((state) => state.user)
+  const [intialized, setInitialized] = React.useState(false)
   const [playlist, setPlaylist] = React.useState(false)
   const [showDebug, setShowDebug] = React.useState(true)
 
@@ -50,6 +53,7 @@ const Evolution = () => {
     dispatch(resetAI())
     dispatch(resetTips())
     dispatch(resetEvaluation())
+    setInitialized(true)
   }, [dispatch])
 
   React.useEffect(() => {
@@ -66,7 +70,8 @@ const Evolution = () => {
 
   return (
     <>
-      {playlist && (
+      {intialized && <LoadUserPreferences />}
+      {playlist && preferencesLoaded && (
         <Grid container spacing={1}>
           {isAdmin && (
             <Grid item xs={12} className={classes.adminButton}>

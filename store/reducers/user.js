@@ -29,6 +29,7 @@ const initialState = {
     'Battalion 3'
   ],
   showTips: true,
+  preferencesLoaded: false,
   usingMic: true,
   masterVolume: 0.5
 }
@@ -49,7 +50,8 @@ const reducer = (state = initialState, action) => {
         alarm1: action.payload.alarm1,
         alarm2: action.payload.alarm2,
         alarm3: action.payload.alarm3,
-        showTips: action.payload.showTips
+        showTips: action.payload.showTips,
+        preferencesLoaded: true
       }
     case actionTypes.TOGGLE_USING_MIC:
       return {

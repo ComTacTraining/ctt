@@ -85,11 +85,21 @@ export const CustomAlarm = ({ initialData, alarmIdx, editable, save }) => {
         <Grid item container spacing={2}>
           {data.map((data, idx) => (
             <Grid item key={idx}>
-              <Chip
-                label={data.value}
-                className={data.label=="command" ? classes.incomingCommandColor : data.label == "screen" ? classes.firstOnSceenColor : classes.normalUnitColor}
+              {data.unit && <Chip
+                label={data.unit}
+                className={classes.normalUnitColor}
                 onDelete={!editable ? undefined : () => handleDelete(idx)}
-              />
+              />}
+              {data.command && <Chip
+                label={data.command}
+                className={classes.incomingCommandColor}
+                onDelete={!editable ? undefined : () => handleDelete(idx)}
+              />}
+              {data.screen && <Chip
+                label={data.screen}
+                className={ classes.firstOnSceenColor }
+                onDelete={!editable ? undefined : () => handleDelete(idx)}
+              />}
             </Grid>
           ))}
         </Grid>

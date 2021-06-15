@@ -1,7 +1,7 @@
 // main tools
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { UserContext } from '../components/Auth/UserContext';
 // mui components
 import { Grid, TextField, Checkbox } from '@material-ui/core'
 import {
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 const Profile = () => {
-  // Local Variables
+  const { user, isMember, isAdmin, handleUserPreferences } = useContext(UserContext);
   const dispatch = useDispatch()
   const classes = useStyles()
   const [alarmCondition, setAlarmCondition] = useState(false)
@@ -45,7 +45,7 @@ const Profile = () => {
     setIsShowTips(showTips)
     setDispatchCenterVal(dispatchCenter);
     loadOriginData();
-  }, [])
+  }, [dispatchCenter, firstOnScene, incomingCommandOfficer, alarm1, alarm2, alarm3, showTips])
 
   const loadOriginData = () => {
     
@@ -55,11 +55,11 @@ const Profile = () => {
       tempAlarmData[i] = []
       alarms[i].map((item) => {
         if(item === firstOnScene) {
-          tempAlarmData[i] = [...tempAlarmData[i], {label: 'screen', value: item}]
+          tempAlarmData[i] = [...tempAlarmData[i], {screen: item}]
         } else if(item === incomingCommandOfficer){
-          tempAlarmData[i] = [...tempAlarmData[i], {label: 'command', value: item}]
+          tempAlarmData[i] = [...tempAlarmData[i], {command: item}]
         } else {
-          tempAlarmData[i] = [...tempAlarmData[i], {label: '', value: item}]
+          tempAlarmData[i] = [...tempAlarmData[i], {unit: item}]
         }
       })
     }
@@ -93,8 +93,8 @@ const Profile = () => {
 
   const handleChangeData = (idx, alarmData) => {
     let newData = {...data}
-    newData.alarms[idx-1] = alarmData
-    setData({...newData})
+    newData.alarms[idx-1] = [...alarmData]
+    setData({...newData});
   }
 
   const handleCancel = () => {
@@ -114,22 +114,16 @@ const Profile = () => {
     let alarms = [];
     tempData.dispatchCenter = data.dispatchCenter
     for(let i = 0; i < 3; i ++) {
-      alarms[i] = []
-      data.alarms[i].map((item) => {
-        alarms[i] = [...alarms[i], item.value]
-      })
+      alarms[i] = data.alarms[i].map(item => Object.values(item)[0]);
     }
-    data.alarms[0].map((item) => {
-      if(item.label === 'screen') {
-        tempData.firstOnScene = item.value
-      } else if(item.label === 'command') {
-        tempData.incomingCommandOfficer = item.value
-      }
-    })
+    
+    tempData.firstOnScene = (data.alarms[0].filter((item) => item.screen))[0].screen;
+    tempData.incomingCommandOfficer = (data.alarms[0].filter((item) => item.command))[0].command;
     tempData.alarm1 = alarms[0]
     tempData.alarm2 = alarms[1]
     tempData.alarm3 = alarms[2]
     tempData.showTips = isShowTips
+
     return tempData
   }
 
@@ -138,7 +132,7 @@ const Profile = () => {
       setWarningAlarmText("Alarm2 and Alarm3 must have more than 1 unit");
       return false;
     }
-    if((data.alarms[0].filter((item) => item.label === 'command').length === 0) || (data.alarms[0].filter((item) => item.label === 'screen').length === 0)) {
+    if((data.alarms[0].filter((item) => item.command).length === 0) || (data.alarms[0].filter((item) => item.screen).length === 0)) {
       setWarningAlarmText("Alarm1 must has FirstOnScene and Incoming Command Officer");
       return false;
     } else if (data.alarms[0].length < 3) {
@@ -161,6 +155,15 @@ const Profile = () => {
         incomingCommandOfficer: data.incomingCommandOfficer,
         showTips: data.showTips, 
         alarms: [...data.alarms]});
+      await handleUserPreferences({ 
+        dispatch: newData.dispatchCenter,
+        firstOnScene: newData.firstOnScene,
+        alarm1: newData.alarm1.join(),
+        alarm2: newData.alarm2.join(),
+        alarm3: newData.alarm3.join(),
+        inCommandOfficer: newData.incomingCommandOfficer,
+        tips: newData.showTips.toString()
+      });
     } else {
       setAlarmCondition(true);
     }
@@ -173,6 +176,7 @@ const Profile = () => {
   return (
     <>
       <H3>Profile</H3>
+
       <div className={classes.root}>
         <Grid container spacing={1}>
           <Grid item xs={12}>

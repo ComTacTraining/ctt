@@ -163,7 +163,27 @@ const useAmplifyAuth = () => {
     }
   }
 
-  return { state, handleSignOut, handleClearError, handleSubscription }
+  const handleUserPreferences = async ({ dispatch, alarm1, alarm2, alarm3, firstOnScene, inCommandOfficer, tips }) => {
+    if (state.user) {
+      try {
+        await Auth.updateUserAttributes(state.user, {
+          'custom:dispatch': dispatch,
+          'custom:firstOnScene': firstOnScene,
+          'custom:inCommandOfficer': inCommandOfficer,
+          'custom:alarm1': alarm1,
+          'custom:alarm2': alarm2,
+          'custom:alarm3': alarm3,
+          'custom:tips': tips 
+        });
+      } catch (error) {
+        console.error();
+      }
+    } else {
+      console.error("Error saving custom alarms");
+    }
+  }
+
+  return { state, handleSignOut, handleClearError, handleSubscription, handleUserPreferences }
 }
 
 export default useAmplifyAuth

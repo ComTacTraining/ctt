@@ -48,20 +48,22 @@ export const useStyles = makeStyles((theme) => ({
 
 export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
   const classes = useStyles()
-  const [newItem, setNewItem] = useState({ label: '', value: '' })
+  const [newItem, setNewItem] = useState({ label: 'unit', value: '' })
   const [exists, setExists] = useState('')
 
   const handleSelected = (ev) => {
-    if (newItem.label !== ev.target.name)
-      setNewItem({ ...newItem, label: ev.target.name })
-    else setNewItem({ ...newItem, label: '' })
+    // if (newItem.label !== ev.target.name)
+    //   setNewItem({ ...newItem, label: ev.target.name })
+    // else setNewItem({ ...newItem, label: 'unit' })
+    setNewItem({...newItem, label: ev.target.name});
   }
 
-  const handleChange = (ev) =>
+  const handleChange = (ev) => {
     setNewItem({ ...newItem, [ev.target.name]: ev.target.value })
+  }
 
   const handleClose = () => {
-    setNewItem({ label: '', value: '' })
+    setNewItem({ label: 'unit', value: '' })
     setExists([])
     setOpen(false)
   }
@@ -78,7 +80,7 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
       setExists(newItem.label)
     else if (newItem.value === '') setExists('command')
     else {
-      setData([...data, { ...newItem }])
+      setData([...data, {[newItem.label]: newItem.value}])
       handleClose()
     }
   }
@@ -130,9 +132,9 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
             </Grid>
             <Grid item xs={12} className={classes.checkboxContainer}>
               <Radio
-                name=''
+                name='unit'
                 inputProps={{ 'aria-label': 'A' }}
-                checked={newItem.label === ''}
+                checked={newItem.label === 'unit'}
                 onChange={handleSelected}
               />
               <Overline className={classes.normalUnitColor}>None</Overline>

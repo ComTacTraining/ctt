@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 import AppBar from 'components/AppBar'
+import LoadUserPreferences from 'components/LoadUserPrefereces';
 import { UserContext } from 'components/Auth/UserContext'
 import Footer from 'components/Footer'
 import useAmplifyAuth from 'hooks/useAmplifyAuth'
@@ -31,11 +32,14 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, [])
 
+
+
   const {
     state: { user, isLoading, isMember, isAdmin, errorMessage },
     handleSignOut,
     handleClearError,
-    handleSubscription
+    handleSubscription,
+    handleUserPreferences
   } = useAmplifyAuth()
 
   const value = React.useMemo(
@@ -47,7 +51,8 @@ const MyApp = ({ Component, pageProps }) => {
       errorMessage,
       handleSignOut,
       handleClearError,
-      handleSubscription
+      handleSubscription,
+      handleUserPreferences
     }),
     [
       user,
@@ -57,9 +62,11 @@ const MyApp = ({ Component, pageProps }) => {
       errorMessage,
       handleSignOut,
       handleClearError,
-      handleSubscription
+      handleSubscription,
+      handleUserPreferences
     ]
   )
+
 
   return (
     <>
@@ -78,6 +85,7 @@ const MyApp = ({ Component, pageProps }) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <UserContext.Provider value={value}>
+            <LoadUserPreferences />
             <AppBar />
             <Box my={4}>
               <Container maxWidth='xl' component='main'>

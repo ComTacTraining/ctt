@@ -34,9 +34,7 @@ const Demo = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [showDebug, setShowDebug] = React.useState(true)
-  const { firstAlarmAnnounced, faceToFaceCompleted } = useSelector(
-    (state) => state.ai
-  )
+  const { faceToFaceCompleted } = useSelector((state) => state.ai)
   const { user, isAdmin } = React.useContext(UserContext)
 
   const [playlist, setPlaylist] = React.useState(false)
@@ -74,19 +72,15 @@ const Demo = () => {
             </Grid>
           )}
           <Grid item xs={showDebug ? 6 : 12}>
-            {firstAlarmAnnounced && (
-              <>
-                <RadioSound />
-                <Speech2Text />
-              </>
-            )}
+            <RadioSound />
+            <Speech2Text />
             <AI />
             <Speak />
             <TextToSpeech />
             <VideoLayout>
               <ScrollingText />
               <Status />
-              {firstAlarmAnnounced && <Tips />}
+              <Tips />
               <VideoPlayer playlist={playlist} />
             </VideoLayout>
             {isAdmin && showDebug && <Command />}

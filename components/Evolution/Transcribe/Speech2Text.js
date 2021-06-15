@@ -33,9 +33,12 @@ const Speech2Text = () => {
   const micStream = React.useRef(null)
   const [audioBinary, setAudioBinary] = React.useState()
 
-  const { speechBotState, isRecordingMicrophone, radioInUse } = useSelector(
-    (state) => state.ai
-  )
+  const {
+    firstAlarmAnnounced,
+    speechBotState,
+    isRecordingMicrophone,
+    radioInUse
+  } = useSelector((state) => state.ai)
 
   const getSocketUrl = React.useCallback(async () => {
     try {
@@ -131,6 +134,7 @@ const Speech2Text = () => {
         }
 
         if (
+          firstAlarmAnnounced &&
           isPressed &&
           !isRecordingMicrophone &&
           speechBotState !== BOTSTATE.LISTENINIG &&
@@ -153,7 +157,7 @@ const Speech2Text = () => {
         dispatch(aiActions.updateSpeechBotState(BOTSTATE.WAITING))
       }
     }
-  }, [usingMic, readyState, isPressed])
+  }, [firstAlarmAnnounced, usingMic, readyState, isPressed])
 
   React.useEffect(() => {
     if (isRecordingMicrophone) {

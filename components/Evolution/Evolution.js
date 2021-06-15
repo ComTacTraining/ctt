@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
 const Evolution = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { firstAlarmAnnounced, faceToFaceCompleted, educationCompleted } =
-    useSelector((state) => state.ai)
+  const { faceToFaceCompleted, educationCompleted } = useSelector(
+    (state) => state.ai
+  )
   const { alias } = useSelector((state) => state.evolution)
   const { showTips } = useSelector((state) => state.user)
   const [playlist, setPlaylist] = React.useState(false)
@@ -75,12 +76,8 @@ const Evolution = () => {
             </Grid>
           )}
           <Grid item xs={showDebug ? 6 : 12}>
-            {firstAlarmAnnounced && (
-              <>
-                <RadioSound />
-                <Speech2Text />
-              </>
-            )}
+            <RadioSound />
+            <Speech2Text />
             <AI />
             <Speak />
             <TextToSpeech />
@@ -88,7 +85,7 @@ const Evolution = () => {
               <VideoLayout>
                 <ScrollingText />
                 <Status />
-                {firstAlarmAnnounced && showTips && <Tips />}
+                {showTips && <Tips />}
                 <VideoPlayer playlist={playlist} />
               </VideoLayout>
             )}

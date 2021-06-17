@@ -7,14 +7,18 @@ const Speak = () => {
   const { waitingToBeSpoken, radioInUse } = useSelector((state) => state.ai)
 
   useEffect(() => {
+    let cooldown
     if (!radioInUse && waitingToBeSpoken.length > 0) {
-      const nextSpeech = waitingToBeSpoken[0]
-      const { label, text, voice, meta } = nextSpeech
-      const timestamp = Date.now()
+      cooldown = setTimeout(() => {
+        const nextSpeech = waitingToBeSpoken[0]
+        const { label, text, voice, meta } = nextSpeech
+        const timestamp = Date.now()
 
-      dispatch(updateTextToSpeech({ text, voice, meta }))
-      dispatch(addToLog({ timestamp, label, text }))
+        dispatch(updateTextToSpeech({ text, voice, meta }))
+        dispatch(addToLog({ timestamp, label, text }))
+      }, 2000)
     }
+    return () => clearTimeout(cooldown)
   }, [waitingToBeSpoken, radioInUse, dispatch])
 
   return <div />

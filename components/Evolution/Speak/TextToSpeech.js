@@ -113,7 +113,6 @@ const TextToSpeech = () => {
   React.useEffect(() => {
     const { meta } = textToSpeech
     if (finishedSpeaking) {
-      dispatch(speakCompleted())
       if (meta === 'INITIAL_REPORT_RESPONSE') {
         dispatch(threeSixtyWalkthroughBegan())
       }
@@ -126,6 +125,7 @@ const TextToSpeech = () => {
       if (meta === 'EDUCATION_COMPLETED') {
         dispatch(educationCompleted())
       }
+      dispatch(speakCompleted())
       setFinishedSpeaking(false)
     }
   }, [finishedSpeaking, textToSpeech, dispatch])

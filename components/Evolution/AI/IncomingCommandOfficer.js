@@ -51,9 +51,7 @@ const IncomingCommandOfficer = () => {
             Math.random() * (maxSecs - minArrivalSeconds + 1) +
               minArrivalSeconds
           ) * 1000
-      dispatch(
-        aiActions.addIncomingCommandArrival({ arrival: Date.now() + timeout })
-      )
+      dispatch(aiActions.addIncomingCommandArrival(Date.now() + timeout))
       interval = setTimeout(() => {
         setSpeak({
           text: `${firstOnScene} from ${incomingCommandOfficer} can we do a face to face?`,

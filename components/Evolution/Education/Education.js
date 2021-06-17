@@ -46,7 +46,7 @@ const Education = () => {
         smoke,
         category
       })
-      // dispatch(updateScrollingText(phrases));
+      // dispatch(updateScrollingText(phrases))
       phrases.map((phrase, i) => {
         dispatch(
           addToSpeechQueue({

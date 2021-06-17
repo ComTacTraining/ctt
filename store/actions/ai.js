@@ -38,6 +38,7 @@ export const SCROLLING_TEXT_COMPLETED = 'SCROLLING_TEXT_COMPLETED'
 export const ADD_TO_SPEECH_QUEUE = 'ADD_TO_SPEECH_QUEUE'
 export const UPDATE_TEXT_TO_SPEECH = 'UPDATE_TEXT_TO_SPEECH'
 export const USE_RADIO = 'USE_RADIO'
+export const COMMAND_IN_PROGRESS = 'COMMAND_IN_PROGRESS'
 export const SPEAK_COMPLETED = 'SPEAK_COMPLETED'
 export const REMOVE_OLDEST_SPEECH_FROM_QUEUE = 'REMOVE_OLDEST_SPEECH_FROM_QUEUE'
 export const ADD_TO_LOG = 'ADD_TO_LOG'
@@ -273,6 +274,12 @@ export const updateTextToSpeech = (item) => {
 export const useRadio = () => {
   return {
     type: USE_RADIO
+  }
+}
+
+export const commandInProgress = () => {
+  return {
+    type: COMMAND_IN_PROGRESS
   }
 }
 

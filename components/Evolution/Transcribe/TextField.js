@@ -6,7 +6,8 @@ import {
   updatePartialTranscript,
   updateCompletedTranscript,
   addToLog,
-  useRadio
+  useRadio,
+  commandInProgress
 } from 'store/actions/ai'
 
 const TextField = () => {
@@ -54,6 +55,7 @@ const TextField = () => {
   const handlePartialCommand = (evt) => {
     if (evt.target.value !== '' && currentCommand === '') {
       dispatch(useRadio())
+      dispatch(commandInProgress())
     }
 
     const lastChar = evt.target.value.charAt(evt.target.value.length - 1)

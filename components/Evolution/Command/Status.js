@@ -15,24 +15,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Status = () => {
   const classes = useStyles()
-  const [commandStatus, setCommandStatus] = React.useState(red[500])
+  const [commandAvailable, setCommandAvailable] = React.useState(false)
+  const [commandColor, setCommandColor] = React.useState(red[500])
   const {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
     faceToFaceCompleted,
-    radioInUse
+    commandInProgress
   } = useSelector((state) => state.ai)
 
   React.useEffect(() => {
     if (faceToFaceCompleted) {
-      setCommandStatus(red[500])
+      setCommandAvailable(false)
     } else if (threeSixtyWalkthroughCompleted) {
-      setCommandStatus(orange[300])
+      setCommandAvailable(true)
     } else if (initialReportCompleted) {
-      setCommandStatus(red[500])
+      setCommandAvailable(false)
     } else if (firstAlarmAnnounced) {
-      setCommandStatus(orange[300])
+      setCommandAvailable(true)
     }
   }, [
     firstAlarmAnnounced,
@@ -41,9 +42,21 @@ const Status = () => {
     faceToFaceCompleted
   ])
 
+  React.useEffect(() => {
+    if (commandAvailable) {
+      if (commandInProgress) {
+        setCommandColor(green[500])
+      } else {
+        setCommandColor(orange[300])
+      }
+    } else {
+      setCommandColor(red[500])
+    }
+  }, [commandAvailable, commandInProgress])
+
   return (
     <div className={classes.root}>
-      <RecordVoiceOverIcon style={{ color: commandStatus }} />
+      <RecordVoiceOverIcon style={{ color: commandColor }} />
     </div>
   )
 }

@@ -22,6 +22,7 @@ const initialState = {
   command: '',
   speechBotState: '',
   isRecordingMicrophone: false,
+  commandInProgress: false,
   isListeningMicrophone: false,
   unitArrivals: [],
   incomingCommandArrival: 0,
@@ -158,12 +159,14 @@ const reducer = (state = initialState, action) => {
     case actionTypes.START_RECORDING_MICROPHONE:
       return {
         ...state,
-        isRecordingMicrophone: true
+        isRecordingMicrophone: true,
+        commandInProgress: true
       }
     case actionTypes.STOP_RECORDING_MICROPHONE:
       return {
         ...state,
-        isRecordingMicrophone: false
+        isRecordingMicrophone: false,
+        commandInProgress: false
       }
     case actionTypes.START_LISTENING_MICROPHONE:
       return {
@@ -261,11 +264,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         radioInUse: true
       }
+    case actionTypes.COMMAND_IN_PROGRESS:
+      return {
+        ...state,
+        commandInProgress: true
+      }
     case actionTypes.SPEAK_COMPLETED:
       return {
         ...state,
         waitingToBeSpoken: [...state.waitingToBeSpoken.slice(1)],
-        radioInUse: false
+        radioInUse: false,
+        commandInProgress: false
       }
     case actionTypes.REMOVE_OLDEST_SPEECH_FROM_QUEUE:
       return {

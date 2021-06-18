@@ -1,18 +1,18 @@
 // main tools
 import { useState, useEffect, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { UserContext } from '../components/Auth/UserContext'
+import { UserContext } from 'components/Auth/UserContext'
 // mui components
 import { Grid, TextField, Checkbox } from '@material-ui/core'
 import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
 
 // custom components
-import { CustomAlarm } from './CustomAlarm'
+import { CustomAlarm } from 'components/Profile/CustomAlarm'
 import { Contained } from 'mui/Button'
 import { H3, Subtitle1, P } from 'mui/Typography'
 
 // action
-import { updateUserPreferences } from '../store/actions/user'
+import { updateUserPreferences } from 'store/actions/user'
 
 // styles
 import { makeStyles } from '@material-ui/core/styles'

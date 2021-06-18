@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 // components
 import { Contained } from 'mui/Button'
 import { P, H6 } from 'mui/Typography'
-import { CustomAlarmDialog } from './CustomAlarmDialog'
+import { CustomAlarmDialog } from 'components/Profile/CustomAlarmDialog'
 
 // mui components
 import { Grid, Chip } from '@material-ui/core'

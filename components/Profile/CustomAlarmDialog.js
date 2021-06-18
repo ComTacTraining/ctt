@@ -29,7 +29,7 @@ export const useStyles = makeStyles((theme) => ({
   IncommingWarningLabel: {
     color: '#D0021B'
   },
-  firstOnSceenColor: {
+  firstOnSceneColor: {
     color: theme.palette.info.main,
     fontWeight: 900,
     padding: 5
@@ -118,7 +118,7 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
                 checked={newItem.label === 'screen'}
                 onChange={handleSelected}
               />
-              <Overline className={classes.firstOnSceenColor}>
+              <Overline className={classes.firstOnSceneColor}>
                 First On Scene
               </Overline>
             </Grid>
@@ -130,7 +130,7 @@ export const CustomAlarmDialog = ({ idx, open, data, setOpen, setData }) => {
                 onChange={handleSelected}
               />
               <Overline className={classes.incomingCommandColor}>
-                Incoming Command Center
+                Incoming Command Officer
               </Overline>
             </Grid>
             <Grid item xs={12} className={classes.checkboxContainer}>

@@ -69,7 +69,10 @@ const Speech2Text = () => {
     getWebSocket
   } = useWebSocket(getSocketUrl, {
     onOpen: () => {
-      console.log('opened')
+      console.log('websocket opened')
+    },
+    onClose: (closeEvent) => {
+      console.log('websocket closed ');
     },
     onMessage: (message) => {
       let messageWrapper = eventStreamMarshaller.unmarshall(
@@ -93,7 +96,11 @@ const Speech2Text = () => {
     },
     //Will attempt to reconnect on all close events, such as server shutting down
     shouldReconnect: (closeEvent) => {
-      return didUnmount.current === false
+      if(closeEvent.reason === "didUnmount" && closeEvent.code === 3333) {
+        return false
+      } else {
+        return didUnmount.current === false
+      }
     },
     reconnectAttempts: 10000,
     reconnectInterval: 1000
@@ -116,14 +123,14 @@ const Speech2Text = () => {
 
   React.useEffect(() => {
     return () => {
-      didUnmount.current = true
+      getWebSocket().close(3333, "didUnmount")
       closeSocket()
+      didUnmount.current = true
     }
   }, [])
 
   React.useEffect(() => {
     if (usingMic) {
-      // console.log('radioInUse', radioInUse)
       if (connectionStatus === 'Open') {
         getWebSocket().binaryType = 'arraybuffer'
         if (
@@ -152,6 +159,7 @@ const Speech2Text = () => {
             dispatch(aiActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
             dispatch(aiActions.stopRecordingMicrophone())
           }, 2000)
+
         }
       } else if (speechBotState !== BOTSTATE.WAITING) {
         dispatch(aiActions.updateSpeechBotState(BOTSTATE.WAITING))
@@ -278,16 +286,16 @@ const Speech2Text = () => {
       body: buffer
     }
   }
-  const closeSocket = () => {
+  const closeSocket = React.useCallback(() => {
     if (micStream.current) {
       micStream.current.stop()
     }
-    if (connectionStatus === 'Open') {
+    if (connectionStatus === 'Open' || connectionStatus === 'Connecting') {
       let emptyMessage = getAudioEventMessage(Buffer.from(new Buffer([])))
       let emptyBuffer = eventStreamMarshaller.marshall(emptyMessage)
       sendMessage(emptyBuffer)
     }
-  }
+  }, [connectionStatus]);
 
   return <div id='speech-text'></div>
 }

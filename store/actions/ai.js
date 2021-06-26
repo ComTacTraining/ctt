@@ -36,6 +36,7 @@ export const UPDATE_LAST_PLAYED_VIDEO = 'UPDATE_LAST_PLAYED_VIDEO'
 export const UPDATE_SCROLLING_TEXT = 'UPDATE_SCROLLING_TEXT'
 export const SCROLLING_TEXT_COMPLETED = 'SCROLLING_TEXT_COMPLETED'
 export const ADD_TO_SPEECH_QUEUE = 'ADD_TO_SPEECH_QUEUE'
+export const ADD_TO_FRONT_OF_SPEECH_QUEUE = 'ADD_TO_FRONT_OF_SPEECH_QUEUE'
 export const UPDATE_TEXT_TO_SPEECH = 'UPDATE_TEXT_TO_SPEECH'
 export const USE_RADIO = 'USE_RADIO'
 export const COMMAND_IN_PROGRESS = 'COMMAND_IN_PROGRESS'
@@ -251,6 +252,18 @@ export const scrollingTextCompleted = () => {
 export const addToSpeechQueue = (item) => {
   return {
     type: ADD_TO_SPEECH_QUEUE,
+    payload: {
+      label: item.label,
+      text: item.text,
+      voice: item.voice,
+      meta: item.meta
+    }
+  }
+}
+
+export const addToFrontOfSpeechQueue = (item) => {
+  return {
+    type: ADD_TO_FRONT_OF_SPEECH_QUEUE,
     payload: {
       label: item.label,
       text: item.text,

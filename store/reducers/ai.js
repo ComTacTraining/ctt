@@ -250,6 +250,19 @@ const reducer = (state = initialState, action) => {
           }
         ]
       }
+    case actionTypes.ADD_TO_FRONT_OF_SPEECH_QUEUE:
+      return {
+        ...state,
+        waitingToBeSpoken: [
+          {
+            label: action.payload.label,
+            text: action.payload.text,
+            voice: action.payload.voice,
+            meta: action.payload.meta
+          },
+          ...state.waitingToBeSpoken
+        ]
+      }
     case actionTypes.UPDATE_TEXT_TO_SPEECH:
       return {
         ...state,

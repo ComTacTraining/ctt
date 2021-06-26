@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   addToSpeechQueue,
+  addToFrontOfSpeechQueue,
   addUnitArrival,
   addUnitGroupAssignment,
   incrementUnitsAssigned,
@@ -41,6 +42,7 @@ const Unit = ({ name, voice, index }) => {
   } = useSelector((state) => state.evolution)
   const [unitName] = useState(name)
   const [announcement, setAnnouncement] = useState('')
+  const [response, setResponse] = useState('')
   const [arrived, setArrived] = useState(false)
   const [icsNimsGroup, setIcsNimsGroup] = useState('')
 
@@ -48,17 +50,23 @@ const Unit = ({ name, voice, index }) => {
     const unitSpeech = () => {
       const speech = {
         label: unitName,
-        text: announcement,
+        text: response ? response : announcement,
         voice: voice
       }
-      dispatch(addToSpeechQueue(speech))
-      setAnnouncement('')
+
+      if (response) {
+        dispatch(addToFrontOfSpeechQueue(speech))
+        setResponse('')
+      } else {
+        dispatch(addToSpeechQueue(speech))
+        setAnnouncement('')
+      }
     }
 
-    if (announcement) {
+    if (announcement || response) {
       unitSpeech()
     }
-  }, [announcement, unitName, voice, dispatch])
+  }, [announcement, response, unitName, voice, dispatch])
 
   useEffect(() => {
     let interval
@@ -100,7 +108,7 @@ const Unit = ({ name, voice, index }) => {
           ]
           const assignmentAcknowledgement = randomSelection(possibleResponses)
           const commandRepeat = properPronouns(command)
-          setAnnouncement(`${assignmentAcknowledgement} ${commandRepeat}`)
+          setResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
           dispatch(incrementUnitsAssigned())
           dispatch(addAssignedGroup(group.name))
           dispatch(
@@ -159,13 +167,13 @@ const Unit = ({ name, voice, index }) => {
         const canReport = group.canReports.find(
           (report) => report.type === type
         ).response
-        setAnnouncement(canReport)
+        setResponse(canReport)
       }
     }
 
     const checkForParReport = () => {
       if (anyTermsMatchString(command, parReportTerms)) {
-        setAnnouncement(parReport)
+        setResponse(parReport)
       }
     }
 

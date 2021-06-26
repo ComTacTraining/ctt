@@ -294,8 +294,8 @@ const randomSelection = (items) => {
 const properPronouns = (str) => {
   return strReplace(
     str,
-    [' I ', ' you ', 'your', "you're", "I'm"],
-    [' you ', ' I ', 'my', "I'm", "you're"]
+    [' I ', 'you are', 'your', "you're", 'you', "I'm"],
+    [' you ', 'I am', 'my', "I'm", 'me', "you're"]
   )
 }
 

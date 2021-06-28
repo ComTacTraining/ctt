@@ -43,14 +43,21 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
   const [player, setPlayer] = useState()
   const [playlistLength, setPlaylistLength] = useState(0)
   const [lastVideo, setLastVideo] = useState('')
-
+  
   useEffect(() => {
-    videojs.registerPlugin('vjsQualityLevels', qualityLevelsPlugin)
-    videojs.registerPlugin(
-      'vjsHttpSourceSelectorMute',
-      httpSourceSelectorMutePlugin
-    )
-    videojs.registerPlugin('vjsPlaylist', vjsPlaylistPlugin)
+    if(!videojs.getPlugin("vjsQualityLevels")) {
+      videojs.registerPlugin('vjsQualityLevels', qualityLevelsPlugin)
+    }
+    if(!videojs.getPlugin("vjsHttpSourceSelectorMute")) {
+      videojs.registerPlugin(
+        'vjsHttpSourceSelectorMute',
+        httpSourceSelectorMutePlugin
+      )
+    }
+    if(!videojs.getPlugin('vjsPlaylist')) {
+      videojs.registerPlugin('vjsPlaylist', vjsPlaylistPlugin)
+    }
+    
     setPlaylistLength(playlist.length)
     const vjsplayer = videojs(videoRef.current, options, () => {
       setPlayer(vjsplayer)

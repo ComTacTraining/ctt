@@ -1,6 +1,69 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createReview = /* GraphQL */ `
+  mutation CreateReview(
+    $input: CreateReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    createReview(input: $input, condition: $condition) {
+      id
+      autoScore
+      selfScore
+      transcript
+      category
+      number
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateReview = /* GraphQL */ `
+  mutation UpdateReview(
+    $input: UpdateReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    updateReview(input: $input, condition: $condition) {
+      id
+      autoScore
+      selfScore
+      transcript
+      category
+      number
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteReview = /* GraphQL */ `
+  mutation DeleteReview(
+    $input: DeleteReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    deleteReview(input: $input, condition: $condition) {
+      id
+      autoScore
+      selfScore
+      transcript
+      category
+      number
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const createEvolution = /* GraphQL */ `
   mutation CreateEvolution(
     $input: CreateEvolutionInput!
@@ -30,6 +93,9 @@ export const createEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -64,6 +130,9 @@ export const updateEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -98,6 +167,9 @@ export const deleteEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -113,6 +185,9 @@ export const createIncident = /* GraphQL */ `
       title
       icsNims
       command
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -128,6 +203,9 @@ export const updateIncident = /* GraphQL */ `
       title
       icsNims
       command
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -143,6 +221,9 @@ export const deleteIncident = /* GraphQL */ `
       title
       icsNims
       command
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

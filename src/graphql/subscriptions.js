@@ -1,6 +1,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateReview = /* GraphQL */ `
+  subscription OnCreateReview {
+    onCreateReview {
+      id
+      autoScore
+      selfScore
+      transcript
+      category
+      number
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateReview = /* GraphQL */ `
+  subscription OnUpdateReview {
+    onUpdateReview {
+      id
+      autoScore
+      selfScore
+      transcript
+      category
+      number
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteReview = /* GraphQL */ `
+  subscription OnDeleteReview {
+    onDeleteReview {
+      id
+      autoScore
+      selfScore
+      transcript
+      category
+      number
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateEvolution = /* GraphQL */ `
   subscription OnCreateEvolution {
     onCreateEvolution {
@@ -27,6 +81,9 @@ export const onCreateEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -58,6 +115,9 @@ export const onUpdateEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -89,6 +149,9 @@ export const onDeleteEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -101,6 +164,9 @@ export const onCreateIncident = /* GraphQL */ `
       title
       icsNims
       command
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -113,6 +179,9 @@ export const onUpdateIncident = /* GraphQL */ `
       title
       icsNims
       command
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -125,6 +194,9 @@ export const onDeleteIncident = /* GraphQL */ `
       title
       icsNims
       command
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

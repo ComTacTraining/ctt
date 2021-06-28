@@ -1,15 +1,13 @@
-type Evolution
-  @model
-  @key(
-    name: "byCategory"
-    fields: ["category"]
-    queryField: "evolutionByCategory"
-  )
-  @key(
-    name: "byCategoryNumber"
-    fields: ["category", "number"]
-    queryField: "evolutionByCategoryNumber"
-  ) {
+type Review @model @auth(rules: [{allow: owner, operations: [read, create]}, {allow: private, operations: [read]}]) {
+  id: ID!
+  autoScore: Float
+  selfScore: Float
+  transcript: String
+  category: Category
+  number: Int
+}
+
+type Evolution @model @key(name: "byCategory", fields: ["category"], queryField: "evolutionByCategory") @key(name: "byCategoryNumber", fields: ["category", "number"], queryField: "evolutionByCategoryNumber") @auth(rules: [{allow: private}]) {
   id: ID!
   number: Int
   category: Category
@@ -35,7 +33,7 @@ type Evolution
   medical: Boolean
 }
 
-type Incident @model {
+type Incident @model @auth(rules: [{allow: private}]) {
   id: ID!
   title: String!
   icsNims: IcsNims!
@@ -115,3 +113,4 @@ enum IcsNims {
   RIC
   MEDICAL
 }
+ 

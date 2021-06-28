@@ -55,9 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 const AppBar = ({ window }) => {
   const classes = useStyles()
-  const { user, isMember, isAdmin, handleSignOut } = React.useContext(
-    UserContext
-  )
+  const { user, isMember, isAdmin, handleSignOut } =
+    React.useContext(UserContext)
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [visitorAnchor, setVisitorAnchor] = React.useState(null)
   const [openVisitor, setOpenVisitor] = React.useState(false)
@@ -285,6 +284,11 @@ const AppBar = ({ window }) => {
                     }}
                     open={openAdmin}
                     onClose={closeMenu}>
+                    <MenuItem>
+                      <Link href='/admin/reviews' onClick={closeMenu}>
+                        Reviews
+                      </Link>
+                    </MenuItem>
                     <MenuItem>
                       <Link href='/admin/evolutions' onClick={closeMenu}>
                         Evolutions

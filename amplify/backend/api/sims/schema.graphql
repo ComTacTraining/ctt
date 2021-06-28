@@ -3,8 +3,7 @@ type Review @model @auth(rules: [{allow: owner, operations: [read, create]}, {al
   autoScore: Float
   selfScore: Float
   transcript: String
-  category: Category
-  number: Int
+  Evolution: Evolution @connection
 }
 
 type Evolution @model @key(name: "byCategory", fields: ["category"], queryField: "evolutionByCategory") @key(name: "byCategoryNumber", fields: ["category", "number"], queryField: "evolutionByCategoryNumber") @auth(rules: [{allow: private}]) {

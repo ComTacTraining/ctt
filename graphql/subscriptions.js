@@ -8,14 +8,42 @@ export const onCreateReview = /* GraphQL */ `
       autoScore
       selfScore
       transcript
-      category
-      number
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       owner
+      Evolution {
+        id
+        number
+        category
+        construction
+        street
+        size
+        stories
+        occupancy
+        conditions
+        entryEgress
+        survivability
+        placement
+        side
+        flow
+        fire
+        exhaust
+        smoke
+        withstanding
+        attack
+        ventilation
+        exposure
+        ric
+        medical
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -26,14 +54,42 @@ export const onUpdateReview = /* GraphQL */ `
       autoScore
       selfScore
       transcript
-      category
-      number
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       owner
+      Evolution {
+        id
+        number
+        category
+        construction
+        street
+        size
+        stories
+        occupancy
+        conditions
+        entryEgress
+        survivability
+        placement
+        side
+        flow
+        fire
+        exhaust
+        smoke
+        withstanding
+        attack
+        ventilation
+        exposure
+        ric
+        medical
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -44,14 +100,42 @@ export const onDeleteReview = /* GraphQL */ `
       autoScore
       selfScore
       transcript
-      category
-      number
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
       owner
+      Evolution {
+        id
+        number
+        category
+        construction
+        street
+        size
+        stories
+        occupancy
+        conditions
+        entryEgress
+        survivability
+        placement
+        side
+        flow
+        fire
+        exhaust
+        smoke
+        withstanding
+        attack
+        ventilation
+        exposure
+        ric
+        medical
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
     }
   }
 `;

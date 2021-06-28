@@ -81,8 +81,7 @@ export declare class Review {
   readonly autoScore?: number;
   readonly selfScore?: number;
   readonly transcript?: string;
-  readonly category?: Category | keyof typeof Category;
-  readonly number?: number;
+  readonly Evolution?: Evolution;
   constructor(init: ModelInit<Review>);
   static copyOf(source: Review, mutator: (draft: MutableModel<Review>) => MutableModel<Review> | void): Review;
 }

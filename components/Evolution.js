@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { API } from 'aws-amplify'
 import { H3 } from 'mui/Typography'
 import Simulation from 'components/Evolution/Evolution'
-import { evolutionByCategoryNumber } from 'src/graphql/queries'
+import { evolutionByCategoryNumber } from 'graphql/queries'
 import * as evolutionActions from 'store/actions/evolution'
 
 const randomInteger = (min, max) => {

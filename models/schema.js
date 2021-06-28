@@ -31,21 +31,18 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "category": {
-                    "name": "category",
+                "Evolution": {
+                    "name": "Evolution",
                     "isArray": false,
                     "type": {
-                        "enum": "Category"
+                        "model": "Evolution"
                     },
                     "isRequired": false,
-                    "attributes": []
-                },
-                "number": {
-                    "name": "number",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "reviewEvolutionId"
+                    }
                 }
             },
             "syncable": true,
@@ -472,5 +469,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "1fda936f2316830b713ecb29591f26df"
+    "version": "bbca439b317100c0480317eed5b466ff"
 };

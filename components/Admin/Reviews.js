@@ -1,10 +1,6 @@
 import * as React from 'react'
-import { Auth, API } from 'aws-amplify'
-import { listReviews } from 'src/graphql/queries'
-import { createReview } from 'src/graphql/mutations'
-import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
-// import { UserContext } from 'components/Auth/UserContext'
-import { Contained } from 'mui/Button'
+import { API } from 'aws-amplify'
+import { listReviews } from 'graphql/queries'
 import { H3, P } from 'mui/Typography'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -16,7 +12,6 @@ import Paper from '@material-ui/core/Paper'
 
 const Reviews = () => {
   const [loading, setLoading] = React.useState(true)
-  const [testing, setTesting] = React.useState(false)
   const [reviews, setReviews] = React.useState([])
   const [sortedReviews, setSortedReviews] = React.useState([])
   const [token, setToken] = React.useState(null)
@@ -59,6 +54,27 @@ const Reviews = () => {
     }
   }, [reviews, loading])
 
+  const codeFromCategory = (cat) => {
+    switch (cat) {
+      case 'COMMERCIALLEGACY':
+        return 'cl'
+      case 'COMMERCIALMODERN':
+        return 'cm'
+      case 'INDUSTRIALLEGACY':
+        return 'il'
+      case 'INDUSTRIALMODERN':
+        return 'im'
+      case 'MULTIFAMILYLEGACY':
+        return 'mfl'
+      case 'MULTIFAMILYMODERN':
+        return 'mfm'
+      case 'SINGLEFAMILYLEGACY':
+        return 'sfl'
+      case 'SINGLEFAMILYMODERN':
+        return 'sfm'
+    }
+  }
+
   return (
     <>
       <H3>Reviews</H3>
@@ -76,6 +92,7 @@ const Reviews = () => {
                       <TableCell align='right'>auto score</TableCell>
                       <TableCell align='right'>self score</TableCell>
                       <TableCell align='right'>member</TableCell>
+                      <TableCell align='right'>evolution</TableCell>
                       <TableCell align='right'>createdAt</TableCell>
                       <TableCell align='right'>updatedAt</TableCell>
                     </TableRow>
@@ -89,6 +106,9 @@ const Reviews = () => {
                         <TableCell align='right'>{row.autoScore}</TableCell>
                         <TableCell align='right'>{row.selfScore}</TableCell>
                         <TableCell align='right'>{row.owner}</TableCell>
+                        <TableCell align='right'>{`${codeFromCategory(
+                          row.Evolution.category
+                        )}${row.Evolution.number}`}</TableCell>
                         <TableCell align='right'>{row.createdAt}</TableCell>
                         <TableCell align='right'>{row.updatedAt}</TableCell>
                       </TableRow>

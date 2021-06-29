@@ -27,9 +27,12 @@ const {
 
 const Unit = ({ name, voice, index }) => {
   const dispatch = useDispatch()
-  const { command, incidentCommandName, unitsAssigned } = useSelector(
-    (state) => state.ai
-  )
+  const {
+    command,
+    incidentCommandName,
+    unitsAssigned,
+    incidentAnnounced: announcedIncident
+  } = useSelector((state) => state.ai)
   const {
     incidentGroup,
     incidentCommand,
@@ -224,7 +227,7 @@ const Unit = ({ name, voice, index }) => {
       return group
     }
 
-    if (icsNimsGroup && unitsAssigned > 2) {
+    if (!announcedIncident && icsNimsGroup && unitsAssigned > 2) {
       const group = normalizedGroup()
       if (group === icsNimsGroup) {
         const incident = incidentCommand.replace('__NAME__', icsNimsGroup)
@@ -232,7 +235,14 @@ const Unit = ({ name, voice, index }) => {
         dispatch(incidentAnnounced())
       }
     }
-  }, [icsNimsGroup, unitsAssigned, incidentGroup, incidentCommand, dispatch])
+  }, [
+    icsNimsGroup,
+    unitsAssigned,
+    incidentGroup,
+    incidentCommand,
+    announcedIncident,
+    dispatch
+  ])
 
   return <div></div>
 }

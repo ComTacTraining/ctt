@@ -227,8 +227,8 @@ const Unit = ({ name, voice, index }) => {
     if (icsNimsGroup && unitsAssigned > 2) {
       const group = normalizedGroup()
       if (group === icsNimsGroup) {
-        const announcement = incidentCommand.replace('__NAME__', icsNimsGroup)
-        setAnnouncement(announcement)
+        const incident = incidentCommand.replace('__NAME__', icsNimsGroup)
+        setResponse(incident)
         dispatch(incidentAnnounced())
       }
     }

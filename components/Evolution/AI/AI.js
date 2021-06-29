@@ -78,7 +78,7 @@ const AI = () => {
         text: incidentCommand.replace('__NAME__', groupName),
         voice: unassignedIncidentVoice
       }
-      dispatch(aiActions.addToSpeechQueue(speech))
+      dispatch(aiActions.addToFrontOfSpeechQueue(speech))
     }
 
     if (incidentAnnounced && !incidentCompleted && groupsAssigned.length > 2) {

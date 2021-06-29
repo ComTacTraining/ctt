@@ -37,6 +37,7 @@ export const UPDATE_SCROLLING_TEXT = 'UPDATE_SCROLLING_TEXT'
 export const SCROLLING_TEXT_COMPLETED = 'SCROLLING_TEXT_COMPLETED'
 export const ADD_TO_SPEECH_QUEUE = 'ADD_TO_SPEECH_QUEUE'
 export const ADD_TO_FRONT_OF_SPEECH_QUEUE = 'ADD_TO_FRONT_OF_SPEECH_QUEUE'
+export const CLEAR_SPEECH_QUEUE = 'CLEAR_SPEECH_QUEUE'
 export const UPDATE_TEXT_TO_SPEECH = 'UPDATE_TEXT_TO_SPEECH'
 export const USE_RADIO = 'USE_RADIO'
 export const COMMAND_IN_PROGRESS = 'COMMAND_IN_PROGRESS'
@@ -270,6 +271,12 @@ export const addToFrontOfSpeechQueue = (item) => {
       voice: item.voice,
       meta: item.meta
     }
+  }
+}
+
+export const clearSpeechQueue = () => {
+  return {
+    type: CLEAR_SPEECH_QUEUE
   }
 }
 

@@ -11,7 +11,8 @@ import {
   faceToFaceCompleted,
   educationCompleted,
   useRadio,
-  speakCompleted
+  speakCompleted,
+  clearSpeechQueue
 } from 'store/actions/ai'
 
 const TextToSpeech = () => {
@@ -118,6 +119,7 @@ const TextToSpeech = () => {
       }
       if (meta === 'INCOMING_COMMAND_ARRIVED') {
         dispatch(faceToFaceRequested())
+        dispatch(clearSpeechQueue())
       }
       if (meta === 'INCOMING_COMMAND_RESPONSE') {
         dispatch(faceToFaceCompleted())

@@ -263,6 +263,11 @@ const reducer = (state = initialState, action) => {
           ...state.waitingToBeSpoken
         ]
       }
+    case actionTypes.CLEAR_SPEECH_QUEUE:
+      return {
+        ...state,
+        waitingToBeSpoken: []
+      }
     case actionTypes.UPDATE_TEXT_TO_SPEECH:
       return {
         ...state,

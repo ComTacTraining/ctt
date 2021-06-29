@@ -24,6 +24,7 @@ const IncomingCommandOfficer = () => {
 
   React.useEffect(() => {
     const queue = () => {
+      dispatch(aiActions.clearSpeechQueue())
       dispatch(
         aiActions.addToSpeechQueue({
           label: incomingCommandOfficer,

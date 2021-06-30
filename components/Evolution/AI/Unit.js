@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  addToSpeechQueue,
-  addToFrontOfSpeechQueue,
+  addAssignedGroup, addToFrontOfSpeechQueue, addToSpeechQueue,
+
   addUnitArrival,
   addUnitGroupAssignment,
-  incrementUnitsAssigned,
-  addAssignedGroup,
-  incidentAnnounced
+
+
+  incidentAnnounced, incrementUnitsAssigned
 } from 'store/actions/ai'
 import {
-  options,
-  anyTermsMatchString,
-  randomSelection,
-  properPronouns
-} from 'utils/ai'
+  anyTermsMatchString, options,
 
+
+  properPronouns, randomSelection
+} from 'utils/ai'
+import { replaceSpelledOutNumbers } from 'utils/units'
 const {
   maxUnitArrivalSeconds,
   canReportTerms,
@@ -122,14 +122,9 @@ const Unit = ({ name, voice, index }) => {
     }
 
     const checkIfAddressed = () => {
-      const noPunctuation = command
-        .replace(/[^\w\s]|_/g, '')
-        .replace(/\s+/g, ' ')
-        .toLowerCase()
-      const cmd = noPunctuation
-        .replace('engine to', 'engine 2')
-        .replace('truck to', 'truck 2')
-      if (anyTermsMatchString(cmd, unitName)) {
+      const numberedCommand = replaceSpelledOutNumbers(command)
+      console.log(numberedCommand)
+      if (anyTermsMatchString(numberedCommand, unitName)) {
         checkForAssignment()
       }
     }

@@ -1,12 +1,12 @@
-import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import * as util_utf8_node from '@aws-sdk/util-utf8-node'
 import * as marshaller from '@aws-sdk/eventstream-marshaller'
-import mic from 'microphone-stream'
-import useWebSocket, { ReadyState } from 'react-use-websocket'
-import { pcmEncode, downsampleBuffer } from './audioUtils'
+import * as util_utf8_node from '@aws-sdk/util-utf8-node'
 import useKeyPress from 'hooks/useKeyPress'
+import mic from 'microphone-stream'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import useWebSocket, { ReadyState } from 'react-use-websocket'
 import * as aiActions from 'store/actions/ai'
+import { downsampleBuffer, pcmEncode } from './audioUtils'
 
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(
   util_utf8_node.toUtf8,

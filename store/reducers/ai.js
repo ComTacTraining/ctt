@@ -30,6 +30,7 @@ const initialState = {
   incomingCommandArrived: false,
   unitAssignments: [],
   unitsAssigned: 0,
+  assignmentResponses: 0,
   groupsAssigned: [],
   scrollText: [],
   isScrollingText: false,
@@ -214,6 +215,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         unitsAssigned: state.unitsAssigned + 1
+      }
+    case actionTypes.INCREMENT_ASSIGNMENT_RESPONSES:
+      return {
+        ...state,
+        assignmentResponses: state.assignmentResponses + 1
       }
     case actionTypes.UPDATE_UNITS_ASSIGNED:
       return {

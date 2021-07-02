@@ -1,18 +1,19 @@
+import Auth from '@aws-amplify/auth'
+import Predictions, { AmazonAIPredictionsProvider } from '@aws-amplify/predictions'
+import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
-import Auth from '@aws-amplify/auth'
-import Predictions, {
-  AmazonAIPredictionsProvider
-} from '@aws-amplify/predictions'
 import {
-  threeSixtyWalkthroughBegan,
-  faceToFaceRequested,
-  faceToFaceCompleted,
+  clearSpeechQueue,
   educationCompleted,
-  useRadio,
-  speakCompleted,
-  clearSpeechQueue
+  faceToFaceCompleted,
+  faceToFaceRequested,
+
+
+  incrementAssignmentResponses, speakCompleted,
+  threeSixtyWalkthroughBegan,
+
+  useRadio
 } from 'store/actions/ai'
 
 const TextToSpeech = () => {
@@ -116,6 +117,9 @@ const TextToSpeech = () => {
     if (finishedSpeaking) {
       if (meta === 'INITIAL_REPORT_RESPONSE') {
         dispatch(threeSixtyWalkthroughBegan())
+      }
+      if (meta === 'UNIT_ASSIGNMENT_RESPONSE') {
+        dispatch(incrementAssignmentResponses())
       }
       if (meta === 'INCOMING_COMMAND_ARRIVED') {
         dispatch(faceToFaceRequested())

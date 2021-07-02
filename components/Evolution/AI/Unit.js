@@ -31,6 +31,7 @@ const Unit = ({ name, voice, index }) => {
     command,
     incidentCommandName,
     unitsAssigned,
+    assignmentResponses,
     incidentAnnounced: announcedIncident
   } = useSelector((state) => state.ai)
   const {
@@ -46,6 +47,7 @@ const Unit = ({ name, voice, index }) => {
   const [unitName] = useState(name)
   const [announcement, setAnnouncement] = useState('')
   const [response, setResponse] = useState('')
+  const [assignmentResponse, setAssignmentResponse] = useState('')
   const [arrived, setArrived] = useState(false)
   const [icsNimsGroup, setIcsNimsGroup] = useState('')
 
@@ -53,23 +55,25 @@ const Unit = ({ name, voice, index }) => {
     const unitSpeech = () => {
       const speech = {
         label: unitName,
-        text: response ? response : announcement,
-        voice: voice
+        text: response ? response : assignmentResponse ? assignmentResponse : announcement,
+        voice: voice,
+        meta: assignmentResponse ? 'UNIT_ASSIGNMENT_RESPONSE' : null
       }
 
-      if (response) {
+      if (response || assignmentResponse) {
         dispatch(addToFrontOfSpeechQueue(speech))
         setResponse('')
+        setAssignmentResponse('')
       } else {
         dispatch(addToSpeechQueue(speech))
         setAnnouncement('')
       }
     }
 
-    if (announcement || response) {
+    if (announcement || response || assignmentResponse) {
       unitSpeech()
     }
-  }, [announcement, response, unitName, voice, dispatch])
+  }, [announcement, response, assignmentResponse, unitName, voice, dispatch])
 
   useEffect(() => {
     let interval
@@ -111,7 +115,8 @@ const Unit = ({ name, voice, index }) => {
           ]
           const assignmentAcknowledgement = randomSelection(possibleResponses)
           const commandRepeat = properPronouns(command)
-          setResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
+          // setResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
+          setAssignmentResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
           dispatch(incrementUnitsAssigned())
           dispatch(addAssignedGroup(group.name))
           dispatch(
@@ -222,7 +227,7 @@ const Unit = ({ name, voice, index }) => {
       return group
     }
 
-    if (!announcedIncident && icsNimsGroup && unitsAssigned > 2) {
+    if (!announcedIncident && icsNimsGroup && assignmentResponses > 2) {
       const group = normalizedGroup()
       if (group === icsNimsGroup) {
         const incident = incidentCommand.replace('__NAME__', icsNimsGroup)
@@ -232,7 +237,8 @@ const Unit = ({ name, voice, index }) => {
     }
   }, [
     icsNimsGroup,
-    unitsAssigned,
+    // unitsAssigned,
+    assignmentResponses,
     incidentGroup,
     incidentCommand,
     announcedIncident,

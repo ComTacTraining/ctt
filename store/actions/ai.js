@@ -31,6 +31,7 @@ export const ADD_INCOMING_COMMAND_ARRIVAL = 'ADD_INCOMING_COMMAND_ARRIVAL'
 export const INCOMING_COMMAND_ARRIVED = 'INCOMING_COMMAND_ARRIVED'
 export const ADD_UNIT_GROUP_ASSIGNMENTS = 'ADD_UNIT_GROUP_ASSIGNMENTS'
 export const INCREMENT_UNITS_ASSIGNED = 'INCREMENT_UNITS_ASSIGNED'
+export const INCREMENT_ASSIGNMENT_RESPONSES = 'INCREMENT_ASSIGNMENT_RESPONSES'
 export const UPDATE_UNITS_ASSIGNED = 'UPDATE_UNITS_ASSIGNED'
 export const ADD_ASSIGNED_GROUP = 'ADD_ASSIGNED_GROUP'
 export const UPDATE_LAST_PLAYED_VIDEO = 'UPDATE_LAST_PLAYED_VIDEO'
@@ -215,6 +216,12 @@ export const addUnitGroupAssignment = (data) => {
 export const incrementUnitsAssigned = () => {
   return {
     type: INCREMENT_UNITS_ASSIGNED
+  }
+}
+
+export const incrementAssignmentResponses = () => {
+  return {
+    type: INCREMENT_ASSIGNMENT_RESPONSES
   }
 }
 

@@ -16,6 +16,7 @@ export const EDUCATION_COMPLETED = 'EDUCATION_COMPLETED'
 export const EVALUATION_COMPLETED = 'EVALUATION_COMPLETED'
 export const SECOND_ALARM_REQUESTED = 'SECOND_ALARM_REQUESTED'
 export const THIRD_ALARM_REQUESTED = 'THIRD_ALARM_REQUESTED'
+export const SET_COMMAND_ALLOWED = 'SET_COMMAND_ALLOWED'
 export const SECOND_ALARM_READY = 'SECOND_ALARM_READY'
 export const THIRD_ALARM_READY = 'THIRD_ALARM_READY'
 export const UPDATE_PARTIAL_TRANSCRIPT = 'UPDATE_PARTIAL_TRANSCRIPT'
@@ -112,6 +113,15 @@ export const secondAlarmReady = () => {
 
 export const thirdAlarmReady = () => {
   return { type: THIRD_ALARM_READY }
+}
+
+export const setCommandAllowed = (isAllowed) => {
+  return { 
+    type: SET_COMMAND_ALLOWED,
+    payload: {
+      isAllowed: isAllowed
+    }
+  }
 }
 
 export const updatePartialTranscript = (text) => {

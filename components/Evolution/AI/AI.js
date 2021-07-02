@@ -1,55 +1,59 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import Command from './Command'
-import Tips from './Tips'
-import Evaluation from './Evaluation'
-import DispatchCenter from './DispatchCenter'
-import Units from './Units'
-import IncomingCommandOfficer from './IncomingCommandOfficer'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import * as aiActions from 'store/actions/ai'
 import {
-  options,
+  groupConstToDisplay, groupDisplayToConst, options,
   randomSelection,
-  strReplace,
-  groupDisplayToConst,
-  groupConstToDisplay
+  strReplace
 } from 'utils/ai'
 import { options as evo } from 'utils/evolution'
-import * as aiActions from 'store/actions/ai'
+import Command from './Command'
+import DispatchCenter from './DispatchCenter'
+import Evaluation from './Evaluation'
+import IncomingCommandOfficer from './IncomingCommandOfficer'
+import Tips from './Tips'
+import Units from './Units'
 
 const { unassignedIncidentVoice } = options
 
 const AI = () => {
   const {
     firstAlarmAnnounced,
-    threeSixtyWalkthroughCompleted: walkthrough360,
+    initialReportCompleted,
+    threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
     incidentAnnounced,
     incidentCompleted,
+    commandAllowed,
     groupsAssigned,
+    faceToFaceCompleted,
+    radioInUse,
     lastPlayedVideo
   } = useSelector((state) => state.ai)
-
+  const { usingMic } = useSelector((state) => state.user)
   const { street, incidentGroup, incidentCommand } = useSelector(
     (state) => state.evolution
   )
 
   const dispatch = useDispatch()
 
-  const [introFinished, setIntroFinished] = useState(false)
+  const [introFinished, setIntroFinished] = React.useState(false)
+  const [phaseAllowsCommand, setPhaseAllowsCommand] = React.useState(false)
+  const [canCommand, setCanCommand] = React.useState(commandAllowed)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (firstAlarmAnnounced || lastPlayedVideo === 'intro') {
       setIntroFinished(true)
     }
   }, [lastPlayedVideo, firstAlarmAnnounced])
 
-  useEffect(() => {
-    if (!walkthrough360 && lastPlayedVideo === 'alpha') {
+  React.useEffect(() => {
+    if (!threeSixtyWalkthroughCompleted && lastPlayedVideo === 'alpha') {
       dispatch(aiActions.threeSixtyWalkthroughCompleted())
     }
-  }, [lastPlayedVideo, walkthrough360, dispatch])
+  }, [lastPlayedVideo, threeSixtyWalkthroughCompleted, dispatch])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const alphaStreet = street.replace(/[0-9]/g, '').trim()
     let incidentName = alphaStreet
     evo.suffixes.forEach((suffix) => {
@@ -59,8 +63,40 @@ const AI = () => {
     dispatch(aiActions.setCommandName(`${incidentName} ${commandDesignation}`))
   }, [street, dispatch])
 
+  React.useEffect(() => {
+    if (faceToFaceCompleted) {
+      setPhaseAllowsCommand(false) // end of phase
+    } else if (threeSixtyWalkthroughCompleted) {
+      setPhaseAllowsCommand(true) // 360 assessment, assignments, face-to-face
+    } else if (initialReportCompleted) {
+      setPhaseAllowsCommand(false) // 360 walkthrough
+    } else if (firstAlarmAnnounced) {
+      setPhaseAllowsCommand(true) // initial report
+    } else {
+      setPhaseAllowsCommand(false) // arrival
+    }
+  }, [firstAlarmAnnounced, initialReportCompleted, threeSixtyWalkthroughCompleted, faceToFaceCompleted])
+
+  React.useEffect(() => {
+    if (phaseAllowsCommand && usingMic && !radioInUse) {
+      setCanCommand(true)
+    } else {
+      setCanCommand(false)
+    }
+  }, [phaseAllowsCommand, usingMic, radioInUse, dispatch])
+
+  // Only dispatch if changed
+  React.useEffect(() => {
+    if (canCommand && !commandAllowed) {
+      dispatch(aiActions.setCommandAllowed(true))
+    }
+    if (!canCommand && commandAllowed) {
+      dispatch(aiActions.setCommandAllowed(false))
+    }
+  }, [commandAllowed, canCommand])
+
   // unhandled incident
-  useEffect(() => {
+  React.useEffect(() => {
     const checkIncidentAssigned = () => {
       let found = false
       groupsAssigned.forEach((group) => {

@@ -17,6 +17,7 @@ const initialState = {
   thirdAlarmRequested: false,
   secondAlarmReady: false,
   thirdAlarmReady: false,
+  commandAllowed: false,
   isPartialCommand: false,
   partialCommand: '',
   command: '',
@@ -131,6 +132,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         thirdAlarmReady: true
+      }
+    case actionTypes.SET_COMMAND_ALLOWED:
+      return {
+        ...state,
+        commandAllowed: action.payload.isAllowed
       }
     case actionTypes.UPDATE_PARTIAL_TRANSCRIPT:
       return {

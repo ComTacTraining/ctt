@@ -89,31 +89,34 @@ const useScrollingText = (canvasRef, text) => {
 
     const render = () => {
       const canvas = canvasRef.current;
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font = options.font;
-      ctx.fillStyle = options.textColor;
-      ctx.strokeStyle = options.outlineColor;
-      let currX = 0;
-      let currY = currentPosition;
-      lines.forEach(line => {
-        currX = Math.floor((canvas.width - ctx.measureText(line).width) / 2);
-        currY += options.fontSize + options.leading;
-        ctx.fillText(line, currX, currY);
-        ctx.strokeText(line, currX, currY);
-      });
-      if (currentPosition > endingPosition) {
-        currentPosition -= options.rate;
-        requestId = requestAnimationFrame(render);
-      } else {
-        // setSections([]);
-        // setLines([]);
-        // setStartingPosition(START);
-        // setEndingPosition(START);
+      if(canvas) {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = options.font;
+        ctx.fillStyle = options.textColor;
+        ctx.strokeStyle = options.outlineColor;
+        let currX = 0;
+        let currY = currentPosition;
+        lines.forEach(line => {
+          currX = Math.floor((canvas.width - ctx.measureText(line).width) / 2);
+          currY += options.fontSize + options.leading;
+          ctx.fillText(line, currX, currY);
+          ctx.strokeText(line, currX, currY);
+        });
+        if (currentPosition > endingPosition) {
+          currentPosition -= options.rate;
+          requestId = requestAnimationFrame(render);
+        } else {
+          // setSections([]);
+          // setLines([]);
+          // setStartingPosition(START);
+          // setEndingPosition(START);
 
-        cancelAnimationFrame(requestId);
-        setDone(true);
+          cancelAnimationFrame(requestId);
+          setDone(true);
+        }
       }
+      
     };
 
     if (

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { options, anyTermsMatchString } from 'utils/ai'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
+import { anyTermsMatchString, options } from 'utils/ai'
 
 const Command = () => {
+  const dispatch = useDispatch()
   const {
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
@@ -14,13 +15,11 @@ const Command = () => {
     faceToFaceCompleted,
     command
   } = useSelector((state) => state.ai)
-
-  const dispatch = useDispatch()
-
   const { initialReportTerms, threeSixtyAssessmentTerms } = options
+  const [lastCommand, setLastCommand] = React.useState('')
 
   // handle initial report
-  useEffect(() => {
+  React.useEffect(() => {
     const incomingCommand = () => {
       if (!initialReportCompleted) {
         if (anyTermsMatchString(command, initialReportTerms)) {
@@ -40,8 +39,9 @@ const Command = () => {
       }
     }
 
-    if (command !== '') {
+    if (command !== '' && command !== lastCommand) {
       incomingCommand()
+      setLastCommand(command)
     }
   }, [
     command,

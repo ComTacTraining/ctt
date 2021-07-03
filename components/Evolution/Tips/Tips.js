@@ -1,10 +1,10 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
-import Tip from './Tip'
+import { makeStyles } from '@material-ui/core/styles'
 import { H6 } from 'mui/Typography'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import Tip from './Tip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -156,9 +156,9 @@ const Tips = () => {
                 key='assignSalvage'
                 title='Salvage'
               />
-              {ai.threeSixtyAssessmentCompleted && ai.unitsAssigned > 2 && (
+              {ai.threeSixtyAssessmentCompleted && ai.assignmentResponses > 2 && (
                 <Tip
-                  completed={tips.incidentWithinIncident}
+                  completed={ai.incidentCompleted}
                   key='incident'
                   title='Incident Within Incident Response'
                 />

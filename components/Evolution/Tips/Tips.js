@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left'
   },
   backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: theme.spacing(1)
   }
 }))

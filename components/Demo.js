@@ -1,26 +1,27 @@
-import * as React from 'react'
-import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-
-import { Contained } from 'mui/Button'
-import Status from 'components/Evolution/Command/Status'
+import { makeStyles } from '@material-ui/core/styles'
+import { UserContext } from 'components/Auth/UserContext'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import Command from 'components/Evolution/AdminPanel/Command'
 import AI from 'components/Evolution/AI/AI'
+import Status from 'components/Evolution/Command/Status'
+import Overlay from 'components/Evolution/Overlay/Overlay'
 import ScrollingText from 'components/Evolution/ScrollingText/ScrollingText'
 import Speak from 'components/Evolution/Speak/Speak'
 import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import Tips from 'components/Evolution/Tips/Tips'
-import VideoPlayer from 'components/Evolution/VideoPlayer/VideoPlayer'
-import VideoLayout from 'components/Evolution/VideoLayout'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
-import { UserContext } from 'components/Auth/UserContext'
-import { startTime, resetAI } from 'store/actions/ai'
+import VideoLayout from 'components/Evolution/VideoLayout'
+import VideoPlayer from 'components/Evolution/VideoPlayer/VideoPlayer'
+import { Contained } from 'mui/Button'
+import { useRouter } from 'next/router'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetAI, startTime } from 'store/actions/ai'
 import { resetTips } from 'store/actions/tips'
 import { playlistFromId } from 'utils/video'
+
 
 const useStyles = makeStyles((theme) => ({
   adminButton: {
@@ -80,6 +81,7 @@ const Demo = () => {
             <VideoLayout>
               <ScrollingText />
               <Status />
+              <Overlay />
               <Tips />
               <VideoPlayer playlist={playlist} />
             </VideoLayout>

@@ -2,19 +2,19 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  addAssignedGroup, addToFrontOfSpeechQueue, addToSpeechQueue,
-
+  addAssignedGroup,
+  addToFrontOfSpeechQueue,
+  addToSpeechQueue,
   addUnitArrival,
   addUnitGroupAssignment,
-
-
-  incidentAnnounced, incrementUnitsAssigned
+  incidentAnnounced,
+  incrementUnitsAssigned
 } from 'store/actions/ai'
 import {
-  anyTermsMatchString, options,
-
-
-  properPronouns, randomSelection
+  anyTermsMatchString,
+  options,
+  properPronouns,
+  randomSelection
 } from 'utils/ai'
 import { replaceSpelledOutNumbers } from 'utils/units'
 const {
@@ -55,7 +55,11 @@ const Unit = ({ name, voice, index }) => {
     const unitSpeech = () => {
       const speech = {
         label: unitName,
-        text: response ? response : assignmentResponse ? assignmentResponse : announcement,
+        text: response
+          ? response
+          : assignmentResponse
+          ? assignmentResponse
+          : announcement,
         voice: voice,
         meta: assignmentResponse ? 'UNIT_ASSIGNMENT_RESPONSE' : null
       }
@@ -128,7 +132,7 @@ const Unit = ({ name, voice, index }) => {
 
     const checkIfAddressed = () => {
       const numberedCommand = replaceSpelledOutNumbers(command)
-      console.log(numberedCommand)
+      // console.log(numberedCommand)
       if (anyTermsMatchString(numberedCommand, unitName)) {
         checkForAssignment()
       }

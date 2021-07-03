@@ -43,21 +43,21 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
   const [player, setPlayer] = useState()
   const [playlistLength, setPlaylistLength] = useState(0)
   const [lastVideo, setLastVideo] = useState('')
-  
+
   useEffect(() => {
-    if(!videojs.getPlugin("vjsQualityLevels")) {
+    if (!videojs.getPlugin('vjsQualityLevels')) {
       videojs.registerPlugin('vjsQualityLevels', qualityLevelsPlugin)
     }
-    if(!videojs.getPlugin("vjsHttpSourceSelectorMute")) {
+    if (!videojs.getPlugin('vjsHttpSourceSelectorMute')) {
       videojs.registerPlugin(
         'vjsHttpSourceSelectorMute',
         httpSourceSelectorMutePlugin
       )
     }
-    if(!videojs.getPlugin('vjsPlaylist')) {
+    if (!videojs.getPlugin('vjsPlaylist')) {
       videojs.registerPlugin('vjsPlaylist', vjsPlaylistPlugin)
     }
-    
+
     setPlaylistLength(playlist.length)
     const vjsplayer = videojs(videoRef.current, options, () => {
       setPlayer(vjsplayer)
@@ -118,7 +118,7 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
   useEffect(() => {
     if (player && lastVideo === '' && firstAlarmAnnounced) {
       const id = educationCompleted ? 9 : end360 ? 8 : start360 ? 4 : 3
-      console.log(id)
+      // console.log(id)
       // const currId = player.playlist.currentItem()
       player.playlist.currentItem(id)
       player.play()

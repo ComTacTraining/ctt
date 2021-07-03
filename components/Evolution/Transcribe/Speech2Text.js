@@ -19,7 +19,7 @@ const sampleRate = 44100
 
 const Speech2Text = () => {
   const dispatch = useDispatch()
-  const { firstOnScene, usingMic } = useSelector((state) => state.user)
+  const { firstOnScene } = useSelector((state) => state.user)
   const isPressed = useKeyPress('Space')
   //   const [languageCode, setLanguageCode] = React.useState('en-US')
   //   const [region, setRegion] = React.useState('us-east-1')
@@ -37,7 +37,8 @@ const Speech2Text = () => {
     firstAlarmAnnounced,
     speechBotState,
     isRecordingMicrophone,
-    radioInUse
+    radioInUse,
+    commandAllowed
   } = useSelector((state) => state.ai)
 
   const getSocketUrl = React.useCallback(async () => {
@@ -75,17 +76,20 @@ const Speech2Text = () => {
       console.log('websocket closed ');
     },
     onMessage: (message) => {
-      let messageWrapper = eventStreamMarshaller.unmarshall(
-        Buffer(message.data)
-      )
-      let messageBody = JSON.parse(
-        String.fromCharCode.apply(String, messageWrapper.body)
-      )
-      if (messageWrapper.headers[':message-type'].value === 'event') {
-        handleEventStreamMessage(messageBody)
-      } else {
-        console.log(messageBody.Message)
+      if(message.data instanceof ArrayBuffer) {
+        let messageWrapper = eventStreamMarshaller.unmarshall(
+          Buffer(message.data)
+        )
+        let messageBody = JSON.parse(
+          String.fromCharCode.apply(String, messageWrapper.body)
+        )
+        if (messageWrapper.headers[':message-type'].value === 'event') {
+          handleEventStreamMessage(messageBody)
+        } else {
+          console.log(messageBody.Message)
+        }
       }
+      
     },
     onError: (message) => {
       if (message) {
@@ -130,7 +134,7 @@ const Speech2Text = () => {
   }, [])
 
   React.useEffect(() => {
-    if (usingMic) {
+    if (commandAllowed) {
       if (connectionStatus === 'Open') {
         getWebSocket().binaryType = 'arraybuffer'
         if (
@@ -165,7 +169,7 @@ const Speech2Text = () => {
         dispatch(aiActions.updateSpeechBotState(BOTSTATE.WAITING))
       }
     }
-  }, [firstAlarmAnnounced, usingMic, readyState, isPressed])
+  }, [firstAlarmAnnounced, readyState, isPressed, commandAllowed])
 
   React.useEffect(() => {
     if (isRecordingMicrophone) {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToLog, updateTextToSpeech } from 'store/actions/ai'
 
 const Speak = () => {
@@ -7,13 +7,14 @@ const Speak = () => {
   const {
     waitingToBeSpoken,
     radioInUse,
+    commandInProgress,
     firstAlarmAnnounced,
     faceToFaceCompleted
   } = useSelector((state) => state.ai)
 
   useEffect(() => {
     let cooldown
-    if (!radioInUse && waitingToBeSpoken.length > 0) {
+    if (!commandInProgress && !radioInUse && waitingToBeSpoken.length > 0) {
       const waitTime = firstAlarmAnnounced && !faceToFaceCompleted ? 2000 : 10
       cooldown = setTimeout(() => {
         const nextSpeech = waitingToBeSpoken[0]
@@ -28,6 +29,7 @@ const Speak = () => {
   }, [
     waitingToBeSpoken,
     radioInUse,
+    commandInProgress,
     firstAlarmAnnounced,
     faceToFaceCompleted,
     dispatch

@@ -120,7 +120,7 @@ const Speech2Text = () => {
 
   const BOTSTATE = {
     PROCESSING: 'Processing ...',
-    LISTENINIG: 'Listening now ...',
+    LISTENING: 'Listening now ...',
     PRESSKEY: 'Press the space bar to speak.',
     WAITING: 'Please wait while connecting...'
   }
@@ -134,40 +134,37 @@ const Speech2Text = () => {
   }, [])
 
   React.useEffect(() => {
-    if (commandAllowed) {
-      if (connectionStatus === 'Open') {
-        getWebSocket().binaryType = 'arraybuffer'
-        if (
-          speechBotState !== BOTSTATE.PROCESSING &&
-          speechBotState !== BOTSTATE.PRESSKEY
-        ) {
-          dispatch(aiActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
-        }
-
-        if (
-          firstAlarmAnnounced &&
-          isPressed &&
-          !isRecordingMicrophone &&
-          speechBotState !== BOTSTATE.LISTENINIG &&
-          !radioInUse
-        ) {
-          dispatch(aiActions.startRecordingMicrophone())
-          dispatch(aiActions.updateSpeechBotState(BOTSTATE.LISTENINIG))
-        } else if (
-          !isPressed &&
-          isRecordingMicrophone &&
-          speechBotState !== BOTSTATE.PROCESSING
-        ) {
-          dispatch(aiActions.updateSpeechBotState(BOTSTATE.PROCESSING))
-          setTimeout(() => {
-            dispatch(aiActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
-            dispatch(aiActions.stopRecordingMicrophone())
-          }, 2000)
-
-        }
-      } else if (speechBotState !== BOTSTATE.WAITING) {
-        dispatch(aiActions.updateSpeechBotState(BOTSTATE.WAITING))
+    if (connectionStatus === 'Open') {
+      getWebSocket().binaryType = 'arraybuffer'
+      if (
+        speechBotState !== BOTSTATE.PROCESSING &&
+        speechBotState !== BOTSTATE.PRESSKEY
+      ) {
+        dispatch(aiActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
       }
+
+      if (
+        commandAllowed &&
+        isPressed &&
+        !isRecordingMicrophone &&
+        speechBotState !== BOTSTATE.LISTENING
+      ) {
+        dispatch(aiActions.startRecordingMicrophone())
+        dispatch(aiActions.updateSpeechBotState(BOTSTATE.LISTENING))
+      } else if (
+        !isPressed &&
+        isRecordingMicrophone &&
+        speechBotState !== BOTSTATE.PROCESSING
+      ) {
+        dispatch(aiActions.updateSpeechBotState(BOTSTATE.PROCESSING))
+        setTimeout(() => {
+          dispatch(aiActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
+          dispatch(aiActions.stopRecordingMicrophone())
+        }, 2000)
+
+      }
+    } else if (speechBotState !== BOTSTATE.WAITING) {
+      dispatch(aiActions.updateSpeechBotState(BOTSTATE.WAITING))
     }
   }, [firstAlarmAnnounced, readyState, isPressed, commandAllowed])
 

@@ -32,32 +32,37 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'white',
     fontSize: 'small'
-  },
+  }
 }))
 
 const groups = ['Fire Attack', 'Ventilation', 'Exposure', 'RIC', 'Medical']
 
 const Overlay = () => {
   const classes = useStyles()
-  const { threeSixtyAssessmentCompleted, faceToFaceRequested } = useSelector(state => state.ai)
+  const { threeSixtyAssessmentCompleted, faceToFaceRequested } = useSelector(
+    (state) => state.ai
+  )
 
-  return threeSixtyAssessmentCompleted && !faceToFaceRequested && (
-    <div className={classes.root}>
-      <div className={classes.backdrop}>
-        <H6>Assignments</H6>
-        <Divider />
-        <List dense={true}>
-          {groups.map(group => (
-            <ListItem className={classes.item}>
-              <ListItemIcon style={{ minWidth: '24px' }}>
-                <FiberManualRecordIcon className={classes.icon} />
-              </ListItemIcon>
-              <ListItemText primary={group} />
-            </ListItem>
-          ))}
-        </List>
+  return (
+    threeSixtyAssessmentCompleted &&
+    !faceToFaceRequested && (
+      <div className={classes.root}>
+        <div className={classes.backdrop}>
+          <H6>Assignments</H6>
+          <Divider />
+          <List dense={true}>
+            {groups.map((group) => (
+              <ListItem key={group} className={classes.item}>
+                <ListItemIcon style={{ minWidth: '24px' }}>
+                  <FiberManualRecordIcon className={classes.icon} />
+                </ListItemIcon>
+                <ListItemText primary={group} />
+              </ListItem>
+            ))}
+          </List>
+        </div>
       </div>
-    </div>
+    )
   )
 }
 export default Overlay

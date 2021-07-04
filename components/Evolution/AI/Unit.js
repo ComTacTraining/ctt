@@ -30,7 +30,6 @@ const Unit = ({ name, voice, index }) => {
   const {
     command,
     incidentCommandName,
-    unitsAssigned,
     assignmentResponses,
     incidentAnnounced: announcedIncident
   } = useSelector((state) => state.ai)
@@ -48,6 +47,7 @@ const Unit = ({ name, voice, index }) => {
   const [announcement, setAnnouncement] = useState('')
   const [response, setResponse] = useState('')
   const [assignmentResponse, setAssignmentResponse] = useState('')
+  const [assignmentCommand, setAssignmentCommand] = useState('')
   const [arrived, setArrived] = useState(false)
   const [icsNimsGroup, setIcsNimsGroup] = useState('')
 
@@ -112,6 +112,7 @@ const Unit = ({ name, voice, index }) => {
       icsNimsGroups.forEach((group) => {
         if (anyTermsMatchString(command, group.terms)) {
           setIcsNimsGroup(group.name)
+          setAssignmentCommand(command)
           const possibleResponses = [
             `${incidentCommandName} from ${unitName}. I copy I am ${group.name} group.`,
             `${incidentCommandName} from ${unitName}. I am ${group.name} group.`,
@@ -191,12 +192,13 @@ const Unit = ({ name, voice, index }) => {
       }
     }
 
-    if (icsNimsGroup && command) {
+    if (icsNimsGroup && command && assignmentCommand && command !== assignmentCommand) {
       checkIfAddressed()
     }
   }, [
     icsNimsGroup,
     command,
+    assignmentCommand,
     unitName,
     withstanding,
     attack,
@@ -241,7 +243,6 @@ const Unit = ({ name, voice, index }) => {
     }
   }, [
     icsNimsGroup,
-    // unitsAssigned,
     assignmentResponses,
     incidentGroup,
     incidentCommand,

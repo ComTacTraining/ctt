@@ -1,6 +1,8 @@
 import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 const useKeyPress = (targetCode, preventDefault = false) => {
+  const { usingMic } = useSelector((state) => state.user)
   const [keyPressed, setKeyPressed] = React.useState(false)
 
   React.useEffect(() => {
@@ -8,9 +10,9 @@ const useKeyPress = (targetCode, preventDefault = false) => {
       if (event.code === targetCode) {
         setKeyPressed(true)
       }
-      // if (event.code === 'Space') {
-      //   event.preventDefault()
-      // }
+      if (event.code === 'Space') {
+        event.preventDefault()
+      }
     }
 
     const upHandler = (event) => {
@@ -22,14 +24,18 @@ const useKeyPress = (targetCode, preventDefault = false) => {
       }
     }
 
-    window.addEventListener('keydown', downHandler)
-    window.addEventListener('keyup', upHandler)
+    if (usingMic) {
+      window.addEventListener('keydown', downHandler)
+      window.addEventListener('keyup', upHandler)
+    }
 
     return () => {
-      window.removeEventListener('keydown', downHandler)
-      window.removeEventListener('keyup', upHandler)
+      if (usingMic) {
+        window.removeEventListener('keydown', downHandler)
+        window.removeEventListener('keyup', upHandler)
+      }
     }
-  }, [targetCode, preventDefault])
+  }, [targetCode, preventDefault, usingMic])
 
   return keyPressed
 }

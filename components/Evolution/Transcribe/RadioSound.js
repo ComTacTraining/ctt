@@ -8,11 +8,16 @@ const RadioSound = () => {
   )
   const { masterVolume } = useSelector((state) => state.user)
   const [play] = useSound('/mdc1200.mp3', { volume: masterVolume })
+  const [initialized, setInitialized] = React.useState(false)
+  
   React.useEffect(() => {
-    if (firstAlarmAnnounced) {
+    if (!initialized && firstAlarmAnnounced && isRecordingMicrophone) {
+      setInitialized(true)
+    }
+    if (initialized && firstAlarmAnnounced) {
       play()
     }
-  }, [firstAlarmAnnounced, isRecordingMicrophone])
+  }, [firstAlarmAnnounced, isRecordingMicrophone, initialized])
 
   return <div id='Radio'></div>
 }

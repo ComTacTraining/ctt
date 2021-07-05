@@ -34,9 +34,9 @@ const Demo = () => {
   const classes = useStyles()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [showDebug, setShowDebug] = React.useState(true)
   const { faceToFaceCompleted } = useSelector((state) => state.ai)
   const { user, isAdmin } = React.useContext(UserContext)
+   const [showDebug, setShowDebug] = React.useState(isAdmin)
 
   const [playlist, setPlaylist] = React.useState(false)
 

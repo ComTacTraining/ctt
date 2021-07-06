@@ -110,9 +110,11 @@ const Unit = ({ name, voice, index }) => {
 
   useEffect(() => {
     const checkForAssignment = () => {
+      let found = false
       icsNimsGroups.forEach((group) => {
         if (!groupsAssigned.includes(group.name)) {
           if (anyTermsMatchString(command, group.terms)) {
+            found = true
             setIcsNimsGroup(group.name)
             setAssignmentCommand(command)
             const possibleResponses = [
@@ -131,13 +133,25 @@ const Unit = ({ name, voice, index }) => {
           }
         }
       })
+      return found
     }
 
-    const checkIfAddressed = () => {
+    const unassigned = () => {
+      const possibleResponses = [
+        `${incidentCommandName} from ${unitName}. Please repeat my assigned group.`,
+        `${incidentCommandName} from ${unitName}. Please repeat.`
+      ]
+      const cmd = randomSelection(possibleResponses)
+      setAssignmentResponse(cmd)
+    }
+
+    const checkIfAddressed = async () => {
       const numberedCommand = replaceSpelledOutNumbers(command)
-      // console.log(numberedCommand)
       if (anyTermsMatchString(numberedCommand, unitName)) {
-        checkForAssignment()
+        const assigned = await checkForAssignment()
+        if (!assigned) {
+          unassigned()
+        }
       }
     }
 

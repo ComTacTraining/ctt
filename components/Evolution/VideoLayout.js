@@ -3,7 +3,7 @@ import * as React from 'react'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing,
+    margin: theme.spacing(1),
     backgroundColor: '#000000',
   },
   screen: {

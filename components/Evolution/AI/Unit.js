@@ -31,7 +31,8 @@ const Unit = ({ name, voice, index }) => {
     command,
     incidentCommandName,
     assignmentResponses,
-    incidentAnnounced: announcedIncident
+    incidentAnnounced: announcedIncident,
+    groupsAssigned
   } = useSelector((state) => state.ai)
   const {
     incidentGroup,
@@ -110,23 +111,24 @@ const Unit = ({ name, voice, index }) => {
   useEffect(() => {
     const checkForAssignment = () => {
       icsNimsGroups.forEach((group) => {
-        if (anyTermsMatchString(command, group.terms)) {
-          setIcsNimsGroup(group.name)
-          setAssignmentCommand(command)
-          const possibleResponses = [
-            `${incidentCommandName} from ${unitName}. I copy I am ${group.name} group.`,
-            `${incidentCommandName} from ${unitName}. I am ${group.name} group.`,
-            `${incidentCommandName} from ${unitName}. I copy I will be ${group.name} group.`
-          ]
-          const assignmentAcknowledgement = randomSelection(possibleResponses)
-          const commandRepeat = properPronouns(command)
-          // setResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
-          setAssignmentResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
-          dispatch(incrementUnitsAssigned())
-          dispatch(addAssignedGroup(group.name))
-          dispatch(
-            addUnitGroupAssignment({ name: unitName, group: group.name })
-          )
+        if (!groupsAssigned.includes(group.name)) {
+          if (anyTermsMatchString(command, group.terms)) {
+            setIcsNimsGroup(group.name)
+            setAssignmentCommand(command)
+            const possibleResponses = [
+              `${incidentCommandName} from ${unitName}. I copy I am ${group.name} group.`,
+              `${incidentCommandName} from ${unitName}. I am ${group.name} group.`,
+              `${incidentCommandName} from ${unitName}. I copy I will be ${group.name} group.`
+            ]
+            const assignmentAcknowledgement = randomSelection(possibleResponses)
+            const commandRepeat = properPronouns(command)
+            setAssignmentResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
+            dispatch(incrementUnitsAssigned())
+            dispatch(addAssignedGroup(group.name))
+            dispatch(
+              addUnitGroupAssignment({ name: unitName, group: group.name })
+            )
+          }
         }
       })
     }
@@ -142,7 +144,7 @@ const Unit = ({ name, voice, index }) => {
     if (!icsNimsGroup && arrived && command) {
       checkIfAddressed()
     }
-  }, [arrived, command, icsNimsGroup, unitName, incidentCommandName, dispatch])
+  }, [arrived, command, icsNimsGroup, unitName, incidentCommandName, groupsAssigned, dispatch])
 
   useEffect(() => {
     const checkForNeeds = () => {

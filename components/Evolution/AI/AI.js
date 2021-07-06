@@ -26,6 +26,7 @@ const AI = () => {
     incidentCompleted,
     commandAllowed,
     groupsAssigned,
+    assignmentResponses,
     faceToFaceCompleted,
     radioInUse,
     lastPlayedVideo
@@ -97,6 +98,8 @@ const AI = () => {
 
   // unhandled incident
   React.useEffect(() => {
+    let interval
+
     const checkIncidentAssigned = () => {
       let found = false
       groupsAssigned.forEach((group) => {
@@ -115,17 +118,23 @@ const AI = () => {
         voice: unassignedIncidentVoice
       }
       dispatch(aiActions.addToFrontOfSpeechQueue(speech))
+      dispatch(aiActions.incidentAnnounced())
     }
 
-    if (incidentAnnounced && !incidentCompleted && groupsAssigned.length > 2) {
-      if (!checkIncidentAssigned()) {
-        genericUnitIncident()
-      }
+    if (!incidentAnnounced && assignmentResponses === 3) {
+      interval = setTimeout(() => {
+        if (!checkIncidentAssigned()) {
+          genericUnitIncident()
+        }
+      }, 2000)
     }
+    
+    return () => clearTimeout(interval)
   }, [
     incidentAnnounced,
     incidentCompleted,
     groupsAssigned,
+    assignmentResponses,
     incidentGroup,
     incidentCommand,
     dispatch

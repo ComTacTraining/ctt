@@ -1,25 +1,35 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
+import * as React from 'react'
 
-const useStyles = makeStyles(() => ({
-  simDisplay: {
-    width: '100%',
-    height: '0',
-    paddingBottom: '56.25%',
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing,
     backgroundColor: '#000000',
+  },
+  screen: {
+    margin: '0 auto',
+    width: '100%',
+    textAlign: 'center',
+    overflow: 'hidden',
+    maxWidth: '125vh',
+    position: 'relative',
+  },
+  video: {
+    width: '100%',
     position: 'relative'
-  }
+  },
 }))
 
 const Video = ({ children }) => {
   const classes = useStyles()
 
-  return <div className={classes.simDisplay}>{children}</div>
-}
-
-Video.propTypes = {
-  children: PropTypes.any
+  return (
+    <div className={classes.root}>
+      <div className={classes.screen}>
+        <div className={classes.video}>{children}</div>
+      </div>
+    </div>
+  )
 }
 
 export default Video

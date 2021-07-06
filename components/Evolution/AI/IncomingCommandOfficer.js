@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
-import { options, properPronouns, isEmptyObject } from 'utils/ai'
+import { isEmptyObject, options, properPronouns } from 'utils/ai'
 
 const {
   maxIncomingOfficerArrivalSeconds: maxSecs,
@@ -17,14 +17,13 @@ const IncomingCommandOfficer = () => {
     faceToFaceCompleted,
     command
   } = useSelector((state) => state.user)
-  const { incidentCompleted, incomingCommandArrived } = useSelector(
+  const { incidentCompleted, incomingCommandArrived, waitingToBeSpoken } = useSelector(
     (state) => state.ai
   )
   const [speak, setSpeak] = React.useState({})
 
   React.useEffect(() => {
     const queue = () => {
-      dispatch(aiActions.clearSpeechQueue())
       dispatch(
         aiActions.addToSpeechQueue({
           label: incomingCommandOfficer,
@@ -36,10 +35,12 @@ const IncomingCommandOfficer = () => {
       setSpeak({})
     }
 
-    if (!isEmptyObject(speak)) {
+    if (!isEmptyObject(speak) && waitingToBeSpoken.length === 0) {
       queue()
+    } else if (!isEmptyObject(speak) && waitingToBeSpoken.length > 0) {
+      dispatch(aiActions.clearSpeechQueue())
     }
-  }, [speak, incomingCommandOfficer, dispatch])
+  }, [speak, incomingCommandOfficer, waitingToBeSpoken, dispatch])
 
   React.useEffect(() => {
     let interval

@@ -96,13 +96,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         faceToFaceRequested: true,
-        isRecordingMicrophone: true
       }
     case actionTypes.FACE_TO_FACE_COMPLETED:
       return {
         ...state,
         faceToFaceCompleted: true,
-        isRecordingMicrophone: false
       }
     case actionTypes.EDUCATION_COMPLETED:
       return {

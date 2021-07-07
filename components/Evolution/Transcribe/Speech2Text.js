@@ -8,6 +8,14 @@ import useWebSocket, { ReadyState } from 'react-use-websocket'
 import * as aiActions from 'store/actions/ai'
 import { downsampleBuffer, pcmEncode } from './audioUtils'
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(
   util_utf8_node.toUtf8,
   util_utf8_node.fromUtf8
@@ -21,10 +29,7 @@ const Speech2Text = () => {
   const dispatch = useDispatch()
   const { firstOnScene } = useSelector((state) => state.user)
   const isPressed = useKeyPress('Space')
-  //   const [languageCode, setLanguageCode] = React.useState('en-US')
-  //   const [region, setRegion] = React.useState('us-east-1')
-  //   const [sampleRate, setSampleRate] = React.useState(44100)
-
+  const [open, setOpen] = React.useState(false);
   const [lastTranscript, setLastTranscript] = React.useState('')
   const [currentTranscript, setCurrentTranscript] = React.useState('')
 
@@ -33,6 +38,7 @@ const Speech2Text = () => {
   const micStream = React.useRef(null)
   const [audioBinary, setAudioBinary] = React.useState()
 
+  
   const {
     firstAlarmAnnounced,
     speechBotState,
@@ -208,9 +214,9 @@ const Speech2Text = () => {
         })
         .then(streamAudioToWebSocket)
         .catch(function (error) {
-          alert(
-            'There was an error streaming your audio to Amazon Transcribe. Please try again.'
-          )
+          console.log("*** ", error)
+          
+          setOpen(true);
         })
     } else {
       if (micStream.current) {
@@ -218,6 +224,14 @@ const Speech2Text = () => {
       }
     }
   }, [isRecordingMicrophone])
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleEventStreamMessage = (messageJson) => {
     let results = messageJson.Transcript.Results
@@ -298,7 +312,24 @@ const Speech2Text = () => {
     }
   }, [connectionStatus]);
 
-  return <div id='speech-text'></div>
+  return (<div id='speech-text'>
+    <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Voice Search turned off?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            There was an error streaming your audio to Amazon Transcribe. You have to refersh or allow to access the microphone.  
+            <a link="details" onClick={handleClose} target="_blank" href="https://support.google.com/chrome/?p=ui_voice_search&amp;hl=en-US">
+              Details
+            </a>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+  </div>);
 }
 
 export default Speech2Text

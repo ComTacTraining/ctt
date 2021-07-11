@@ -1,22 +1,21 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
+import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import List from '@material-ui/core/List'
-import Divider from '@material-ui/core/Divider'
 import Icon from '@material-ui/core/Icon'
+import IconButton from '@material-ui/core/IconButton'
+import List from '@material-ui/core/List'
+import { makeStyles } from '@material-ui/core/styles'
+import Toolbar from '@material-ui/core/Toolbar'
+import AdminAppBar from 'components/Admin/AppBar/AppBar'
 import { H6 } from 'mui/Typography'
-import Link from './Link'
-import MobileItem from './Layout/MobileItem'
-import DesktopItem from './Layout/DesktopItem'
+import PropTypes from 'prop-types'
+import * as React from 'react'
+import { guest, member, visitor } from 'utils/routes'
 import { UserContext } from './Auth/UserContext'
-import { visitor, guest, member, admin } from 'utils/routes'
+import DesktopItem from './Layout/DesktopItem'
+import MobileItem from './Layout/MobileItem'
+import Link from './Link'
 
 const drawerWidth = 240
 
@@ -66,6 +65,7 @@ const AppBar = ({ window }) => {
   const [openMember, setOpenMember] = React.useState(false)
   const [adminAnchor, setAdminAnchor] = React.useState(null)
   const [openAdmin, setOpenAdmin] = React.useState(false)
+  const [isUserAnAdmin, setIsUserAnAdmin] = React.useState(false)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -85,7 +85,15 @@ const AppBar = ({ window }) => {
   const container =
     window !== undefined ? () => window().document.body : undefined
 
-  const routes = user ? (isAdmin ? admin : isMember ? member : guest) : visitor
+  const routes = user ? isMember ? member : guest : visitor
+
+  React.useEffect(() => {
+    if (user && isAdmin) {
+      setIsUserAnAdmin(true)
+    } else {
+      setIsUserAnAdmin(false)
+    }
+  }, [user, isAdmin])
 
   return (
     <>
@@ -145,167 +153,8 @@ const AppBar = ({ window }) => {
               </Drawer>
             </Hidden>
             <Hidden xsDown implementation='css'>
-              {isAdmin ? (
-                <>
-                  <DesktopItem
-                    key='desktop.visitor'
-                    href='#'
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setOpenVisitor(true)
-                      setVisitorAnchor(e.currentTarget)
-                    }}
-                    title='Visitor'
-                  />
-                  <Menu
-                    id='visitor-appbar'
-                    anchorEl={visitorAnchor}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    open={openVisitor}
-                    onClose={closeMenu}>
-                    <MenuItem>
-                      <Link href='/' onClick={closeMenu}>
-                        Welcome
-                      </Link>
-                    </MenuItem>
-                  </Menu>
-                  <DesktopItem
-                    key='desktop.guest'
-                    href='#'
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setOpenGuest(true)
-                      setGuestAnchor(e.currentTarget)
-                    }}
-                    title='Guest'
-                  />
-                  <Menu
-                    id='guest-appbar'
-                    anchorEl={guestAnchor}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    open={openGuest}
-                    onClose={closeMenu}>
-                    <MenuItem>
-                      <Link href='/demo' onClick={closeMenu}>
-                        Demo
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/subscribe' onClick={closeMenu}>
-                        Subscribe
-                      </Link>
-                    </MenuItem>
-                  </Menu>
-                  <DesktopItem
-                    key='desktop.member'
-                    href='#'
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setOpenMember(true)
-                      setMemberAnchor(e.currentTarget)
-                    }}
-                    title='Member'
-                  />
-                  <Menu
-                    id='member-appbar'
-                    anchorEl={memberAnchor}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    open={openMember}
-                    onClose={closeMenu}>
-                    <MenuItem onClick={closeMenu}>
-                      <Link href='/profile'>Profile</Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/evolution/commercial' onClick={closeMenu}>
-                        Commercial
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/evolution/industrial' onClick={closeMenu}>
-                        Industrial
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/evolution/single-family' onClick={closeMenu}>
-                        Single Family
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/evolution/multi-family' onClick={closeMenu}>
-                        Multi Family
-                      </Link>
-                    </MenuItem>
-                  </Menu>
-                  <DesktopItem
-                    key='desktop.admin'
-                    href='#'
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setOpenAdmin(true)
-                      setAdminAnchor(e.currentTarget)
-                    }}
-                    title='Admin'
-                  />
-                  <Menu
-                    id='admin-appbar'
-                    anchorEl={adminAnchor}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    open={openAdmin}
-                    onClose={closeMenu}>
-                    <MenuItem>
-                      <Link href='/admin/reviews' onClick={closeMenu}>
-                        Reviews
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/admin/evolutions' onClick={closeMenu}>
-                        Evolutions
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/admin/incidents' onClick={closeMenu}>
-                        Incidents
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link href='/admin/debug' onClick={closeMenu}>
-                        Debug
-                      </Link>
-                    </MenuItem>
-                  </Menu>
-                </>
+              {isUserAnAdmin ? (
+                <AdminAppBar />
               ) : (
                 routes.map((route) => <DesktopItem {...route} />)
               )}

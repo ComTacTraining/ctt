@@ -12,7 +12,8 @@ import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import Tips from 'components/Evolution/Tips/Tips'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
-import VideoLayout from 'components/Evolution/VideoLayout'
+import Backdrop from 'components/Evolution/VideoPlayer/Backdrop'
+import Screen from 'components/Evolution/VideoPlayer/Screen'
 import VideoPlayer from 'components/Evolution/VideoPlayer/VideoPlayer'
 import { Contained } from 'mui/Button'
 import { useRouter } from 'next/router'
@@ -78,13 +79,15 @@ const Demo = () => {
             <AI />
             <Speak />
             <TextToSpeech />
-            <VideoLayout>
-              <ScrollingText />
+            <Backdrop>
               <Status />
               <Overlay />
               <Tips />
-              <VideoPlayer playlist={playlist} />
-            </VideoLayout>
+              <Screen>
+                <ScrollingText />
+                <VideoPlayer playlist={playlist} />
+              </Screen>
+            </Backdrop>
             {isAdmin && showDebug && <Command />}
           </Grid>
           {isAdmin && showDebug && (

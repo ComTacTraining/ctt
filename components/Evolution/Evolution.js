@@ -1,29 +1,29 @@
-import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import { Contained } from 'mui/Button'
-import VideoLayout from './VideoLayout'
-import Status from 'components/Evolution/Command/Status'
-import AI from './AI/AI'
-import ScrollingText from './ScrollingText/ScrollingText'
-import Speak from './Speak/Speak'
-import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
-import Education from './Education/Education'
-import Tips from './Tips/Tips'
-import VideoPlayer from './VideoPlayer/VideoPlayer'
+import { makeStyles } from '@material-ui/core/styles'
+import { UserContext } from 'components/Auth/UserContext'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import Command from 'components/Evolution/AdminPanel/Command'
-import Evaluation from './Evaluation/Evaluation'
-import { playlistFromId } from 'utils/video'
-import { startTime, resetAI } from 'store/actions/ai'
-import { resetTips } from 'store/actions/tips'
-import { updateUserPreferences } from 'store/actions/user'
-import { resetEvaluation } from 'store/actions/evaluation'
+import Status from 'components/Evolution/Command/Status'
+import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
-import { UserContext } from 'components/Auth/UserContext'
+import Backdrop from 'components/Evolution/VideoPlayer/Backdrop'
+import Screen from 'components/Evolution/VideoPlayer/Screen'
 import LoadUserPreferences from 'components/LoadUserPrefereces'
+import { Contained } from 'mui/Button'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetAI, startTime } from 'store/actions/ai'
+import { resetEvaluation } from 'store/actions/evaluation'
+import { resetTips } from 'store/actions/tips'
+import { playlistFromId } from 'utils/video'
+import AI from './AI/AI'
+import Education from './Education/Education'
+import Evaluation from './Evaluation/Evaluation'
+import ScrollingText from './ScrollingText/ScrollingText'
+import Speak from './Speak/Speak'
+import Tips from './Tips/Tips'
+import VideoPlayer from './VideoPlayer/VideoPlayer'
 
 const useStyles = makeStyles((theme) => ({
   adminButton: {
@@ -43,11 +43,10 @@ const Evolution = () => {
   )
   const { alias } = useSelector((state) => state.evolution)
   const { showTips, preferencesLoaded } = useSelector((state) => state.user)
+  const { isAdmin } = React.useContext(UserContext)
   const [intialized, setInitialized] = React.useState(false)
   const [playlist, setPlaylist] = React.useState(false)
-  const [showDebug, setShowDebug] = React.useState(true)
-
-  const { isAdmin } = React.useContext(UserContext)
+  const [showDebug, setShowDebug] = React.useState(isAdmin)
 
   React.useEffect(() => {
     dispatch(resetAI())
@@ -87,12 +86,14 @@ const Evolution = () => {
             <Speak />
             <TextToSpeech />
             {!educationCompleted && (
-              <VideoLayout>
-                <ScrollingText />
+              <Backdrop>
                 <Status />
                 {showTips && <Tips />}
-                <VideoPlayer playlist={playlist} />
-              </VideoLayout>
+                <Screen>
+                  <ScrollingText />
+                  <VideoPlayer playlist={playlist} />
+                </Screen>
+              </Backdrop>
             )}
             {faceToFaceCompleted && <Education />}
             {educationCompleted && <Evaluation />}

@@ -2,10 +2,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import * as React from 'react'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-    backgroundColor: '#000000',
-  },
   screen: {
     margin: '0 auto',
     width: '100%',
@@ -20,16 +16,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Video = ({ children }) => {
+const Screen = ({ children }) => {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <div className={classes.video}>
       <div className={classes.screen}>
-        <div className={classes.video}>{children}</div>
+        {children}
       </div>
     </div>
   )
 }
 
-export default Video
+export default Screen

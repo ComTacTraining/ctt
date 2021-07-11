@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     top: 'auto',
     left: 'auto',
     zIndex: 999,
-    padding: '1rem',
+    padding: 0,
     color: 'white',
     textAlign: 'left'
   },

@@ -3,12 +3,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { UserContext } from 'components/Auth/UserContext'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import Command from 'components/Evolution/AdminPanel/Command'
-import Status from 'components/Evolution/Command/Status'
+import Overlay from 'components/Evolution/Overlay/Overlay'
 import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
-import Backdrop from 'components/Evolution/VideoPlayer/Backdrop'
-import Screen from 'components/Evolution/VideoPlayer/Screen'
 import LoadUserPreferences from 'components/LoadUserPrefereces'
 import { Contained } from 'mui/Button'
 import * as React from 'react'
@@ -20,10 +18,7 @@ import { playlistFromId } from 'utils/video'
 import AI from './AI/AI'
 import Education from './Education/Education'
 import Evaluation from './Evaluation/Evaluation'
-import ScrollingText from './ScrollingText/ScrollingText'
 import Speak from './Speak/Speak'
-import Tips from './Tips/Tips'
-import VideoPlayer from './VideoPlayer/VideoPlayer'
 
 const useStyles = makeStyles((theme) => ({
   adminButton: {
@@ -86,14 +81,7 @@ const Evolution = () => {
             <Speak />
             <TextToSpeech />
             {!educationCompleted && (
-              <Backdrop>
-                <Status />
-                {showTips && <Tips />}
-                <Screen>
-                  <ScrollingText />
-                  <VideoPlayer playlist={playlist} />
-                </Screen>
-              </Backdrop>
+              <Overlay playlist={playlist} />
             )}
             {faceToFaceCompleted && <Education />}
             {educationCompleted && <Evaluation />}

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     width: 'auto',
     height: 'auto',
     right: 0,
-    bottom: 0,
+    bottom: '30px',
     top: 'auto',
     left: 'auto',
     zIndex: 999,
@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left'
   },
   backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(43, 51, 63, .7)',
     padding: theme.spacing(1)
   }
 }))

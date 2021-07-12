@@ -4,17 +4,19 @@ import { UserContext } from 'components/Auth/UserContext'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import Command from 'components/Evolution/AdminPanel/Command'
 import AI from 'components/Evolution/AI/AI'
-import Status from 'components/Evolution/Command/Status'
 import Overlay from 'components/Evolution/Overlay/Overlay'
-import ScrollingText from 'components/Evolution/ScrollingText/ScrollingText'
+// import Groups from 'components/Evolution/Overlay/Groups'
+// import Mic from 'components/Evolution/Overlay/Mic'
+// import NextArrival from 'components/Evolution/Overlay/NextArrival'
+// import Tips from 'components/Evolution/Overlay/Tips'
+// import ScrollingText from 'components/Evolution/ScrollingText/ScrollingText'
 import Speak from 'components/Evolution/Speak/Speak'
 import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
-import Tips from 'components/Evolution/Tips/Tips'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
-import Backdrop from 'components/Evolution/VideoPlayer/Backdrop'
-import Screen from 'components/Evolution/VideoPlayer/Screen'
-import VideoPlayer from 'components/Evolution/VideoPlayer/VideoPlayer'
+// import Backdrop from 'components/Evolution/VideoPlayer/Backdrop'
+// import Screen from 'components/Evolution/VideoPlayer/Screen'
+// import VideoPlayer from 'components/Evolution/VideoPlayer/VideoPlayer'
 import { Contained } from 'mui/Button'
 import { useRouter } from 'next/router'
 import * as React from 'react'
@@ -22,7 +24,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { resetAI, startTime } from 'store/actions/ai'
 import { resetTips } from 'store/actions/tips'
 import { playlistFromId } from 'utils/video'
-
 
 const useStyles = makeStyles((theme) => ({
   adminButton: {
@@ -79,15 +80,7 @@ const Demo = () => {
             <AI />
             <Speak />
             <TextToSpeech />
-            <Backdrop>
-              <Status />
-              <Overlay />
-              <Tips />
-              <Screen>
-                <ScrollingText />
-                <VideoPlayer playlist={playlist} />
-              </Screen>
-            </Backdrop>
+            <Overlay playlist={playlist} isDemo={true} />
             {isAdmin && showDebug && <Command />}
           </Grid>
           {isAdmin && showDebug && (

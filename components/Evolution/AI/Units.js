@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import Unit from './Unit'
 import { options } from 'utils/ai'
+import Unit from './Unit'
 
 const Units = () => {
   const {

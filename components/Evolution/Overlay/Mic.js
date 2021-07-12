@@ -1,19 +1,23 @@
-import * as React from 'react'
-import { useSelector } from 'react-redux'
+import { green, orange, red } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/core/styles'
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver'
-import { green, red, orange } from '@material-ui/core/colors'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
-    top: theme.spacing(2),
-    left: theme.spacing(2),
+    top: 0,
+    left: 0,
     zIndex: 999
-  }
+  },
+  backdrop: {
+    backgroundColor: 'rgba(43, 51, 63, .7)',
+    padding: theme.spacing(1)
+  },
 }))
 
-const Status = () => {
+const Mic = () => {
   const classes = useStyles()
   const [commandAvailable, setCommandAvailable] = React.useState(false)
   const [commandColor, setCommandColor] = React.useState(red[500])
@@ -56,9 +60,11 @@ const Status = () => {
 
   return (
     <div className={classes.root}>
-      <RecordVoiceOverIcon style={{ color: commandColor }} />
+      <div className={classes.backdrop}>
+        <RecordVoiceOverIcon style={{ color: commandColor }} />
+      </div>
     </div>
   )
 }
 
-export default Status
+export default Mic

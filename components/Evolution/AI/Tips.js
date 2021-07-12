@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { options } from 'utils/tips'
+import { useDispatch, useSelector } from 'react-redux'
 import * as tipsActions from 'store/actions/tips'
+import { options } from 'utils/tips'
 
 const Tips = () => {
   const {
@@ -11,8 +11,7 @@ const Tips = () => {
     threeSixtyAssessmentCompleted,
     assignmentsCompleted,
     faceToFaceRequested,
-    // incidentCompleted,
-    // unitsAssigned,
+    unitsAssigned,
     isPartialCommand,
     partialCommand,
     command
@@ -38,7 +37,8 @@ const Tips = () => {
     assignmentOverhaul,
     assignmentVentilation,
     assignmentSalvage,
-    incidentWithinIncident
+    canReport,
+    parReport
   } = useSelector((state) => state.tips)
   const dispatch = useDispatch()
   const [partialSectionText, setPartialSectionText] = useState('')
@@ -283,30 +283,33 @@ const Tips = () => {
     assignmentSalvage
   ])
 
-  // useEffect(() => {
-  //   if (
-  //     threeSixtyAssessmentCompleted &&
-  //     unitsAssigned > 2 &&
-  //     !incidentCompleted &&
-  //     assignments !== ''
-  //   ) {
-  //     if (!incidentWithinIncident) {
-  //       options.incidentWithinIncident.forEach((phrase) => {
-  //         if (assignments.includes(phrase)) {
-  //           dispatch(tipsActions.addressedIncidentWithinIncident())
-  //         }
-  //       })
-  //     }
-  //   }
-  // }, [
-  //   threeSixtyAssessmentCompleted,
-  //   unitsAssigned,
-  //   incidentCompleted,
-  //   isPartialCommand,
-  //   partialCommand,
-  //   dispatch,
-  //   incidentWithinIncident
-  // ])
+  useEffect(() => {
+    if (threeSixtyAssessmentCompleted && unitsAssigned > 0 && (!assignmentsCompleted || !faceToFaceRequested)) {
+      const commands = allText(fullSectionText, partialSectionText)
+      if (!canReport) {
+        options.canReport.forEach((phrase) => {
+          if (commands.includes(phrase)) {
+            dispatch(tipsActions.addressedCanReport())
+          }
+        })
+      }
+      if (!parReport) {
+        options.parReport.forEach((phrase) => {
+          if (commands.includes(phrase)) {
+            dispatch(tipsActions.addressedParReport())
+          }
+        })
+      }
+    }
+  }, [
+    threeSixtyAssessmentCompleted,
+    unitsAssigned,
+    assignmentsCompleted,
+    faceToFaceRequested,
+    fullSectionText,
+    partialSectionText,
+    dispatch,
+  ])
 
   return <div className='Tips'></div>
 }

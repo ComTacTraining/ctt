@@ -156,6 +156,20 @@ const Tips = () => {
                 key='assignSalvage'
                 title='Salvage'
               />
+              {ai.unitsAssigned > 0 && (
+                <>
+                  <Tip
+                    completed={tips.canReport}
+                    key='canReport'
+                    title='CAN Report'
+                  />
+                  <Tip
+                    completed={tips.parReport}
+                    key='parReport'
+                    title='PAR Report'
+                  />
+                </>
+              )}
               {ai.threeSixtyAssessmentCompleted && ai.assignmentResponses > 2 && (
                 <Tip
                   completed={ai.incidentCompleted}

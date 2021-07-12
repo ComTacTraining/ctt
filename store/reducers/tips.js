@@ -21,6 +21,8 @@ const initialState = {
   assignmentOverhaul: false,
   assignmentVentilation: false,
   assignmentSalvage: false,
+  canReport: false,
+  parReport: false,
   incidentWithinIncident: false
 }
 
@@ -66,6 +68,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, assignmentVentilation: true }
     case actionTypes.ADDRESSED_ASSIGNMENT_SALVAGE:
       return { ...state, assignmentSalvage: true }
+    case actionTypes.ADDRESSED_CAN_REPORT:
+      return { ...state, canReport: true }
+    case actionTypes.ADDRESSED_PAR_REPORT:
+      return { ...state, parReport: true }
     case actionTypes.ADDRESSED_INCIDENT_WITHIN_INCIDENT:
       return { ...state, incidentWithinIncident: true }
     case actionTypes.RESET_TIPS:

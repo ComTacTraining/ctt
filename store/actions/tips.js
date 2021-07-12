@@ -31,6 +31,8 @@ export const ADDRESSED_ASSIGNMENT_OVERHAUL = 'ADDRESSED_ASSIGNMENT_OVERHAUL'
 export const ADDRESSED_ASSIGNMENT_VENTILATION =
   'ADDRESSED_ASSIGNMENT_VENTILATION'
 export const ADDRESSED_ASSIGNMENT_SALVAGE = 'ADDRESSED_ASSIGNMENT_SALVAGE'
+export const ADDRESSED_CAN_REPORT = 'ADDRESSED_CAN_REPORT'
+export const ADDRESSED_PAR_REPORT = 'ADDRESSED_PAR_REPORT'
 export const ADDRESSED_INCIDENT_WITHIN_INCIDENT =
   'ADDRESSED_INCIDENT_WITHIN_INCIDENT'
 export const RESET_TIPS = 'RESET_TIPS'
@@ -94,6 +96,12 @@ export const addressedAssignmentVentilation = () => ({
 })
 export const addressedAssignmentSalvage = () => ({
   type: ADDRESSED_ASSIGNMENT_SALVAGE
+})
+export const addressedCanReport = () => ({
+  type: ADDRESSED_CAN_REPORT
+})
+export const addressedParReport = () => ({
+  type: ADDRESSED_PAR_REPORT
 })
 export const addressedIncidentWithinIncident = () => ({
   type: ADDRESSED_INCIDENT_WITHIN_INCIDENT

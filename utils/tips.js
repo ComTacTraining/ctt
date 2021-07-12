@@ -188,6 +188,17 @@ const options = {
     "salvage",
     "throw"
   ],
+  canReport: [
+    "can report",
+    "condition",
+    "action",
+    "need"
+  ],
+  parReport: [
+    "par",
+    "personnel",
+    "accountability"
+  ],
   incidentWithinIncident: ["incident"]
 };
 

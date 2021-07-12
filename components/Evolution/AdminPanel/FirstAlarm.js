@@ -1,17 +1,17 @@
-import * as React from 'react'
-import { useSelector } from 'react-redux'
-import { orange, green } from '@material-ui/core/colors'
-import TableContainer from '@material-ui/core/TableContainer'
+import { green, orange } from '@material-ui/core/colors'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
+import CancelIcon from '@material-ui/icons/Cancel'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import CancelIcon from '@material-ui/icons/Cancel'
 import TimerIcon from '@material-ui/icons/Timer'
 import useInterval from 'hooks/useInterval'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
 
 const largeNumber = 9999
 
@@ -84,7 +84,7 @@ const FirstAlarm = () => {
           newUnit.seconds =
             currTime > arrivingUnit.arrival
               ? 0
-              : Math.round((arrivingUnit.arrival - currTime) / 1000)
+              : Math.round((arrivingUnit.arrival + 2000 - currTime) / 1000)
           return newUnit
         } else {
           return unit
@@ -97,7 +97,7 @@ const FirstAlarm = () => {
     const findLongestWait = () => {
       setLongestWait(
         unitArrivals.reduce((maxWait, unit) => {
-          const unitWait = Math.round((unit.arrival - Date.now()) / 1000)
+          const unitWait = Math.round((unit.arrival + 2000 - Date.now()) / 1000)
           return maxWait > unitWait ? maxWait : unitWait
         }, 0)
       )
@@ -236,8 +236,8 @@ const FirstAlarm = () => {
                     </>
                   )}
                 </TableCell>
-                <TableCell>N/A</TableCell>
-                <TableCell>N/A</TableCell>
+                <TableCell align='right'>N/A</TableCell>
+                <TableCell align='right'>N/A</TableCell>
               </TableRow>
             )}
           </>

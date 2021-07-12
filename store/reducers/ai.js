@@ -8,6 +8,7 @@ const initialState = {
   threeSixtyAssessmentCompleted: false,
   assignmentsCompleted: false,
   incidentAnnounced: false,
+  incidentResponded: false,
   incidentCompleted: false,
   faceToFaceRequested: false,
   faceToFaceCompleted: false,
@@ -86,6 +87,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         incidentAnnounced: true
+      }
+    case actionTypes.INCIDENT_RESPONDED:
+      return {
+        ...state,
+        incidentResponded: true
       }
     case actionTypes.INCIDENT_COMPLETED:
       return {

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
 import {
   groupConstToDisplay, groupDisplayToConst, options,
+  properPronouns,
   randomSelection,
   strReplace
 } from 'utils/ai'
@@ -23,13 +24,16 @@ const AI = () => {
     threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
     incidentAnnounced,
+    incidentResponded,
     incidentCompleted,
     commandAllowed,
     groupsAssigned,
     assignmentResponses,
     faceToFaceCompleted,
+    incidentCommandName,
     radioInUse,
-    lastPlayedVideo
+    lastPlayedVideo,
+    command
   } = useSelector((state) => state.ai)
   const { usingMic } = useSelector((state) => state.user)
   const { street, incidentGroup, incidentCommand } = useSelector(
@@ -41,6 +45,7 @@ const AI = () => {
   const [introFinished, setIntroFinished] = React.useState(false)
   const [phaseAllowsCommand, setPhaseAllowsCommand] = React.useState(false)
   const [canCommand, setCanCommand] = React.useState(commandAllowed)
+  const [lastCommand, setLastCommand] = React.useState('')
 
   React.useEffect(() => {
     if (firstAlarmAnnounced || lastPlayedVideo === 'intro') {
@@ -119,6 +124,20 @@ const AI = () => {
       }
       dispatch(aiActions.addToFrontOfSpeechQueue(speech))
       dispatch(aiActions.incidentAnnounced())
+      setLastCommand(command)
+    }
+
+    const genericUnitIncidentResponse = () => {
+      const groupName = groupConstToDisplay(incidentGroup)
+      const commandRepeat = properPronouns(command)
+      const text = `${incidentCommandName} from ${groupName}, ${commandRepeat}`
+      const speech = {
+        label: groupName,
+        text,
+        voice: unassignedIncidentVoice
+      }
+      dispatch(aiActions.addToFrontOfSpeechQueue(speech))
+      dispatch(aiActions.incidentResponded())
     }
 
     if (!incidentAnnounced && assignmentResponses === 3) {
@@ -128,10 +147,21 @@ const AI = () => {
         }
       }, 2000)
     }
+
+    if (incidentAnnounced && !incidentResponded && lastCommand !== command) {
+      interval = setTimeout(() => {
+        if (!checkIncidentAssigned()) {
+          genericUnitIncidentResponse()
+        }
+      }, 500)
+    }
     
     return () => clearTimeout(interval)
   }, [
+    lastCommand,
+    command,
     incidentAnnounced,
+    incidentResponded,
     incidentCompleted,
     groupsAssigned,
     assignmentResponses,

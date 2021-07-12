@@ -7,6 +7,7 @@ export const THREE_SIXTY_ASSESSMENT_COMPLETED =
   'THREE_SIXTY_ASSESSMENT_COMPLETED'
 export const ASSIGNMENTS_COMPLETED = 'ASSIGNMENTS_COMPLETED'
 export const INCIDENT_ANNOUNCED = 'INCIDENT_ANNOUNCED'
+export const INCIDENT_RESPONDED = 'INCIDENT_RESPONDED'
 export const INCIDENT_COMPLETED = 'INCIDENT_COMPLETED'
 export const FACE_TO_FACE_REQUESTED = 'FACE_TO_FACE_REQUESTED'
 export const FACE_TO_FACE_COMPLETED = 'FACE_TO_FACE_COMPLETED'
@@ -78,6 +79,10 @@ export const assignmentsCompleted = () => {
 
 export const incidentAnnounced = () => {
   return { type: INCIDENT_ANNOUNCED }
+}
+
+export const incidentResponded = () => {
+  return { type: INCIDENT_RESPONDED }
 }
 
 export const incidentCompleted = () => {

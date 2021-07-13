@@ -51,40 +51,40 @@ export const member = [
   }
 ]
 
-export const admin = [
-  { key: 'admin.guestdemo', href: '/demo', title: 'Guest Demo', fa: 'fa-tv' },
-  {
-    key: 'voicedemo',
-    href: '/voicedemo',
-    title: 'Voice Demo',
-    fa: 'fa-microphone'
-  },
-  { key: 'admin.textdemo', href: '/textdemo', title: 'Text Demo', fa: 'fa-tv' },
-  // {
-  //   key: 'admin.commercial',
-  //   href: '/evolution/commercial',
-  //   title: 'Commercial',
-  //   fa: 'fa-store'
-  // },
-  {
-    key: 'admin.incidents',
-    href: '/admin/incidents',
-    title: 'Incidents',
-    fa: 'fa-seedling'
-  },
-  {
-    key: 'admin.evolutions',
-    href: '/admin/evolutions',
-    title: 'Evolutions',
-    fa: 'fa-seedling'
-  },
-  {
-    key: 'admin.debug',
-    href: '/admin/debug',
-    title: 'Debug',
-    fa: 'fa-bug'
-  }
-]
+// export const admin = [
+//   { key: 'admin.guestdemo', href: '/demo', title: 'Guest Demo', fa: 'fa-tv' },
+//   {
+//     key: 'voicedemo',
+//     href: '/voicedemo',
+//     title: 'Voice Demo',
+//     fa: 'fa-microphone'
+//   },
+//   { key: 'admin.textdemo', href: '/textdemo', title: 'Text Demo', fa: 'fa-tv' },
+//   {
+//     key: 'admin.commercial',
+//     href: '/evolution/commercial',
+//     title: 'Commercial',
+//     fa: 'fa-store'
+//   },
+//   {
+//     key: 'admin.incidents',
+//     href: '/admin/incidents',
+//     title: 'Incidents',
+//     fa: 'fa-seedling'
+//   },
+//   {
+//     key: 'admin.evolutions',
+//     href: '/admin/evolutions',
+//     title: 'Evolutions',
+//     fa: 'fa-seedling'
+//   },
+//   {
+//     key: 'admin.debug',
+//     href: '/admin/debug',
+//     title: 'Debug',
+//     fa: 'fa-bug'
+//   }
+// ]
 
 export const footer = [
   { key: 'footer.privacy', href: '/privacy', title: 'Privacy Policy' },

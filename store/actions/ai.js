@@ -36,6 +36,7 @@ export const INCREMENT_ASSIGNMENT_RESPONSES = 'INCREMENT_ASSIGNMENT_RESPONSES'
 export const UPDATE_UNITS_ASSIGNED = 'UPDATE_UNITS_ASSIGNED'
 export const ADD_ASSIGNED_GROUP = 'ADD_ASSIGNED_GROUP'
 export const UPDATE_LAST_PLAYED_VIDEO = 'UPDATE_LAST_PLAYED_VIDEO'
+export const ADD_OVERLAY_TITLE = 'ADD_OVERLAY_TITLE'
 export const UPDATE_SCROLLING_TEXT = 'UPDATE_SCROLLING_TEXT'
 export const SCROLLING_TEXT_COMPLETED = 'SCROLLING_TEXT_COMPLETED'
 export const ADD_TO_SPEECH_QUEUE = 'ADD_TO_SPEECH_QUEUE'
@@ -253,6 +254,15 @@ export const updateLastPlayedVideo = (lastPlayedVideo) => {
     type: UPDATE_LAST_PLAYED_VIDEO,
     payload: {
       lastPlayedVideo: lastPlayedVideo
+    }
+  }
+}
+
+export const addOverlayTitle = (title) => {
+  return {
+    type: ADD_OVERLAY_TITLE,
+    payload: {
+      title: title
     }
   }
 }

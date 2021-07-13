@@ -33,6 +33,7 @@ const initialState = {
   unitsAssigned: 0,
   assignmentResponses: 0,
   groupsAssigned: [],
+  overlayTitle: '',
   scrollText: [],
   isScrollingText: false,
   waitingToBeSpoken: [],
@@ -239,6 +240,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         lastPlayedVideo: action.payload.lastPlayedVideo
+      }
+    case actionTypes.ADD_OVERLAY_TITLE:
+      return {
+        ...state,
+        overlayTitle: action.payload.title
       }
     case actionTypes.UPDATE_SCROLLING_TEXT:
       return {

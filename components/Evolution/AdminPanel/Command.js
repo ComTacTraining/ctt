@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 const Command = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const [usingMic, setUsingMic] = React.useState(false)
+  // const [usingMic, setUsingMic] = React.useState(false)
+  const { usingMic } = useSelector((state) => state.user)
   const [commandsAllowed, setCommandsAllowed] = React.useState(false)
   const {
     firstAlarmAnnounced,
@@ -42,7 +43,7 @@ const Command = () => {
   } = useSelector((state) => state.ai)
 
   React.useEffect(() => {
-    setUsingMic(true)
+    // setUsingMic(true)
   }, [])
 
   React.useEffect(() => {
@@ -62,10 +63,12 @@ const Command = () => {
     faceToFaceCompleted
   ])
 
-  React.useEffect(() => {
+  // React.useEffect(() => {
+  //   dispatch(toggleUsingMic())
+  // }, [usingMic, dispatch])
+  const handleChange = (event) => {
     dispatch(toggleUsingMic())
-  }, [usingMic, dispatch])
-
+  }
   return (
     <Accordion defaultExpanded={true}>
       <AccordionSummary
@@ -94,7 +97,7 @@ const Command = () => {
               <Grid item>
                 <Switch
                   checked={usingMic}
-                  onChange={() => setUsingMic(!usingMic)}
+                  onChange={handleChange}
                   name='usingMicSwitch'
                   inputProps={{ 'aria-label': 'Keyboard or Microphone?' }}
                 />

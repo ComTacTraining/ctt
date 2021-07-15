@@ -14,7 +14,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import { toggleUsingMic } from 'store/actions/user'
 
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(
   util_utf8_node.toUtf8,
@@ -27,7 +27,7 @@ const sampleRate = 44100
 
 const Speech2Text = () => {
   const dispatch = useDispatch()
-  const { firstOnScene } = useSelector((state) => state.user)
+  const { firstOnScene, usingMic } = useSelector((state) => state.user)
   const isPressed = useKeyPress('Space')
   const [open, setOpen] = React.useState(false);
   const [lastTranscript, setLastTranscript] = React.useState('')
@@ -132,12 +132,31 @@ const Speech2Text = () => {
   }
 
   React.useEffect(() => {
+    
     return () => {
       getWebSocket().close(3333, "didUnmount")
       closeSocket()
       didUnmount.current = true
     }
   }, [])
+
+  React.useEffect(() => {
+    console.log("usingMic ", usingMic)
+    if(usingMic) {
+      window.navigator.mediaDevices
+          .getUserMedia({
+            video: false,
+            audio: true
+          })
+          .then()
+          .catch(function (error) {
+            console.log("error in microphone ", error)
+            dispatch(toggleUsingMic())
+            setOpen(true);
+
+          })
+    }
+  }, [usingMic])
 
   React.useEffect(() => {
     if (connectionStatus === 'Open') {
@@ -214,8 +233,8 @@ const Speech2Text = () => {
         })
         .then(streamAudioToWebSocket)
         .catch(function (error) {
-          console.log("*** ", error)
-          
+          console.log("error in microphone ", error)
+          dispatch(toggleUsingMic())
           setOpen(true);
         })
     } else {

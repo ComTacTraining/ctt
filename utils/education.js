@@ -97,12 +97,13 @@ const getSmokePhrase = ({ smoke }) => {
 }
 
 const getCategoryPhrases = ({ category }) => {
+  console.log('getCategoryPhrases', category)
   switch (category) {
     case 'COMMERCIALLEGACY':
     case 'INDUSTRIALLEGACY':
       return [
         'Legacy construction allows for greater stability under fire conditions, allowing for longer, safe offensive operations. These buildings may create safety issues for firefighters due to the limited access. This can create issues of occupants interfering with firefighting operations.',
-        'Building Construction:',
+        'Building Construction',
         'These buildings hold up well under fire conditions, but it is critical that firefighters not feel a false sense of security, as these buildings are often poorly maintained.',
         'The ceiling presents multiple tactical decision-making options. If convected heat is impeded from the lowest point of the fire extension upward to the ceiling, protected by enclosure and drywall, the fire is contained as a contents fire.',
         'Likewise, if the fire is in an unprotected attic, the fire is concealed as well as higher HRR because the plume affected shorter, buildings heat quicker, degrading building materials for to collapse stage more rapidly.',
@@ -116,7 +117,7 @@ const getCategoryPhrases = ({ category }) => {
         'Modern construction utilizes lightweight building materials. This construction style incorporates draft stops, fire partitions, and fire stops to limit fire travel.',
         'This lightweight construction uses "Engineered Lumber" a term generally used to describe a wood structural member. This structural member is fabricated using bond fibers and materials that are pressed together to form a composite material used for joists and beams.',
         'Engineered Lumber is a strong building component under normal conditions, but can lose its integrity rapidly under fire conditions.',
-        'Building Construction:',
+        'Building Construction',
         'In modern buildings, the ceiling presents multiple tactical decision-making options.',
         'If convected heat is impeded by an enclosure and drywall from the lowest point, upward to the ceiling, the fire is contained as a room & contents fire.',
         'Likewise, if the fire is in an unprotected attic, the fire is concealed as well, but will transition to a structure fire rapidly.',
@@ -127,7 +128,7 @@ const getCategoryPhrases = ({ category }) => {
       return [
         'Legacy construction homes were built using solid wood. Solid wood provides greater stability under fire conditions for longer offensive operations. Solid wood burns slower maintaining its strength and form. Reducing the opportunity and time required to enter the collapse stage.',
         'With the renewed emphasis on the topic of fire behavior and building construction, realizing what makes up the environment we work in, is and has always been, important to firefighter safety. Fireground command strategy development requires the evaluation of general styles of construction and the building materials used. This critical information is essential to achieve better fireground decisions.',
-        'Building Construction:',
+        'Building Construction',
         'Many buildings are built with a static facade masking the buildings construction type. Roof structures from the legacy era have collar beam and ridge boards often allowing for lofts in the upper levels. These lofts are identifiable by windows in the gable roof area and the dormer style windows on the pitch. This construction type usually consists of raised foundation and/or basement areas. These conditions present a collapse hazard and must be sounded to insure firefighter safety and survival.',
         'Based on design and construction features, structure is not sealed and provides for natural oxygen exchange allowing for rapid fire growth and travel. If the fire is concealed a higher heat release rate occurs because the plume effect is shorter. Which causes the building to heat quicker degrading building materials to the collapse stage more rapidly.',
         'Some of the more common failures associated with this structure could be:  roof collapse, floor collapse, stair collapse, interior wall collapse, and masonry veneer failure.'
@@ -136,7 +137,7 @@ const getCategoryPhrases = ({ category }) => {
       return [
         'For this training program there are at least three descriptors to describe multi-family modern style structures. These descriptors are garden style apartments, center hall style apartments and townhomes. A garden style apartment is any apartment that has entry or egress directly to the exterior of the building. A center hall style apartment is any apartment that exits into a hall way as its entry and exit. A townhome is a multi story apartment with its entry and exit on the ground floor.',
         'Modern construction materials burn faster than older construction materials. Older buildings were built using solid wood. Solid wood structural members will burn slower taking longer to degrade. Newer buildings are built with engineered lumber which are wood fibers glued together. This makes the wood lightweight and strong under normal conditions but allows it to burn quickly and collapse almost instantaneously. Not only does the engineered wood burn more rapidly but modern furniture and coverings which are made out of synthetic materials also are adding to the rate of spread.',
-        'Building Construction:',
+        'Building Construction',
         'Lightweight construction uses “Engineered Lumber” a term generally used to describe a wood structural member that is fabricated using bond fibers and materials that is usually put together as a composite joist or beam.',
         'In modern buildings the ceiling presents multiple tactical decision-making options.',
         'If convected heat is impeded by an enclosure and drywall from the lowest point, upward to the ceiling, the fire is contained as a room & contents fire.',
@@ -148,7 +149,7 @@ const getCategoryPhrases = ({ category }) => {
     case 'SINGLEFAMILYLEGACY':
       return [
         'Conventional construction of single-family dwellings allows for greater stability under fire conditions, allowing for longer, safe offensive operations. These buildings hold up well under fire conditions, but it is critical that firefighters not feel a false sense of security.',
-        'Building Construction:',
+        'Building Construction',
         'The ceiling presents multiple tactical decision-making options. If convected heat is impeded from the lowest point of the fire extension upward to the ceiling, protected by an enclosure and drywall, the fire is contained as a contents fire.',
         'Based on design and construction features this type of structure is not sealed and provides for natural oxygen exchange allowing for rapid fire growth and travel. If the fire is concealed a higher heat release rate occurs because the plume effect is shorter. Which causes the building to heat quicker degrading building materials to the collapse stage more rapidly. A fire contained to a room and contents shouldn’t weaken the roof structure as it is protected for a theoretical hour rating.',
         'Some of the more common failures associated with this structure could be: roof collapse, floor collapse, stair collapse, interior wall collapse and masonry veneer failure.'
@@ -158,7 +159,7 @@ const getCategoryPhrases = ({ category }) => {
         'Engine company operations are built upon 8 decades of time-tested and experience-proven strategies and tactics. But such tactics are no longer sufficient for today’s fires.',
         'Today, engine companies must also understand modern fire behavior, rate of heat release and the growth stages of fire. They must constantly evaluate how a structure will "perform" during fire suppression operations.',
         'Our buildings have changed; differences include the structural components, the degree of compartmentation, the characteristics of materials and the magnitude of fire loading. Engineered structural systems have created large compartment areas, and modern furnishings made from synthetics create extreme fire behavior, compromising structural stability in shorter time periods. This fire behavior and the ever-changing construction scheme decrease the time that safe offensive operations can take place.',
-        'Building Construction:',
+        'Building Construction',
         'Modern construction materials burn faster than dimensional lumber. Older buildings were built using solid wood, while newer buildings are built with engineered lumber beams, which wood fibers are joined together. This makes the wood lighter and stronger, this is a trade off of allowing it to burn more rapidly and increase the likelihood of collapse, whereas, solid wood would burn slower retaining its strength and form longer but is more expensive. Furniture and coverings which are made out of synthetic materials increase rate of spread. Because modern construction and furnishings increase flammability it is essential that the buildings fire protection system is properly installed and up-to-date with all building codes and standards.',
         'The rules for structural fire fighting are changing. The new rules must align traditional tactics with the new science. They must address several areas, including flow rates, extreme fire behavior, and tactical deployment.'
       ]
@@ -226,9 +227,9 @@ const getEducationPhrases = ({
     'History reflects that firefighters are exposed to the greatest risk of injury and death during primary search and rescue operations. Search efforts must be based on the potential to save lives.',
     'Salvage',
     'Salvage operations require protecting buildings and contents from preventable damage due to fire, water or other elements. The use of salvage covers and plastic sheeting will reduce the fire loss. In some cases this is an after thought, but should be considered if time and resources exist.',
-    'Fire Prevention:'
+    'Fire Prevention'
   ]
-  phrases.concat(categoryPhrases)
+  phrases.push(...categoryPhrases)
   phrases.push(
     'You have now completed the education phase of this training evolution. We will now proceed to the evaluation phase.'
   )
@@ -244,7 +245,8 @@ const educationTitles = [
   'Extinguish the Fire',
   'Rescue',
   'Salvage',
-  'Fire Prevention'
+  'Fire Prevention',
+  'Building Construction'
 ]
 
 export { educationTitles, getEducationPhrases }

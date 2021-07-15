@@ -4,15 +4,14 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  addOverlayTitle,
   clearSpeechQueue,
   educationCompleted,
   faceToFaceCompleted,
   faceToFaceRequested,
-
-
-  incrementAssignmentResponses, speakCompleted,
+  incrementAssignmentResponses,
+  speakCompleted,
   threeSixtyWalkthroughBegan,
-
   useRadio
 } from 'store/actions/ai'
 
@@ -112,6 +111,15 @@ const TextToSpeech = () => {
     return () => clearTimeout(timer)
   }, [duration])
 
+  // Pre Speech
+  React.useEffect(() => {
+    const { meta, text } = textToSpeech
+    if (meta === 'SPEAK_WITH_OVERLAY' && text !== '') {
+      dispatch(addOverlayTitle(text))
+    }
+  }, [textToSpeech])
+
+  // Post Speech
   React.useEffect(() => {
     const { meta } = textToSpeech
     if (finishedSpeaking) {
@@ -134,7 +142,7 @@ const TextToSpeech = () => {
       dispatch(speakCompleted())
       setFinishedSpeaking(false)
     }
-  }, [finishedSpeaking, textToSpeech, dispatch])
+  }, [finishedSpeaking, textToSpeech, lastText, dispatch])
 
   return <div />
 }

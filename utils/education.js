@@ -204,27 +204,27 @@ const getEducationPhrases = ({
     'Here are some tactical considerations to contemplate based on fire behavior, building construction, fire prevention codes and fire ground operations.',
     'This is not meant to be a complete list.',
     'These topics are designed to be thought provoking and create discussion.',
-    'Initial Radio Report/Primary Size-Up:',
+    'Initial Radio Report/Primary Size-Up',
     `${primarySizeUp}`,
     'Include in this section: Initial actions, needs, establishing command and a command post location. These are agency specific and these decisions should be based on standard operating procedures, staffing models and response matrices for your organization.',
-    'Secondary Size-Up:',
+    'Secondary Size-Up',
     `${secondarySizeUp}`,
-    'Location of the Fire:',
+    'Location of the Fire',
     `${locationPhrase}`,
     `${exhaustPhrase}`,
-    'Identify Flow Path:',
+    'Identify Flow Path',
     'Volume, velocity, density and color are factors that will provide you with the information needed to predict the stability and growth potential of the fire.',
     `${smokePhrase}`,
-    'Cool from a safe area:',
+    'Cool from a safe area',
     'Cool the fire area from a protected location until the crews are in place. This can be, but not limited to exterior water flow. There may be an opportunity to cool from multiple locations, including the interior of the structure. Reduce the heat release rate and decomposition of the contents within the structure by using cooling measures.',
-    'Extinguish the Fire:',
+    'Extinguish the Fire',
     'Based on smoke and fire conditions reset the fire if appropriate or extinguish the fire with a transitional or direct attack.',
     'Transitional attack: Cool the fire from a safe location with a 10 to 20 second application of straight stream to the ceiling area.',
     'Direct attack: Water applied directly to the seat of the fire.',
-    'Rescue:',
+    'Rescue',
     'Rescue is an operations requiring removal of human beings from an involved building or other hazardous situation and conveying them to a place of safety.',
     'History reflects that firefighters are exposed to the greatest risk of injury and death during primary search and rescue operations. Search efforts must be based on the potential to save lives.',
-    'Salvage:',
+    'Salvage',
     'Salvage operations require protecting buildings and contents from preventable damage due to fire, water or other elements. The use of salvage covers and plastic sheeting will reduce the fire loss. In some cases this is an after thought, but should be considered if time and resources exist.',
     'Fire Prevention:'
   ]
@@ -235,4 +235,16 @@ const getEducationPhrases = ({
   return phrases
 }
 
-export { getEducationPhrases }
+const educationTitles = [
+  'Initial Radio Report/Primary Size-Up',
+  'Secondary Size-Up',
+  'Location of the Fire',
+  'Identify Flow Path',
+  'Cool from a safe area',
+  'Extinguish the Fire',
+  'Rescue',
+  'Salvage',
+  'Fire Prevention'
+]
+
+export { educationTitles, getEducationPhrases }

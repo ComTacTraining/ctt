@@ -4,8 +4,8 @@ import {
   // updateScrollingText,
   addToSpeechQueue
 } from 'store/actions/ai'
-import { getEducationPhrases } from 'utils/education'
 import { options } from 'utils/ai'
+import { educationTitles, getEducationPhrases } from 'utils/education'
 
 const Education = () => {
   const { educationVoice } = options
@@ -48,12 +48,15 @@ const Education = () => {
       })
       // dispatch(updateScrollingText(phrases))
       phrases.map((phrase, i) => {
+        const isLastPhrase = phrases.length - 1 === i
+        const matchesTitle = educationTitles.includes(phrase)
+        const meta = isLastPhrase ? 'EDUCATION_COMPLETED' : matchesTitle ? 'SPEAK_WITH_OVERLAY' : null
         dispatch(
           addToSpeechQueue({
             label: '[Education]',
             text: phrase,
             voice: educationVoice,
-            meta: phrases.length - 1 === i ? 'EDUCATION_COMPLETED' : null
+            meta
           })
         )
       })

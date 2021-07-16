@@ -25,6 +25,22 @@ const languageCode = 'en-US'
 const region = 'us-east-1'
 const sampleRate = 44100
 
+const getAudioEventMessage = (buffer) => {
+  return {
+    headers: {
+      ':message-type': {
+        type: 'string',
+        value: 'event'
+      },
+      ':event-type': {
+        type: 'string',
+        value: 'AudioEvent'
+      }
+    },
+    body: buffer
+  }
+}
+
 const Speech2Text = () => {
   const dispatch = useDispatch()
   const { firstOnScene, usingMic } = useSelector((state) => state.user)
@@ -38,7 +54,11 @@ const Speech2Text = () => {
   const micStream = React.useRef(null)
   const [audioBinary, setAudioBinary] = React.useState()
 
-  
+  const sendTestMsgTimer = React.useRef(null)
+  const testBuffer = React.useMemo(() => {
+    const testMessage = getAudioEventMessage(Buffer.from(new Buffer([0])))
+    return eventStreamMarshaller.marshall(testMessage)
+  }, [])
   const {
     firstAlarmAnnounced,
     speechBotState,
@@ -137,6 +157,9 @@ const Speech2Text = () => {
       getWebSocket().close(3333, "didUnmount")
       closeSocket()
       didUnmount.current = true
+      if(sendTestMsgTimer.current) {
+        clearInterval(sendTestMsgTimer.current)
+      }
     }
   }, [])
 
@@ -226,6 +249,9 @@ const Speech2Text = () => {
 
   React.useEffect(() => {
     if (isRecordingMicrophone) {
+      if(sendTestMsgTimer.current) {
+        clearInterval(sendTestMsgTimer.current)
+      }
       window.navigator.mediaDevices
         .getUserMedia({
           video: false,
@@ -237,10 +263,19 @@ const Speech2Text = () => {
           dispatch(toggleUsingMic())
           setOpen(true);
         })
+      
     } else {
       if (micStream.current) {
         micStream.current.stop()
       }
+      if (connectionStatus === 'Open' || connectionStatus === 'Connecting') {
+        
+        sendTestMsgTimer.current = setInterval(() => {
+          sendMessage(testBuffer)
+        }, 3000)
+        
+      }
+      
     }
   }, [isRecordingMicrophone])
 
@@ -254,7 +289,6 @@ const Speech2Text = () => {
 
   const handleEventStreamMessage = (messageJson) => {
     let results = messageJson.Transcript.Results
-
     if (results.length > 0) {
       if (results[0].Alternatives.length > 0) {
         let transcript = results[0].Alternatives[0].Transcript
@@ -305,21 +339,7 @@ const Speech2Text = () => {
     return binary
   }
 
-  const getAudioEventMessage = (buffer) => {
-    return {
-      headers: {
-        ':message-type': {
-          type: 'string',
-          value: 'event'
-        },
-        ':event-type': {
-          type: 'string',
-          value: 'AudioEvent'
-        }
-      },
-      body: buffer
-    }
-  }
+
   const closeSocket = React.useCallback(() => {
     if (micStream.current) {
       micStream.current.stop()

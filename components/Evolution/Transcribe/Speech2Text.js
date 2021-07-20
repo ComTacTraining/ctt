@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import * as commandActions from 'store/actions/command'
 import { addToLog } from 'store/actions/review'
-import { toggleUsingMic } from 'store/actions/user'
 import { downsampleBuffer, pcmEncode } from './audioUtils'
 
 
@@ -42,7 +41,7 @@ const getAudioEventMessage = (buffer) => {
 
 const Speech2Text = () => {
   const dispatch = useDispatch()
-  const { firstOnScene, usingMic } = useSelector((state) => state.user)
+  const { firstOnScene, commandInputMethod } = useSelector((state) => state.user)
   const isPressed = useKeyPress('Space')
   const [open, setOpen] = React.useState(false);
   const [lastTranscript, setLastTranscript] = React.useState('')
@@ -158,8 +157,7 @@ const Speech2Text = () => {
   }, [])
 
   React.useEffect(() => {
-    console.log("usingMic ", usingMic)
-    if(usingMic) {
+    if(commandInputMethod === 'Microphone') {
       window.navigator.mediaDevices
           .getUserMedia({
             video: false,
@@ -168,12 +166,11 @@ const Speech2Text = () => {
           .then()
           .catch(function (error) {
             console.log("error in microphone ", error)
-            dispatch(toggleUsingMic())
             setOpen(true);
 
           })
     }
-  }, [usingMic])
+  }, [commandInputMethod])
 
   React.useEffect(() => {
     if (connectionStatus === 'Open') {
@@ -254,7 +251,6 @@ const Speech2Text = () => {
         .then(streamAudioToWebSocket)
         .catch(function (error) {
           console.log("error in microphone ", error)
-          dispatch(toggleUsingMic())
           setOpen(true);
         })
       

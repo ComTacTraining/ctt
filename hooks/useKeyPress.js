@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useSelector } from 'react-redux'
 
 const useKeyPress = (targetCode, preventDefault = false) => {
-  const { usingMic } = useSelector((state) => state.user)
+  const { commandInputMethod } = useSelector((state) => state.user)
   const [keyPressed, setKeyPressed] = React.useState(false)
 
   React.useEffect(() => {
@@ -24,18 +24,18 @@ const useKeyPress = (targetCode, preventDefault = false) => {
       }
     }
 
-    if (usingMic) {
+    if (commandInputMethod === 'Microphone') {
       window.addEventListener('keydown', downHandler)
       window.addEventListener('keyup', upHandler)
     }
 
     return () => {
-      if (usingMic) {
+      if (commandInputMethod === 'Microphone') {
         window.removeEventListener('keydown', downHandler)
         window.removeEventListener('keyup', upHandler)
       }
     }
-  }, [targetCode, preventDefault, usingMic])
+  }, [targetCode, preventDefault, commandInputMethod])
 
   return keyPressed
 }

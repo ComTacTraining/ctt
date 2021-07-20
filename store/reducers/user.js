@@ -30,7 +30,7 @@ const initialState = {
   ],
   showTips: true,
   preferencesLoaded: false,
-  usingMic: true,
+  commandInputMethod: 'Microphone',
   masterVolume: 0.5
 }
 
@@ -53,10 +53,10 @@ const reducer = (state = initialState, action) => {
         showTips: action.payload.showTips,
         preferencesLoaded: true
       }
-    case actionTypes.TOGGLE_USING_MIC:
+    case actionTypes.SET_COMMAND_INPUT_METHOD:
       return {
         ...state,
-        usingMic: !state.usingMic
+        commandInputMethod: action.payload.input
       }
     case actionTypes.UPDATE_MASTER_VOLUME:
       return {

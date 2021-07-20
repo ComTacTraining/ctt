@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Log = () => {
   const classes = useStyles()
-  const { log, start } = useSelector((state) => state.evaluation)
+  const { log, start } = useSelector((state) => state.review)
 
   const pad = (num) => (num < 10 ? `0${num}` : `${num}`)
 

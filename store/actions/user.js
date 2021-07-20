@@ -1,6 +1,6 @@
 export const UPDATE_USER_PREFERENCES = 'UPDATE_USER_PREFERENCES'
 export const TOGGLE_TIPS = 'TOGGLE_TIPS'
-export const TOGGLE_USING_MIC = 'TOGGLE_USING_MIC'
+export const SET_COMMAND_INPUT_METHOD = 'SET_COMMAND_INPUT_METHOD'
 export const UPDATE_MASTER_VOLUME = 'UPDATE_MASTER_VOLUME'
 
 export const toggleTips = () => {
@@ -22,8 +22,13 @@ export const updateUserPreferences = (data) => {
   }
 }
 
-export const toggleUsingMic = () => {
-  return { type: TOGGLE_USING_MIC }
+export const setCommandInputMethod = (input) => {
+  return {
+    type: SET_COMMAND_INPUT_METHOD,
+    payload: {
+      input: input
+    }
+  }
 }
 
 export const updateMasterVolume = (level) => {

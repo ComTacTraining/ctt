@@ -14,12 +14,12 @@ import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver'
 import { Bold, Caption, P, Subtitle1 } from 'mui/Typography'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleUsingMic } from 'store/actions/user'
+import { setCommandInputMethod } from 'store/actions/user'
 import TextField from '../Transcribe/TextField'
 
 const Command = () => {
   const dispatch = useDispatch()
-  const { usingMic } = useSelector((state) => state.user)
+  const [inputMethod, setInputMethod] = React.useState('Microphone')
   const [commandsAllowed, setCommandsAllowed] = React.useState(false)
   const {
     firstAlarmAnnounced,
@@ -29,10 +29,6 @@ const Command = () => {
   } = useSelector((state) => state.ai)
   const { radioInUse } = useSelector((state) => state.units)
   const { partialCommand, speechBotState } = useSelector((state) => state.command)
-
-  React.useEffect(() => {
-    // setUsingMic(true)
-  }, [])
 
   React.useEffect(() => {
     if (faceToFaceCompleted) {
@@ -51,12 +47,12 @@ const Command = () => {
     faceToFaceCompleted
   ])
 
-  // React.useEffect(() => {
-  //   dispatch(toggleUsingMic())
-  // }, [usingMic, dispatch])
-  const handleChange = (event) => {
-    dispatch(toggleUsingMic())
+  const handleInputMethodToggle = () => {
+    const newInputMethod = inputMethod === 'Microphone' ? 'Keyboard' : 'Microphone'
+    setInputMethod(newInputMethod)
+    dispatch(setCommandInputMethod(newInputMethod))
   }
+  
   return (
     <Accordion defaultExpanded={true}>
       <AccordionSummary
@@ -79,24 +75,24 @@ const Command = () => {
             <Grid container justify='flex-end'>
               <Grid item>
                 <KeyboardIcon
-                  style={{ color: !usingMic ? green[500] : 'inherit' }}
+                  style={{ color: inputMethod === 'Keyboard' ? green[500] : 'inherit' }}
                 />
               </Grid>
               <Grid item>
                 <Switch
-                  checked={usingMic}
-                  onChange={handleChange}
-                  name='usingMicSwitch'
+                  checked={inputMethod === 'Microphone'}
+                  onChange={handleInputMethodToggle}
+                  name='inputMethodSwitch'
                   inputProps={{ 'aria-label': 'Keyboard or Microphone?' }}
                 />
               </Grid>
               <Grid item>
-                <MicIcon style={{ color: usingMic ? green[500] : 'inherit' }} />
+                <MicIcon style={{ color: inputMethod === 'Microphone' ? green[500] : 'inherit' }} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            {usingMic ? (
+            {inputMethod === 'Microphone' ? (
               commandsAllowed ? (
                 radioInUse ? (
                   <>
@@ -120,7 +116,7 @@ const Command = () => {
             )}
           </Grid>
           <Grid item xs={12}>
-            {usingMic && <P>{speechBotState}</P>}
+            {inputMethod === 'Microphone' && <P>{speechBotState}</P>}
             {partialCommand !== '' && (
               <>
                 <P>Current Command:</P>

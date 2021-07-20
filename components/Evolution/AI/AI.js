@@ -32,7 +32,6 @@ const AI = () => {
   } = useSelector((state) => state.ai)
   const { commandAllowed, incidentCommandName, command } = useSelector((state) => state.command)
   const { groupsAssigned, assignmentResponses, radioInUse } = useSelector((state) => state.units)
-  const { usingMic } = useSelector((state) => state.user)
   const { lastPlayedVideo } = useSelector((state) => state.screen)
   const { street, incidentGroup, incidentCommand } = useSelector(
     (state) => state.evolution
@@ -41,7 +40,7 @@ const AI = () => {
   const dispatch = useDispatch()
 
   const [introFinished, setIntroFinished] = React.useState(false)
-  const [phaseAllowsCommand, setPhaseAllowsCommand] = React.useState(false)
+  const [phraseAllowsCommand, setPhraseAllowsCommand] = React.useState(false)
   const [canCommand, setCanCommand] = React.useState(commandAllowed)
   const [lastCommand, setLastCommand] = React.useState('')
 
@@ -69,25 +68,25 @@ const AI = () => {
 
   React.useEffect(() => {
     if (faceToFaceCompleted) {
-      setPhaseAllowsCommand(false) // end of phase
+      setPhraseAllowsCommand(false) // end of phase
     } else if (threeSixtyWalkthroughCompleted) {
-      setPhaseAllowsCommand(true) // 360 assessment, assignments, face-to-face
+      setPhraseAllowsCommand(true) // 360 assessment, assignments, face-to-face
     } else if (initialReportCompleted) {
-      setPhaseAllowsCommand(false) // 360 walkthrough
+      setPhraseAllowsCommand(false) // 360 walkthrough
     } else if (firstAlarmAnnounced) {
-      setPhaseAllowsCommand(true) // initial report
+      setPhraseAllowsCommand(true) // initial report
     } else {
-      setPhaseAllowsCommand(false) // arrival
+      setPhraseAllowsCommand(false) // arrival
     }
   }, [firstAlarmAnnounced, initialReportCompleted, threeSixtyWalkthroughCompleted, faceToFaceCompleted])
 
   React.useEffect(() => {
-    if (phaseAllowsCommand && usingMic && !radioInUse) {
+    if (phraseAllowsCommand && !radioInUse) {
       setCanCommand(true)
     } else {
       setCanCommand(false)
     }
-  }, [phaseAllowsCommand, usingMic, radioInUse, dispatch])
+  }, [phraseAllowsCommand, radioInUse, dispatch])
 
   // Only dispatch if changed
   React.useEffect(() => {

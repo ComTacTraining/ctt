@@ -4,20 +4,23 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  addOverlayTitle,
-  clearSpeechQueue,
   educationCompleted,
   faceToFaceCompleted,
-  faceToFaceRequested,
+  faceToFaceRequested, firstAlarmAnnounced, threeSixtyWalkthroughBegan
+} from 'store/actions/ai'
+import {
+  addOverlayTitle
+} from 'store/actions/screen'
+import {
+  clearSpeechQueue,
   incrementAssignmentResponses,
   speakCompleted,
-  threeSixtyWalkthroughBegan,
   useRadio
-} from 'store/actions/ai'
+} from 'store/actions/units'
 
 const TextToSpeech = () => {
   const dispatch = useDispatch()
-  const { radioInUse, textToSpeech } = useSelector((state) => state.ai)
+  const { radioInUse, textToSpeech } = useSelector((state) => state.units)
   const { masterVolume } = useSelector((state) => state.user)
   const [audioCtx, setAudioCtx] = React.useState(null)
   const [gainNode, setGainNode] = React.useState(null)
@@ -123,6 +126,9 @@ const TextToSpeech = () => {
   React.useEffect(() => {
     const { meta } = textToSpeech
     if (finishedSpeaking) {
+      if (meta === 'FIRST_ALARM_ANNOUNCEMENT') {
+        dispatch(firstAlarmAnnounced())
+      }
       if (meta === 'INITIAL_REPORT_RESPONSE') {
         dispatch(threeSixtyWalkthroughBegan())
       }

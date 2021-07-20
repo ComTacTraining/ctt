@@ -1,20 +1,19 @@
 import * as marshaller from '@aws-sdk/eventstream-marshaller'
 import * as util_utf8_node from '@aws-sdk/util-utf8-node'
+import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 import useKeyPress from 'hooks/useKeyPress'
 import mic from 'microphone-stream'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
-import * as aiActions from 'store/actions/ai'
+import * as commandActions from 'store/actions/command'
+import { addToLog } from 'store/actions/review'
+import { toggleUsingMic } from 'store/actions/user'
 import { downsampleBuffer, pcmEncode } from './audioUtils'
 
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { toggleUsingMic } from 'store/actions/user'
 
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(
   util_utf8_node.toUtf8,
@@ -59,13 +58,8 @@ const Speech2Text = () => {
     const testMessage = getAudioEventMessage(Buffer.from(new Buffer([0])))
     return eventStreamMarshaller.marshall(testMessage)
   }, [])
-  const {
-    firstAlarmAnnounced,
-    speechBotState,
-    isRecordingMicrophone,
-    radioInUse,
-    commandAllowed
-  } = useSelector((state) => state.ai)
+  const { firstAlarmAnnounced } = useSelector((state) => state.ai)
+  const { speechBotState, isRecordingMicrophone, commandAllowed } = useSelector((state) => state.command)
 
   const getSocketUrl = React.useCallback(async () => {
     try {
@@ -188,7 +182,7 @@ const Speech2Text = () => {
         speechBotState !== BOTSTATE.PROCESSING &&
         speechBotState !== BOTSTATE.PRESSKEY
       ) {
-        dispatch(aiActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
+        dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
       }
 
       if (
@@ -197,41 +191,41 @@ const Speech2Text = () => {
         !isRecordingMicrophone &&
         speechBotState !== BOTSTATE.LISTENING
       ) {
-        dispatch(aiActions.startRecordingMicrophone())
-        dispatch(aiActions.updateSpeechBotState(BOTSTATE.LISTENING))
+        dispatch(commandActions.startRecordingMicrophone())
+        dispatch(commandActions.updateSpeechBotState(BOTSTATE.LISTENING))
       } else if (
         !isPressed &&
         isRecordingMicrophone &&
         speechBotState !== BOTSTATE.PROCESSING
       ) {
-        dispatch(aiActions.updateSpeechBotState(BOTSTATE.PROCESSING))
+        dispatch(commandActions.updateSpeechBotState(BOTSTATE.PROCESSING))
         setTimeout(() => {
-          dispatch(aiActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
-          dispatch(aiActions.stopRecordingMicrophone())
+          dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
+          dispatch(commandActions.stopRecordingMicrophone())
         }, 2000)
 
       }
     } else if (speechBotState !== BOTSTATE.WAITING) {
-      dispatch(aiActions.updateSpeechBotState(BOTSTATE.WAITING))
+      dispatch(commandActions.updateSpeechBotState(BOTSTATE.WAITING))
     }
   }, [firstAlarmAnnounced, readyState, isPressed, commandAllowed])
 
   React.useEffect(() => {
     if (isRecordingMicrophone) {
       dispatch(
-        aiActions.updatePartialTranscript(
+        commandActions.updatePartialTranscript(
           lastTranscript + ' ' + currentTranscript
         )
       )
     } else {
       if (lastTranscript !== '' || currentTranscript !== '') {
         dispatch(
-          aiActions.updateCompletedTranscript(
+          commandActions.updateCompletedTranscript(
             lastTranscript + ' ' + currentTranscript
           )
         )
         dispatch(
-          aiActions.addToLog({
+          addToLog({
             timestamp: Date.now(),
             label: firstOnScene,
             text: lastTranscript

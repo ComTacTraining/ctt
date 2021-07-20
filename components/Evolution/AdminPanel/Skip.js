@@ -1,9 +1,10 @@
-import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
+import { makeStyles } from '@material-ui/core/styles'
 import { Contained } from 'mui/Button'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
+import * as unitsActions from 'store/actions/units'
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -23,20 +24,13 @@ const Skip = () => {
   const [hideEducation, setHideEducation] = React.useState(false)
 
   const {
-    // firstAlarmAnnounced,
-    // initialReportCompleted,
     threeSixtyWalkthroughBegan,
-    // threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
     assignmentsCompleted,
-    // incidentAnnounced,
-    // incidentCompleted,
     faceToFaceRequested,
     faceToFaceCompleted,
     educationCompleted,
-    // incomingCommandArrival,
     incomingCommandArrived
-    // unitsAssigned
   } = useSelector((state) => state.ai)
 
   React.useEffect(() => {
@@ -94,7 +88,7 @@ const Skip = () => {
   }
 
   const skipAssignments = () => {
-    dispatch(aiActions.updateUnitsAssigned(2))
+    dispatch(unitsActions.updateUnitsAssigned(2))
     dispatch(aiActions.incidentAnnounced())
     dispatch(aiActions.incidentCompleted())
     dispatch(aiActions.assignmentsCompleted())

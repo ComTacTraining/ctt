@@ -25,9 +25,9 @@ const Mic = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted,
-    commandInProgress
+    faceToFaceCompleted
   } = useSelector((state) => state.ai)
+  const { commandInProgress } = useSelector((state) => state.command)
 
   React.useEffect(() => {
     if (faceToFaceCompleted) {

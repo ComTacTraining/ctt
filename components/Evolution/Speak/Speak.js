@@ -1,16 +1,20 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToLog, updateTextToSpeech } from 'store/actions/ai'
+import { addToLog } from 'store/actions/review'
+import { updateTextToSpeech } from 'store/actions/units'
+
 
 const Speak = () => {
   const dispatch = useDispatch()
   const {
-    waitingToBeSpoken,
-    radioInUse,
-    commandInProgress,
     firstAlarmAnnounced,
     faceToFaceCompleted
   } = useSelector((state) => state.ai)
+  const {
+    waitingToBeSpoken,
+    radioInUse,
+  } = useSelector((state) => state.units)
+  const { commandInProgress } = useSelector((state) => state.command)
 
   useEffect(() => {
     let cooldown

@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  // updateScrollingText,
-  addToSpeechQueue
-} from 'store/actions/ai'
+import { addToSpeechQueue } from 'store/actions/units'
 import { options } from 'utils/ai'
 import { educationTitles, getEducationPhrases } from 'utils/education'
 

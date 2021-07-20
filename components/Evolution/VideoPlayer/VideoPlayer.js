@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateLastPlayedVideo } from 'store/actions/screen'
+import { updateMasterVolume } from 'store/actions/user'
+import { options } from 'utils/video'
 import videojs from 'video.js'
+import 'video.js/dist/video-js.min.css'
 import qualityLevelsPlugin from 'videojs-contrib-quality-levels'
 import httpSourceSelectorMutePlugin from 'videojs-http-source-selector-mute'
 import vjsPlaylistPlugin from 'videojs-playlist'
-import 'video.js/dist/video-js.min.css'
-import * as aiActions from 'store/actions/ai'
-import { updateMasterVolume } from 'store/actions/user'
-import { options } from 'utils/video'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -111,7 +111,7 @@ const VideoPlayer = ({ playlist, onPlaylistEnded }) => {
 
   useEffect(() => {
     if (lastVideo) {
-      dispatch(aiActions.updateLastPlayedVideo(lastVideo))
+      dispatch(updateLastPlayedVideo(lastVideo))
     }
   }, [lastVideo, dispatch])
 

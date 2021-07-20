@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/tips'
+import * as actionTypes from 'store/actions/tips'
 
 const initialState = {
   initialReportSize: false,

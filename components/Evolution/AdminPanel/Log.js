@@ -1,10 +1,10 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import { Body1, Body2 } from 'mui/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import { Body2 } from 'mui/Typography'
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   inline: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Log = () => {
   const classes = useStyles()
-  const { log, start } = useSelector((state) => state.ai)
+  const { log, start } = useSelector((state) => state.evaluation)
 
   const pad = (num) => (num < 10 ? `0${num}` : `${num}`)
 

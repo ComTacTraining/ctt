@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/evaluation'
+import * as actionTypes from 'store/actions/evaluation'
 
 const initialState = {
   size: false,
@@ -32,7 +32,9 @@ const initialState = {
   incident: false,
   par: false,
   can: false,
-  transferAssignments: false
+  transferAssignments: false,
+  start: 0,
+  log: []
 }
 
 const reducer = (state = initialState, action) => {

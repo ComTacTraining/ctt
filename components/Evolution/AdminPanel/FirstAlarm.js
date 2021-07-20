@@ -32,13 +32,8 @@ const FirstAlarm = () => {
     (state) => state.evolution
   )
 
-  const {
-    unitArrivals,
-    unitAssignments,
-    incidentCompleted,
-    assignmentsCompleted,
-    incomingCommandArrival
-  } = useSelector((state) => state.ai)
+  const { assignmentsCompleted } = useSelector((state) => state.ai)
+  const { unitArrivals, unitAssignments, incomingCommandArrival } = useSelector((state) => state.units)
 
   useInterval(
     () => {

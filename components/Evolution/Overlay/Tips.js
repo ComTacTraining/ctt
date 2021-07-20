@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const Tips = () => {
   const classes = useStyles()
   const ai = useSelector((state) => state.ai)
+  const units = useSelector((state) => state.units)
   const tips = useSelector((state) => state.tips)
 
   return (
@@ -157,7 +158,7 @@ const Tips = () => {
                 key='assignSalvage'
                 title='Salvage'
               />
-              {ai.unitsAssigned > 0 && (
+              {units.unitsAssigned > 0 && (
                 <>
                   <Tip
                     completed={tips.canReport}
@@ -171,7 +172,7 @@ const Tips = () => {
                   />
                 </>
               )}
-              {ai.threeSixtyAssessmentCompleted && ai.assignmentResponses > 2 && (
+              {ai.threeSixtyAssessmentCompleted && units.assignmentResponses > 2 && (
                 <Tip
                   completed={ai.incidentCompleted}
                   key='incident'

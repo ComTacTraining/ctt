@@ -1,46 +1,34 @@
-import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles'
-import { green } from '@material-ui/core/colors'
-import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
 import Accordion from '@material-ui/core/Accordion'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Box from '@material-ui/core/Box'
+import { green } from '@material-ui/core/colors'
+import Grid from '@material-ui/core/Grid'
 import Switch from '@material-ui/core/Switch'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import KeyboardIcon from '@material-ui/icons/Keyboard'
 import MicIcon from '@material-ui/icons/Mic'
 import MicNoneIcon from '@material-ui/icons/MicNone'
 import MicOffIcon from '@material-ui/icons/MicOff'
-import KeyboardIcon from '@material-ui/icons/Keyboard'
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver'
-import TextField from '../Transcribe/TextField'
+import { Bold, Caption, P, Subtitle1 } from 'mui/Typography'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { toggleUsingMic } from 'store/actions/user'
-import { P, Bold, Caption, Subtitle1 } from 'mui/Typography'
-
-const useStyles = makeStyles((theme) => ({
-  command: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    textAlign: 'center'
-  }
-}))
+import TextField from '../Transcribe/TextField'
 
 const Command = () => {
-  const classes = useStyles()
   const dispatch = useDispatch()
-  // const [usingMic, setUsingMic] = React.useState(false)
   const { usingMic } = useSelector((state) => state.user)
   const [commandsAllowed, setCommandsAllowed] = React.useState(false)
   const {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted,
-    radioInUse,
-    partialCommand,
-    speechBotState
+    faceToFaceCompleted
   } = useSelector((state) => state.ai)
+  const { radioInUse } = useSelector((state) => state.units)
+  const { partialCommand, speechBotState } = useSelector((state) => state.command)
 
   React.useEffect(() => {
     // setUsingMic(true)

@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Countdown = () => {
   const classes = useStyles()
-  const { unitArrivals } = useSelector((store) => store.ai)
+  const { unitArrivals } = useSelector((store) => store.units)
   const [arrivals, setArrivals] = React.useState([])
   const [nextArrivalTimestamp, setNextArrivalTimestamp] = React.useState(0)
   const [seconds, setSeconds] = React.useState(0)

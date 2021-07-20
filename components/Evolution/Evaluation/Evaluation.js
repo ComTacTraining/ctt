@@ -1,17 +1,17 @@
-import * as React from 'react'
-import { useSelector } from 'react-redux'
-import { Auth, API } from 'aws-amplify'
-import Question from './Question'
-import { createReview } from 'graphql/mutations'
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
 import Alert from '@material-ui/lab/Alert'
+import { API, Auth } from 'aws-amplify'
+import { createReview } from 'graphql/mutations'
 import { Contained } from 'mui/Button'
+import * as React from 'react'
+import { useSelector } from 'react-redux'
+import Question from './Question'
 
 const TOTAL_SELF_EVAL_QUESTIONS = 28
 
 export default function RadioButtonsGroup() {
   const { id } = useSelector((state) => state.evolution)
-  const { log } = useSelector((state) => state.ai)
+  const { log } = useSelector((state) => state.review)
   const {
     size: rSize,
     height: rHeight,

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { options } from "utils/evaluation";
+import { useDispatch, useSelector } from "react-redux";
 import * as evalActions from "store/actions/evaluation";
+import { options } from "utils/evaluation";
 
 const Evaluation = () => {
   const dispatch = useDispatch();
@@ -43,9 +43,9 @@ const Evaluation = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    threeSixtyAssessmentCompleted,
-    command
-  } = useSelector(state => state.ai);
+    threeSixtyAssessmentCompleted
+  } = useSelector(state => state.ai)
+  const { command } = useSelector((state) => state.command)
 
   useEffect(() => {
     const checkMatches = ({ addressed, phrases, action }) => {

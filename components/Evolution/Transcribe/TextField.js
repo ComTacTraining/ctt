@@ -1,14 +1,11 @@
-import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import MUITextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import {
-  updatePartialTranscript,
-  updateCompletedTranscript,
-  addToLog,
-  useRadio,
-  commandInProgress
-} from 'store/actions/ai'
+import MUITextField from '@material-ui/core/TextField'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { commandInProgress, updateCompletedTranscript, updatePartialTranscript } from 'store/actions/command'
+import { addToLog } from 'store/actions/review'
+import { useRadio } from 'store/actions/units'
+
 
 const TextField = () => {
   const dispatch = useDispatch()
@@ -17,9 +14,9 @@ const TextField = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted,
-    radioInUse
+    faceToFaceCompleted
   } = useSelector((state) => state.ai)
+  const { radioInUse } = useSelector((state) => state.units)
 
   const [currentCommand, setCurrentCommand] = React.useState('')
   const [radioDisabled, setRadioDisabled] = React.useState(true)

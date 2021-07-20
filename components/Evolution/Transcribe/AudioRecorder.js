@@ -1,80 +1,80 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import mic from "microphone-stream";
+import mic from 'microphone-stream'
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const AudioRecorder = ({ finishRecording }) => {
-  const { isRecordingMicrophone } = useSelector(state => state.ai);
-  const [recording, setRecording] = useState(false);
-  const [micStream, setMicStream] = useState();
+  const { isRecordingMicrophone } = useSelector(state => state.command)
+  const [recording, setRecording] = useState(false)
+  const [micStream, setMicStream] = useState()
   const [audioBuffer] = useState(
     (() => {
-      let buffer = [];
+      let buffer = []
       const add = raw => {
-        buffer = buffer.concat(...raw);
-        return buffer;
-      };
+        buffer = buffer.concat(...raw)
+        return buffer
+      }
       const newBuffer = () => {
-        console.log("resetting buffer");
-        buffer = [];
-      };
+        console.log('resetting buffer')
+        buffer = []
+      }
 
       return {
         reset: () => {
-          newBuffer();
+          newBuffer()
         },
         addData: raw => {
-          return add(raw);
+          return add(raw)
         },
         getData: () => {
-          return buffer;
+          return buffer
         }
-      };
+      }
     })()
-  );
+  )
 
   useEffect(() => {
     const startRecording = async () => {
-      console.log("start recording");
-      audioBuffer.reset();
+      console.log('start recording')
+      audioBuffer.reset()
 
       window.navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
         .then(stream => {
-          const startMic = new mic();
+          const startMic = new mic()
 
-          startMic.setStream(stream);
-          startMic.on("data", chunk => {
-            var raw = mic.toRaw(chunk);
+          startMic.setStream(stream)
+          startMic.on('data', chunk => {
+            var raw = mic.toRaw(chunk)
             if (raw == null) {
-              return;
+              return
             }
-            audioBuffer.addData(raw);
-          });
+            audioBuffer.addData(raw)
+          })
 
-          setRecording(true);
-          setMicStream(startMic);
-        });
-    };
+          setRecording(true)
+          setMicStream(startMic)
+        })
+    }
 
     const stopRecording = async () => {
-      console.log("stop recording");
-      const timer = Date.now();
+      console.log('stop recording')
+      const timer = Date.now()
 
-      micStream.stop();
-      setMicStream(null);
-      setRecording(false);
+      micStream.stop()
+      setMicStream(null)
+      setRecording(false)
 
-      const resultBuffer = audioBuffer.getData();
+      const resultBuffer = audioBuffer.getData()
 
-      if (typeof finishRecording === "function") {
-        finishRecording(resultBuffer, timer);
+      if (typeof finishRecording === 'function') {
+        finishRecording(resultBuffer, timer)
       }
-    };
+    }
     if (!recording && isRecordingMicrophone) {
-      startRecording();
+      startRecording()
     } else if (recording && !isRecordingMicrophone) {
-      stopRecording();
+      stopRecording()
     }
   }, [
     isRecordingMicrophone,
@@ -82,13 +82,13 @@ const AudioRecorder = ({ finishRecording }) => {
     micStream,
     audioBuffer,
     finishRecording
-  ]);
+  ])
 
-  return <div className="audioRecorder"></div>;
-};
+  return <div className='audioRecorder'></div>
+}
 
 AudioRecorder.propTypes = {
   finishRecording: PropTypes.func
-};
+}
 
-export default AudioRecorder;
+export default AudioRecorder

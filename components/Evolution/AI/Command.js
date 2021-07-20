@@ -12,9 +12,9 @@ const Command = () => {
     incidentAnnounced,
     incidentCompleted,
     faceToFaceRequested,
-    faceToFaceCompleted,
-    command
+    faceToFaceCompleted
   } = useSelector((state) => state.ai)
+  const { command } = useSelector((state) => state.command)
   const { initialReportTerms, threeSixtyAssessmentTerms } = options
   const [lastCommand, setLastCommand] = React.useState('')
 

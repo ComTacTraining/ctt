@@ -10,12 +10,10 @@ const Tips = () => {
     threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
     assignmentsCompleted,
-    faceToFaceRequested,
-    unitsAssigned,
-    isPartialCommand,
-    partialCommand,
-    command
+    faceToFaceRequested
   } = useSelector((state) => state.ai)
+  const { unitsAssigned } = useSelector((state) => state.units)
+  const { isPartialCommand, partialCommand, command } = useSelector((state) => state.command)
   const {
     initialReportSize,
     initialReportHeight,

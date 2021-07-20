@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import * as aiActions from 'store/actions/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import * as commandActions from 'store/actions/command'
+import * as screenActions from 'store/actions/screen'
+import * as unitsActions from 'store/actions/units'
 import {
-  options,
-  anyTermsMatchString,
-  properPronouns,
-  isEmptyObject
+  anyTermsMatchString, isEmptyObject, options, properPronouns
 } from 'utils/ai'
 
 const DispatchCenter = () => {
   const {
     firstAlarmAnnounced,
     threeSixtyWalkthroughCompleted: started360,
-    threeSixtyAssessmentCompleted: finished360,
-    command,
-    incidentCommandName
+    threeSixtyAssessmentCompleted: finished360
   } = useSelector((state) => state.ai)
+  const { command, incidentCommandName } = useSelector((state) => state.command)
 
   const { dispatchCenter: dispatchName, alarm1, alarm2, alarm3 } = useSelector(
     (state) => state.user
@@ -43,7 +41,7 @@ const DispatchCenter = () => {
   useEffect(() => {
     const queue = () => {
       dispatch(
-        aiActions.addToSpeechQueue({
+        unitsActions.addToSpeechQueue({
           label: dispatchName,
           text: speak.text,
           voice: voice,
@@ -66,7 +64,7 @@ const DispatchCenter = () => {
       const firstAlarm = alarm1.join(', ')
       const dispatchAnnouncement = `Structure Fire, ${firstAlarm}; ${street}.`
       const statement = `${dispatchAnnouncement} Repeating, ${dispatchAnnouncement}`
-      dispatch(aiActions.updateScrollingText(statement))
+      dispatch(screenActions.updateScrollingText(statement))
       setSpeak({
         text: `${statement} ${call}`,
         meta: 'FIRST_ALARM_ANNOUNCEMENT'
@@ -168,7 +166,7 @@ const DispatchCenter = () => {
       }
 
       if (clearCommand) {
-        dispatch(aiActions.clearCommand())
+        dispatch(commandActions.clearCommand())
       }
     }
 

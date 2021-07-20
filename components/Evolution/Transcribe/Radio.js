@@ -1,16 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  updatePartialTranscript,
-  updateCompletedTranscript,
-  addToLog
-} from 'store/actions/ai'
-import * as aiActions from 'store/actions/ai'
 import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  updateCompletedTranscript, updatePartialTranscript
+} from 'store/actions/command'
+import { addToLog } from 'store/actions/review'
 
 const Radio = () => {
   const dispatch = useDispatch()
   const [micOpen, setMicOpen] = React.useState(false)
-  const { isRecordingMicrophone } = useSelector(state => state.ai)
+  const { isRecordingMicrophone } = useSelector(state => state.command)
   const { firstOnScene } = useSelector(state => state.user)
 
   React.useEffect(() => {

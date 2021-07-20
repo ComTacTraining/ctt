@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as aiActions from 'store/actions/ai'
+import * as unitsActions from 'store/actions/units'
 import { isEmptyObject, options, properPronouns } from 'utils/ai'
 
 const {
@@ -17,15 +17,16 @@ const IncomingCommandOfficer = () => {
     faceToFaceCompleted,
     command
   } = useSelector((state) => state.user)
-  const { incidentCompleted, incomingCommandArrived, waitingToBeSpoken } = useSelector(
+  const { incidentCompleted, incomingCommandArrived } = useSelector(
     (state) => state.ai
   )
+  const { waitingToBeSpoken } = useSelector((state) => state.units)
   const [speak, setSpeak] = React.useState({})
 
   React.useEffect(() => {
     const queue = () => {
       dispatch(
-        aiActions.addToSpeechQueue({
+        unitsActions.addToSpeechQueue({
           label: incomingCommandOfficer,
           text: speak.text,
           voice: voice,
@@ -38,7 +39,7 @@ const IncomingCommandOfficer = () => {
     if (!isEmptyObject(speak) && waitingToBeSpoken.length === 0) {
       queue()
     } else if (!isEmptyObject(speak) && waitingToBeSpoken.length > 0) {
-      dispatch(aiActions.clearSpeechQueue())
+      dispatch(unitsActions.clearSpeechQueue())
     }
   }, [speak, incomingCommandOfficer, waitingToBeSpoken, dispatch])
 
@@ -53,7 +54,7 @@ const IncomingCommandOfficer = () => {
             Math.random() * (maxSecs - minArrivalSeconds + 1) +
               minArrivalSeconds
           ) * 1000
-      dispatch(aiActions.addIncomingCommandArrival(Date.now() + timeout))
+      dispatch(unitsActions.addIncomingCommandArrival(Date.now() + timeout))
       interval = setTimeout(() => {
         setSpeak({
           text: `Give me a transfer of command report.`,

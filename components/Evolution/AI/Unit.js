@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
+import * as unitsActions from 'store/actions/units'
 import {
   anyTermsMatchString,
   options,
@@ -20,13 +21,11 @@ const {
 const Unit = ({ name, voice, index }) => {
   const dispatch = useDispatch()
   const {
-    command,
-    incidentCommandName,
-    assignmentResponses,
     incidentAnnounced: announcedIncident,
-    incidentResponded,
-    groupsAssigned
+    incidentResponded
   } = useSelector((state) => state.ai)
+  const { command, incidentCommandName } = useSelector((state) => state.command)
+  const { assignmentResponses, groupsAssigned } = useSelector((state) => state.units)
   const {
     incidentGroup,
     incidentCommand,
@@ -60,11 +59,11 @@ const Unit = ({ name, voice, index }) => {
       }
 
       if (response || assignmentResponse) {
-        dispatch(aiActions.addToFrontOfSpeechQueue(speech))
+        dispatch(unitsActions.addToFrontOfSpeechQueue(speech))
         setResponse('')
         setAssignmentResponse('')
       } else {
-        dispatch(aiActions.addToSpeechQueue(speech))
+        dispatch(unitsActions.addToSpeechQueue(speech))
         setAnnouncement('')
       }
     }
@@ -81,7 +80,7 @@ const Unit = ({ name, voice, index }) => {
       let timeout = 0
       if (index === 0) {
         timeout = 3
-        dispatch(aiActions.addUnitArrival({ name: unitName, arrival: Date.now() }))
+        dispatch(unitsActions.addUnitArrival({ name: unitName, arrival: Date.now() }))
       } else {
         const minUnitArrivalSeconds = Math.floor(maxUnitArrivalSeconds / 3)
         timeout = Math.floor(
@@ -90,7 +89,7 @@ const Unit = ({ name, voice, index }) => {
         )
         timeout *= 1000
         dispatch(
-          aiActions.addUnitArrival({ name: unitName, arrival: Date.now() + timeout })
+          unitsActions.addUnitArrival({ name: unitName, arrival: Date.now() + timeout })
         )
       }
       interval = setTimeout(() => {
@@ -119,10 +118,10 @@ const Unit = ({ name, voice, index }) => {
             const assignmentAcknowledgement = randomSelection(possibleResponses)
             const commandRepeat = properPronouns(command)
             setAssignmentResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
-            dispatch(aiActions.incrementUnitsAssigned())
-            dispatch(aiActions.addAssignedGroup(group.name))
+            dispatch(unitsActions.incrementUnitsAssigned())
+            dispatch(unitsActions.addAssignedGroup(group.name))
             dispatch(
-              aiActions.addUnitGroupAssignment({ name: unitName, group: group.name })
+              unitsActions.addUnitGroupAssignment({ name: unitName, group: group.name })
             )
           }
         }

@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
+import * as commandActions from 'store/actions/command'
+import * as unitsActions from 'store/actions/units'
 import {
   groupConstToDisplay, groupDisplayToConst, options,
   properPronouns,
@@ -26,16 +28,12 @@ const AI = () => {
     incidentAnnounced,
     incidentResponded,
     incidentCompleted,
-    commandAllowed,
-    groupsAssigned,
-    assignmentResponses,
     faceToFaceCompleted,
-    incidentCommandName,
-    radioInUse,
-    lastPlayedVideo,
-    command
   } = useSelector((state) => state.ai)
+  const { commandAllowed, incidentCommandName, command } = useSelector((state) => state.command)
+  const { groupsAssigned, assignmentResponses, radioInUse } = useSelector((state) => state.units)
   const { usingMic } = useSelector((state) => state.user)
+  const { lastPlayedVideo } = useSelector((state) => state.screen)
   const { street, incidentGroup, incidentCommand } = useSelector(
     (state) => state.evolution
   )
@@ -66,7 +64,7 @@ const AI = () => {
       incidentName = strReplace(incidentName, suffix, '').trim()
     })
     const commandDesignation = randomSelection(['IC', 'Command'])
-    dispatch(aiActions.setCommandName(`${incidentName} ${commandDesignation}`))
+    dispatch(commandActions.setCommandName(`${incidentName} ${commandDesignation}`))
   }, [street, dispatch])
 
   React.useEffect(() => {
@@ -94,10 +92,10 @@ const AI = () => {
   // Only dispatch if changed
   React.useEffect(() => {
     if (canCommand && !commandAllowed) {
-      dispatch(aiActions.setCommandAllowed(true))
+      dispatch(commandActions.setCommandAllowed(true))
     }
     if (!canCommand && commandAllowed) {
-      dispatch(aiActions.setCommandAllowed(false))
+      dispatch(commandActions.setCommandAllowed(false))
     }
   }, [commandAllowed, canCommand])
 
@@ -122,7 +120,7 @@ const AI = () => {
         text: incidentCommand.replace('__NAME__', groupName),
         voice: unassignedIncidentVoice
       }
-      dispatch(aiActions.addToFrontOfSpeechQueue(speech))
+      dispatch(unitsActions.addToFrontOfSpeechQueue(speech))
       dispatch(aiActions.incidentAnnounced())
       setLastCommand(command)
     }
@@ -136,7 +134,7 @@ const AI = () => {
         text,
         voice: unassignedIncidentVoice
       }
-      dispatch(aiActions.addToFrontOfSpeechQueue(speech))
+      dispatch(unitsActions.addToFrontOfSpeechQueue(speech))
       dispatch(aiActions.incidentResponded())
     }
 

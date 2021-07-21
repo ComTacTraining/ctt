@@ -21,6 +21,41 @@ const initialState = {
   thirdAlarmReady: false
 }
 
+const initialReportState = {
+  ...initialState,
+  firstAlarmAnnounced: true
+}
+
+const threeSixtyAssessmentState = {
+  ...initialReportState,
+  initialReportCompleted: true,
+  threeSixtyWalkthroughBegan: true,
+  threeSixtyWalkthroughCompleted: true
+}
+
+const assignmentsState = {
+  ...threeSixtyAssessmentState,
+  threeSixtyAssessmentCompleted: true,
+}
+
+const transferOfCommandState = {
+  ...assignmentsState,
+  incidentAnnounced: false,
+  incidentResponded: false,
+  incidentCompleted: true
+}
+
+const educationState = {
+  ...transferOfCommandState,
+  faceToFaceRequested: true,
+  faceToFaceCompleted: true
+}
+
+const evaluationState = {
+  ...educationState,
+  educationCompleted: true
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FIRST_ALARM_ANNOUNCED:
@@ -113,10 +148,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         thirdAlarmReady: true
       }
+    case actionTypes.SKIP_TO_INITIAL_REPORT:
+      return initialReportState
+    case actionTypes.SKIP_TO_360_ASSESSMENT:
+      return threeSixtyAssessmentState
+    case actionTypes.SKIP_TO_ASSIGNMENTS:
+      return assignmentsState
+    // case actionTypes.SKIP_TO_INCIDENT:
+    //   return incidentState
+    case actionTypes.SKIP_TO_TRANSFER_OF_COMMAND:
+      return transferOfCommandState
+    case actionTypes.SKIP_TO_EDUCATION:
+      return educationState
+    case actionTypes.SKIP_TO_EVALUATION:
+      return evaluationState
     case actionTypes.RESET_AI:
-      return {
-        ...initialState
-      }
+      return initialState
     default:
       return state
   }

@@ -20,6 +20,13 @@ export const SECOND_ALARM_REQUESTED = 'SECOND_ALARM_REQUESTED'
 export const THIRD_ALARM_REQUESTED = 'THIRD_ALARM_REQUESTED'
 export const SECOND_ALARM_READY = 'SECOND_ALARM_READY'
 export const THIRD_ALARM_READY = 'THIRD_ALARM_READY'
+export const SKIP_TO_INITIAL_REPORT = 'SKIP_TO_INITIAL_REPORT'
+export const SKIP_TO_360_ASSESSMENT = 'SKIP_TO_360_ASSESSMENT'
+export const SKIP_TO_ASSIGNMENTS = 'SKIP_TO_ASSIGNMENTS'
+// export const SKIP_TO_INCIDENT = 'SKIP_TO_INCIDENT'
+export const SKIP_TO_TRANSFER_OF_COMMAND = 'SKIP_TO_TRANSFER_OF_COMMAND'
+export const SKIP_TO_EDUCATION = 'SKIP_TO_EDUCATION'
+export const SKIP_TO_EVALUATION = 'SKIP_TO_EVALUATION'
 export const RESET_AI = 'RESET_AI'
 
 export const firstAlarmAnnounced = () => {
@@ -93,6 +100,14 @@ export const secondAlarmReady = () => {
 export const thirdAlarmReady = () => {
   return { type: THIRD_ALARM_READY }
 }
+
+export const skipToInitialReport = () => ({ type: SKIP_TO_INITIAL_REPORT })
+export const skipTo360Assessment = () => ({ type: SKIP_TO_360_ASSESSMENT })
+export const skipToAssignments = () => ({ type: SKIP_TO_ASSIGNMENTS })
+// export const skipToIncident = () => ({ type: SKIP_TO_INCIDENT })
+export const skipToTransferOfCommand = () => ({ type: SKIP_TO_TRANSFER_OF_COMMAND })
+export const skipToEducation = () => ({ type: SKIP_TO_EDUCATION })
+export const skipToEvaluation = () => ({ type: SKIP_TO_EVALUATION })
 
 export const resetAI = () => {
   return {

@@ -13,6 +13,17 @@ const initialState = {
   radioInUse: false
 }
 
+const incidentState = {
+  ...initialState,
+  unitsAssigned: 3,
+  assignmentResponses: 3,
+}
+
+const transferOfCommandState = {
+  ...incidentState,
+  incomingCommandArrival: Date.now()
+}
+
 const firstInFirstOut = (array) => {
   let newArray = array.slice()
   newArray.splice(0, 1)
@@ -130,6 +141,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         radioInUse: true
       }
+    case actionTypes.SKIP_TO_INCIDENT:
+      return incidentState
+    case actionTypes.SKIP_TO_TRANSFER_OF_COMMAND:
+      return transferOfCommandState
     default:
       return state
   }

@@ -80,7 +80,7 @@ const Demo = () => {
             <Grid item xs={6}>
               <Grid container alignContent='center'>
                 <Grid item xs={12}>
-                  <AdminPanel />
+                  <AdminPanel isDemo={true} />
                 </Grid>
               </Grid>
             </Grid>

@@ -4,7 +4,7 @@ import { Contained } from 'mui/Button'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
-import * as unitsActions from 'store/actions/units'
+import * as unitActions from 'store/actions/units'
 
 const useStyles = makeStyles((theme) => ({
   btn: {
@@ -13,147 +13,104 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Skip = () => {
+const Skip = ({ isDemo }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const [hideInitialReport, setHideInitialReport] = React.useState(false)
-  const [hide360, setHide360] = React.useState(false)
-  const [hideAssignments, setHideAssignments] = React.useState(false)
-  const [hideOfficerArrival, setHideOfficerArrival] = React.useState(false)
-  const [hideFaceToFace, setHideFaceToFace] = React.useState(false)
-  const [hideEducation, setHideEducation] = React.useState(false)
 
   const {
-    threeSixtyWalkthroughBegan,
+    firstAlarmAnnounced,
+    threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
-    assignmentsCompleted,
     faceToFaceRequested,
     faceToFaceCompleted,
-    educationCompleted,
-    incomingCommandArrived
+    educationCompleted
   } = useSelector((state) => state.ai)
+  const { assignmentResponses } = useSelector((state) => state.units)
 
-  React.useEffect(() => {
-    if (threeSixtyWalkthroughBegan) {
-      setHideInitialReport(true)
-    }
-  }, [threeSixtyWalkthroughBegan])
-
-  React.useEffect(() => {
-    if (threeSixtyAssessmentCompleted) {
-      setHide360(true)
-    }
-  }, [threeSixtyAssessmentCompleted])
-
-  React.useEffect(() => {
-    if (assignmentsCompleted) {
-      setHideAssignments(true)
-    }
-  }, [assignmentsCompleted])
-
-  React.useEffect(() => {
-    if (incomingCommandArrived) {
-      setHideOfficerArrival(true)
-    }
-  }, [incomingCommandArrived])
-
-  React.useEffect(() => {
-    if (faceToFaceRequested) {
-      setHideOfficerArrival(true)
-      setHideAssignments(true)
-    }
-  }, [faceToFaceRequested])
-
-  React.useEffect(() => {
-    if (faceToFaceCompleted) {
-      setHideFaceToFace(true)
-    }
-  }, [faceToFaceCompleted])
-
-  React.useEffect(() => {
-    if (educationCompleted) {
-      setHideEducation(true)
-    }
-  }, [educationCompleted])
-
-  const skipInitialReport = () => {
-    dispatch(aiActions.firstAlarmAnnounced())
-    dispatch(aiActions.initialReportCompleted())
-    dispatch(aiActions.threeSixtyWalkthroughBegan())
+  const skipToInitialReport = () => {
+    dispatch(aiActions.skipToInitialReport())
   }
 
-  const skip360Assessment = () => {
-    dispatch(aiActions.threeSixtyWalkthroughCompleted())
-    dispatch(aiActions.threeSixtyAssessmentCompleted())
+  const skipTo360Assessment = () => {
+    dispatch(aiActions.skipTo360Assessment())
   }
 
-  const skipAssignments = () => {
-    dispatch(unitsActions.updateUnitsAssigned(2))
-    dispatch(aiActions.incidentAnnounced())
-    dispatch(aiActions.incidentCompleted())
-    dispatch(aiActions.assignmentsCompleted())
+  const skipToAssignments = () => {
+    dispatch(aiActions.skipToAssignments())
   }
 
-  const skipOfficerWait = () => {
-    dispatch(aiActions.incomingCommandArrived())
+  const skipToIncident = () => {
+    dispatch(unitActions.skipToIncident())
   }
 
-  const skipFaceToFace = () => {
-    dispatch(aiActions.faceToFaceRequested())
-    dispatch(aiActions.faceToFaceCompleted())
+  const skipToTransferOfCommand = () => {
+    dispatch(unitActions.skipToTransferOfCommand())
+    dispatch(aiActions.skipToTransferOfCommand())
   }
-  const skipEducation = () => {
-    dispatch(aiActions.educationCompleted())
+  const skipToEducation = () => {
+    dispatch(aiActions.skipToEducation())
+  }
+
+  const skipToEvaluation = () => {
+    dispatch(aiActions.skipToEvaluation())
   }
 
   return (
     <Box alignItems='flex-start'>
-      {!hideInitialReport && (
+      {!firstAlarmAnnounced && (
         <Contained
           size='small'
           className={classes.btn}
-          onClick={() => skipInitialReport()}>
+          onClick={() => skipToInitialReport()}>
           Initial Report
         </Contained>
       )}
-      {hideInitialReport && !hide360 && (
+      {!threeSixtyWalkthroughCompleted && (
         <Contained
           size='small'
           className={classes.btn}
-          onClick={() => skip360Assessment()}>
-          360°
+          onClick={() => skipTo360Assessment()}>
+          360° Assessment
         </Contained>
       )}
-      {hide360 && !hideAssignments && (
+      {!threeSixtyAssessmentCompleted && (
         <Contained
           size='small'
           className={classes.btn}
-          onClick={() => skipAssignments()}>
+          onClick={() => skipToAssignments()}>
           Assignments
         </Contained>
       )}
-      {hideAssignments && !hideOfficerArrival && (
+      {assignmentResponses < 3 && (
         <Contained
           size='small'
           className={classes.btn}
-          onClick={() => skipOfficerWait()}>
-          Officer Arrival
+          onClick={() => skipToIncident()}>
+          Incident Within Incident
         </Contained>
       )}
-      {hideOfficerArrival && !hideFaceToFace && (
+      {!faceToFaceRequested && (
         <Contained
           size='small'
           className={classes.btn}
-          onClick={() => skipFaceToFace()}>
-          Face-to-Face
+          onClick={() => skipToTransferOfCommand()}>
+          Transfer of Command
         </Contained>
       )}
-      {hideFaceToFace && !hideEducation && (
+      {!isDemo && !faceToFaceCompleted && (
         <Contained
           size='small'
           className={classes.btn}
-          onClick={() => skipEducation()}>
+          onClick={() => skipToEducation()}>
           Education
+        </Contained>
+      )}
+      {!isDemo && !educationCompleted && (
+        <Contained
+          size='small'
+          className={classes.btn}
+          onClick={() => skipToEvaluation()}>
+          Evaluation
         </Contained>
       )}
     </Box>

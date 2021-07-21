@@ -13,6 +13,8 @@ export const SPEAK_COMPLETED = 'SPEAK_COMPLETED'
 export const REMOVE_OLDEST_SPEECH_FROM_QUEUE = 'REMOVE_OLDEST_SPEECH_FROM_QUEUE'
 export const SET_AVAILABLE_VOICES = 'SET_AVAILABLE_VOICES'
 export const USE_RADIO = 'USE_RADIO'
+export const SKIP_TO_INCIDENT = 'SKIP_TO_INCIDENT'
+export const SKIP_TO_TRANSFER_OF_COMMAND = 'SKIP_TO_TRANSFER_OF_COMMAND'
 
 export const addUnitArrival = (data) => {
   return {
@@ -140,3 +142,6 @@ export const useRadio = () => {
     type: USE_RADIO
   }
 }
+
+export const skipToIncident = () => ({ type: SKIP_TO_INCIDENT })
+export const skipToTransferOfCommand = () => ({ type: SKIP_TO_TRANSFER_OF_COMMAND })

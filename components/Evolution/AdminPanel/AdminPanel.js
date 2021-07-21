@@ -1,18 +1,18 @@
-import Box from '@material-ui/core/Box'
 import Accordion from '@material-ui/core/Accordion'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Box from '@material-ui/core/Box'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import FastForwardIcon from '@material-ui/icons/FastForward'
 import ListIcon from '@material-ui/icons/List'
 import PeopleIcon from '@material-ui/icons/People'
-import FastForwardIcon from '@material-ui/icons/FastForward'
 import { Subtitle1 } from 'mui/Typography'
-
-import Log from './Log'
 import FirstAlarm from './FirstAlarm'
+import Log from './Log'
 import Skip from './Skip'
 
-const AdminPanel = () => {
+
+const AdminPanel = ({ isDemo = false }) => {
   return (
     <>
       <Accordion defaultExpanded={true}>
@@ -37,10 +37,10 @@ const AdminPanel = () => {
           <Box mr={1}>
             <FastForwardIcon />
           </Box>
-          <Subtitle1>Skip</Subtitle1>
+          <Subtitle1>Skip To Section</Subtitle1>
         </AccordionSummary>
         <AccordionDetails>
-          <Skip />
+          <Skip isDemo={isDemo} />
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded={true}>

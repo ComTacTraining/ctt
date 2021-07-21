@@ -43,9 +43,10 @@ const Speech2Text = () => {
   const dispatch = useDispatch()
   const { firstOnScene, commandInputMethod } = useSelector((state) => state.user)
   const isPressed = useKeyPress('Space')
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const [lastTranscript, setLastTranscript] = React.useState('')
   const [currentTranscript, setCurrentTranscript] = React.useState('')
+  const [bot, setBot] = React.useState('')
 
   const didUnmount = React.useRef(false)
   const inputSampleRate = React.useRef(0)
@@ -58,7 +59,7 @@ const Speech2Text = () => {
     return eventStreamMarshaller.marshall(testMessage)
   }, [])
   const { firstAlarmAnnounced } = useSelector((state) => state.ai)
-  const { speechBotState, isRecordingMicrophone, commandAllowed } = useSelector((state) => state.command)
+  const { isRecordingMicrophone, commandAllowed } = useSelector((state) => state.command)
 
   const getSocketUrl = React.useCallback(async () => {
     try {
@@ -75,7 +76,7 @@ const Speech2Text = () => {
       const resUrl = await response.json()
       return resUrl.url
     } catch {
-      console.log("can't make websocket url")
+      console.log('can\'t make websocket url')
       return null
     }
   }, [])
@@ -92,7 +93,7 @@ const Speech2Text = () => {
       console.log('websocket opened')
     },
     onClose: (closeEvent) => {
-      console.log('websocket closed ');
+      console.log('websocket closed ')
     },
     onMessage: (message) => {
       if(message.data instanceof ArrayBuffer) {
@@ -119,7 +120,7 @@ const Speech2Text = () => {
     },
     //Will attempt to reconnect on all close events, such as server shutting down
     shouldReconnect: (closeEvent) => {
-      if(closeEvent.reason === "didUnmount" && closeEvent.code === 3333) {
+      if(closeEvent.reason === 'didUnmount' && closeEvent.code === 3333) {
         return false
       } else {
         return didUnmount.current === false
@@ -147,7 +148,7 @@ const Speech2Text = () => {
   React.useEffect(() => {
     
     return () => {
-      getWebSocket().close(3333, "didUnmount")
+      getWebSocket().close(3333, 'didUnmount')
       closeSocket()
       didUnmount.current = true
       if(sendTestMsgTimer.current) {
@@ -165,8 +166,8 @@ const Speech2Text = () => {
           })
           .then()
           .catch(function (error) {
-            console.log("error in microphone ", error)
-            setOpen(true);
+            console.log('error in microphone ', error)
+            setOpen(true)
 
           })
     }
@@ -176,34 +177,39 @@ const Speech2Text = () => {
     if (connectionStatus === 'Open') {
       getWebSocket().binaryType = 'arraybuffer'
       if (
-        speechBotState !== BOTSTATE.PROCESSING &&
-        speechBotState !== BOTSTATE.PRESSKEY
+        bot !== BOTSTATE.PROCESSING &&
+        bot !== BOTSTATE.PRESSKEY
       ) {
-        dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
+        setBot(BOTSTATE.PRESSKEY)
+        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
       }
 
       if (
         commandAllowed &&
         isPressed &&
         !isRecordingMicrophone &&
-        speechBotState !== BOTSTATE.LISTENING
+        bot !== BOTSTATE.LISTENING
       ) {
         dispatch(commandActions.startRecordingMicrophone())
-        dispatch(commandActions.updateSpeechBotState(BOTSTATE.LISTENING))
+        setBot(BOTSTATE.LISTENING)
+        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.LISTENING))
       } else if (
         !isPressed &&
         isRecordingMicrophone &&
-        speechBotState !== BOTSTATE.PROCESSING
+        bot !== BOTSTATE.PROCESSING
       ) {
-        dispatch(commandActions.updateSpeechBotState(BOTSTATE.PROCESSING))
+        setBot(BOTSTATE.PROCESSING)
+        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PROCESSING))
         setTimeout(() => {
-          dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
+          setBot(BOTSTATE.PRESSKEY)
+          // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
           dispatch(commandActions.stopRecordingMicrophone())
         }, 2000)
 
       }
-    } else if (speechBotState !== BOTSTATE.WAITING) {
-      dispatch(commandActions.updateSpeechBotState(BOTSTATE.WAITING))
+    } else if (bot !== BOTSTATE.WAITING) {
+      setBot(BOTSTATE.WAITING)
+      // dispatch(commandActions.updateSpeechBotState(BOTSTATE.WAITING))
     }
   }, [firstAlarmAnnounced, readyState, isPressed, commandAllowed])
 
@@ -250,8 +256,8 @@ const Speech2Text = () => {
         })
         .then(streamAudioToWebSocket)
         .catch(function (error) {
-          console.log("error in microphone ", error)
-          setOpen(true);
+          console.log('error in microphone ', error)
+          setOpen(true)
         })
       
     } else {
@@ -270,12 +276,12 @@ const Speech2Text = () => {
   }, [isRecordingMicrophone])
 
   const handleClickOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleEventStreamMessage = (messageJson) => {
     let results = messageJson.Transcript.Results
@@ -339,26 +345,29 @@ const Speech2Text = () => {
       let emptyBuffer = eventStreamMarshaller.marshall(emptyMessage)
       sendMessage(emptyBuffer)
     }
-  }, [connectionStatus]);
+  }, [connectionStatus])
 
-  return (<div id='speech-text'>
-    <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Voice Search turned off?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            There was an error streaming your audio to Amazon Transcribe. You have to refersh or allow to access the microphone.  
-            <a link="details" onClick={handleClose} target="_blank" href="https://support.google.com/chrome/?p=ui_voice_search&amp;hl=en-US">
-              Details
-            </a>
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
-  </div>);
+  return (
+    <div id='speech-text'>
+      <span style={{ display: 'none'}}>{bot}</span>
+      <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>{'Voice Search turned off?'}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              There was an error streaming your audio to Amazon Transcribe. You have to refersh or allow to access the microphone.  
+              <a link='details' onClick={handleClose} target='_blank' href='https://support.google.com/chrome/?p=ui_voice_search&amphl=en-US'>
+                Details
+              </a>
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+    </div>
+  )
 }
 
 export default Speech2Text

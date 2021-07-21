@@ -8,7 +8,7 @@ const Speak = () => {
   const dispatch = useDispatch()
   const {
     firstAlarmAnnounced,
-    faceToFaceCompleted
+    transferOfCommandCompleted
   } = useSelector((state) => state.ai)
   const {
     waitingToBeSpoken,
@@ -19,7 +19,7 @@ const Speak = () => {
   useEffect(() => {
     let cooldown
     if (!commandInProgress && !radioInUse && waitingToBeSpoken.length > 0) {
-      const waitTime = firstAlarmAnnounced && !faceToFaceCompleted ? 2000 : 10
+      const waitTime = firstAlarmAnnounced && !transferOfCommandCompleted ? 2000 : 10
       cooldown = setTimeout(() => {
         const nextSpeech = waitingToBeSpoken[0]
         const { label, text, voice, meta } = nextSpeech
@@ -35,7 +35,7 @@ const Speak = () => {
     radioInUse,
     commandInProgress,
     firstAlarmAnnounced,
-    faceToFaceCompleted,
+    transferOfCommandCompleted,
     dispatch
   ])
 

@@ -10,7 +10,7 @@ const Tips = () => {
     threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
     assignmentsCompleted,
-    faceToFaceRequested
+    transferOfCommandRequested
   } = useSelector((state) => state.ai)
   const { unitsAssigned } = useSelector((state) => state.units)
   const { isPartialCommand, partialCommand, command } = useSelector((state) => state.command)
@@ -212,7 +212,7 @@ const Tips = () => {
   useEffect(() => {
     if (
       threeSixtyAssessmentCompleted &&
-      (!assignmentsCompleted || !faceToFaceRequested)
+      (!assignmentsCompleted || !transferOfCommandRequested)
     ) {
       const commands = allText(fullSectionText, partialSectionText)
       if (!assignmentRescue) {
@@ -268,7 +268,7 @@ const Tips = () => {
   }, [
     threeSixtyAssessmentCompleted,
     assignmentsCompleted,
-    faceToFaceRequested,
+    transferOfCommandRequested,
     fullSectionText,
     partialSectionText,
     dispatch,
@@ -282,7 +282,7 @@ const Tips = () => {
   ])
 
   useEffect(() => {
-    if (threeSixtyAssessmentCompleted && unitsAssigned > 0 && (!assignmentsCompleted || !faceToFaceRequested)) {
+    if (threeSixtyAssessmentCompleted && unitsAssigned > 0 && (!assignmentsCompleted || !transferOfCommandRequested)) {
       const commands = allText(fullSectionText, partialSectionText)
       if (!canReport) {
         options.canReport.forEach((phrase) => {
@@ -303,7 +303,7 @@ const Tips = () => {
     threeSixtyAssessmentCompleted,
     unitsAssigned,
     assignmentsCompleted,
-    faceToFaceRequested,
+    transferOfCommandRequested,
     fullSectionText,
     partialSectionText,
     dispatch,

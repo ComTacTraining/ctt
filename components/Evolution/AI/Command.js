@@ -11,8 +11,8 @@ const Command = () => {
     threeSixtyAssessmentCompleted,
     incidentAnnounced,
     incidentCompleted,
-    faceToFaceRequested,
-    faceToFaceCompleted
+    transferOfCommandRequested,
+    transferOfCommandCompleted
   } = useSelector((state) => state.ai)
   const { command } = useSelector((state) => state.command)
   const { initialReportTerms, threeSixtyAssessmentTerms } = options
@@ -34,8 +34,8 @@ const Command = () => {
         }
       } else if (incidentAnnounced && !incidentCompleted) {
         dispatch(aiActions.incidentCompleted())
-      } else if (faceToFaceRequested && !faceToFaceCompleted) {
-        dispatch(aiActions.faceToFaceCompleted())
+      } else if (transferOfCommandRequested && !transferOfCommandCompleted) {
+        dispatch(aiActions.transferOfCommandCompleted())
       }
     }
 
@@ -52,8 +52,8 @@ const Command = () => {
     threeSixtyAssessmentTerms,
     incidentAnnounced,
     incidentCompleted,
-    faceToFaceRequested,
-    faceToFaceCompleted,
+    transferOfCommandRequested,
+    transferOfCommandCompleted,
     dispatch
   ])
 

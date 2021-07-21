@@ -10,8 +10,8 @@ export const INCIDENT_ANNOUNCED = 'INCIDENT_ANNOUNCED'
 export const INCIDENT_RESPONDED = 'INCIDENT_RESPONDED'
 export const INCIDENT_COMPLETED = 'INCIDENT_COMPLETED'
 export const INCOMING_COMMAND_ARRIVED = 'INCOMING_COMMAND_ARRIVED'
-export const FACE_TO_FACE_REQUESTED = 'FACE_TO_FACE_REQUESTED'
-export const FACE_TO_FACE_COMPLETED = 'FACE_TO_FACE_COMPLETED'
+export const TRANSFER_OF_COMMAND_REQUESTED = 'TRANSFER_OF_COMMAND_REQUESTED'
+export const TRANSFER_OF_COMMAND_COMPLETED = 'TRANSFER_OF_COMMAND_COMPLETED'
 export const INCOMING_COMMAND_OFFICER_RESPONSE =
   'INCOMING_COMMAND_OFFICER_RESPONSE'
 export const EDUCATION_COMPLETED = 'EDUCATION_COMPLETED'
@@ -69,12 +69,12 @@ export const incomingCommandArrived = () => {
   return { type: INCOMING_COMMAND_ARRIVED }
 }
 
-export const faceToFaceRequested = () => {
-  return { type: FACE_TO_FACE_REQUESTED }
+export const transferOfCommandRequested = () => {
+  return { type: TRANSFER_OF_COMMAND_REQUESTED }
 }
 
-export const faceToFaceCompleted = () => {
-  return { type: FACE_TO_FACE_COMPLETED }
+export const transferOfCommandCompleted = () => {
+  return { type: TRANSFER_OF_COMMAND_COMPLETED }
 }
 
 export const educationCompleted = () => {

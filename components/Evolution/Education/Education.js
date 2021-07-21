@@ -7,7 +7,7 @@ import { educationTitles, getEducationPhrases } from 'utils/education'
 const Education = () => {
   const { educationVoice } = options
   const dispatch = useDispatch()
-  const { faceToFaceCompleted, educationCompleted } = useSelector(
+  const { transferOfCommandCompleted, educationCompleted } = useSelector(
     (state) => state.ai
   )
   const {
@@ -27,7 +27,7 @@ const Education = () => {
   const { firstOnScene } = useSelector((state) => state.user)
 
   useEffect(() => {
-    if (faceToFaceCompleted && !educationCompleted) {
+    if (transferOfCommandCompleted && !educationCompleted) {
       const phrases = getEducationPhrases({
         firstOnScene,
         size,
@@ -59,7 +59,7 @@ const Education = () => {
       })
     }
   }, [
-    faceToFaceCompleted,
+    transferOfCommandCompleted,
     educationCompleted,
     firstOnScene,
     size,

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Evolution = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { faceToFaceCompleted, educationCompleted } = useSelector(
+  const { transferOfCommandCompleted, educationCompleted } = useSelector(
     (state) => state.ai
   )
   const { alias } = useSelector((state) => state.evolution)
@@ -84,7 +84,7 @@ const Evolution = () => {
             {!educationCompleted && (
               <Overlay playlist={playlist} />
             )}
-            {faceToFaceCompleted && <Education />}
+            {transferOfCommandCompleted && <Education />}
             {educationCompleted && <Evaluation />}
             {isAdmin && showDebug && <Command />}
           </Grid>

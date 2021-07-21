@@ -25,12 +25,12 @@ const Mic = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted
+    transferOfCommandCompleted
   } = useSelector((state) => state.ai)
   const { commandInProgress } = useSelector((state) => state.command)
 
   React.useEffect(() => {
-    if (faceToFaceCompleted) {
+    if (transferOfCommandCompleted) {
       setCommandAvailable(false)
     } else if (threeSixtyWalkthroughCompleted) {
       setCommandAvailable(true)
@@ -43,7 +43,7 @@ const Mic = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted
+    transferOfCommandCompleted
   ])
 
   React.useEffect(() => {

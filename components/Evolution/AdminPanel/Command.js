@@ -25,13 +25,13 @@ const Command = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted
+    transferOfCommandCompleted
   } = useSelector((state) => state.ai)
   const { radioInUse } = useSelector((state) => state.units)
   const { partialCommand, speechBotState } = useSelector((state) => state.command)
 
   React.useEffect(() => {
-    if (faceToFaceCompleted) {
+    if (transferOfCommandCompleted) {
       setCommandsAllowed(false)
     } else if (threeSixtyWalkthroughCompleted) {
       setCommandsAllowed(true)
@@ -44,7 +44,7 @@ const Command = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted
+    transferOfCommandCompleted
   ])
 
   const handleInputMethodToggle = () => {

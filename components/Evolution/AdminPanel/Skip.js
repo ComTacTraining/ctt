@@ -21,8 +21,8 @@ const Skip = ({ isDemo }) => {
     firstAlarmAnnounced,
     threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
-    faceToFaceRequested,
-    faceToFaceCompleted,
+    transferOfCommandRequested,
+    transferOfCommandCompleted,
     educationCompleted
   } = useSelector((state) => state.ai)
   const { assignmentResponses } = useSelector((state) => state.units)
@@ -89,7 +89,7 @@ const Skip = ({ isDemo }) => {
           Incident Within Incident
         </Contained>
       )}
-      {!faceToFaceRequested && (
+      {!transferOfCommandRequested && (
         <Contained
           size='small'
           className={classes.btn}
@@ -97,7 +97,7 @@ const Skip = ({ isDemo }) => {
           Transfer of Command
         </Contained>
       )}
-      {!isDemo && !faceToFaceCompleted && (
+      {!isDemo && !transferOfCommandCompleted && (
         <Contained
           size='small'
           className={classes.btn}

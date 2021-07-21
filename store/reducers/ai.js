@@ -11,8 +11,8 @@ const initialState = {
   incidentResponded: false,
   incidentCompleted: false,
   incomingCommandArrived: false,
-  faceToFaceRequested: false,
-  faceToFaceCompleted: false,
+  transferOfCommandRequested: false,
+  transferOfCommandCompleted: false,
   educationCompleted: false,
   evaluationCompleted: false,
   secondAlarmRequested: false,
@@ -47,8 +47,8 @@ const transferOfCommandState = {
 
 const educationState = {
   ...transferOfCommandState,
-  faceToFaceRequested: true,
-  faceToFaceCompleted: true
+  transferOfCommandRequested: true,
+  transferOfCommandCompleted: true
 }
 
 const evaluationState = {
@@ -108,15 +108,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         incomingCommandArrived: true
       }
-    case actionTypes.FACE_TO_FACE_REQUESTED:
+    case actionTypes.TRANSFER_OF_COMMAND_REQUESTED:
       return {
         ...state,
-        faceToFaceRequested: true,
+        transferOfCommandRequested: true,
       }
-    case actionTypes.FACE_TO_FACE_COMPLETED:
+    case actionTypes.TRANSFER_OF_COMMAND_COMPLETED:
       return {
         ...state,
-        faceToFaceCompleted: true,
+        transferOfCommandCompleted: true,
       }
     case actionTypes.EDUCATION_COMPLETED:
       return {

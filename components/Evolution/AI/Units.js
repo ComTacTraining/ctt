@@ -6,7 +6,7 @@ import Unit from './Unit'
 const Units = () => {
   const {
     threeSixtyAssessmentCompleted,
-    faceToFaceRequested,
+    transferOfCommandRequested,
     assignmentsCompleted
   } = useSelector((state) => state.ai)
   const { alarm1, firstOnScene, incomingCommandOfficer } = useSelector(
@@ -31,7 +31,7 @@ const Units = () => {
   }, [voices, dispatchCenterVoice, incomingCommandOfficerVoice])
 
   useEffect(() => {
-    if (threeSixtyAssessmentCompleted && !faceToFaceRequested) {
+    if (threeSixtyAssessmentCompleted && !transferOfCommandRequested) {
       setAlarmOneUnits(
         alarm1.filter(
           (alarm) => alarm !== firstOnScene && alarm !== incomingCommandOfficer
@@ -40,7 +40,7 @@ const Units = () => {
     }
   }, [
     threeSixtyAssessmentCompleted,
-    faceToFaceRequested,
+    transferOfCommandRequested,
     alarm1,
     firstOnScene,
     incomingCommandOfficer

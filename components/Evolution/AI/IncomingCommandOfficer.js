@@ -13,8 +13,8 @@ const IncomingCommandOfficer = () => {
   const {
     firstOnScene,
     incomingCommandOfficer,
-    faceToFaceRequested,
-    faceToFaceCompleted,
+    transferOfCommandRequested,
+    transferOfCommandCompleted,
     command
   } = useSelector((state) => state.user)
   const { incidentCompleted, incomingCommandArrived } = useSelector(
@@ -88,10 +88,10 @@ const IncomingCommandOfficer = () => {
       })
     }
 
-    if (command !== '' && faceToFaceRequested && !faceToFaceCompleted) {
+    if (command !== '' && transferOfCommandRequested && !transferOfCommandCompleted) {
       response()
     }
-  }, [command, faceToFaceRequested, faceToFaceCompleted])
+  }, [command, transferOfCommandRequested, transferOfCommandCompleted])
 
   return <div />
 }

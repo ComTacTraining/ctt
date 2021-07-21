@@ -28,7 +28,7 @@ const AI = () => {
     incidentAnnounced,
     incidentResponded,
     incidentCompleted,
-    faceToFaceCompleted,
+    transferOfCommandCompleted,
   } = useSelector((state) => state.ai)
   const { commandAllowed, incidentCommandName, command } = useSelector((state) => state.command)
   const { groupsAssigned, assignmentResponses, radioInUse } = useSelector((state) => state.units)
@@ -67,10 +67,10 @@ const AI = () => {
   }, [street, dispatch])
 
   React.useEffect(() => {
-    if (faceToFaceCompleted) {
+    if (transferOfCommandCompleted) {
       setPhraseAllowsCommand(false) // end of phase
     } else if (threeSixtyWalkthroughCompleted) {
-      setPhraseAllowsCommand(true) // 360 assessment, assignments, face-to-face
+      setPhraseAllowsCommand(true) // 360 assessment, assignments, transfer of command
     } else if (initialReportCompleted) {
       setPhraseAllowsCommand(false) // 360 walkthrough
     } else if (firstAlarmAnnounced) {
@@ -78,7 +78,7 @@ const AI = () => {
     } else {
       setPhraseAllowsCommand(false) // arrival
     }
-  }, [firstAlarmAnnounced, initialReportCompleted, threeSixtyWalkthroughCompleted, faceToFaceCompleted])
+  }, [firstAlarmAnnounced, initialReportCompleted, threeSixtyWalkthroughCompleted, transferOfCommandCompleted])
 
   React.useEffect(() => {
     if (phraseAllowsCommand && !radioInUse) {

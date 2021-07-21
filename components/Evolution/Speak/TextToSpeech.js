@@ -4,9 +4,8 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  educationCompleted,
-  faceToFaceCompleted,
-  faceToFaceRequested, firstAlarmAnnounced, threeSixtyWalkthroughBegan
+  educationCompleted, firstAlarmAnnounced, threeSixtyWalkthroughBegan, transferOfCommandCompleted,
+  transferOfCommandRequested
 } from 'store/actions/ai'
 import {
   addOverlayTitle
@@ -136,11 +135,11 @@ const TextToSpeech = () => {
         dispatch(incrementAssignmentResponses())
       }
       if (meta === 'INCOMING_COMMAND_ARRIVED') {
-        dispatch(faceToFaceRequested())
+        dispatch(transferOfCommandRequested())
         dispatch(clearSpeechQueue())
       }
       if (meta === 'INCOMING_COMMAND_RESPONSE') {
-        dispatch(faceToFaceCompleted())
+        dispatch(transferOfCommandCompleted())
       }
       if (meta === 'EDUCATION_COMPLETED') {
         dispatch(educationCompleted())

@@ -29,7 +29,7 @@ const Demo = () => {
   const classes = useStyles()
   const router = useRouter()
   const dispatch = useDispatch()
-  const { faceToFaceCompleted } = useSelector((state) => state.ai)
+  const { transferOfCommandCompleted } = useSelector((state) => state.ai)
   const { user, isAdmin } = React.useContext(UserContext)
    const [showDebug, setShowDebug] = React.useState(isAdmin)
 
@@ -47,10 +47,10 @@ const Demo = () => {
   }, [dispatch])
 
   React.useEffect(() => {
-    if (faceToFaceCompleted) {
+    if (transferOfCommandCompleted) {
       router.push('/subscribe')
     }
-  }, [faceToFaceCompleted])
+  }, [transferOfCommandCompleted])
 
   const toggleShowDebug = () => {
     setShowDebug(!showDebug)

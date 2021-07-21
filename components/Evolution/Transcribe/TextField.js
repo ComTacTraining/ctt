@@ -14,7 +14,7 @@ const TextField = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted
+    transferOfCommandCompleted
   } = useSelector((state) => state.ai)
   const { radioInUse } = useSelector((state) => state.units)
 
@@ -33,7 +33,7 @@ const TextField = () => {
   }, [radioInUse, currentCommand])
 
   React.useEffect(() => {
-    if (faceToFaceCompleted) {
+    if (transferOfCommandCompleted) {
       setTalkable(false)
     } else if (threeSixtyWalkthroughCompleted) {
       setTalkable(true)
@@ -46,7 +46,7 @@ const TextField = () => {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
-    faceToFaceCompleted
+    transferOfCommandCompleted
   ])
 
   const handlePartialCommand = (evt) => {

@@ -40,13 +40,13 @@ const groups = ['Fire Attack', 'Ventilation', 'Exposure', 'RIC', 'Medical']
 
 const Groups = () => {
   const classes = useStyles()
-  const { threeSixtyAssessmentCompleted, faceToFaceRequested } = useSelector(
+  const { threeSixtyAssessmentCompleted, transferOfCommandRequested } = useSelector(
     (state) => state.ai
   )
 
   return (
     threeSixtyAssessmentCompleted &&
-    !faceToFaceRequested && (
+    !transferOfCommandRequested && (
       <div className={classes.root}>
         <div className={classes.backdrop}>
           <H6>ICS NIMS Groups</H6>

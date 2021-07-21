@@ -118,7 +118,7 @@ const Tips = () => {
       )}
       {!ai.assignmentsCompleted &&
         ai.threeSixtyAssessmentCompleted &&
-        !ai.faceToFaceCompleted && (
+        !ai.transferOfCommandCompleted && (
           <div className={classes.backdrop}>
             <H6>Assignment Tips</H6>
             <Divider />

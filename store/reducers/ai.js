@@ -45,9 +45,10 @@ const incidentState = {
 
 const transferOfCommandState = {
   ...assignmentsState,
-  incidentAnnounced: false,
-  incidentResponded: false,
-  incidentCompleted: true
+  incidentAnnounced: true,
+  incidentResponded: true,
+  incidentCompleted: true,
+  incomingCommandArrived: true
 }
 
 const educationState = {

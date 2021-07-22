@@ -182,38 +182,37 @@ const FirstAlarm = () => {
         </TableHead>
         <TableBody>
           <>
-            {!assignmentsCompleted &&
-              units.map((unit) => (
-                <TableRow key={unit.name}>
-                  <TableCell component='th' scope='row'>
-                    {unit.name}
-                  </TableCell>
-                  <TableCell align='right'>
-                    {unit.arrived ? (
-                      <CheckCircleIcon style={{ color: green[600] }} />
-                    ) : unit.seconds === largeNumber ? (
-                      <MoreHorizIcon />
-                    ) : (
-                      <>
-                        {unit.seconds}
-                        <TimerIcon />
-                      </>
-                    )}
-                  </TableCell>
-                  <TableCell align='right'>
-                    {unit.group === '' ? <MoreHorizIcon /> : unit.group}
-                  </TableCell>
-                  <TableCell align='right'>
-                    {unit.group === '' ? (
-                      <MoreHorizIcon />
-                    ) : unit.needs ? (
-                      <CheckCircleIcon style={{ color: orange[500] }} />
-                    ) : (
-                      <CancelIcon color='action' />
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
+            {units.map((unit) => (
+              <TableRow key={unit.name}>
+                <TableCell component='th' scope='row'>
+                  {unit.name}
+                </TableCell>
+                <TableCell align='right'>
+                  {unit.arrived ? (
+                    <CheckCircleIcon style={{ color: green[600] }} />
+                  ) : unit.seconds === largeNumber ? (
+                    <MoreHorizIcon />
+                  ) : (
+                    <>
+                      {unit.seconds}
+                      <TimerIcon />
+                    </>
+                  )}
+                </TableCell>
+                <TableCell align='right'>
+                  {unit.group === '' ? <MoreHorizIcon /> : unit.group}
+                </TableCell>
+                <TableCell align='right'>
+                  {unit.group === '' ? (
+                    <MoreHorizIcon />
+                  ) : unit.needs ? (
+                    <CheckCircleIcon style={{ color: orange[500] }} />
+                  ) : (
+                    <CancelIcon color='action' />
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
             {officerSeconds !== largeNumber && (
               <TableRow key='incomingCommandOfficer'>
                 <TableCell component='th' scope='row'>

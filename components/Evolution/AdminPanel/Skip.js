@@ -41,6 +41,7 @@ const Skip = ({ isDemo }) => {
 
   const skipToIncident = () => {
     dispatch(unitActions.skipToIncident())
+    dispatch(aiActions.skipToIncident())
   }
 
   const skipToTransferOfCommand = () => {

@@ -49,7 +49,7 @@ const Groups = () => {
     !transferOfCommandRequested && (
       <div className={classes.root}>
         <div className={classes.backdrop}>
-          <H6>ICS NIMS Groups</H6>
+          <H6>ICS NIMS</H6>
           <Divider />
           <List dense={true}>
             {groups.map((group) => (

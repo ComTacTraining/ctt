@@ -38,6 +38,11 @@ const assignmentsState = {
   threeSixtyAssessmentCompleted: true,
 }
 
+const incidentState = {
+  ...assignmentsState,
+  assignmentsCompleted: true
+}
+
 const transferOfCommandState = {
   ...assignmentsState,
   incidentAnnounced: false,
@@ -154,8 +159,8 @@ const reducer = (state = initialState, action) => {
       return threeSixtyAssessmentState
     case actionTypes.SKIP_TO_ASSIGNMENTS:
       return assignmentsState
-    // case actionTypes.SKIP_TO_INCIDENT:
-    //   return incidentState
+    case actionTypes.SKIP_TO_INCIDENT:
+      return incidentState
     case actionTypes.SKIP_TO_TRANSFER_OF_COMMAND:
       return transferOfCommandState
     case actionTypes.SKIP_TO_EDUCATION:

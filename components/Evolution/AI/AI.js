@@ -25,13 +25,14 @@ const AI = () => {
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted,
+    assignmentsCompleted,
     incidentAnnounced,
     incidentResponded,
     incidentCompleted,
     transferOfCommandCompleted,
   } = useSelector((state) => state.ai)
   const { commandAllowed, incidentCommandName, command } = useSelector((state) => state.command)
-  const { groupsAssigned, assignmentResponses, radioInUse } = useSelector((state) => state.units)
+  const { groupsAssigned, radioInUse } = useSelector((state) => state.units)
   const { lastPlayedVideo } = useSelector((state) => state.screen)
   const { street, incidentGroup, incidentCommand } = useSelector(
     (state) => state.evolution
@@ -138,7 +139,7 @@ const AI = () => {
       dispatch(aiActions.incidentResponded())
     }
 
-    if (!incidentAnnounced && assignmentResponses === 3) {
+    if (!incidentAnnounced && assignmentsCompleted) {
       interval = setTimeout(() => {
         if (!checkIncidentAssigned()) {
           genericUnitIncident()
@@ -162,7 +163,7 @@ const AI = () => {
     incidentResponded,
     incidentCompleted,
     groupsAssigned,
-    assignmentResponses,
+    assignmentsCompleted,
     incidentGroup,
     incidentCommand,
     dispatch

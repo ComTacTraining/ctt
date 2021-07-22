@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  educationCompleted, firstAlarmAnnounced, threeSixtyWalkthroughBegan, transferOfCommandCompleted,
+  educationCompleted, firstAlarmAnnounced, incidentCompleted, threeSixtyWalkthroughBegan, transferOfCommandCompleted,
   transferOfCommandRequested
 } from 'store/actions/ai'
 import {
@@ -133,6 +133,9 @@ const TextToSpeech = () => {
       }
       if (meta === 'UNIT_ASSIGNMENT_RESPONSE') {
         dispatch(incrementAssignmentResponses())
+      }
+      if (meta === 'INCIDENT_RESPONSE') {
+        dispatch(incidentCompleted())
       }
       if (meta === 'INCOMING_COMMAND_ARRIVED') {
         dispatch(transferOfCommandRequested())

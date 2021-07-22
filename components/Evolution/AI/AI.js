@@ -131,7 +131,8 @@ const AI = () => {
       const speech = {
         label: groupName,
         text,
-        voice: unassignedIncidentVoice
+        voice: unassignedIncidentVoice,
+        meta: 'INCIDENT_RESPONSE'
       }
       dispatch(unitsActions.addToFrontOfSpeechQueue(speech))
       dispatch(aiActions.incidentResponded())

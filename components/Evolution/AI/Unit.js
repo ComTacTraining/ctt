@@ -40,6 +40,7 @@ const Unit = ({ name, voice, index }) => {
   const [announcement, setAnnouncement] = useState('')
   const [response, setResponse] = useState('')
   const [assignmentResponse, setAssignmentResponse] = useState('')
+  const [incidentResponse, setIncidentResponse] = useState('')
   const [assignmentCommand, setAssignmentCommand] = useState('')
   const [arrived, setArrived] = useState(false)
   const [icsNimsGroup, setIcsNimsGroup] = useState('')
@@ -53,25 +54,28 @@ const Unit = ({ name, voice, index }) => {
           ? response
           : assignmentResponse
           ? assignmentResponse
+          : incidentResponse
+          ? incidentResponse
           : announcement,
         voice: voice,
-        meta: assignmentResponse ? 'UNIT_ASSIGNMENT_RESPONSE' : null
+        meta: assignmentResponse ? 'UNIT_ASSIGNMENT_RESPONSE' : incidentResponse ? 'INCIDENT_RESPONSE' : null
       }
 
-      if (response || assignmentResponse) {
+      if (response || assignmentResponse || incidentResponse) {
         dispatch(unitsActions.addToFrontOfSpeechQueue(speech))
         setResponse('')
         setAssignmentResponse('')
+        setIncidentResponse('')
       } else {
         dispatch(unitsActions.addToSpeechQueue(speech))
         setAnnouncement('')
       }
     }
 
-    if (announcement || response || assignmentResponse) {
+    if (announcement || response || assignmentResponse || incidentResponse) {
       unitSpeech()
     }
-  }, [announcement, response, assignmentResponse, unitName, voice, dispatch])
+  }, [announcement, response, assignmentResponse, incidentResponse, unitName, voice, dispatch])
 
   useEffect(() => {
     let interval
@@ -256,8 +260,8 @@ const Unit = ({ name, voice, index }) => {
       const group = normalizedGroup()
       if (group === icsNimsGroup) {
         const commandRepeat = properPronouns(command)
-        const incidentResponse = `${incidentCommandName} from ${group}. ${commandRepeat}`
-        setResponse(incidentResponse)
+        const response = `${incidentCommandName} from ${group}. ${commandRepeat}`
+        setIncidentResponse(response)
         dispatch(aiActions.incidentResponded())
       }
     }

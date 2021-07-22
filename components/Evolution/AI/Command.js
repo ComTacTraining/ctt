@@ -32,10 +32,6 @@ const Command = () => {
         if (anyTermsMatchString(command, threeSixtyAssessmentTerms)) {
           dispatch(aiActions.threeSixtyAssessmentCompleted())
         }
-      } else if (incidentAnnounced && !incidentCompleted) {
-        dispatch(aiActions.incidentCompleted())
-      } else if (transferOfCommandRequested && !transferOfCommandCompleted) {
-        dispatch(aiActions.transferOfCommandCompleted())
       }
     }
 

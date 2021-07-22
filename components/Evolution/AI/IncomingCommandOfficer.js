@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as unitsActions from 'store/actions/units'
-import { isEmptyObject, options, properPronouns } from 'utils/ai'
+import { isEmptyObject, options } from 'utils/ai'
 
 const {
   maxIncomingOfficerArrivalSeconds: maxSecs,
@@ -10,18 +10,15 @@ const {
 
 const IncomingCommandOfficer = () => {
   const dispatch = useDispatch()
-  const {
-    firstOnScene,
-    incomingCommandOfficer,
-    transferOfCommandRequested,
-    transferOfCommandCompleted,
-    command
-  } = useSelector((state) => state.user)
+  const { incomingCommandOfficer } = useSelector((state) => state.user)
+  const { transferOfCommandRequested } = useSelector((state) => state.ai)
+  const { command } = useSelector((state) => state.command)
   const { incidentCompleted, incomingCommandArrived } = useSelector(
     (state) => state.ai
   )
   const { waitingToBeSpoken } = useSelector((state) => state.units)
   const [speak, setSpeak] = React.useState({})
+  const [lastCommand, setLastCommand] = React.useState('')
 
   React.useEffect(() => {
     const queue = () => {
@@ -75,23 +72,27 @@ const IncomingCommandOfficer = () => {
   }, [
     incidentCompleted,
     incomingCommandArrived,
-    firstOnScene,
     incomingCommandOfficer
   ])
 
   React.useEffect(() => {
-    const response = () => {
-      const reply = properPronouns(command)
-      setSpeak({
-        text: reply,
-        meta: 'INCOMING_COMMAND_RESPONSE'
-      })
+    if (lastCommand === '' && transferOfCommandRequested) {
+      setLastCommand(command)
     }
+  }, [command, lastCommand, transferOfCommandRequested])
 
-    if (command !== '' && transferOfCommandRequested && !transferOfCommandCompleted) {
-      response()
+  React.useEffect(() => {
+    if (lastCommand !== '' && command !== lastCommand && transferOfCommandRequested) {
+      dispatch(
+        unitsActions.addToSpeechQueue({
+          label: incomingCommandOfficer,
+          text: 'Copy, I will assume command.',
+          voice: voice,
+          meta: 'INCOMING_COMMAND_RESPONSE'
+        })
+      )
     }
-  }, [command, transferOfCommandRequested, transferOfCommandCompleted])
+  }, [command, lastCommand, incomingCommandOfficer, transferOfCommandRequested ])
 
   return <div />
 }

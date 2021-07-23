@@ -12,7 +12,7 @@ import useWebSocket, { ReadyState } from 'react-use-websocket'
 import * as commandActions from 'store/actions/command'
 import { addToLog } from 'store/actions/review'
 import { downsampleBuffer, pcmEncode } from './audioUtils'
-
+import {blankBuffer} from './blankBuffer';
 
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(
   util_utf8_node.toUtf8,
@@ -157,21 +157,21 @@ const Speech2Text = () => {
     }
   }, [])
 
-  React.useEffect(() => {
-    if(commandInputMethod === 'Microphone') {
-      window.navigator.mediaDevices
-          .getUserMedia({
-            video: false,
-            audio: true
-          })
-          .then()
-          .catch(function (error) {
-            console.log('error in microphone ', error)
-            setOpen(true)
+  // React.useEffect(() => {
+  //   if(commandInputMethod === 'Microphone') {
+  //     window.navigator.mediaDevices
+  //         .getUserMedia({
+  //           video: false,
+  //           audio: true
+  //         })
+  //         .then()
+  //         .catch(function (error) {
+  //           console.log('error in microphone ', error)
+  //           setOpen(true)
 
-          })
-    }
-  }, [commandInputMethod])
+  //         })
+  //   }
+  // }, [commandInputMethod])
 
   React.useEffect(() => {
     if (connectionStatus === 'Open') {
@@ -200,11 +200,9 @@ const Speech2Text = () => {
       ) {
         setBot(BOTSTATE.PROCESSING)
         // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PROCESSING))
-        setTimeout(() => {
-          setBot(BOTSTATE.PRESSKEY)
-          // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
-          dispatch(commandActions.stopRecordingMicrophone())
-        }, 2000)
+        setBot(BOTSTATE.PRESSKEY)
+        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
+        dispatch(commandActions.stopRecordingMicrophone())
 
       }
     } else if (bot !== BOTSTATE.WAITING) {
@@ -221,21 +219,37 @@ const Speech2Text = () => {
         )
       )
     } else {
-      if (lastTranscript !== '' || currentTranscript !== '') {
+      if (micStream.current) {
+        micStream.current.stop()
+      }
+      for(let i = 0; i < 20; i ++) {
+        sendMessage(blankBuffer)
+      }
+      if (lastTranscript !== '' && currentTranscript === '') {
+        
+        const _lastTranscript = lastTranscript;
+        const _currentTranscript = currentTranscript;
         dispatch(
           commandActions.updateCompletedTranscript(
-            lastTranscript + ' ' + currentTranscript
+            _lastTranscript + ' ' + _currentTranscript
           )
         )
         dispatch(
           addToLog({
             timestamp: Date.now(),
             label: firstOnScene,
-            text: lastTranscript
+            text: _lastTranscript + ' ' + _currentTranscript
           })
         )
-        setLastTranscript('')
-        setCurrentTranscript('')
+        setCurrentTranscript("")
+        setLastTranscript("")
+        
+      } else {
+        dispatch(
+          commandActions.updatePartialTranscript(
+            lastTranscript + ' ' + currentTranscript
+          )
+        )
       }
     }
   }, [isRecordingMicrophone, lastTranscript, currentTranscript])

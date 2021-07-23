@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles'
-import VideoDisplay from 'components/Layout/VideoDisplay'
+import Backdrop from 'components/Evolution/VideoPlayer/Backdrop'
+import Screen from 'components/Evolution/VideoPlayer/Screen'
 import Loading from 'components/Loading'
 import useVideoPlayer from 'hooks/useVideoPlayer'
 import { useRouter } from 'next/router'
 import { visitorPlaylist } from 'utils/video'
-// import { samplePlaylist } from 'utils/video'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,13 +25,15 @@ const Home = () => {
       {!player && (
         <Loading />
       )}
-      <VideoDisplay>
-        <div className={classes.root} data-testid="videoplayer">
-          <div data-vjs-player>
-            <video ref={ref} className="video-js vjs-default-skin" />
+      <Backdrop>
+        <Screen>
+          <div className={classes.root} data-testid="videoplayer">
+            <div data-vjs-player>
+              <video ref={ref} className="video-js vjs-default-skin" />
+            </div>
           </div>
-        </div>
-      </VideoDisplay>
+        </Screen>
+      </Backdrop>
     </>
   )
 }

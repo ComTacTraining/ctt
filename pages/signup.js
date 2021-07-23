@@ -2,7 +2,7 @@ import { AmplifyAuthenticator, AmplifyContainer, AmplifySignUp } from '@aws-ampl
 import Alert from '@material-ui/lab/Alert'
 import { UserContext } from 'components/Auth/UserContext'
 import AWSTheme from 'components/Layout/AWSTheme'
-import Loading from 'components/Loading'
+import Loading from 'components/UI/Loading'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 

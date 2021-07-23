@@ -3,9 +3,11 @@ import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
-import AppBar from 'components/AppBar'
+import Amplify from 'aws-amplify'
+import config from 'aws-exports'
 import { UserContext } from 'components/Auth/UserContext'
-import Footer from 'components/Footer'
+import AppBar from 'components/Layout/AppBar/AppBar'
+import Footer from 'components/Layout/Footer'
 import useAmplifyAuth from 'hooks/useAmplifyAuth'
 import theme from 'mui/theme'
 import Head from 'next/head'
@@ -13,9 +15,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 import { createStore } from 'store'
-import Amplify from 'aws-amplify'
 
-import config from 'aws-exports'
 Amplify.configure({
   ...config,
   ssr: true

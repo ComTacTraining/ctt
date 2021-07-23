@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 import Backdrop from 'components/Evolution/VideoPlayer/Backdrop'
 import Screen from 'components/Evolution/VideoPlayer/Screen'
-import Loading from 'components/Loading'
+import Loading from 'components/UI/Loading'
 import useVideoPlayer from 'hooks/useVideoPlayer'
 import { useRouter } from 'next/router'
 import { visitorPlaylist } from 'utils/video'

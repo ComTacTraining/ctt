@@ -1,6 +1,6 @@
-import Evolution from 'components/Evolution'
-import { useRouter } from 'next/router'
 import { withMemberAuth } from 'components/Auth/HOC'
+import Evolution from 'components/Pages/Evolution'
+import { useRouter } from 'next/router'
 
 const EvolutionPage = () => {
   const router = useRouter()

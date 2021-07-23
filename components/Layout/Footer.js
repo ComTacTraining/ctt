@@ -1,8 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
-import { Body2, Caption } from 'mui/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Link from 'components/UI/Link'
 import { MD } from 'mui/Container'
-import Link from 'components/Link'
+import { Body2, Caption } from 'mui/Typography'
 import { footer as footerRoutes } from 'utils/routes'
 
 const useStyles = makeStyles(theme => ({

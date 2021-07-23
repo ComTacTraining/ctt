@@ -1,4 +1,4 @@
-import Privacy from 'components/Legal/Privacy'
+import Privacy from 'components/Pages/Privacy'
 
 const PrivacyPage = () => <Privacy />
 

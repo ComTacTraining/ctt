@@ -1,5 +1,5 @@
-import Incidents from 'components/Admin/Incidents'
 import { withAdminAuth } from 'components/Auth/HOC'
+import Incidents from 'components/Pages/Admin/Incidents'
 
 const IncidentsPage = () => <Incidents />
 

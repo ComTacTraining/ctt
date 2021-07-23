@@ -7,15 +7,15 @@ import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
-import AdminAppBar from 'components/Admin/AppBar/AppBar'
+import { UserContext } from 'components/Auth/UserContext'
+import Link from 'components/UI/Link'
 import { H6 } from 'mui/Typography'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { guest, member, visitor } from 'utils/routes'
-import { UserContext } from './Auth/UserContext'
-import DesktopItem from './Layout/DesktopItem'
-import MobileItem from './Layout/MobileItem'
-import Link from './Link'
+import AdminBar from './AdminBar'
+import DesktopItem from './DesktopItem'
+import MobileItem from './MobileItem'
 
 const drawerWidth = 240
 
@@ -154,7 +154,7 @@ const AppBar = ({ window }) => {
             </Hidden>
             <Hidden xsDown implementation='css'>
               {isUserAnAdmin ? (
-                <AdminAppBar />
+                <AdminBar />
               ) : (
                 routes.map((route) => <DesktopItem {...route} />)
               )}

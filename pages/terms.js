@@ -1,4 +1,4 @@
-import Terms from  'components/Legal/Terms'
+import Terms from 'components/Pages/Terms'
 
 const TermsPage = () => <Terms />
 

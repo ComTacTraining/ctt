@@ -1,15 +1,14 @@
-import * as React from 'react'
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import { Contained } from 'mui/Button'
-import useForm from 'hooks/useForm'
-import { H4, P } from 'mui/Typography'
-import { UserContext } from 'components/Auth/UserContext'
-import Loading from 'components/Loading'
-import Link from 'components/Link'
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import axios from 'axios'
+import { UserContext } from 'components/Auth/UserContext'
+import Link from 'components/UI/Link'
+import useForm from 'hooks/useForm'
+import { Contained } from 'mui/Button'
+import { H4, P } from 'mui/Typography'
+import * as React from 'react'
 
 const useStyles = makeStyles((theme) => ({
   root: {

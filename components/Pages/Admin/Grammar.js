@@ -54,6 +54,7 @@ const Grammar = () => {
     <>
       <H3>Grammar</H3>
       <MUITextField
+        key='match'
         fullWidth={true}
         id='match'
         label='Match'
@@ -61,14 +62,15 @@ const Grammar = () => {
         onChange={handleSampleChange}
       />
       <MUITextField
+      key='response'
         fullWidth={true}
         id='response'
         label='Response'
         value={sampleResponse}
         disabled={true}
       />
-      {replacements.map(replacementSet => (
-        <TableContainer component={Paper}>
+      {replacements.map((replacementSet, i) => (
+        <TableContainer key={i} component={Paper}>
           <Table aria-label='evolutions'>
             <TableHead>
               <TableRow>
@@ -77,8 +79,8 @@ const Grammar = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {replacementSet.map((replacement) => (
-                <TableRow key={replacement.find}>
+              {replacementSet.map((replacement, j) => (
+                <TableRow key={j}>
                   <TableCell component='th' scope='row'>
                     {replacement.find}
                   </TableCell>

@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
+import Icon from '@material-ui/core/Icon'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import Icon from '@material-ui/core/Icon'
 import ListItemText from '@material-ui/core/ListItemText'
-import Link from 'components/Link'
+import Link from 'components/UI/Link'
+import PropTypes from 'prop-types'
 
 const MobileItem = ({ href, title, fa, ...others }) => {
 

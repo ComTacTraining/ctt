@@ -1,8 +1,8 @@
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import DesktopItem from 'components/Layout/DesktopItem'
-import Link from 'components/Link'
+import Link from 'components/UI/Link'
 import * as React from 'react'
+import DesktopItem from './DesktopItem'
 
 const SubMenu = ({ title, links }) => {
   const [anchor, setAnchor] = React.useState(null)

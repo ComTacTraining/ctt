@@ -1,11 +1,11 @@
 import Grid from '@material-ui/core/Grid'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import Checkout from 'components/Checkout'
-import OrderSummary from 'components/OrderSummary'
-import * as React from 'react'
+import Checkout from 'components/Elements/Checkout'
+import OrderSummary from 'components/Elements/OrderSummary'
 import { H4, H5, P } from 'mui/Typography'
 import Image from 'next/image'
+import * as React from 'react'
 
 const Subscribe = ({ stripeKey }) => {
   const [stripePromise, setStripePromise] = React.useState(() =>

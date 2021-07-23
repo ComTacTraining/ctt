@@ -1,5 +1,5 @@
-import Subscribe from 'components/Subscribe'
 import { withGuestAuth } from 'components/Auth/HOC'
+import Subscribe from 'components/Pages/Subscribe'
 
 const SubscribePage = ({ stripeKey }) => <Subscribe stripeKey={stripeKey} />
 

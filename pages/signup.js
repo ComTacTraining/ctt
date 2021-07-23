@@ -1,7 +1,7 @@
 import { AmplifyAuthenticator, AmplifyContainer, AmplifySignUp } from '@aws-amplify/ui-react'
 import Alert from '@material-ui/lab/Alert'
-import Styles from 'aws/Styles'
 import { UserContext } from 'components/Auth/UserContext'
+import AWSTheme from 'components/Layout/AWSTheme'
 import Loading from 'components/Loading'
 import { useRouter } from 'next/router'
 import * as React from 'react'
@@ -37,7 +37,7 @@ const SignUpPage = () => {
           {displayedError}
         </Alert>
       )}
-      <Styles>
+      <AWSTheme>
         <AmplifyContainer>
           <AmplifyAuthenticator usernameAlias="email" initialAuthState='signup'>
             <AmplifySignUp slot="sign-up" usernameAlias="email" headerText="Sign up for a free demo" formFields={[
@@ -47,7 +47,7 @@ const SignUpPage = () => {
             ]}></AmplifySignUp>
           </AmplifyAuthenticator> 
         </AmplifyContainer>
-      </Styles>
+      </AWSTheme>
     </>
   )
 }

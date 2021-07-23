@@ -1,7 +1,7 @@
 import { AmplifyAuthenticator, AmplifyContainer, AmplifySignIn, AmplifySignUp } from '@aws-amplify/ui-react'
 import Alert from '@material-ui/lab/Alert'
-import Styles from 'aws/Styles'
 import { UserContext } from 'components/Auth/UserContext'
+import AWSTheme from 'components/Layout/AWSTheme'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
@@ -35,7 +35,7 @@ const SignInPage = () => {
           {displayedError}
         </Alert>
       )}
-      <Styles>
+      <AWSTheme>
         <AmplifyContainer>
           <AmplifyAuthenticator usernameAlias="email" initialAuthState='signin'>
             <AmplifySignIn slot="sign-in" usernameAlias="email" headerText="Sign in to your account"></AmplifySignIn>
@@ -46,7 +46,7 @@ const SignInPage = () => {
             ]}></AmplifySignUp>
           </AmplifyAuthenticator> 
         </AmplifyContainer>
-      </Styles>
+      </AWSTheme>
     </>
   )
 }

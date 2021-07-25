@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Countdown = () => {
   const classes = useStyles()
-  const { unitArrivals } = useSelector((store) => store.units)
+  const { unitArrivals, incomingCommandArrival } = useSelector((store) => store.units)
   const [arrivals, setArrivals] = React.useState([])
   const [nextArrivalTimestamp, setNextArrivalTimestamp] = React.useState(0)
   const [seconds, setSeconds] = React.useState(0)
@@ -86,7 +86,10 @@ const Countdown = () => {
           }
         }
       })
-      if (lowest !== LARGE_NUMBER_OF_SECONDS) {
+      if (lowest === LARGE_NUMBER_OF_SECONDS && incomingCommandArrival) {
+        setNextArrivalTimestamp(incomingCommandArrival)
+        setSeconds(Math.floor(((incomingCommandArrival + 2000) - Date.now()) / 1000))
+      } else if (lowest !== LARGE_NUMBER_OF_SECONDS) {
         setNextArrivalTimestamp(lowest)
         setSeconds(Math.floor(((lowest + 2000) - Date.now()) / 1000))
       }
@@ -95,7 +98,7 @@ const Countdown = () => {
     if (seconds === 0 && arrivals.length > 0) {
       findNextArrival()
     }
-  }, [seconds, arrivals, nextArrivalTimestamp])
+  }, [seconds, arrivals, nextArrivalTimestamp, incomingCommandArrival])
 
   return (
     <>

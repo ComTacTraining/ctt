@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as aiActions from 'store/actions/ai'
 import * as unitsActions from 'store/actions/units'
@@ -26,7 +26,7 @@ const Unit = ({ name, voice, index }) => {
     assignmentsCompleted
   } = useSelector((state) => state.ai)
   const { command, incidentCommandName } = useSelector((state) => state.command)
-  const { groupsAssigned } = useSelector((state) => state.units)
+  const { groupsAssigned, textToSpeech } = useSelector((state) => state.units)
   const {
     incidentGroup,
     incidentCommand,
@@ -37,55 +37,21 @@ const Unit = ({ name, voice, index }) => {
     ric,
     medical
   } = useSelector((state) => state.evolution)
-  const [unitName] = useState(name)
-  const [announcement, setAnnouncement] = useState('')
-  const [response, setResponse] = useState('')
-  const [assignmentResponse, setAssignmentResponse] = useState('')
-  const [incidentResponse, setIncidentResponse] = useState('')
-  const [assignmentCommand, setAssignmentCommand] = useState('')
-  const [arrived, setArrived] = useState(false)
-  const [icsNimsGroup, setIcsNimsGroup] = useState('')
-  const [lastCommand, setLastCommand] = useState('')
+  const [unitLabel, setUnitLabel] = React.useState(`${name}`)
+  const [assignedGroup, setAssignedGroup] = React.useState('')
+  const [assignmentCommand, setAssignmentCommand] = React.useState('')
+  const [arrivalAnnounced, setArrivalAnnounced] = React.useState(false)
+  const [lastCommand, setLastCommand] = React.useState('')
+  const arrivalAnnouncementText = `${name} on scene staged requesting an assignment.`
 
-  useEffect(() => {
-    const unitSpeech = () => {
-      const speech = {
-        label: unitName,
-        text: response
-          ? response
-          : assignmentResponse
-          ? assignmentResponse
-          : incidentResponse
-          ? incidentResponse
-          : announcement,
-        voice: voice,
-        meta: assignmentResponse ? 'UNIT_ASSIGNMENT_RESPONSE' : incidentResponse ? 'INCIDENT_RESPONSE' : null
-      }
-
-      if (response || assignmentResponse || incidentResponse) {
-        dispatch(unitsActions.addToFrontOfSpeechQueue(speech))
-        setResponse('')
-        setAssignmentResponse('')
-        setIncidentResponse('')
-      } else {
-        dispatch(unitsActions.addToSpeechQueue(speech))
-        setAnnouncement('')
-      }
-    }
-
-    if (announcement || response || assignmentResponse || incidentResponse) {
-      unitSpeech()
-    }
-  }, [announcement, response, assignmentResponse, incidentResponse, unitName, voice, dispatch])
-
-  useEffect(() => {
+  React.useEffect(() => {
     let interval
 
-    if (unitName) {
+    if (name) {
       let timeout = 0
       if (index === 0) {
         timeout = 3
-        dispatch(unitsActions.addUnitArrival({ name: unitName, arrival: Date.now() }))
+        dispatch(unitsActions.addUnitArrival({ name: name, arrival: Date.now() }))
       } else {
         const minUnitArrivalSeconds = Math.floor(maxUnitArrivalSeconds / 3)
         timeout = Math.floor(
@@ -94,39 +60,59 @@ const Unit = ({ name, voice, index }) => {
         )
         timeout *= 1000
         dispatch(
-          unitsActions.addUnitArrival({ name: unitName, arrival: Date.now() + timeout })
+          unitsActions.addUnitArrival({ name: name, arrival: Date.now() + timeout })
         )
       }
       interval = setTimeout(() => {
-        setAnnouncement(`${unitName} on scene staged requesting an assignment.`)
-        setArrived(true)
+        dispatch(unitsActions.addToFrontOfSpeechQueue({
+          label: unitLabel,
+          text: arrivalAnnouncementText,
+          voice: voice
+        }))
       }, timeout)
     }
-
     return () => clearTimeout(interval)
-  }, [unitName, index, dispatch])
+  }, [name, index, dispatch])
 
-  useEffect(() => {
+  React.useEffect(() => {
+    const { text } = textToSpeech
+    if (text === arrivalAnnouncementText) {
+      setArrivalAnnounced(true)
+    }
+  }, [textToSpeech])
+
+  React.useEffect(() => {
+    if (assignedGroup && unitLabel === name) {
+      setUnitLabel(`${assignedGroup} (${name})`)
+    }
+  }, [unitLabel, assignedGroup])
+
+  React.useEffect(() => {
     const checkForAssignment = () => {
       let found = false
       icsNimsGroups.forEach((group) => {
         if (!groupsAssigned.includes(group.name)) {
           if (anyTermsMatchString(command, group.terms)) {
             found = true
-            setIcsNimsGroup(group.name)
+            setAssignedGroup(group.name)
             setAssignmentCommand(command)
             const possibleResponses = [
-              `${incidentCommandName} from ${unitName}. I copy I am ${group.name} group.`,
-              `${incidentCommandName} from ${unitName}. I am ${group.name} group.`,
-              `${incidentCommandName} from ${unitName}. I copy I will be ${group.name} group.`
+              `${incidentCommandName} from ${name}. I copy I am ${group.name} group.`,
+              `${incidentCommandName} from ${name}. I am ${group.name} group.`,
+              `${incidentCommandName} from ${name}. I copy I will be ${group.name} group.`
             ]
             const assignmentAcknowledgement = randomSelection(possibleResponses)
             const commandRepeat = properPronouns(command)
-            setAssignmentResponse(`${assignmentAcknowledgement} ${commandRepeat}`)
+            dispatch(unitsActions.addToFrontOfSpeechQueue({
+              label: unitLabel,
+              text: `${assignmentAcknowledgement} ${commandRepeat}`,
+              voice: voice,
+              meta: 'UNIT_ASSIGNMENT_RESPONSE'
+            }))
             dispatch(unitsActions.incrementUnitsAssigned())
             dispatch(unitsActions.addAssignedGroup(group.name))
             dispatch(
-              unitsActions.addUnitGroupAssignment({ name: unitName, group: group.name })
+              unitsActions.addUnitGroupAssignment({ name: name, group: group.name })
             )
           }
         }
@@ -136,16 +122,19 @@ const Unit = ({ name, voice, index }) => {
 
     const unassigned = () => {
       const possibleResponses = [
-        `${incidentCommandName} from ${unitName}. Please repeat my assigned group.`,
-        `${incidentCommandName} from ${unitName}. Please repeat.`
+        `${incidentCommandName} from ${name}. Please repeat my assigned group.`,
+        `${incidentCommandName} from ${name}. Please repeat.`
       ]
-      const cmd = randomSelection(possibleResponses)
-      setAssignmentResponse(cmd)
+      dispatch(unitsActions.addToFrontOfSpeechQueue({
+        label: unitLabel,
+        text: randomSelection(possibleResponses),
+        voice: voice
+      }))
     }
 
     const checkIfAddressed = async () => {
       const numberedCommand = replaceSpelledOutNumbers(command)
-      if (anyTermsMatchString(numberedCommand, unitName)) {
+      if (anyTermsMatchString(numberedCommand, name)) {
         const assigned = await checkForAssignment()
         if (!assigned) {
           unassigned()
@@ -153,14 +142,14 @@ const Unit = ({ name, voice, index }) => {
       }
     }
 
-    if (!icsNimsGroup && arrived && command) {
+    if (!assignedGroup && arrivalAnnounced && command) {
       checkIfAddressed()
     }
-  }, [arrived, command, icsNimsGroup, unitName, incidentCommandName, groupsAssigned, dispatch])
+  }, [arrivalAnnounced, command, assignedGroup, incidentCommandName, groupsAssigned, dispatch])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const checkForNeeds = () => {
-      switch (icsNimsGroup) {
+      switch (assignedGroup) {
         case 'Fire Attack':
           return attack
         case 'Ventilation':
@@ -184,36 +173,43 @@ const Unit = ({ name, voice, index }) => {
 
     const checkForCanReport = () => {
       if (anyTermsMatchString(command, canReportTerms)) {
-        const group = icsNimsGroups.find((group) => group.name === icsNimsGroup)
+        const group = icsNimsGroups.find((group) => group.name === assignedGroup)
         const type = getType(checkForNeeds())
         const canReport = group.canReports.find(
           (report) => report.type === type
         ).response
-        setResponse(canReport)
+        dispatch(unitsActions.addToFrontOfSpeechQueue({
+          label: unitLabel,
+          text: canReport,
+          voice: voice
+        }))
       }
     }
 
     const checkForParReport = () => {
       if (anyTermsMatchString(command, parReportTerms)) {
-        setResponse(parReport)
+        dispatch(unitsActions.addToFrontOfSpeechQueue({
+          label: unitLabel,
+          text: parReport,
+          voice: voice
+        }))
       }
     }
 
     const checkIfAddressed = () => {
-      if (anyTermsMatchString(command, [unitName, icsNimsGroup])) {
+      if (anyTermsMatchString(command, [name, assignedGroup])) {
         checkForCanReport()
         checkForParReport()
       }
     }
 
-    if (icsNimsGroup && command && assignmentCommand && command !== assignmentCommand) {
+    if (assignedGroup && command && assignmentCommand && command !== assignmentCommand) {
       checkIfAddressed()
     }
   }, [
-    icsNimsGroup,
+    assignedGroup,
     command,
     assignmentCommand,
-    unitName,
     withstanding,
     attack,
     ventilation,
@@ -222,7 +218,7 @@ const Unit = ({ name, voice, index }) => {
     medical
   ])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const normalizedGroup = () => {
       let group = ''
       switch (incidentGroup) {
@@ -247,28 +243,37 @@ const Unit = ({ name, voice, index }) => {
       return group
     }
 
-    if (!announcedIncident && icsNimsGroup && assignmentsCompleted) {
+    if (!announcedIncident && assignedGroup && assignmentsCompleted) {
       const group = normalizedGroup()
-      if (group === icsNimsGroup) {
-        const incident = incidentCommand.replace('__NAME__', icsNimsGroup)
-        setResponse(incident)
+      if (group === assignedGroup) {
+        const incident = incidentCommand.replace('__NAME__', assignedGroup)
+        dispatch(unitsActions.addToFrontOfSpeechQueue({
+          label: unitsLabel,
+          text:incident,
+          voice: voice,
+        }))
         setLastCommand(command)
         dispatch(aiActions.incidentAnnounced())
       }
     }
 
-    if (announcedIncident && !incidentResponded && icsNimsGroup && lastCommand !== command) {
+    if (announcedIncident && !incidentResponded && assignedGroup && lastCommand !== command) {
       const group = normalizedGroup()
-      if (group === icsNimsGroup) {
+      if (group === assignedGroup) {
         const commandRepeat = properPronouns(command)
         const response = `${incidentCommandName} from ${group}. ${commandRepeat}`
-        setIncidentResponse(response)
+        dispatch(unitsActions.addToFrontOfSpeechQueue({
+          label: unitLabel,
+          text: response,
+          voice: voice,
+          meta: 'INCIDENT_RESPONSE'
+        }))
         dispatch(aiActions.incidentResponded())
       }
     }
   }, [
     command,
-    icsNimsGroup,
+    assignedGroup,
     assignmentsCompleted,
     incidentGroup,
     incidentCommand,

@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import axios from 'axios'
-import { UserContext } from 'components/Auth/UserContext'
 import Link from 'components/UI/Link'
 import useForm from 'hooks/useForm'
+import { useUser } from 'hooks/useUser'
 import { Contained } from 'mui/Button'
 import { H4, P } from 'mui/Typography'
 import * as React from 'react'
@@ -37,7 +37,7 @@ const Checkout = (props) => {
   const elements = useElements()
   const [success, setSuccess] = React.useState(false)
   const [error, setError] = React.useState('')
-  const { user, handleSubscription } = React.useContext(UserContext)
+  const { user, handleSubscription } = useUser()
 
   const initialFormFields = {
     cardName: '',

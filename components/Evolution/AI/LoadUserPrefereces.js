@@ -1,10 +1,10 @@
+import { useUser } from 'hooks/useUser'
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
-import { UserContext } from 'components/Auth/UserContext'
 import { updateUserPreferences } from 'store/actions/user'
 
 const LoadUserPreferences = () => {
-  const { user, isLoading } = React.useContext(UserContext)
+  const { user, isLoading } = useUser()
   const dispatch = useDispatch()
 
   React.useEffect(() => {

@@ -1,10 +1,10 @@
-import * as React from 'react'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
-import { UserContext } from './UserContext'
 import Alert from '@material-ui/lab/Alert'
+import { useUser } from 'hooks/useUser'
+import * as React from 'react'
 
 const Form = () => {
-  const { user, errorMessage, handleClearError } = React.useContext(UserContext)
+  const { user, errorMessage, handleClearError } = useUser()
   const [displayedError, setDisplayedError] = React.useState('')
 
   React.useEffect(() => {

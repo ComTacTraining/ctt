@@ -7,8 +7,8 @@ import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
-import { UserContext } from 'components/Auth/UserContext'
 import Link from 'components/UI/Link'
+import { useUser } from 'hooks/useUser'
 import { H6 } from 'mui/Typography'
 import PropTypes from 'prop-types'
 import * as React from 'react'
@@ -54,8 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AppBar = ({ window }) => {
   const classes = useStyles()
-  const { user, isMember, isAdmin, handleSignOut } =
-    React.useContext(UserContext)
+  const { user, isMember, isAdmin, handleSignOut } = useUser()
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [visitorAnchor, setVisitorAnchor] = React.useState(null)
   const [openVisitor, setOpenVisitor] = React.useState(false)
@@ -85,7 +84,7 @@ const AppBar = ({ window }) => {
   const container =
     window !== undefined ? () => window().document.body : undefined
 
-  const routes = user ? isMember ? member : guest : visitor
+  const routes = user ? (isMember ? member : guest) : visitor
 
   React.useEffect(() => {
     if (user && isAdmin) {

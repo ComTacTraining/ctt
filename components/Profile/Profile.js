@@ -1,21 +1,19 @@
-// main tools
-import { useState, useEffect, useContext } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { UserContext } from 'components/Auth/UserContext'
-// mui components
-import { Grid, TextField, Checkbox } from '@material-ui/core'
-import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
-
-// custom components
-import { CustomAlarm } from 'components/Profile/CustomAlarm'
-import { Contained } from 'mui/Button'
-import { H3, Subtitle1, P } from 'mui/Typography'
-
-// action
-import { updateUserPreferences } from 'store/actions/user'
-
-// styles
+import {
+  Checkbox,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { CustomAlarm } from 'components/Profile/CustomAlarm'
+import { useUser } from 'hooks/useUser'
+import { Contained } from 'mui/Button'
+import { H3, P, Subtitle1 } from 'mui/Typography'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUserPreferences } from 'store/actions/user'
 
 const useStyles = makeStyles(() => ({
   root: { flexGrow: 1, paddingTop: 50 },
@@ -25,8 +23,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 const Profile = () => {
-  const { user, isMember, isAdmin, handleUserPreferences } =
-    useContext(UserContext)
+  const { user, isMember, isAdmin, handleUserPreferences } = useUser()
   const dispatch = useDispatch()
   const classes = useStyles()
   const [alarmCondition, setAlarmCondition] = useState(false)

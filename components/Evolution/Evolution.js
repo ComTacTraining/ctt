@@ -1,6 +1,5 @@
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import { UserContext } from 'components/Auth/UserContext'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import Command from 'components/Evolution/AdminPanel/Command'
 import LoadUserPreferences from 'components/Evolution/AI/LoadUserPrefereces'
@@ -8,6 +7,7 @@ import Overlay from 'components/Evolution/Overlay/Overlay'
 import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
+import { useUser } from 'hooks/useUser'
 import { Contained } from 'mui/Button'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,7 +39,7 @@ const Evolution = () => {
   )
   const { alias } = useSelector((state) => state.evolution)
   const { showTips, preferencesLoaded } = useSelector((state) => state.user)
-  const { isAdmin } = React.useContext(UserContext)
+  const { isAdmin } = useUser()
   const [intialized, setInitialized] = React.useState(false)
   const [playlist, setPlaylist] = React.useState(false)
   const [showDebug, setShowDebug] = React.useState(isAdmin)
@@ -81,9 +81,7 @@ const Evolution = () => {
             <AI />
             <Speak />
             <TextToSpeech />
-            {!educationCompleted && (
-              <Overlay playlist={playlist} />
-            )}
+            {!educationCompleted && <Overlay playlist={playlist} />}
             {transferOfCommandCompleted && <Education />}
             {educationCompleted && <Evaluation />}
             {isAdmin && showDebug && <Command />}

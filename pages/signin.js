@@ -1,13 +1,18 @@
-import { AmplifyAuthenticator, AmplifyContainer, AmplifySignIn, AmplifySignUp } from '@aws-amplify/ui-react'
+import {
+  AmplifyAuthenticator,
+  AmplifyContainer,
+  AmplifySignIn,
+  AmplifySignUp
+} from '@aws-amplify/ui-react'
 import Alert from '@material-ui/lab/Alert'
-import { UserContext } from 'components/Auth/UserContext'
 import AWSTheme from 'components/Layout/AWSTheme'
+import { useUser } from 'hooks/useUser'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
 const SignInPage = () => {
   const router = useRouter()
-  const { user, errorMessage, handleClearError }  = React.useContext(UserContext)
+  const { user, errorMessage, handleClearError } = useUser()
   const [displayedError, setDisplayedError] = React.useState('')
 
   React.useEffect(() => {
@@ -27,7 +32,7 @@ const SignInPage = () => {
       router.push('/profile')
     }
   }, [user])
-  
+
   return (
     <>
       {displayedError !== '' && (
@@ -37,14 +42,25 @@ const SignInPage = () => {
       )}
       <AWSTheme>
         <AmplifyContainer>
-          <AmplifyAuthenticator usernameAlias="email" initialAuthState='signin'>
-            <AmplifySignIn slot="sign-in" usernameAlias="email" headerText="Sign in to your account"></AmplifySignIn>
-            <AmplifySignUp slot="sign-up" usernameAlias="email" headerText="Sign up for a free demo" formFields={[
-              { type: "email" },
-              { type: "password" },
-              { type: "custom:referral", label: "How did you hear about us?", required: false  }
-            ]}></AmplifySignUp>
-          </AmplifyAuthenticator> 
+          <AmplifyAuthenticator usernameAlias='email' initialAuthState='signin'>
+            <AmplifySignIn
+              slot='sign-in'
+              usernameAlias='email'
+              headerText='Sign in to your account'></AmplifySignIn>
+            <AmplifySignUp
+              slot='sign-up'
+              usernameAlias='email'
+              headerText='Sign up for a free demo'
+              formFields={[
+                { type: 'email' },
+                { type: 'password' },
+                {
+                  type: 'custom:referral',
+                  label: 'How did you hear about us?',
+                  required: false
+                }
+              ]}></AmplifySignUp>
+          </AmplifyAuthenticator>
         </AmplifyContainer>
       </AWSTheme>
     </>

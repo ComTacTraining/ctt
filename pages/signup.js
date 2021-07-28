@@ -1,14 +1,18 @@
-import { AmplifyAuthenticator, AmplifyContainer, AmplifySignUp } from '@aws-amplify/ui-react'
+import {
+  AmplifyAuthenticator,
+  AmplifyContainer,
+  AmplifySignUp
+} from '@aws-amplify/ui-react'
 import Alert from '@material-ui/lab/Alert'
-import { UserContext } from 'components/Auth/UserContext'
 import AWSTheme from 'components/Layout/AWSTheme'
 import Loading from 'components/UI/Loading'
+import { useUser } from 'hooks/useUser'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
 const SignUpPage = () => {
   const router = useRouter()
-  const { user, isLoading, errorMessage, handleClearError }  = React.useContext(UserContext)
+  const { user, isLoading, errorMessage, handleClearError } = useUser()
   const [displayedError, setDisplayedError] = React.useState('')
 
   React.useEffect(() => {
@@ -28,7 +32,7 @@ const SignUpPage = () => {
       router.push('/demo')
     }
   }, [user])
-  
+
   return user ? null : (
     <>
       {isLoading && <Loading />}
@@ -39,13 +43,21 @@ const SignUpPage = () => {
       )}
       <AWSTheme>
         <AmplifyContainer>
-          <AmplifyAuthenticator usernameAlias="email" initialAuthState='signup'>
-            <AmplifySignUp slot="sign-up" usernameAlias="email" headerText="Sign up for a free demo" formFields={[
-              { type: "email" },
-              { type: "password" },
-              { type: "custom:referral", label: "How did you hear about us?", required: false  }
-            ]}></AmplifySignUp>
-          </AmplifyAuthenticator> 
+          <AmplifyAuthenticator usernameAlias='email' initialAuthState='signup'>
+            <AmplifySignUp
+              slot='sign-up'
+              usernameAlias='email'
+              headerText='Sign up for a free demo'
+              formFields={[
+                { type: 'email' },
+                { type: 'password' },
+                {
+                  type: 'custom:referral',
+                  label: 'How did you hear about us?',
+                  required: false
+                }
+              ]}></AmplifySignUp>
+          </AmplifyAuthenticator>
         </AmplifyContainer>
       </AWSTheme>
     </>

@@ -1,9 +1,8 @@
-import * as React from 'react'
-import { UserContext } from 'components/Auth/UserContext'
 import { H3, P } from 'mui/Typography'
+import * as React from 'react'
 
 const Debug = () => {
-  const { user, isMember, isAdmin } = React.useContext(UserContext)
+  const { user, isMember, isAdmin } = useUser()
 
   return !user ? null : (
     <>

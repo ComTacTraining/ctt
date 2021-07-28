@@ -1,16 +1,16 @@
-import * as React from 'react'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
-import { UserContext } from './UserContext'
+import { useUser } from 'hooks/useUser'
+import * as React from 'react'
 
 const SignUp = () => {
-  const { user }  = React.useContext(UserContext)
-  
+  const { user } = useUser()
+
   return !user ? (
-    <AmplifyAuthenticator usernameAlias="email">
-      <AmplifySignUp slot="sign-up" headerText="Sign up for a free demo" formFields={[
-        { type: "email" },
-        { type: "password" }
-      ]}></AmplifySignUp>
+    <AmplifyAuthenticator usernameAlias='email'>
+      <AmplifySignUp
+        slot='sign-up'
+        headerText='Sign up for a free demo'
+        formFields={[{ type: 'email' }, { type: 'password' }]}></AmplifySignUp>
     </AmplifyAuthenticator>
   ) : (
     <pre>{JSON.stringify(user, null, 2)}</pre>

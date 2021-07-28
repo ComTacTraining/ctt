@@ -1,6 +1,5 @@
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import { UserContext } from 'components/Auth/UserContext'
 import AdminPanel from 'components/Evolution/AdminPanel/AdminPanel'
 import Command from 'components/Evolution/AdminPanel/Command'
 import AI from 'components/Evolution/AI/AI'
@@ -9,6 +8,7 @@ import Speak from 'components/Evolution/Speak/Speak'
 import TextToSpeech from 'components/Evolution/Speak/TextToSpeech'
 import RadioSound from 'components/Evolution/Transcribe/RadioSound'
 import Speech2Text from 'components/Evolution/Transcribe/Speech2Text'
+import { useUser } from 'hooks/useUser'
 import { Contained } from 'mui/Button'
 import { useRouter } from 'next/router'
 import * as React from 'react'
@@ -30,8 +30,8 @@ const Demo = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { transferOfCommandCompleted } = useSelector((state) => state.ai)
-  const { user, isAdmin } = React.useContext(UserContext)
-   const [showDebug, setShowDebug] = React.useState(isAdmin)
+  const { user, isAdmin } = useUser()
+  const [showDebug, setShowDebug] = React.useState(isAdmin)
 
   const [playlist, setPlaylist] = React.useState(false)
 

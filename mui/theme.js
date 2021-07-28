@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles'
-import { red, brown } from '@material-ui/core/colors'
+import { brown, red } from '@material-ui/core/colors'
+import { createTheme } from '@material-ui/core/styles'
 
 const headersFontFamily = [
   'Anton',
@@ -12,8 +12,8 @@ const headersFontFamily = [
   'sans-serif',
   '"Apple Color Emoji"',
   '"Segoe UI Emoji"',
-  '"Segoe UI Symbol"',
-].join(',');
+  '"Segoe UI Symbol"'
+].join(',')
 
 const defaultFontFamily = [
   '-apple-system',
@@ -25,46 +25,45 @@ const defaultFontFamily = [
   'sans-serif',
   '"Apple Color Emoji"',
   '"Segoe UI Emoji"',
-  '"Segoe UI Symbol"',
-].join(',');
+  '"Segoe UI Symbol"'
+].join(',')
 
-
-const theme = createMuiTheme(({
+const theme = createTheme({
   palette: {
     primary: { main: red[900] },
     secondary: { main: brown[200] },
-    type: 'light',
+    type: 'light'
   },
   typography: {
     fontFamily: defaultFontFamily,
     h1: {
-      fontFamily: headersFontFamily,
+      fontFamily: headersFontFamily
     },
     h2: {
-      fontFamily: headersFontFamily,
+      fontFamily: headersFontFamily
     },
     h3: {
-      fontFamily: headersFontFamily,
+      fontFamily: headersFontFamily
     },
     h4: {
-      fontFamily: headersFontFamily,
+      fontFamily: headersFontFamily
     },
     h5: {
-      fontFamily: headersFontFamily,
+      fontFamily: headersFontFamily
     },
     h6: {
-      fontFamily: headersFontFamily,
+      fontFamily: headersFontFamily
     },
     subtitle1: {
-      fontFamily: headersFontFamily,
+      fontFamily: headersFontFamily
     },
     subtitle2: {
-      fontFamily: headersFontFamily,
-    },
+      fontFamily: headersFontFamily
+    }
   },
   shape: {
     borderRadius: 4
-  },
-}))
+  }
+})
 
 export default theme

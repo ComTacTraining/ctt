@@ -3,8 +3,8 @@ const webpack = require('webpack')
 
 module.exports = {
   webpack: (config, options) => {
-    const { isServer } = options;
-    config.resolve.modules.push(path.resolve('./'));
+    const { isServer } = options
+    config.resolve.modules.push(path.resolve('./'))
     config.module.rules.push({
       test: /\.(ogg|mp3|wav|mpe?g)$/i,
       exclude: config.exclude,
@@ -17,11 +17,11 @@ module.exports = {
             publicPath: `${config.assetPrefix}/_next/static/images/`,
             outputPath: `${isServer ? '../' : ''}static/images/`,
             name: '[name]-[hash].[ext]',
-            esModule: config.esModule || false,
-          },
-        },
-      ],
-    });
+            esModule: config.esModule || false
+          }
+        }
+      ]
+    })
 
     return config
   },

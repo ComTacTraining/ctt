@@ -10,9 +10,9 @@ export const visitor = [
 
 export const guest = [
   {
-    key: 'guest.subscribe',
-    href: '/subscribe',
-    title: 'Subscribe',
+    key: 'guest.membership',
+    href: '/membership',
+    title: 'Become a Member',
     fa: 'fa-user-circle'
   },
   { key: 'guest.demo', href: '/demo', title: 'Demo', fa: 'fa-tv' }

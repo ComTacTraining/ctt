@@ -48,7 +48,7 @@ const Demo = () => {
 
   React.useEffect(() => {
     if (transferOfCommandCompleted) {
-      router.push('/subscribe')
+      router.push('/membership')
     }
   }, [transferOfCommandCompleted])
 

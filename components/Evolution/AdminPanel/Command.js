@@ -28,7 +28,9 @@ const Command = () => {
     transferOfCommandCompleted
   } = useSelector((state) => state.ai)
   const { radioInUse } = useSelector((state) => state.units)
-  const { partialCommand, speechBotState } = useSelector((state) => state.command)
+  const { partialCommand, speechBotState } = useSelector(
+    (state) => state.command
+  )
 
   React.useEffect(() => {
     if (transferOfCommandCompleted) {
@@ -48,11 +50,12 @@ const Command = () => {
   ])
 
   const handleInputMethodToggle = () => {
-    const newInputMethod = inputMethod === 'Microphone' ? 'Keyboard' : 'Microphone'
+    const newInputMethod =
+      inputMethod === 'Microphone' ? 'Keyboard' : 'Microphone'
     setInputMethod(newInputMethod)
     dispatch(setCommandInputMethod(newInputMethod))
   }
-  
+
   return (
     <Accordion defaultExpanded={true}>
       <AccordionSummary
@@ -65,17 +68,19 @@ const Command = () => {
         <Subtitle1>Command</Subtitle1>
       </AccordionSummary>
       <AccordionDetails>
-        <Grid container spacing={1} justify='space-between'>
+        <Grid container spacing={1} justifyContent='space-between'>
           <Grid item>
             <P>
               <Bold>Input Method:</Bold>
             </P>
           </Grid>
           <Grid item>
-            <Grid container justify='flex-end'>
+            <Grid container justifyContent='flex-end'>
               <Grid item>
                 <KeyboardIcon
-                  style={{ color: inputMethod === 'Keyboard' ? green[500] : 'inherit' }}
+                  style={{
+                    color: inputMethod === 'Keyboard' ? green[500] : 'inherit'
+                  }}
                 />
               </Grid>
               <Grid item>
@@ -87,7 +92,11 @@ const Command = () => {
                 />
               </Grid>
               <Grid item>
-                <MicIcon style={{ color: inputMethod === 'Microphone' ? green[500] : 'inherit' }} />
+                <MicIcon
+                  style={{
+                    color: inputMethod === 'Microphone' ? green[500] : 'inherit'
+                  }}
+                />
               </Grid>
             </Grid>
           </Grid>

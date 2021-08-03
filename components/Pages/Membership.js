@@ -1,31 +1,13 @@
-import Box from '@material-ui/core/Box'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 import { Auth } from 'aws-amplify'
 import axios from 'axios'
-import OrderSummary from 'components/Elements/OrderSummary'
+import Plans from 'components/Membership/Plans'
 import { useUser } from 'hooks/useUser'
-import Button from 'mui/Button'
-import { H4, H5, P } from 'mui/Typography'
-import { useRouter } from 'next/router'
+import { H5, P } from 'mui/Typography'
 import * as React from 'react'
 import { getStripe } from 'utils/stripe-client'
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 475
-  },
-  actions: {
-    textAlign: 'center',
-    margin: '0 auto'
-  }
-})
-
 const Membership = () => {
-  const classes = useStyles()
-  const router = useRouter()
   const { user, isLoading } = useUser()
   const [error, setError] = React.useState('')
   const [customerId, setCustomerId] = React.useState('')
@@ -74,8 +56,7 @@ const Membership = () => {
   }
 
   return (
-    <>
-      <H4>Membership</H4>
+    <Container maxWidth='md'>
       {error !== '' && <P color='red'>{error}</P>}
       <P>
         You have completed the demo. By subscribing you will unlock thousands of
@@ -88,23 +69,8 @@ const Membership = () => {
         &ldquo;Train like your life depends on it, because it does! ...and be
         safe out there.&rdquo;
       </H5>
-      <Box className={classes.plan} display='flex' justifyContent='center'>
-        <Card className={classes.root}>
-          <CardContent>
-            <OrderSummary />
-            {customerId && (
-              <CardActions>
-                <Button
-                  className={classes.actions}
-                  onClick={() => handleCheckout()}>
-                  Checkout
-                </Button>
-              </CardActions>
-            )}
-          </CardContent>
-        </Card>
-      </Box>
-    </>
+      <Plans onCheckout={handleCheckout} />
+    </Container>
   )
 }
 

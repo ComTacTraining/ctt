@@ -1,4 +1,4 @@
-import * as actionTypes from 'store/actions/units'
+import * as actionTypes from '@/store/actions/units'
 
 const initialState = {
   unitArrivals: [],
@@ -16,7 +16,7 @@ const initialState = {
 const incidentState = {
   ...initialState,
   unitsAssigned: 3,
-  assignmentResponses: 3,
+  assignmentResponses: 3
 }
 
 const transferOfCommandState = {
@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         incomingCommandArrival: action.payload.arrival
       }
-    
+
     case actionTypes.ADD_UNIT_GROUP_ASSIGNMENTS:
       return {
         ...state,

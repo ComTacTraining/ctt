@@ -1,4 +1,4 @@
-import * as actionTypes from 'store/actions/evaluation'
+import * as actionTypes from '@/store/actions/evaluation'
 
 const initialState = {
   size: false,

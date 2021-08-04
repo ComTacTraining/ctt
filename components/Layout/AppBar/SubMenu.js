@@ -1,8 +1,8 @@
+import DesktopItem from '@/components/Layout/AppBar/DesktopItem'
+import Link from '@/components/UI/Link'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import Link from 'components/UI/Link'
 import * as React from 'react'
-import DesktopItem from './DesktopItem'
 
 const SubMenu = ({ title, links }) => {
   const [anchor, setAnchor] = React.useState(null)
@@ -43,7 +43,9 @@ const SubMenu = ({ title, links }) => {
         onClose={close}>
         {links.map(({ name, route }) => (
           <MenuItem key={`${key}-${JSON.stringify(name)}`}>
-            <Link href={route} onClick={close}>{name}</Link>
+            <Link href={route} onClick={close}>
+              {name}
+            </Link>
           </MenuItem>
         ))}
       </Menu>

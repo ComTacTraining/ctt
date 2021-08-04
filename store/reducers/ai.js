@@ -1,4 +1,4 @@
-import * as actionTypes from 'store/actions/ai'
+import * as actionTypes from '@/store/actions/ai'
 
 const initialState = {
   firstAlarmAnnounced: false,
@@ -35,7 +35,7 @@ const threeSixtyAssessmentState = {
 
 const assignmentsState = {
   ...threeSixtyAssessmentState,
-  threeSixtyAssessmentCompleted: true,
+  threeSixtyAssessmentCompleted: true
 }
 
 const incidentState = {
@@ -117,12 +117,12 @@ const reducer = (state = initialState, action) => {
     case actionTypes.TRANSFER_OF_COMMAND_REQUESTED:
       return {
         ...state,
-        transferOfCommandRequested: true,
+        transferOfCommandRequested: true
       }
     case actionTypes.TRANSFER_OF_COMMAND_COMPLETED:
       return {
         ...state,
-        transferOfCommandCompleted: true,
+        transferOfCommandCompleted: true
       }
     case actionTypes.EDUCATION_COMPLETED:
       return {

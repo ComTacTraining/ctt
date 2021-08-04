@@ -1,4 +1,4 @@
-import { H3, P } from 'mui/Typography'
+import { H3, P } from '@/mui/Typography'
 import * as React from 'react'
 
 const Debug = () => {

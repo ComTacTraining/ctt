@@ -20,7 +20,7 @@ export const setCommandName = (name) => {
 }
 
 export const setCommandAllowed = (isAllowed) => {
-  return { 
+  return {
     type: SET_COMMAND_ALLOWED,
     payload: {
       isAllowed: isAllowed

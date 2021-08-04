@@ -1,11 +1,11 @@
+import Question from '@/components/Evolution/Evaluation/Question'
+import { createReview } from '@/graphql/mutations'
+import { Contained } from '@/mui/Button'
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'
 import Alert from '@material-ui/lab/Alert'
 import { API, Auth } from 'aws-amplify'
-import { createReview } from 'graphql/mutations'
-import { Contained } from 'mui/Button'
 import * as React from 'react'
 import { useSelector } from 'react-redux'
-import Question from './Question'
 
 const TOTAL_SELF_EVAL_QUESTIONS = 28
 

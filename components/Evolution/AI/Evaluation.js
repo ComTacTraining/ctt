@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import * as evalActions from "store/actions/evaluation";
-import { options } from "utils/evaluation";
+import * as evalActions from '@/store/actions/evaluation'
+import { options } from '@/utils/evaluation'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Evaluation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const {
     size,
     height,
@@ -38,25 +38,25 @@ const Evaluation = () => {
     par,
     can,
     transferAssignments
-  } = useSelector(state => state.evaluation);
+  } = useSelector((state) => state.evaluation)
   const {
     firstAlarmAnnounced,
     initialReportCompleted,
     threeSixtyWalkthroughCompleted,
     threeSixtyAssessmentCompleted
-  } = useSelector(state => state.ai)
+  } = useSelector((state) => state.ai)
   const { command } = useSelector((state) => state.command)
 
   useEffect(() => {
     const checkMatches = ({ addressed, phrases, action }) => {
       if (!addressed) {
-        phrases.forEach(phrase => {
+        phrases.forEach((phrase) => {
           if (command.includes(phrase)) {
-            dispatch(action);
+            dispatch(action)
           }
-        });
+        })
       }
-    };
+    }
 
     const checkAnytime = () => {
       const items = [
@@ -150,9 +150,9 @@ const Evaluation = () => {
           phrases: options.transferAssignments,
           action: evalActions.addressedTransferAssignments()
         }
-      ];
-      items.forEach(item => checkMatches(item));
-    };
+      ]
+      items.forEach((item) => checkMatches(item))
+    }
 
     const checkBySegment = () => {
       if (firstAlarmAnnounced && !initialReportCompleted) {
@@ -192,8 +192,8 @@ const Evaluation = () => {
             phrases: options.designation,
             action: evalActions.addressedDesignation()
           }
-        ];
-        items.forEach(item => checkMatches(item));
+        ]
+        items.forEach((item) => checkMatches(item))
       } else if (
         threeSixtyWalkthroughCompleted &&
         !threeSixtyAssessmentCompleted
@@ -234,13 +234,13 @@ const Evaluation = () => {
             phrases: options.priorities,
             action: evalActions.addressedPriorities()
           }
-        ];
-        items.forEach(item => checkMatches(item));
+        ]
+        items.forEach((item) => checkMatches(item))
       }
-    };
+    }
     if (command && firstAlarmAnnounced) {
-      checkBySegment();
-      checkAnytime();
+      checkBySegment()
+      checkAnytime()
     }
   }, [
     command,
@@ -281,9 +281,9 @@ const Evaluation = () => {
     can,
     transferAssignments,
     dispatch
-  ]);
+  ])
 
-  return <div></div>;
-};
+  return <div></div>
+}
 
-export default Evaluation;
+export default Evaluation

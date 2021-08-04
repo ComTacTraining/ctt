@@ -1,4 +1,4 @@
-import useAmplifyAuth from 'hooks/useAmplifyAuth'
+import useAmplifyAuth from '@/hooks/useAmplifyAuth'
 import * as React from 'react'
 
 export const UserContext = React.createContext()

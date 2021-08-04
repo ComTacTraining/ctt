@@ -1,5 +1,5 @@
-import Loading from 'components/UI/Loading'
-import { useUser } from 'hooks/useUser'
+import Loading from '@/components/UI/Loading'
+import { useUser } from '@/hooks/useUser'
 import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import * as React from 'react'

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   backdrop: {
     backgroundColor: 'rgba(43, 51, 63, .7)',
     padding: theme.spacing(1)
-  },
+  }
 }))
 
 const Mic = () => {

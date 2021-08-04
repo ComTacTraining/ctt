@@ -1,26 +1,29 @@
-import { Children } from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import theme from '@/mui/theme'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import theme from 'mui/theme'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import { Children } from 'react'
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang='en'>
         <Head>
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name='theme-color' content={theme.palette.primary.main} />
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Anton|Roboto"
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css?family=Anton|Roboto'
           />
-          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" />
+          <link
+            rel='stylesheet'
+            href='https://use.fontawesome.com/releases/v5.12.0/css/all.css'
+          />
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
@@ -50,19 +53,19 @@ MyDocument.getInitialProps = async (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
+  const sheets = new ServerStyleSheets()
+  const originalRenderPage = ctx.renderPage
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-    });
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
+    })
 
-  const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await Document.getInitialProps(ctx)
 
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...Children.toArray(initialProps.styles), sheets.getStyleElement()],
-  };
-};
+    styles: [...Children.toArray(initialProps.styles), sheets.getStyleElement()]
+  }
+}

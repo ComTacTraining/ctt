@@ -1,15 +1,16 @@
+import {
+  updateCompletedTranscript,
+  updatePartialTranscript
+} from '@/store/actions/command'
+import { addToLog } from '@/store/actions/review'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  updateCompletedTranscript, updatePartialTranscript
-} from 'store/actions/command'
-import { addToLog } from 'store/actions/review'
 
 const Radio = () => {
   const dispatch = useDispatch()
   const [micOpen, setMicOpen] = React.useState(false)
-  const { isRecordingMicrophone } = useSelector(state => state.command)
-  const { firstOnScene } = useSelector(state => state.user)
+  const { isRecordingMicrophone } = useSelector((state) => state.command)
+  const { firstOnScene } = useSelector((state) => state.user)
 
   React.useEffect(() => {
     const setupRecorder = () => {
@@ -29,7 +30,6 @@ const Radio = () => {
     }
   }, [isRecordingMicrophone, micOpen])
 
-
   const handleTranscriptionUpdate = (text) => {
     dispatch(updatePartialTranscript(text))
   }
@@ -45,9 +45,7 @@ const Radio = () => {
     )
   }
 
-  return (
-    <div id='Radio'></div>
-  )
+  return <div id='Radio'></div>
 }
 
 export default Radio

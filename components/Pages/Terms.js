@@ -1,5 +1,5 @@
+import { H3, H5, P } from '@/mui/Typography'
 import Link from '@material-ui/core/Link'
-import { H3, H5, P } from 'mui/Typography'
 
 const Terms = () => {
   return (
@@ -86,9 +86,7 @@ const Terms = () => {
         and will not limit or otherwise affect these Terms.
       </P>
 
-      <H5>
-        Section 3 - Accuracy, Completeness and Timeliness of Information
-      </H5>
+      <H5>Section 3 - Accuracy, Completeness and Timeliness of Information</H5>
       <P>
         We are not responsible if information made available on this site is not
         accurate, complete or current. The material on this site is provided for
@@ -106,12 +104,8 @@ const Terms = () => {
         site.
       </P>
 
-      <H5>
-        Section 4 - Modifications to the Service and Prices
-      </H5>
-      <P>
-        Prices for our products are subject to change without notice.
-      </P>
+      <H5>Section 4 - Modifications to the Service and Prices</H5>
+      <P>Prices for our products are subject to change without notice.</P>
       <P>
         We reserve the right at any time to modify or discontinue the Service
         (or any part or content thereof) without notice at any time.
@@ -149,9 +143,7 @@ const Terms = () => {
         your expectations, or that any errors in the Service will be corrected.
       </P>
 
-      <H5>
-        Section 6 - Accuracy of Billing and Account Information
-      </H5>
+      <H5>Section 6 - Accuracy of Billing and Account Information</H5>
       <P>
         We reserve the right to refuse any order you place with us. We may, in
         our sole discretion, limit or cancel quantities purchased per person,
@@ -171,9 +163,7 @@ const Terms = () => {
         and credit card numbers and expiration dates, so that we can complete
         your transactions and contact you as needed.
       </P>
-      <P>
-        For more detail, please review our Returns Policy.
-      </P>
+      <P>For more detail, please review our Returns Policy.</P>
 
       <H5>Section 7 - Optional Tools</H5>
       <P>
@@ -223,9 +213,7 @@ const Terms = () => {
         third-party.
       </P>
 
-      <H5>
-        Section 9 - User Comments, Feedback and Other Submissions
-      </H5>
+      <H5>Section 9 - User Comments, Feedback and Other Submissions</H5>
       <P>
         If, at our request, you send certain specific submissions (for example
         contest entries) or without a request from us you send creative ideas,
@@ -264,9 +252,7 @@ const Terms = () => {
         our Privacy Policy. To view our Privacy Policy.
       </P>
 
-      <H5>
-        Section 11 - Errors, inaccuracies and Omissions
-      </H5>
+      <H5>Section 11 - Errors, inaccuracies and Omissions</H5>
       <P>
         Occasionally there may be information on our site or in the Service that
         contains typographical errors, inaccuracies or omissions that may relate
@@ -309,9 +295,7 @@ const Terms = () => {
         any related website for violating any of the prohibited uses.
       </P>
 
-      <H5>
-        Section 13 - Disclaimer of Warranties; Limitation of Liability
-      </H5>
+      <H5>Section 13 - Disclaimer of Warranties; Limitation of Liability</H5>
       <P>
         We do not guarantee, represent or warrant that your use of our service
         will be uninterrupted, timely, secure or error-free.
@@ -426,9 +410,7 @@ const Terms = () => {
         laws of 7925 Red Barn Drive, Las Vegas, CA, 89123, United States.
       </P>
 
-      <H5>
-        Section 19 - Changes to Terms of Service
-      </H5>
+      <H5>Section 19 - Changes to Terms of Service</H5>
       <P>
         You can review the most current version of the Terms of Service at any
         time at this page.
@@ -444,8 +426,8 @@ const Terms = () => {
 
       <H5>Section 20 - Contact Information</H5>
       <P>
-        Questions about the Terms of Service should be sent to us at{" "}
-        <Link to="mailto:scott@comtacttraining.com">
+        Questions about the Terms of Service should be sent to us at{' '}
+        <Link to='mailto:scott@comtacttraining.com'>
           scott@comtactraining.com
         </Link>
         .

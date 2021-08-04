@@ -1,3 +1,4 @@
+import useInterval from '@/hooks/useInterval'
 import { green, orange } from '@material-ui/core/colors'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -9,7 +10,6 @@ import CancelIcon from '@material-ui/icons/Cancel'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import TimerIcon from '@material-ui/icons/Timer'
-import useInterval from 'hooks/useInterval'
 import * as React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -33,7 +33,9 @@ const FirstAlarm = () => {
   )
 
   const { assignmentsCompleted } = useSelector((state) => state.ai)
-  const { unitArrivals, unitAssignments, incomingCommandArrival } = useSelector((state) => state.units)
+  const { unitArrivals, unitAssignments, incomingCommandArrival } = useSelector(
+    (state) => state.units
+  )
 
   useInterval(
     () => {

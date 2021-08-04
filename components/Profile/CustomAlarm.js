@@ -1,19 +1,10 @@
-// main tools
-import { useState, useEffect } from 'react'
-
-// components
-import { Contained } from 'mui/Button'
-import { P, H6 } from 'mui/Typography'
-import { CustomAlarmDialog } from 'components/Profile/CustomAlarmDialog'
-
-// mui components
-import { Grid, Chip } from '@material-ui/core'
-
-// mui icons
-import AddIcon from '@material-ui/icons/Add'
-
-// styles
+import { CustomAlarmDialog } from '@/components/Profile/CustomAlarmDialog'
+import { Contained } from '@/mui/Button'
+import { H6 } from '@/mui/Typography'
+import { Chip, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import AddIcon from '@material-ui/icons/Add'
+import { useEffect, useState } from 'react'
 
 export const useStyles = makeStyles((theme) => ({
   AlarmContent: {

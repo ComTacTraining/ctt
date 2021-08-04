@@ -1,10 +1,10 @@
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
+import { H3, H5, P } from '@/mui/Typography'
 import Icon from '@material-ui/core/Icon'
 import Link from '@material-ui/core/Link'
-import { H3, H5, P } from 'mui/Typography'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 
 const Refund = () => {
   return (
@@ -14,9 +14,7 @@ const Refund = () => {
         Our policy lasts 30 days. If 30 days have gone by since your purchase,
         unfortunately we can’t offer you a refund or exchange.
       </P>
-      <P>
-        To be eligible for a return, your item must be unused.
-      </P>
+      <P>To be eligible for a return, your item must be unused.</P>
       <P>
         Several types of goods are exempt from being returned. Perishable goods
         such as, newspapers or magazines cannot be returned. Additional
@@ -26,24 +24,20 @@ const Refund = () => {
       <List>
         <ListItem>
           <ListItemIcon>
-            <Icon className="fas fa-arrow-right" />
+            <Icon className='fas fa-arrow-right' />
           </ListItemIcon>
           <ListItemText>Gift cards</ListItemText>
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <Icon className="fas fa-arrow-right" />
+            <Icon className='fas fa-arrow-right' />
           </ListItemIcon>
           <ListItemText>Downloadable software products</ListItemText>
         </ListItem>
       </List>
 
-      <P>
-        To complete your return, we require a receipt or proof of purchase.
-      </P>
-      <P>
-        Please do not send your purchase back to the manufacturer.
-      </P>
+      <P>To complete your return, we require a receipt or proof of purchase.</P>
+      <P>Please do not send your purchase back to the manufacturer.</P>
       <P>
         There are certain situations where only partial refunds are granted:
       </P>
@@ -51,13 +45,13 @@ const Refund = () => {
       <List>
         <ListItem>
           <ListItemIcon>
-            <Icon className="fas fa-arrow-right" />
+            <Icon className='fas fa-arrow-right' />
           </ListItemIcon>
           <ListItemText>Book with obvious signs of use</ListItemText>
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <Icon className="fas fa-arrow-right" />
+            <Icon className='fas fa-arrow-right' />
           </ListItemIcon>
           <ListItemText>
             CD, DVD, VHS tape, software, video game, cassette tape, or vinyl
@@ -66,7 +60,7 @@ const Refund = () => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <Icon className="fas fa-arrow-right" />
+            <Icon className='fas fa-arrow-right' />
           </ListItemIcon>
           <ListItemText>
             Any item not in its original condition, is damaged or missing parts
@@ -75,7 +69,7 @@ const Refund = () => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <Icon className="fas fa-arrow-right" />
+            <Icon className='fas fa-arrow-right' />
           </ListItemIcon>
           <ListItemText>
             Any item that is returned more than 30 days after delivery.
@@ -102,8 +96,8 @@ const Refund = () => {
         before your refund is officially posted. Next contact your bank. There
         is often some processing time before a refund is posted. If you’ve done
         all of this and you still have not received your refund yet, please
-        contact us at{" "}
-        <Link href="mailto:janet@comtactraining.com">
+        contact us at{' '}
+        <Link href='mailto:janet@comtactraining.com'>
           janet@comtactraining.com
         </Link>
         .
@@ -120,7 +114,7 @@ const Refund = () => {
         If you need to exchange it for the same item, send us an email
         janet@comtactraining.com and we will ensure your membership is working
         properly.
-      </P> 
+      </P>
     </>
   )
 }

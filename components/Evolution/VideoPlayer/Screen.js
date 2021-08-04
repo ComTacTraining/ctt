@@ -12,9 +12,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     overflow: 'hidden',
     maxWidth: '125vh',
-    position: 'relative',
-  },
-  
+    position: 'relative'
+  }
 }))
 
 const Screen = ({ children }) => {
@@ -22,9 +21,7 @@ const Screen = ({ children }) => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.screen}>
-        {children}
-      </div>
+      <div className={classes.screen}>{children}</div>
     </div>
   )
 }

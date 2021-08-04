@@ -1,3 +1,7 @@
+import FirstAlarm from '@/components/Evolution/AdminPanel/FirstAlarm'
+import Log from '@/components/Evolution/AdminPanel/Log'
+import Skip from '@/components/Evolution/AdminPanel/Skip'
+import { Subtitle1 } from '@/mui/Typography'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -6,11 +10,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import FastForwardIcon from '@material-ui/icons/FastForward'
 import ListIcon from '@material-ui/icons/List'
 import PeopleIcon from '@material-ui/icons/People'
-import { Subtitle1 } from 'mui/Typography'
-import FirstAlarm from './FirstAlarm'
-import Log from './Log'
-import Skip from './Skip'
-
 
 const AdminPanel = ({ isDemo = false }) => {
   return (

@@ -1,3 +1,4 @@
+import { H6 } from '@/mui/Typography'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -5,7 +6,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core/styles'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
-import { H6 } from 'mui/Typography'
 import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,9 +40,10 @@ const groups = ['Fire Attack', 'Ventilation', 'Exposure', 'RIC', 'Medical']
 
 const Groups = () => {
   const classes = useStyles()
-  const { threeSixtyAssessmentCompleted, transferOfCommandRequested } = useSelector(
-    (state) => state.ai
-  )
+  const {
+    threeSixtyAssessmentCompleted,
+    transferOfCommandRequested
+  } = useSelector((state) => state.ai)
 
   return (
     threeSixtyAssessmentCompleted &&

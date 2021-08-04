@@ -1,10 +1,10 @@
+import useScrollingText from '@/hooks/useScrollingText'
+import { scrollingTextCompleted } from '@/store/actions/screen'
 import { makeStyles } from '@material-ui/core/styles'
-import useScrollingText from 'hooks/useScrollingText'
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { scrollingTextCompleted } from 'store/actions/screen'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
     top: 0,
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 const ScrollingText = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const { scrollText } = useSelector(state => state.screen)
+  const { scrollText } = useSelector((state) => state.screen)
   const canvasRef = useRef()
   const done = useScrollingText(canvasRef, scrollText)
 

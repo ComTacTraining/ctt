@@ -1,5 +1,8 @@
 # Command Tactical Training
 
-`yarn global add @aws-amplify/cli`
+## Installation
 
-After backend updates via Amplify Admin UI run `amplify pull` and `amplify codegen`
+```sh
+yarn
+yarn dev
+```

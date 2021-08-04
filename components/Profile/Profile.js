@@ -1,3 +1,8 @@
+import { CustomAlarm } from '@/components/Profile/CustomAlarm'
+import { useUser } from '@/hooks/useUser'
+import { Contained } from '@/mui/Button'
+import { H3, P, Subtitle1 } from '@/mui/Typography'
+import { updateUserPreferences } from '@/store/actions/user'
 import {
   Checkbox,
   Dialog,
@@ -7,13 +12,8 @@ import {
   TextField
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { CustomAlarm } from 'components/Profile/CustomAlarm'
-import { useUser } from 'hooks/useUser'
-import { Contained } from 'mui/Button'
-import { H3, P, Subtitle1 } from 'mui/Typography'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUserPreferences } from 'store/actions/user'
 
 const useStyles = makeStyles(() => ({
   root: { flexGrow: 1, paddingTop: 50 },

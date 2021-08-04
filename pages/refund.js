@@ -1,4 +1,4 @@
-import Refund from 'components/Pages/Refund'
+import Refund from '@/components/Pages/Refund'
 
 const RefundPage = () => <Refund />
 

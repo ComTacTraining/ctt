@@ -1,7 +1,7 @@
+import * as tipsActions from '@/store/actions/tips'
+import { options } from '@/utils/tips'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as tipsActions from 'store/actions/tips'
-import { options } from 'utils/tips'
 
 const Tips = () => {
   const {
@@ -13,7 +13,9 @@ const Tips = () => {
     transferOfCommandRequested
   } = useSelector((state) => state.ai)
   const { unitsAssigned } = useSelector((state) => state.units)
-  const { isPartialCommand, partialCommand, command } = useSelector((state) => state.command)
+  const { isPartialCommand, partialCommand, command } = useSelector(
+    (state) => state.command
+  )
   const {
     initialReportSize,
     initialReportHeight,
@@ -282,7 +284,11 @@ const Tips = () => {
   ])
 
   useEffect(() => {
-    if (threeSixtyAssessmentCompleted && unitsAssigned > 0 && (!assignmentsCompleted || !transferOfCommandRequested)) {
+    if (
+      threeSixtyAssessmentCompleted &&
+      unitsAssigned > 0 &&
+      (!assignmentsCompleted || !transferOfCommandRequested)
+    ) {
       const commands = allText(fullSectionText, partialSectionText)
       if (!canReport) {
         options.canReport.forEach((phrase) => {
@@ -306,7 +312,7 @@ const Tips = () => {
     transferOfCommandRequested,
     fullSectionText,
     partialSectionText,
-    dispatch,
+    dispatch
   ])
 
   return <div className='Tips'></div>

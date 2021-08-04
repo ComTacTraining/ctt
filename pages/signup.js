@@ -1,12 +1,12 @@
+import AWSTheme from '@/components/Layout/AWSTheme'
+import Loading from '@/components/UI/Loading'
+import { useUser } from '@/hooks/useUser'
 import {
   AmplifyAuthenticator,
   AmplifyContainer,
   AmplifySignUp
 } from '@aws-amplify/ui-react'
 import Alert from '@material-ui/lab/Alert'
-import AWSTheme from 'components/Layout/AWSTheme'
-import Loading from 'components/UI/Loading'
-import { useUser } from 'hooks/useUser'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 

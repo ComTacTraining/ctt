@@ -4,7 +4,9 @@ import Grid from '@material-ui/core/Grid'
 
 export { Container, Box, Grid }
 
-const C = ({ children, ...others }) => <Container {...others}>{children}</Container>
+const C = ({ children, ...others }) => (
+  <Container {...others}>{children}</Container>
+)
 
 export const XS = ({ children, ...others }) => (
   <C maxWidth='xs' component='main' {...others}>

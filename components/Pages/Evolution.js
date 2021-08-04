@@ -1,11 +1,10 @@
+import Simulation from '@/components/Evolution/Evolution'
+import { evolutionByCategoryNumber } from '@/graphql/queries'
+import * as evolutionActions from '@/store/actions/evolution'
+import { API } from 'aws-amplify'
+import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
-import PropTypes from 'prop-types'
-import { API } from 'aws-amplify'
-import { H3 } from 'mui/Typography'
-import Simulation from 'components/Evolution/Evolution'
-import { evolutionByCategoryNumber } from 'graphql/queries'
-import * as evolutionActions from 'store/actions/evolution'
 
 const randomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
@@ -103,12 +102,7 @@ const Evolution = ({ category }) => {
     }
   }, [evolutionId, queryCategory, queryNumber, dispatch])
 
-  return (
-    <>
-      {/* <H3>{title}</H3> */}
-      {evolutionId && <Simulation />}
-    </>
-  )
+  return <>{evolutionId && <Simulation />}</>
 }
 
 Evolution.propTypes = {

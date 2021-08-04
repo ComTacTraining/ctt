@@ -1,4 +1,4 @@
-import * as actionTypes from 'store/actions/user'
+import * as actionTypes from '@/store/actions/user'
 
 const initialState = {
   dispatchCenter: 'Dispatch',

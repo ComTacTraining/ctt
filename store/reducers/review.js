@@ -1,4 +1,4 @@
-import * as actionTypes from 'store/actions/review'
+import * as actionTypes from '@/store/actions/review'
 
 const initialState = {
   start: 0,

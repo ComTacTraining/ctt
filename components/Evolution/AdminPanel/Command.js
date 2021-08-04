@@ -1,3 +1,6 @@
+import TextField from '@/components/Evolution/Transcribe/TextField'
+import { Bold, Caption, P, Subtitle1 } from '@/mui/Typography'
+import { setCommandInputMethod } from '@/store/actions/user'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -11,11 +14,8 @@ import MicIcon from '@material-ui/icons/Mic'
 import MicNoneIcon from '@material-ui/icons/MicNone'
 import MicOffIcon from '@material-ui/icons/MicOff'
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver'
-import { Bold, Caption, P, Subtitle1 } from 'mui/Typography'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCommandInputMethod } from 'store/actions/user'
-import TextField from '../Transcribe/TextField'
 
 const Command = () => {
   const dispatch = useDispatch()

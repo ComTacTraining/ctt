@@ -1,11 +1,11 @@
+import Plans from '@/components/Membership/Plans'
+import { useUser } from '@/hooks/useUser'
+import { H5, P } from '@/mui/Typography'
+import { getStripe } from '@/utils/stripe-client'
 import Container from '@material-ui/core/Container'
 import { Auth } from 'aws-amplify'
 import axios from 'axios'
-import Plans from 'components/Membership/Plans'
-import { useUser } from 'hooks/useUser'
-import { H5, P } from 'mui/Typography'
 import * as React from 'react'
-import { getStripe } from 'utils/stripe-client'
 
 const Membership = () => {
   const { user, isLoading } = useUser()

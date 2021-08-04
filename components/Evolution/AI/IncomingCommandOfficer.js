@@ -1,7 +1,7 @@
+import * as unitsActions from '@/store/actions/units'
+import { isEmptyObject, options } from '@/utils/ai'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as unitsActions from 'store/actions/units'
-import { isEmptyObject, options } from 'utils/ai'
 
 const {
   maxIncomingOfficerArrivalSeconds: maxSecs,
@@ -69,11 +69,7 @@ const IncomingCommandOfficer = () => {
         clearTimeout(interval)
       }
     }
-  }, [
-    incidentCompleted,
-    incomingCommandArrived,
-    incomingCommandOfficer
-  ])
+  }, [incidentCompleted, incomingCommandArrived, incomingCommandOfficer])
 
   React.useEffect(() => {
     if (lastCommand === '' && transferOfCommandRequested) {
@@ -82,7 +78,11 @@ const IncomingCommandOfficer = () => {
   }, [command, lastCommand, transferOfCommandRequested])
 
   React.useEffect(() => {
-    if (lastCommand !== '' && command !== lastCommand && transferOfCommandRequested) {
+    if (
+      lastCommand !== '' &&
+      command !== lastCommand &&
+      transferOfCommandRequested
+    ) {
       dispatch(
         unitsActions.addToSpeechQueue({
           label: incomingCommandOfficer,
@@ -92,7 +92,7 @@ const IncomingCommandOfficer = () => {
         })
       )
     }
-  }, [command, lastCommand, incomingCommandOfficer, transferOfCommandRequested ])
+  }, [command, lastCommand, incomingCommandOfficer, transferOfCommandRequested])
 
   return <div />
 }

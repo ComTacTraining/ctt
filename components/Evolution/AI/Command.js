@@ -1,7 +1,7 @@
+import * as aiActions from '@/store/actions/ai'
+import { anyTermsMatchString, options } from '@/utils/ai'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as aiActions from 'store/actions/ai'
-import { anyTermsMatchString, options } from 'utils/ai'
 
 const Command = () => {
   const dispatch = useDispatch()

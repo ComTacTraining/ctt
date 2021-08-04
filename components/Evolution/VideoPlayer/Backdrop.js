@@ -5,18 +5,13 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: '#000000',
     position: 'relative'
-  },
-  
+  }
 }))
 
 const Backdrop = ({ children }) => {
   const classes = useStyles()
 
-  return (
-    <div className={classes.root}>
-      {children}
-    </div>
-  )
+  return <div className={classes.root}>{children}</div>
 }
 
 export default Backdrop

@@ -1,4 +1,4 @@
-import * as actionTypes from 'store/actions/evolution'
+import * as actionTypes from '@/store/actions/evolution'
 
 const initialState = {
   id: '',

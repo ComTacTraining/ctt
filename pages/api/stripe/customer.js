@@ -1,5 +1,5 @@
-import { setHeaders } from 'utils/api-response'
-import { stripe } from 'utils/stripe'
+import { setHeaders } from '@/utils/api-response'
+import { stripe } from '@/utils/stripe'
 
 const createStripeCustomer = async (req, res) => {
   const end = setHeaders(req, res)

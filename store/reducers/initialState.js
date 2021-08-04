@@ -1,12 +1,12 @@
-import { initialState as aiInitialState } from './ai'
-import { initialState as commandInitialState } from './command'
-import { initialState as evaluationInitialState } from './evaluation'
-import { initialState as evolutionInitialState } from './evolution'
-import { initialState as reviewInitialState } from './review'
-import { initialState as screenInitialState } from './screen'
-import { initialState as tipsInitialState } from './tips'
-import { initialState as unitsINitialState } from './units'
-import { initialState as userInitialState } from './user'
+import { initialState as aiInitialState } from '@/store/reducers/ai'
+import { initialState as commandInitialState } from '@/store/reducers/command'
+import { initialState as evaluationInitialState } from '@/store/reducers/evaluation'
+import { initialState as evolutionInitialState } from '@/store/reducers/evolution'
+import { initialState as reviewInitialState } from '@/store/reducers/review'
+import { initialState as screenInitialState } from '@/store/reducers/screen'
+import { initialState as tipsInitialState } from '@/store/reducers/tips'
+import { initialState as unitsINitialState } from '@/store/reducers/units'
+import { initialState as userInitialState } from '@/store/reducers/user'
 
 const initialState = {
   ai: aiInitialState,
@@ -17,8 +17,7 @@ const initialState = {
   screen: screenInitialState,
   tips: tipsInitialState,
   units: unitsINitialState,
-  user: userInitialState,
-};
+  user: userInitialState
+}
 
 export { initialState }
-

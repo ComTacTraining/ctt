@@ -1,8 +1,8 @@
+import { addToSpeechQueue } from '@/store/actions/units'
+import { options } from '@/utils/ai'
+import { educationTitles, getEducationPhrases } from '@/utils/education'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToSpeechQueue } from 'store/actions/units'
-import { options } from 'utils/ai'
-import { educationTitles, getEducationPhrases } from 'utils/education'
 
 const Education = () => {
   const { educationVoice } = options
@@ -47,7 +47,11 @@ const Education = () => {
       phrases.map((phrase, i) => {
         const isLastPhrase = phrases.length - 1 === i
         const matchesTitle = educationTitles.includes(phrase)
-        const meta = isLastPhrase ? 'EDUCATION_COMPLETED' : matchesTitle ? 'SPEAK_WITH_OVERLAY' : null
+        const meta = isLastPhrase
+          ? 'EDUCATION_COMPLETED'
+          : matchesTitle
+          ? 'SPEAK_WITH_OVERLAY'
+          : null
         dispatch(
           addToSpeechQueue({
             label: '[Education]',

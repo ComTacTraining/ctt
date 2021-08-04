@@ -1,25 +1,15 @@
-// main tools
-import { useState } from 'react'
-
-// components
-import { Overline, P } from 'mui/Typography'
-import { Contained } from 'mui/Button'
-
-// mui components
+import { Contained } from '@/mui/Button'
+import { Overline, P } from '@/mui/Typography'
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
+  DialogTitle,
   Grid,
-  TextField,
-  Checkbox,
   Radio,
-  RadioGroup,
-  FormControlLabel
+  TextField
 } from '@material-ui/core'
-
-// styles
 import { makeStyles } from '@material-ui/core/styles'
+import { useState } from 'react'
 
 export const useStyles = makeStyles((theme) => ({
   checkboxContainer: {

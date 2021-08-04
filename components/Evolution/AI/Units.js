@@ -1,8 +1,8 @@
+import Unit from '@/components/Evolution/AI/Unit'
+import * as aiActions from '@/store/actions/ai'
+import { options } from '@/utils/ai'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as aiActions from 'store/actions/ai'
-import { options } from 'utils/ai'
-import Unit from './Unit'
 
 const Units = () => {
   const dispatch = useDispatch()

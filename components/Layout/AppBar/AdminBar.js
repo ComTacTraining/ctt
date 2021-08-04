@@ -1,4 +1,4 @@
-import SubMenu from './SubMenu'
+import SubMenu from '@/components/Layout/AppBar/SubMenu'
 
 const AdminAppBar = () => {
   return (

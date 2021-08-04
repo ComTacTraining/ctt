@@ -1,21 +1,25 @@
-import Auth from '@aws-amplify/auth'
-import Predictions, { AmazonAIPredictionsProvider } from '@aws-amplify/predictions'
-import PropTypes from 'prop-types'
-import * as React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import {
-  educationCompleted, firstAlarmAnnounced, incidentCompleted, threeSixtyWalkthroughBegan, transferOfCommandCompleted,
+  educationCompleted,
+  firstAlarmAnnounced,
+  incidentCompleted,
+  threeSixtyWalkthroughBegan,
+  transferOfCommandCompleted,
   transferOfCommandRequested
-} from 'store/actions/ai'
-import {
-  addOverlayTitle
-} from 'store/actions/screen'
+} from '@/store/actions/ai'
+import { addOverlayTitle } from '@/store/actions/screen'
 import {
   clearSpeechQueue,
   incrementAssignmentResponses,
   speakCompleted,
   useRadio
-} from 'store/actions/units'
+} from '@/store/actions/units'
+import Auth from '@aws-amplify/auth'
+import Predictions, {
+  AmazonAIPredictionsProvider
+} from '@aws-amplify/predictions'
+import PropTypes from 'prop-types'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const TextToSpeech = () => {
   const dispatch = useDispatch()

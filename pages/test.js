@@ -1,7 +1,7 @@
-import * as React from 'react'
 import Amplify, { withSSRContext } from 'aws-amplify'
-import axios from 'axios'
 import config from 'aws-exports'
+import axios from 'axios'
+import * as React from 'react'
 
 Amplify.configure({ ...config, ssr: true })
 

@@ -1,12 +1,11 @@
+import Link from '@/components/UI/Link'
 import Icon from '@material-ui/core/Icon'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import Link from 'components/UI/Link'
 import PropTypes from 'prop-types'
 
 const MobileItem = ({ href, title, fa, ...others }) => {
-
   return (
     <>
       {href ? (
@@ -14,7 +13,7 @@ const MobileItem = ({ href, title, fa, ...others }) => {
           <>
             {fa && (
               <ListItemIcon>
-                <Icon className={`fas ${fa}`} color="primary" />
+                <Icon className={`fas ${fa}`} color='primary' />
               </ListItemIcon>
             )}
             <ListItemText primary={title} />
@@ -25,7 +24,7 @@ const MobileItem = ({ href, title, fa, ...others }) => {
           <>
             {fa && (
               <ListItemIcon>
-                <Icon className={`fas ${fa}`} color="primary" />
+                <Icon className={`fas ${fa}`} color='primary' />
               </ListItemIcon>
             )}
             <ListItemText primary={title} />

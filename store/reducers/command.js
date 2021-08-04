@@ -1,4 +1,4 @@
-import * as actionTypes from 'store/actions/command'
+import * as actionTypes from '@/store/actions/command'
 
 const initialState = {
   incidentCommandName: 'Command',
@@ -9,7 +9,7 @@ const initialState = {
   isRecordingMicrophone: false,
   commandInProgress: false,
   isListeningMicrophone: false,
-  speechBotState: '',
+  speechBotState: ''
 }
 
 const reducer = (state = initialState, action) => {

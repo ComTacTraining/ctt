@@ -1,10 +1,10 @@
-import * as actionTypes from 'store/actions/screen'
+import * as actionTypes from '@/store/actions/screen'
 
 const initialState = {
   lastPlayedVideo: '',
   overlayTitle: '',
   scrollText: [],
-  isScrollingText: false,
+  isScrollingText: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -29,7 +29,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         scrollText: [],
-        isScrollingText: false,
+        isScrollingText: false
         // firstAlarmAnnounced: true
       }
     default:

@@ -1,15 +1,16 @@
-import PropTypes from 'prop-types'
-import * as React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import * as aiActions from 'store/actions/ai'
-import * as unitsActions from 'store/actions/units'
+import * as aiActions from '@/store/actions/ai'
+import * as unitsActions from '@/store/actions/units'
 import {
   anyTermsMatchString,
   options,
   properPronouns,
   randomSelection
-} from 'utils/ai'
-import { replaceSpelledOutNumbers } from 'utils/units'
+} from '@/utils/ai'
+import { replaceSpelledOutNumbers } from '@/utils/units'
+import PropTypes from 'prop-types'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 const {
   maxUnitArrivalSeconds,
   canReportTerms,
@@ -51,7 +52,9 @@ const Unit = ({ name, voice, index }) => {
       let timeout = 0
       if (index === 0) {
         timeout = 3
-        dispatch(unitsActions.addUnitArrival({ name: name, arrival: Date.now() }))
+        dispatch(
+          unitsActions.addUnitArrival({ name: name, arrival: Date.now() })
+        )
       } else {
         const minUnitArrivalSeconds = Math.floor(maxUnitArrivalSeconds / 3)
         timeout = Math.floor(
@@ -60,15 +63,20 @@ const Unit = ({ name, voice, index }) => {
         )
         timeout *= 1000
         dispatch(
-          unitsActions.addUnitArrival({ name: name, arrival: Date.now() + timeout })
+          unitsActions.addUnitArrival({
+            name: name,
+            arrival: Date.now() + timeout
+          })
         )
       }
       interval = setTimeout(() => {
-        dispatch(unitsActions.addToFrontOfSpeechQueue({
-          label: unitLabel,
-          text: arrivalAnnouncementText,
-          voice: voice
-        }))
+        dispatch(
+          unitsActions.addToFrontOfSpeechQueue({
+            label: unitLabel,
+            text: arrivalAnnouncementText,
+            voice: voice
+          })
+        )
       }, timeout)
     }
     return () => clearTimeout(interval)
@@ -103,16 +111,21 @@ const Unit = ({ name, voice, index }) => {
             ]
             const assignmentAcknowledgement = randomSelection(possibleResponses)
             const commandRepeat = properPronouns(command)
-            dispatch(unitsActions.addToFrontOfSpeechQueue({
-              label: unitLabel,
-              text: `${assignmentAcknowledgement} ${commandRepeat}`,
-              voice: voice,
-              meta: 'UNIT_ASSIGNMENT_RESPONSE'
-            }))
+            dispatch(
+              unitsActions.addToFrontOfSpeechQueue({
+                label: unitLabel,
+                text: `${assignmentAcknowledgement} ${commandRepeat}`,
+                voice: voice,
+                meta: 'UNIT_ASSIGNMENT_RESPONSE'
+              })
+            )
             dispatch(unitsActions.incrementUnitsAssigned())
             dispatch(unitsActions.addAssignedGroup(group.name))
             dispatch(
-              unitsActions.addUnitGroupAssignment({ name: name, group: group.name })
+              unitsActions.addUnitGroupAssignment({
+                name: name,
+                group: group.name
+              })
             )
           }
         }
@@ -125,11 +138,13 @@ const Unit = ({ name, voice, index }) => {
         `${incidentCommandName} from ${name}. Please repeat my assigned group.`,
         `${incidentCommandName} from ${name}. Please repeat.`
       ]
-      dispatch(unitsActions.addToFrontOfSpeechQueue({
-        label: unitLabel,
-        text: randomSelection(possibleResponses),
-        voice: voice
-      }))
+      dispatch(
+        unitsActions.addToFrontOfSpeechQueue({
+          label: unitLabel,
+          text: randomSelection(possibleResponses),
+          voice: voice
+        })
+      )
     }
 
     const checkIfAddressed = async () => {
@@ -145,7 +160,14 @@ const Unit = ({ name, voice, index }) => {
     if (!assignedGroup && arrivalAnnounced && command) {
       checkIfAddressed()
     }
-  }, [arrivalAnnounced, command, assignedGroup, incidentCommandName, groupsAssigned, dispatch])
+  }, [
+    arrivalAnnounced,
+    command,
+    assignedGroup,
+    incidentCommandName,
+    groupsAssigned,
+    dispatch
+  ])
 
   React.useEffect(() => {
     const checkForNeeds = () => {
@@ -173,26 +195,32 @@ const Unit = ({ name, voice, index }) => {
 
     const checkForCanReport = () => {
       if (anyTermsMatchString(command, canReportTerms)) {
-        const group = icsNimsGroups.find((group) => group.name === assignedGroup)
+        const group = icsNimsGroups.find(
+          (group) => group.name === assignedGroup
+        )
         const type = getType(checkForNeeds())
         const canReport = group.canReports.find(
           (report) => report.type === type
         ).response
-        dispatch(unitsActions.addToFrontOfSpeechQueue({
-          label: unitLabel,
-          text: canReport,
-          voice: voice
-        }))
+        dispatch(
+          unitsActions.addToFrontOfSpeechQueue({
+            label: unitLabel,
+            text: canReport,
+            voice: voice
+          })
+        )
       }
     }
 
     const checkForParReport = () => {
       if (anyTermsMatchString(command, parReportTerms)) {
-        dispatch(unitsActions.addToFrontOfSpeechQueue({
-          label: unitLabel,
-          text: parReport,
-          voice: voice
-        }))
+        dispatch(
+          unitsActions.addToFrontOfSpeechQueue({
+            label: unitLabel,
+            text: parReport,
+            voice: voice
+          })
+        )
       }
     }
 
@@ -203,7 +231,12 @@ const Unit = ({ name, voice, index }) => {
       }
     }
 
-    if (assignedGroup && command && assignmentCommand && command !== assignmentCommand) {
+    if (
+      assignedGroup &&
+      command &&
+      assignmentCommand &&
+      command !== assignmentCommand
+    ) {
       checkIfAddressed()
     }
   }, [
@@ -247,27 +280,36 @@ const Unit = ({ name, voice, index }) => {
       const group = normalizedGroup()
       if (group === assignedGroup) {
         const incident = incidentCommand.replace('__NAME__', assignedGroup)
-        dispatch(unitsActions.addToFrontOfSpeechQueue({
-          label: unitsLabel,
-          text:incident,
-          voice: voice,
-        }))
+        dispatch(
+          unitsActions.addToFrontOfSpeechQueue({
+            label: unitsLabel,
+            text: incident,
+            voice: voice
+          })
+        )
         setLastCommand(command)
         dispatch(aiActions.incidentAnnounced())
       }
     }
 
-    if (announcedIncident && !incidentResponded && assignedGroup && lastCommand !== command) {
+    if (
+      announcedIncident &&
+      !incidentResponded &&
+      assignedGroup &&
+      lastCommand !== command
+    ) {
       const group = normalizedGroup()
       if (group === assignedGroup) {
         const commandRepeat = properPronouns(command)
         const response = `${incidentCommandName} from ${group}. ${commandRepeat}`
-        dispatch(unitsActions.addToFrontOfSpeechQueue({
-          label: unitLabel,
-          text: response,
-          voice: voice,
-          meta: 'INCIDENT_RESPONSE'
-        }))
+        dispatch(
+          unitsActions.addToFrontOfSpeechQueue({
+            label: unitLabel,
+            text: response,
+            voice: voice,
+            meta: 'INCIDENT_RESPONSE'
+          })
+        )
         dispatch(aiActions.incidentResponded())
       }
     }

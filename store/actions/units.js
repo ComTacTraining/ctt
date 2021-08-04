@@ -144,4 +144,6 @@ export const useRadio = () => {
 }
 
 export const skipToIncident = () => ({ type: SKIP_TO_INCIDENT })
-export const skipToTransferOfCommand = () => ({ type: SKIP_TO_TRANSFER_OF_COMMAND })
+export const skipToTransferOfCommand = () => ({
+  type: SKIP_TO_TRANSFER_OF_COMMAND
+})

@@ -1,5 +1,5 @@
-import Profile from 'components/Profile/Profile'
-import { withMemberAuth } from 'components/Auth/HOC'
+import { withMemberAuth } from '@/components/Auth/HOC'
+import Profile from '@/components/Profile/Profile'
 
 const ProfilePage = () => <Profile />
 

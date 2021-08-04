@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   '@global': {
     ':root': {
       '--amplify-background-color': theme.palette.background.paper,
@@ -11,20 +11,16 @@ const useStyles = makeStyles(theme => ({
       '--amplify-primary-shade': theme.palette.primary.dark,
       '--amplify-secondary-color': theme.palette.text.primary,
       '--amplify-secondary-contrast': theme.palette.background.default
-    },
+    }
   },
   root: {
     flexGrow: 1
-  },
+  }
 }))
 
 const awsTheme = ({ children }) => {
   const classes = useStyles()
-  return (
-    <div className={classes.root}>
-      {children}
-    </div>
-  )
+  return <div className={classes.root}>{children}</div>
 }
 
 export default awsTheme

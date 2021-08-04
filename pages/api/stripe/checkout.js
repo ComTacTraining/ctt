@@ -1,6 +1,6 @@
-import { setHeaders } from 'utils/api-response'
-import { getURL } from 'utils/helpers'
-import { stripe } from 'utils/stripe'
+import { setHeaders } from '@/utils/api-response'
+import { getURL } from '@/utils/helpers'
+import { stripe } from '@/utils/stripe'
 
 const priceId = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID
 

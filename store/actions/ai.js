@@ -31,16 +31,26 @@ export const RESET_AI = 'RESET_AI'
 
 export const firstAlarmAnnounced = () => ({ type: FIRST_ALARM_ANNOUNCED })
 export const initialReportCompleted = () => ({ type: INITIAL_REPORT_COMPLETED })
-export const threeSixtyWalkthroughBegan = () => ({ type: THREE_SIXTY_WALKTHROUGH_BEGAN })
-export const threeSixtyWalkthroughCompleted = () => ({ type: THREE_SIXTY_WALKTHROUGH_COMPLETED })
-export const threeSixtyAssessmentCompleted = () => ({ type: THREE_SIXTY_ASSESSMENT_COMPLETED })
+export const threeSixtyWalkthroughBegan = () => ({
+  type: THREE_SIXTY_WALKTHROUGH_BEGAN
+})
+export const threeSixtyWalkthroughCompleted = () => ({
+  type: THREE_SIXTY_WALKTHROUGH_COMPLETED
+})
+export const threeSixtyAssessmentCompleted = () => ({
+  type: THREE_SIXTY_ASSESSMENT_COMPLETED
+})
 export const assignmentsCompleted = () => ({ type: ASSIGNMENTS_COMPLETED })
 export const incidentAnnounced = () => ({ type: INCIDENT_ANNOUNCED })
 export const incidentResponded = () => ({ type: INCIDENT_RESPONDED })
 export const incidentCompleted = () => ({ type: INCIDENT_COMPLETED })
 export const incomingCommandArrived = () => ({ type: INCOMING_COMMAND_ARRIVED })
-export const transferOfCommandRequested = () => ({ type: TRANSFER_OF_COMMAND_REQUESTED })
-export const transferOfCommandCompleted = () => ({ type: TRANSFER_OF_COMMAND_COMPLETED })
+export const transferOfCommandRequested = () => ({
+  type: TRANSFER_OF_COMMAND_REQUESTED
+})
+export const transferOfCommandCompleted = () => ({
+  type: TRANSFER_OF_COMMAND_COMPLETED
+})
 export const educationCompleted = () => ({ type: EDUCATION_COMPLETED })
 export const evaluationCompleted = () => ({ type: EVALUATION_COMPLETED })
 export const secondAlarmRequested = () => ({ type: SECOND_ALARM_REQUESTED })
@@ -51,7 +61,9 @@ export const skipToInitialReport = () => ({ type: SKIP_TO_INITIAL_REPORT })
 export const skipTo360Assessment = () => ({ type: SKIP_TO_360_ASSESSMENT })
 export const skipToAssignments = () => ({ type: SKIP_TO_ASSIGNMENTS })
 export const skipToIncident = () => ({ type: SKIP_TO_INCIDENT })
-export const skipToTransferOfCommand = () => ({ type: SKIP_TO_TRANSFER_OF_COMMAND })
+export const skipToTransferOfCommand = () => ({
+  type: SKIP_TO_TRANSFER_OF_COMMAND
+})
 export const skipToEducation = () => ({ type: SKIP_TO_EDUCATION })
 export const skipToEvaluation = () => ({ type: SKIP_TO_EVALUATION })
 export const resetAI = () => ({ type: RESET_AI })

@@ -1,6 +1,6 @@
+import useInterval from '@/hooks/useInterval'
 import { makeStyles } from '@material-ui/core/styles'
 import TimerIcon from '@material-ui/icons/Timer'
-import useInterval from 'hooks/useInterval'
 import * as React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -39,11 +39,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Countdown = () => {
   const classes = useStyles()
-  const { unitArrivals, incomingCommandArrival } = useSelector((store) => store.units)
+  const { unitArrivals, incomingCommandArrival } = useSelector(
+    (store) => store.units
+  )
   const [arrivals, setArrivals] = React.useState([])
   const [nextArrivalTimestamp, setNextArrivalTimestamp] = React.useState(0)
   const [seconds, setSeconds] = React.useState(0)
-  
+
   useInterval(
     () => {
       if (seconds > 0) {
@@ -69,7 +71,7 @@ const Countdown = () => {
 
   React.useEffect(() => {
     if (seconds === 0 && arrivals.length > 0) {
-      const newArrivals = arrivals.map(arrival => arrival > Date.now())
+      const newArrivals = arrivals.map((arrival) => arrival > Date.now())
       if (arrivals.length !== newArrivals.length) {
         setArrivals(newArrivals)
       }
@@ -79,7 +81,7 @@ const Countdown = () => {
   React.useEffect(() => {
     const findNextArrival = () => {
       let lowest = LARGE_NUMBER_OF_SECONDS
-      arrivals.forEach(timestamp => {
+      arrivals.forEach((timestamp) => {
         if (timestamp > nextArrivalTimestamp) {
           if (timestamp < lowest) {
             lowest = timestamp
@@ -88,10 +90,12 @@ const Countdown = () => {
       })
       if (lowest === LARGE_NUMBER_OF_SECONDS && incomingCommandArrival) {
         setNextArrivalTimestamp(incomingCommandArrival)
-        setSeconds(Math.floor(((incomingCommandArrival + 2000) - Date.now()) / 1000))
+        setSeconds(
+          Math.floor((incomingCommandArrival + 2000 - Date.now()) / 1000)
+        )
       } else if (lowest !== LARGE_NUMBER_OF_SECONDS) {
         setNextArrivalTimestamp(lowest)
-        setSeconds(Math.floor(((lowest + 2000) - Date.now()) / 1000))
+        setSeconds(Math.floor((lowest + 2000 - Date.now()) / 1000))
       }
     }
 

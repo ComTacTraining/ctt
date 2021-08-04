@@ -1,7 +1,7 @@
-import { useUser } from 'hooks/useUser'
+import { useUser } from '@/hooks/useUser'
+import { updateUserPreferences } from '@/store/actions/user'
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
-import { updateUserPreferences } from 'store/actions/user'
 
 const LoadUserPreferences = () => {
   const { user, isLoading } = useUser()

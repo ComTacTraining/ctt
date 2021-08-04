@@ -1,6 +1,6 @@
+import useInterval from '@/hooks/useInterval'
+import { H4 } from '@/mui/Typography'
 import { makeStyles } from '@material-ui/core/styles'
-import useInterval from 'hooks/useInterval'
-import { H4 } from 'mui/Typography'
 import * as React from 'react'
 import { useSelector } from 'react-redux'
 
@@ -34,7 +34,7 @@ const Title = () => {
   const { overlayTitle } = useSelector((store) => store.ai)
   const [title, setTitle] = React.useState('')
   const [secondsLeft, setSecondsLeft] = React.useState(0)
-  
+
   useInterval(
     () => {
       if (secondsLeft > 0) {

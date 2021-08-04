@@ -1,10 +1,12 @@
+import * as aiActions from '@/store/actions/ai'
+import * as commandActions from '@/store/actions/command'
+import * as unitsActions from '@/store/actions/units'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as aiActions from 'store/actions/ai'
-import * as commandActions from 'store/actions/command'
-import * as unitsActions from 'store/actions/units'
 import {
-  groupConstToDisplay, groupDisplayToConst, options,
+  groupConstToDisplay,
+  groupDisplayToConst,
+  options,
   properPronouns,
   randomSelection,
   strReplace
@@ -29,9 +31,11 @@ const AI = () => {
     incidentAnnounced,
     incidentResponded,
     incidentCompleted,
-    transferOfCommandCompleted,
+    transferOfCommandCompleted
   } = useSelector((state) => state.ai)
-  const { commandAllowed, incidentCommandName, command } = useSelector((state) => state.command)
+  const { commandAllowed, incidentCommandName, command } = useSelector(
+    (state) => state.command
+  )
   const { groupsAssigned, radioInUse } = useSelector((state) => state.units)
   const { lastPlayedVideo } = useSelector((state) => state.screen)
   const { street, incidentGroup, incidentCommand } = useSelector(
@@ -64,7 +68,9 @@ const AI = () => {
       incidentName = strReplace(incidentName, suffix, '').trim()
     })
     const commandDesignation = randomSelection(['IC', 'Command'])
-    dispatch(commandActions.setCommandName(`${incidentName} ${commandDesignation}`))
+    dispatch(
+      commandActions.setCommandName(`${incidentName} ${commandDesignation}`)
+    )
   }, [street, dispatch])
 
   React.useEffect(() => {
@@ -79,7 +85,12 @@ const AI = () => {
     } else {
       setPhraseAllowsCommand(false) // arrival
     }
-  }, [firstAlarmAnnounced, initialReportCompleted, threeSixtyWalkthroughCompleted, transferOfCommandCompleted])
+  }, [
+    firstAlarmAnnounced,
+    initialReportCompleted,
+    threeSixtyWalkthroughCompleted,
+    transferOfCommandCompleted
+  ])
 
   React.useEffect(() => {
     if (phraseAllowsCommand && !radioInUse) {
@@ -154,7 +165,7 @@ const AI = () => {
         }
       }, 500)
     }
-    
+
     return () => clearTimeout(interval)
   }, [
     lastCommand,

@@ -1,5 +1,5 @@
-import { withGuestAuth } from 'components/Auth/HOC'
-import Demo from 'components/Pages/Demo'
+import { withGuestAuth } from '@/components/Auth/HOC'
+import Demo from '@/components/Pages/Demo'
 
 const DemoPage = () => <Demo />
 

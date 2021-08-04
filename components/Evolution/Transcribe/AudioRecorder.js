@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const AudioRecorder = ({ finishRecording }) => {
-  const { isRecordingMicrophone } = useSelector(state => state.command)
+  const { isRecordingMicrophone } = useSelector((state) => state.command)
   const [recording, setRecording] = useState(false)
   const [micStream, setMicStream] = useState()
   const [audioBuffer] = useState(
     (() => {
       let buffer = []
-      const add = raw => {
+      const add = (raw) => {
         buffer = buffer.concat(...raw)
         return buffer
       }
@@ -23,7 +23,7 @@ const AudioRecorder = ({ finishRecording }) => {
         reset: () => {
           newBuffer()
         },
-        addData: raw => {
+        addData: (raw) => {
           return add(raw)
         },
         getData: () => {
@@ -40,11 +40,11 @@ const AudioRecorder = ({ finishRecording }) => {
 
       window.navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
-        .then(stream => {
+        .then((stream) => {
           const startMic = new mic()
 
           startMic.setStream(stream)
-          startMic.on('data', chunk => {
+          startMic.on('data', (chunk) => {
             var raw = mic.toRaw(chunk)
             if (raw == null) {
               return

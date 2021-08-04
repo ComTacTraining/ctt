@@ -1,12 +1,12 @@
+import Features from '@/components/Membership/Features'
+import { Contained } from '@/mui/Button'
+import { H5 } from '@/mui/Typography'
 import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Divider from '@material-ui/core/Divider'
 import { makeStyles } from '@material-ui/core/styles'
-import Features from 'components/Membership/Features'
-import { Contained } from 'mui/Button'
-import { H5 } from 'mui/Typography'
 import Image from 'next/image'
 
 const useStyles = makeStyles((theme) => ({

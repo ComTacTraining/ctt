@@ -1,18 +1,21 @@
+import {
+  downsampleBuffer,
+  pcmEncode
+} from '@/components/Evolution/Transcribe/audioUtils'
+import { blankBuffer } from '@/components/Evolution/Transcribe/blankBuffer'
+import useKeyPress from '@/hooks/useKeyPress'
+import * as commandActions from '@/store/actions/command'
+import { addToLog } from '@/store/actions/review'
 import * as marshaller from '@aws-sdk/eventstream-marshaller'
 import * as util_utf8_node from '@aws-sdk/util-utf8-node'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import useKeyPress from 'hooks/useKeyPress'
 import mic from 'microphone-stream'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
-import * as commandActions from 'store/actions/command'
-import { addToLog } from 'store/actions/review'
-import { downsampleBuffer, pcmEncode } from './audioUtils'
-import {blankBuffer} from './blankBuffer';
 
 const eventStreamMarshaller = new marshaller.EventStreamMarshaller(
   util_utf8_node.toUtf8,
@@ -41,7 +44,9 @@ const getAudioEventMessage = (buffer) => {
 
 const Speech2Text = () => {
   const dispatch = useDispatch()
-  const { firstOnScene, commandInputMethod } = useSelector((state) => state.user)
+  const { firstOnScene, commandInputMethod } = useSelector(
+    (state) => state.user
+  )
   const isPressed = useKeyPress('Space')
   const [open, setOpen] = React.useState(false)
   const [lastTranscript, setLastTranscript] = React.useState('')
@@ -59,7 +64,9 @@ const Speech2Text = () => {
     return eventStreamMarshaller.marshall(testMessage)
   }, [])
   const { firstAlarmAnnounced } = useSelector((state) => state.ai)
-  const { isRecordingMicrophone, commandAllowed } = useSelector((state) => state.command)
+  const { isRecordingMicrophone, commandAllowed } = useSelector(
+    (state) => state.command
+  )
 
   const getSocketUrl = React.useCallback(async () => {
     try {
@@ -76,7 +83,7 @@ const Speech2Text = () => {
       const resUrl = await response.json()
       return resUrl.url
     } catch {
-      console.log('can\'t make websocket url')
+      console.log("can't make websocket url")
       return null
     }
   }, [])
@@ -96,7 +103,7 @@ const Speech2Text = () => {
       console.log('websocket closed ')
     },
     onMessage: (message) => {
-      if(message.data instanceof ArrayBuffer) {
+      if (message.data instanceof ArrayBuffer) {
         let messageWrapper = eventStreamMarshaller.unmarshall(
           Buffer(message.data)
         )
@@ -109,7 +116,6 @@ const Speech2Text = () => {
           console.log(messageBody.Message)
         }
       }
-      
     },
     onError: (message) => {
       if (message) {
@@ -120,7 +126,7 @@ const Speech2Text = () => {
     },
     //Will attempt to reconnect on all close events, such as server shutting down
     shouldReconnect: (closeEvent) => {
-      if(closeEvent.reason === 'didUnmount' && closeEvent.code === 3333) {
+      if (closeEvent.reason === 'didUnmount' && closeEvent.code === 3333) {
         return false
       } else {
         return didUnmount.current === false
@@ -146,12 +152,11 @@ const Speech2Text = () => {
   }
 
   React.useEffect(() => {
-    
     return () => {
       getWebSocket().close(3333, 'didUnmount')
       closeSocket()
       didUnmount.current = true
-      if(sendTestMsgTimer.current) {
+      if (sendTestMsgTimer.current) {
         clearInterval(sendTestMsgTimer.current)
       }
     }
@@ -176,10 +181,7 @@ const Speech2Text = () => {
   React.useEffect(() => {
     if (connectionStatus === 'Open') {
       getWebSocket().binaryType = 'arraybuffer'
-      if (
-        bot !== BOTSTATE.PROCESSING &&
-        bot !== BOTSTATE.PRESSKEY
-      ) {
+      if (bot !== BOTSTATE.PROCESSING && bot !== BOTSTATE.PRESSKEY) {
         setBot(BOTSTATE.PRESSKEY)
         // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
       }
@@ -203,7 +205,6 @@ const Speech2Text = () => {
         setBot(BOTSTATE.PRESSKEY)
         // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
         dispatch(commandActions.stopRecordingMicrophone())
-
       }
     } else if (bot !== BOTSTATE.WAITING) {
       setBot(BOTSTATE.WAITING)
@@ -222,13 +223,12 @@ const Speech2Text = () => {
       if (micStream.current) {
         micStream.current.stop()
       }
-      for(let i = 0; i < 20; i ++) {
+      for (let i = 0; i < 20; i++) {
         sendMessage(blankBuffer)
       }
       if (lastTranscript !== '' && currentTranscript === '') {
-        
-        const _lastTranscript = lastTranscript;
-        const _currentTranscript = currentTranscript;
+        const _lastTranscript = lastTranscript
+        const _currentTranscript = currentTranscript
         dispatch(
           commandActions.updateCompletedTranscript(
             _lastTranscript + ' ' + _currentTranscript
@@ -241,9 +241,8 @@ const Speech2Text = () => {
             text: _lastTranscript + ' ' + _currentTranscript
           })
         )
-        setCurrentTranscript("")
-        setLastTranscript("")
-        
+        setCurrentTranscript('')
+        setLastTranscript('')
       } else {
         dispatch(
           commandActions.updatePartialTranscript(
@@ -260,7 +259,7 @@ const Speech2Text = () => {
 
   React.useEffect(() => {
     if (isRecordingMicrophone) {
-      if(sendTestMsgTimer.current) {
+      if (sendTestMsgTimer.current) {
         clearInterval(sendTestMsgTimer.current)
       }
       window.navigator.mediaDevices
@@ -273,19 +272,15 @@ const Speech2Text = () => {
           console.log('error in microphone ', error)
           setOpen(true)
         })
-      
     } else {
       if (micStream.current) {
         micStream.current.stop()
       }
       if (connectionStatus === 'Open' || connectionStatus === 'Connecting') {
-        
         sendTestMsgTimer.current = setInterval(() => {
           sendMessage(testBuffer)
         }, 3000)
-        
       }
-      
     }
   }, [isRecordingMicrophone])
 
@@ -349,7 +344,6 @@ const Speech2Text = () => {
     return binary
   }
 
-
   const closeSocket = React.useCallback(() => {
     if (micStream.current) {
       micStream.current.stop()
@@ -363,23 +357,29 @@ const Speech2Text = () => {
 
   return (
     <div id='speech-text'>
-      <span style={{ display: 'none'}}>{bot}</span>
+      <span style={{ display: 'none' }}>{bot}</span>
       <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
-        >
-          <DialogTitle id='alert-dialog-title'>{'Voice Search turned off?'}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
-              There was an error streaming your audio to Amazon Transcribe. You have to refersh or allow to access the microphone.  
-              <a link='details' onClick={handleClose} target='_blank' href='https://support.google.com/chrome/?p=ui_voice_search&amphl=en-US'>
-                Details
-              </a>
-            </DialogContentText>
-          </DialogContent>
-        </Dialog>
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title'>
+          {'Voice Search turned off?'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            There was an error streaming your audio to Amazon Transcribe. You
+            have to refersh or allow to access the microphone.
+            <a
+              link='details'
+              onClick={handleClose}
+              target='_blank'
+              href='https://support.google.com/chrome/?p=ui_voice_search&amphl=en-US'>
+              Details
+            </a>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -1,9 +1,9 @@
-import { forwardRef } from 'react'
-import PropTypes from 'prop-types'
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
+import clsx from 'clsx'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import PropTypes from 'prop-types'
+import { forwardRef } from 'react'
 
 const NextComposed = forwardRef((props, ref) => {
   const { as, href, ...other } = props
@@ -39,11 +39,24 @@ const Link = (props) => {
   })
 
   if (naked) {
-    return <NextComposed className={className} ref={innerRef} href={href} {...other} />
+    return (
+      <NextComposed
+        className={className}
+        ref={innerRef}
+        href={href}
+        {...other}
+      />
+    )
   }
 
   return (
-    <MuiLink component={NextComposed} className={className} ref={innerRef} href={href} {...other} />
+    <MuiLink
+      component={NextComposed}
+      className={className}
+      ref={innerRef}
+      href={href}
+      {...other}
+    />
   )
 }
 

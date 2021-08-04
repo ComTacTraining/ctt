@@ -1,10 +1,13 @@
+import * as commandActions from '@/store/actions/command'
+import * as screenActions from '@/store/actions/screen'
+import * as unitsActions from '@/store/actions/units'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as commandActions from 'store/actions/command'
-import * as screenActions from 'store/actions/screen'
-import * as unitsActions from 'store/actions/units'
 import {
-  anyTermsMatchString, isEmptyObject, options, properPronouns
+  anyTermsMatchString,
+  isEmptyObject,
+  options,
+  properPronouns
 } from 'utils/ai'
 
 const DispatchCenter = () => {

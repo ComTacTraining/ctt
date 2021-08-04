@@ -1,10 +1,10 @@
+import { Contained } from '@/mui/Button'
+import * as aiActions from '@/store/actions/ai'
+import * as unitActions from '@/store/actions/units'
 import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
-import { Contained } from 'mui/Button'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as aiActions from 'store/actions/ai'
-import * as unitActions from 'store/actions/units'
 
 const useStyles = makeStyles((theme) => ({
   btn: {

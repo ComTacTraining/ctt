@@ -1,6 +1,6 @@
+import { useUser } from '@/hooks/useUser'
 import { AmplifyAuthenticator, AmplifySignUp } from '@aws-amplify/ui-react'
 import Alert from '@material-ui/lab/Alert'
-import { useUser } from 'hooks/useUser'
 import * as React from 'react'
 
 const Form = () => {

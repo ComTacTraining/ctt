@@ -13,6 +13,10 @@ import { startTime } from '@/store/actions/review'
 import { resetTips } from '@/store/actions/tips'
 import { playlistFromId } from '@/utils/video'
 import Grid from '@material-ui/core/Grid'
+import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 import * as React from 'react'
@@ -34,10 +38,23 @@ const Demo = () => {
   const [showDebug, setShowDebug] = React.useState(isAdmin)
 
   const [playlist, setPlaylist] = React.useState(false)
+  const [micPermission, setMicPermission] = React.useState(false)
+  const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
     dispatch(resetAI())
     dispatch(resetTips())
+
+    navigator.permissions
+      .query({ name: 'microphone' })
+      .then((permissionStatus) => {
+        console.log(permissionStatus.state)
+        if (permissionStatus.state == 'granted') {
+          setMicPermission(true)
+        } else {
+          setMicPermission(false)
+        }
+      })
   }, [dispatch])
 
   React.useEffect(() => {
@@ -56,7 +73,31 @@ const Demo = () => {
     setShowDebug(!showDebug)
   }
 
-  return !user ? null : (
+  const requireMicAccess = () => {
+    const permissions = navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false
+    })
+    permissions
+      .then((stream) => {
+        setMicPermission(true)
+      })
+      .catch((err) => {
+        setMicPermission(false)
+        console.log(`${err.name} : ${err.message}`)
+        handleClickOpen()
+      })
+  }
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  return !user ? null : micPermission ? (
     <>
       {playlist && (
         <Grid container spacing={1}>
@@ -87,6 +128,32 @@ const Demo = () => {
           )}
         </Grid>
       )}
+    </>
+  ) : (
+    <>
+      <button onClick={requireMicAccess}>Mic Permission</button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'>
+        <DialogTitle id='alert-dialog-title'>
+          {'Voice Search turned off?'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            There was an error streaming your audio to Amazon Transcribe. You
+            have to refersh or allow to access the microphone.
+            <a
+              link='details'
+              onClick={handleClose}
+              target='_blank'
+              href='https://support.google.com/chrome/?p=ui_voice_search&amphl=en-US'>
+              Details
+            </a>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

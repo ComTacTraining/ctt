@@ -6,18 +6,22 @@ import Speak from '@/components/Evolution/Speak/Speak'
 import TextToSpeech from '@/components/Evolution/Speak/TextToSpeech'
 import RadioSound from '@/components/Evolution/Transcribe/RadioSound'
 import Speech2Text from '@/components/Evolution/Transcribe/Speech2Text'
+import Backdrop from '@/components/Evolution/VideoPlayer/Backdrop'
+import Screen from '@/components/Evolution/VideoPlayer/Screen'
 import { useUser } from '@/hooks/useUser'
 import { Contained } from '@/mui/Button'
 import { resetAI } from '@/store/actions/ai'
 import { startTime } from '@/store/actions/review'
 import { resetTips } from '@/store/actions/tips'
 import { playlistFromId } from '@/utils/video'
-import Grid from '@material-ui/core/Grid'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,6 +30,19 @@ const useStyles = makeStyles((theme) => ({
   adminButton: {
     marginBottom: theme.spacing(4),
     textAlign: 'center'
+  },
+  poster: {
+    position: 'relative',
+    zIndex: 1
+  },
+  play: {
+    color: '#ffffff',
+    fontSize: 80,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 2
   }
 }))
 
@@ -130,31 +147,42 @@ const Demo = () => {
       )}
     </>
   ) : (
-    <>
-      <button onClick={requireMicAccess}>Mic Permission</button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'>
-        <DialogTitle id='alert-dialog-title'>
-          {'Voice Search turned off?'}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id='alert-dialog-description'>
-            There was an error streaming your audio to Amazon Transcribe. You
-            have to refersh or allow to access the microphone.
-            <a
-              link='details'
-              onClick={handleClose}
-              target='_blank'
-              href='https://support.google.com/chrome/?p=ui_voice_search&amphl=en-US'>
-              Details
-            </a>
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
-    </>
+    <Backdrop>
+      <Screen>
+        <Image
+          src='/poster.png'
+          width='1920'
+          height='1080'
+          className={classes.poster}
+        />
+        <a onClick={requireMicAccess}>
+          <PlayCircleFilledIcon className={classes.play} />
+        </a>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'>
+          <DialogTitle id='alert-dialog-title'>
+            {'Permission to access microphone?'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              We were unable to access your microphone. Please allow microphone
+              access from your browser. (
+              <a
+                link='details'
+                onClick={handleClose}
+                target='_blank'
+                href='https://support.google.com/chrome/?p=ui_voice_search&amphl=en-US'>
+                More info
+              </a>
+              )
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+      </Screen>
+    </Backdrop>
   )
 }
 

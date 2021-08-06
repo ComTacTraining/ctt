@@ -45,7 +45,7 @@ const Title = () => {
   )
 
   React.useEffect(() => {
-    if (overlayTitle !== '' && overlayTitle !== title) {
+    if (overlayTitle && overlayTitle !== '' && overlayTitle !== title) {
       setSecondsLeft(SECONDS_TO_DISPLAY_OVERLAY)
       setTitle(overlayTitle)
     }

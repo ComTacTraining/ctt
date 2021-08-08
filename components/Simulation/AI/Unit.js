@@ -205,7 +205,7 @@ const Unit = ({ name, voice, index }) => {
         dispatch(
           unitsActions.addToFrontOfSpeechQueue({
             label: unitLabel,
-            text: canReport,
+            text: `${incidentCommandName} from ${assignedGroup}. ${canReport}`,
             voice: voice
           })
         )
@@ -217,7 +217,7 @@ const Unit = ({ name, voice, index }) => {
         dispatch(
           unitsActions.addToFrontOfSpeechQueue({
             label: unitLabel,
-            text: parReport,
+            text: `${incidentCommandName} from ${assignedGroup}. ${parReport}`,
             voice: voice
           })
         )
@@ -248,7 +248,8 @@ const Unit = ({ name, voice, index }) => {
     ventilation,
     exposure,
     ric,
-    medical
+    medical,
+    incidentCommandName
   ])
 
   React.useEffect(() => {

@@ -1,4 +1,4 @@
-import Tip from '@/components/Evolution/Overlay/Tip'
+import Tip from '@/components/Simulation/Overlay/Tip'
 import { H6 } from '@/mui/Typography'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'

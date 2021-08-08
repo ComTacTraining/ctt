@@ -1,4 +1,4 @@
-import Question from '@/components/Evolution/Evaluation/Question'
+import Question from '@/components/Simulation/Evaluation/Question'
 import { createReview } from '@/graphql/mutations'
 import { Contained } from '@/mui/Button'
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api'

@@ -1,4 +1,4 @@
-import TextField from '@/components/Evolution/Transcribe/TextField'
+import TextField from '@/components/Simulation/Transcribe/TextField'
 import { Bold, Caption, P, Subtitle1 } from '@/mui/Typography'
 import { setCommandInputMethod } from '@/store/actions/user'
 import Accordion from '@material-ui/core/Accordion'

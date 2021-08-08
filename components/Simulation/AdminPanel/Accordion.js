@@ -1,6 +1,6 @@
-import FirstAlarm from '@/components/Evolution/AdminPanel/FirstAlarm'
-import Log from '@/components/Evolution/AdminPanel/Log'
-import Skip from '@/components/Evolution/AdminPanel/Skip'
+import FirstAlarm from '@/components/Simulation/AdminPanel/FirstAlarm'
+import Log from '@/components/Simulation/AdminPanel/Log'
+import Skip from '@/components/Simulation/AdminPanel/Skip'
 import { Subtitle1 } from '@/mui/Typography'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -11,7 +11,7 @@ import FastForwardIcon from '@material-ui/icons/FastForward'
 import ListIcon from '@material-ui/icons/List'
 import PeopleIcon from '@material-ui/icons/People'
 
-const AdminPanel = ({ isDemo = false }) => {
+const AdminAccordion = () => {
   return (
     <>
       <Accordion defaultExpanded={true}>
@@ -39,7 +39,7 @@ const AdminPanel = ({ isDemo = false }) => {
           <Subtitle1>Skip To Section</Subtitle1>
         </AccordionSummary>
         <AccordionDetails>
-          <Skip isDemo={isDemo} />
+          <Skip />
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded={true}>
@@ -60,4 +60,4 @@ const AdminPanel = ({ isDemo = false }) => {
   )
 }
 
-export default AdminPanel
+export default AdminAccordion

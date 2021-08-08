@@ -3,6 +3,7 @@ import * as actionTypes from '@/store/actions/evolution'
 const initialState = {
   id: '',
   alias: '',
+  isDemo: true,
   category: 'SINGLEFAMILYMODERN',
   construction: ['MODERN'],
   street: '623 Luna Park',
@@ -37,6 +38,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         id: action.payload.id,
         alias: action.payload.alias,
+        isDemo: false,
         category: action.payload.category,
         construction: action.payload.construction,
         street: action.payload.street,
@@ -55,7 +57,7 @@ const reducer = (state = initialState, action) => {
         withstanding: action.payload.withstanding,
         attack: action.payload.attack,
         ventilation: action.payload.ventilation,
-        exposure: action.payload.eexposure,
+        exposure: action.payload.exposure,
         ric: action.payload.ric,
         medical: action.payload.medical
       }

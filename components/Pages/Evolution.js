@@ -1,4 +1,4 @@
-import Simulation from '@/components/Evolution/Evolution'
+import Simulation from '@/components/Simulation/Simulation'
 import { evolutionByCategoryNumber } from '@/graphql/queries'
 import * as evolutionActions from '@/store/actions/evolution'
 import { API } from 'aws-amplify'
@@ -32,7 +32,6 @@ const randomId = (category, construction) => {
 const Evolution = ({ category }) => {
   const dispatch = useDispatch()
   const [evolutionId, setEvolutionId] = React.useState(null)
-  const [title, setTitle] = React.useState('Evolution')
   const [queryCategory, setQueryCategory] = React.useState(null)
   const [queryNumber, setQueryNumber] = React.useState(0)
 
@@ -40,36 +39,28 @@ const Evolution = ({ category }) => {
     const construction = randomConstruction()
     const id = randomId(category, construction)
     let evoId = ''
-    let evoTitle = ''
     let evoCat = ''
     if (category === 'commercial') {
       evoId = 'c'
-      evoTitle = 'Commercial'
       evoCat = 'COMMERCIAL'
     } else if (category === 'industrial') {
       evoId = 'i'
-      evoTitle = 'Industrial'
       evoCat = 'INDUSTRIAL'
     } else if (category === 'multi-family') {
       evoId = 'mf'
-      evoTitle = 'Multi-Family'
       evoCat = 'MULTIFAMILY'
     } else if (category === 'single-family') {
       evoId = 'sf'
-      evoTitle = 'Single-Family'
       evoCat = 'SINGLEFAMILY'
     }
     if (construction === 'modern') {
       evoId = `${evoId}m${id}`
-      evoTitle = `${evoTitle} Modern ${id}`
       evoCat = `${evoCat}MODERN`
     } else {
       evoId = `${evoId}l${id}`
-      evoTitle = `${evoTitle} Legacy ${id}`
       evoCat = `${evoCat}LEGACY`
     }
     setEvolutionId(evoId)
-    setTitle(evoTitle)
     setQueryCategory(evoCat)
     setQueryNumber(id)
   }, [category])

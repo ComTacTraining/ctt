@@ -31,7 +31,8 @@ const initialState = {
   showTips: true,
   preferencesLoaded: false,
   commandInputMethod: 'Microphone',
-  masterVolume: 0.5
+  masterVolume: 0.5,
+  permissionGranted: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -62,6 +63,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         masterVolume: action.payload.level
+      }
+    case actionTypes.SET_PERMISSION_GRANTED:
+      return {
+        ...state,
+        permissionGranted: true
       }
     default:
       return state

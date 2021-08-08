@@ -1,4 +1,4 @@
-import Unit from '@/components/Evolution/AI/Unit'
+import Unit from '@/components/Simulation/AI/Unit'
 import * as aiActions from '@/store/actions/ai'
 import { options } from '@/utils/ai'
 import * as React from 'react'

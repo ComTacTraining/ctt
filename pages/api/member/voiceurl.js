@@ -1,4 +1,4 @@
-import { createPresignedURL } from '@/components/Evolution/Transcribe/aws-signature-v4'
+import { createPresignedURL } from '@/components/Simulation/Transcribe/aws-signature-v4'
 import crypto from 'crypto'
 
 const accessId = process.env.TRANSCRIBE_ACCESS_ID

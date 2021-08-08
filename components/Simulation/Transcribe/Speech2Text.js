@@ -1,8 +1,8 @@
 import {
   downsampleBuffer,
   pcmEncode
-} from '@/components/Evolution/Transcribe/audioUtils'
-import { blankBuffer } from '@/components/Evolution/Transcribe/blankBuffer'
+} from '@/components/Simulation/Transcribe/audioUtils'
+import { blankBuffer } from '@/components/Simulation/Transcribe/blankBuffer'
 import useKeyPress from '@/hooks/useKeyPress'
 import * as commandActions from '@/store/actions/command'
 import { addToLog } from '@/store/actions/review'

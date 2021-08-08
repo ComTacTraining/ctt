@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const Skip = ({ isDemo }) => {
+const Skip = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -26,6 +26,7 @@ const Skip = ({ isDemo }) => {
     educationCompleted
   } = useSelector((state) => state.ai)
   const { assignmentResponses } = useSelector((state) => state.units)
+  const { isDemo } = useSelector((state) => state.evolution)
 
   const skipToInitialReport = () => {
     dispatch(aiActions.skipToInitialReport())

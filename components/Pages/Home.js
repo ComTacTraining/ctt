@@ -1,5 +1,5 @@
-import Backdrop from '@/components/Evolution/VideoPlayer/Backdrop'
-import Screen from '@/components/Evolution/VideoPlayer/Screen'
+import Backdrop from '@/components/Simulation/VideoPlayer/Backdrop'
+import Screen from '@/components/Simulation/VideoPlayer/Screen'
 import Loading from '@/components/UI/Loading'
 import useVideoPlayer from '@/hooks/useVideoPlayer'
 import { visitorPlaylist } from '@/utils/video'

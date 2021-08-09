@@ -2,6 +2,7 @@ import {
   educationCompleted,
   firstAlarmAnnounced,
   incidentCompleted,
+  threeSixtyAssessmentResponded,
   threeSixtyWalkthroughBegan,
   transferOfCommandCompleted,
   transferOfCommandRequested
@@ -134,6 +135,9 @@ const TextToSpeech = () => {
       }
       if (meta === 'INITIAL_REPORT_RESPONSE') {
         dispatch(threeSixtyWalkthroughBegan())
+      }
+      if (meta === 'THREE_SIXTY_ASSESSMENT_RESPONSE') {
+        dispatch(threeSixtyAssessmentResponded())
       }
       if (meta === 'UNIT_ASSIGNMENT_RESPONSE') {
         dispatch(incrementAssignmentResponses())

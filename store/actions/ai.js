@@ -5,6 +5,8 @@ export const THREE_SIXTY_WALKTHROUGH_COMPLETED =
   'THREE_SIXTY_WALKTHROUGH_COMPLETED'
 export const THREE_SIXTY_ASSESSMENT_COMPLETED =
   'THREE_SIXTY_ASSESSMENT_COMPLETED'
+export const THREE_SIXTY_ASSESSMENT_RESPONDED =
+  'THREE_SIXTY_ASSESSMENT_RESPONDED'
 export const ASSIGNMENTS_COMPLETED = 'ASSIGNMENTS_COMPLETED'
 export const INCIDENT_ANNOUNCED = 'INCIDENT_ANNOUNCED'
 export const INCIDENT_RESPONDED = 'INCIDENT_RESPONDED'
@@ -39,6 +41,9 @@ export const threeSixtyWalkthroughCompleted = () => ({
 })
 export const threeSixtyAssessmentCompleted = () => ({
   type: THREE_SIXTY_ASSESSMENT_COMPLETED
+})
+export const threeSixtyAssessmentResponded = () => ({
+  type: THREE_SIXTY_ASSESSMENT_RESPONDED
 })
 export const assignmentsCompleted = () => ({ type: ASSIGNMENTS_COMPLETED })
 export const incidentAnnounced = () => ({ type: INCIDENT_ANNOUNCED })

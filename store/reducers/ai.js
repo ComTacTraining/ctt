@@ -6,6 +6,7 @@ const initialState = {
   threeSixtyWalkthroughBegan: false,
   threeSixtyWalkthroughCompleted: false,
   threeSixtyAssessmentCompleted: false,
+  threeSixtyAssessmentResponded: false,
   assignmentsCompleted: false,
   incidentAnnounced: false,
   incidentResponded: false,
@@ -88,6 +89,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         threeSixtyAssessmentCompleted: true
+      }
+    case actionTypes.THREE_SIXTY_ASSESSMENT_RESPONDED:
+      return {
+        ...state,
+        threeSixtyAssessmentResponded: true
       }
     case actionTypes.ASSIGNMENTS_COMPLETED:
       return {

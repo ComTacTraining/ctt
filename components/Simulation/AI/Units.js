@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const Units = () => {
   const dispatch = useDispatch()
   const {
-    threeSixtyAssessmentCompleted,
+    threeSixtyAssessmentResponded,
     transferOfCommandRequested,
     assignmentsCompleted
   } = useSelector((state) => state.ai)
@@ -34,7 +34,7 @@ const Units = () => {
   }, [voices, dispatchCenterVoice, incomingCommandOfficerVoice])
 
   React.useEffect(() => {
-    if (threeSixtyAssessmentCompleted && !transferOfCommandRequested) {
+    if (threeSixtyAssessmentResponded && !transferOfCommandRequested) {
       setAlarmOneUnits(
         alarm1.filter(
           (alarm) => alarm !== firstOnScene && alarm !== incomingCommandOfficer
@@ -42,7 +42,7 @@ const Units = () => {
       )
     }
   }, [
-    threeSixtyAssessmentCompleted,
+    threeSixtyAssessmentResponded,
     transferOfCommandRequested,
     alarm1,
     firstOnScene,

@@ -196,8 +196,16 @@ const Unit = ({ name, voice, index }) => {
       return type
     }
 
-    const checkForCanReport = () => {
-      if (anyTermsMatchString(command, canReportTerms)) {
+    const checkForReport = () => {
+      if (anyTermsMatchString(command, parReportTerms)) {
+        dispatch(
+          unitsActions.addToFrontOfSpeechQueue({
+            label: unitLabel,
+            text: `${incidentCommandName} from ${assignedGroup}. ${parReport}`,
+            voice: voice
+          })
+        )
+      } else if (anyTermsMatchString(command, canReportTerms)) {
         const group = icsNimsGroups.find(
           (group) => group.name === assignedGroup
         )
@@ -215,22 +223,9 @@ const Unit = ({ name, voice, index }) => {
       }
     }
 
-    const checkForParReport = () => {
-      if (anyTermsMatchString(command, parReportTerms)) {
-        dispatch(
-          unitsActions.addToFrontOfSpeechQueue({
-            label: unitLabel,
-            text: `${incidentCommandName} from ${assignedGroup}. ${parReport}`,
-            voice: voice
-          })
-        )
-      }
-    }
-
     const checkIfAddressed = () => {
       if (anyTermsMatchString(command, [name, assignedGroup])) {
-        checkForCanReport()
-        checkForParReport()
+        checkForReport()
       }
     }
 

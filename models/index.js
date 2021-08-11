@@ -73,7 +73,8 @@ const IcsNims = {
   "VENTILATION": "VENTILATION",
   "EXPOSURE": "EXPOSURE",
   "RIC": "RIC",
-  "MEDICAL": "MEDICAL"
+  "MEDICAL": "MEDICAL",
+  "SALVAGE": "SALVAGE"
 };
 
 const { Review, Evolution, Incident } = initSchema(schema);

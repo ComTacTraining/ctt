@@ -27,7 +27,8 @@ export const updateEvolution = (data) => {
       ventilation: data.ventilation,
       exposure: data.exposure,
       ric: data.ric,
-      medical: data.medical
+      medical: data.medical,
+      salvage: data.salvage
     }
   }
 }

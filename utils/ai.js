@@ -126,6 +126,33 @@ const options = {
       ]
     },
     {
+      id: 'salvage',
+      name: 'Salvage & Overhaul',
+      terms: ['salvage', 'overhaul'],
+      canReports: [
+        {
+          type: WITHSTANDING_WITHOUT_NEEDS,
+          response:
+            'The building is withstanding the insult, we are advancing and we do not need any additional resources at this time.'
+        },
+        {
+          type: WITHSTANDING_WITH_NEEDS,
+          response:
+            'The building is withstanding the insult, we are advancing and we could use additional resources.'
+        },
+        {
+          type: NOT_WITHSTANDING_WITHOUT_NEEDS,
+          response:
+            'The building is NOT withstanding the insult, we are evacuating the building and we do not need additional resources.'
+        },
+        {
+          type: NOT_WITHSTANDING_WITH_NEEDS,
+          response:
+            'The building is NOT withstanding the insult, we are stalemated and we could use additional resources.'
+        }
+      ]
+    },
+    {
       id: 'ventilation',
       name: 'Ventilation',
       terms: ['ventilation'],
@@ -302,7 +329,7 @@ const properPronouns = (str) => {
 const groupDisplayToConst = (display) => {
   switch (display) {
     case 'Fire Attack':
-      return 'FIRE_ATTACK'
+      return 'FIREATTACK'
     case 'Ventilation':
       return 'VENTILATION'
     case 'Exposure':
@@ -313,6 +340,8 @@ const groupDisplayToConst = (display) => {
       return 'MEDICAL'
     case 'Water Supply':
       return 'WATER'
+    case 'Salvage & Overhaul':
+      return 'SALVAGE'
     default:
       return null
   }
@@ -320,7 +349,7 @@ const groupDisplayToConst = (display) => {
 
 const groupConstToDisplay = (name) => {
   switch (name) {
-    case 'FIRE_ATTACK':
+    case 'FIREATTACK':
       return 'Fire Attack'
     case 'VENTILATION':
       return 'Ventilation'
@@ -332,6 +361,8 @@ const groupConstToDisplay = (name) => {
       return 'Medical'
     case 'WATER':
       return 'Water Supply'
+    case 'SALVAGE':
+      return 'Salvage & Overhaul'
     default:
       return null
   }

@@ -36,7 +36,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const groups = ['Fire Attack', 'Ventilation', 'Exposure', 'RIC', 'Medical']
+const groups = [
+  'Fire Attack',
+  'Ventilation',
+  'Exposure',
+  'RIC',
+  'Medical',
+  'Salvage & Overhaul'
+]
 
 const Groups = () => {
   const classes = useStyles()

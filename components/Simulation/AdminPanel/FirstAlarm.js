@@ -28,7 +28,7 @@ const FirstAlarm = () => {
     (state) => state.user
   )
 
-  const { attack, ventilation, exposure, ric, medical } = useSelector(
+  const { attack, ventilation, exposure, ric, medical, salvage } = useSelector(
     (state) => state.evolution
   )
 
@@ -149,6 +149,8 @@ const FirstAlarm = () => {
           return ric
         case 'Medical':
           return medical
+        case 'Salvage':
+          return salvage
         default:
           return false
       }

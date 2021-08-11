@@ -30,6 +30,7 @@ type Evolution @model @key(name: "byCategory", fields: ["category"], queryField:
   exposure: Boolean
   ric: Boolean
   medical: Boolean
+  salvage: Boolean
 }
 
 type Incident @model @auth(rules: [{allow: private}]) {
@@ -111,5 +112,6 @@ enum IcsNims {
   EXPOSURE
   RIC
   MEDICAL
+  SALVAGE
 }
  

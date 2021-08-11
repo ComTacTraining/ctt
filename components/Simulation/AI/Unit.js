@@ -36,7 +36,8 @@ const Unit = ({ name, voice, index }) => {
     ventilation,
     exposure,
     ric,
-    medical
+    medical,
+    salvage
   } = useSelector((state) => state.evolution)
   const [unitLabel, setUnitLabel] = React.useState(`${name}`)
   const [assignedGroup, setAssignedGroup] = React.useState('')
@@ -182,6 +183,8 @@ const Unit = ({ name, voice, index }) => {
           return ric
         case 'Medical':
           return medical
+        case 'Salvage & Overhaul':
+          return salvage
         default:
           return false
       }
@@ -249,6 +252,7 @@ const Unit = ({ name, voice, index }) => {
     exposure,
     ric,
     medical,
+    salvage,
     incidentCommandName
   ])
 
@@ -256,7 +260,7 @@ const Unit = ({ name, voice, index }) => {
     const normalizedGroup = () => {
       let group = ''
       switch (incidentGroup) {
-        case 'FIRE_ATTACK':
+        case 'FIREATTACK':
           group = 'Fire Attack'
           break
         case 'VENTILATION':
@@ -271,6 +275,9 @@ const Unit = ({ name, voice, index }) => {
         case 'MEDICAL':
           group = 'Medical'
           break
+        case 'SALVAGEOVERHAUL':
+          group = 'Salvage & Overhaul'
+          break
         default:
           break
       }
@@ -283,7 +290,7 @@ const Unit = ({ name, voice, index }) => {
         const incident = incidentCommand.replace('__NAME__', assignedGroup)
         dispatch(
           unitsActions.addToFrontOfSpeechQueue({
-            label: unitsLabel,
+            label: unitLabel,
             text: incident,
             voice: voice
           })

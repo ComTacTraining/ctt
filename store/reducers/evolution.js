@@ -25,6 +25,7 @@ const initialState = {
   exposure: true,
   ric: true,
   medical: true,
+  salvage: true,
   incidentTitle: 'Ladder Slip Injuries',
   incidentGroup: 'VENTILATION',
   incidentCommand:
@@ -59,7 +60,8 @@ const reducer = (state = initialState, action) => {
         ventilation: action.payload.ventilation,
         exposure: action.payload.exposure,
         ric: action.payload.ric,
-        medical: action.payload.medical
+        medical: action.payload.medical,
+        salvage: action.payload.salvage
       }
     case actionTypes.UPDATE_INCIDENT:
       return {

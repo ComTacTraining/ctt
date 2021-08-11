@@ -71,22 +71,11 @@ export enum IcsNims {
   VENTILATION = "VENTILATION",
   EXPOSURE = "EXPOSURE",
   RIC = "RIC",
-  MEDICAL = "MEDICAL"
+  MEDICAL = "MEDICAL",
+  SALVAGE = "SALVAGE"
 }
 
 
-
-type ReviewMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-type EvolutionMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
-type IncidentMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
 
 export declare class Review {
   readonly id: string;
@@ -94,10 +83,8 @@ export declare class Review {
   readonly selfScore?: number;
   readonly transcript?: string;
   readonly Evolution?: Evolution;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<Review, ReviewMetaData>);
-  static copyOf(source: Review, mutator: (draft: MutableModel<Review, ReviewMetaData>) => MutableModel<Review, ReviewMetaData> | void): Review;
+  constructor(init: ModelInit<Review>);
+  static copyOf(source: Review, mutator: (draft: MutableModel<Review>) => MutableModel<Review> | void): Review;
 }
 
 export declare class Evolution {
@@ -124,10 +111,9 @@ export declare class Evolution {
   readonly exposure?: boolean;
   readonly ric?: boolean;
   readonly medical?: boolean;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<Evolution, EvolutionMetaData>);
-  static copyOf(source: Evolution, mutator: (draft: MutableModel<Evolution, EvolutionMetaData>) => MutableModel<Evolution, EvolutionMetaData> | void): Evolution;
+  readonly salvage?: boolean;
+  constructor(init: ModelInit<Evolution>);
+  static copyOf(source: Evolution, mutator: (draft: MutableModel<Evolution>) => MutableModel<Evolution> | void): Evolution;
 }
 
 export declare class Incident {
@@ -135,8 +121,6 @@ export declare class Incident {
   readonly title: string;
   readonly icsNims: IcsNims | keyof typeof IcsNims;
   readonly command: string;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  constructor(init: ModelInit<Incident, IncidentMetaData>);
-  static copyOf(source: Incident, mutator: (draft: MutableModel<Incident, IncidentMetaData>) => MutableModel<Incident, IncidentMetaData> | void): Incident;
+  constructor(init: ModelInit<Incident>);
+  static copyOf(source: Incident, mutator: (draft: MutableModel<Incident>) => MutableModel<Incident> | void): Incident;
 }

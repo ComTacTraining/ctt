@@ -113,6 +113,7 @@ const Evolutions = () => {
                       <TableCell align='right'>survivability</TableCell>
                       <TableCell align='right'>withstanding</TableCell>
                       <TableCell align='right'>attack</TableCell>
+                      <TableCell align='right'>salvage</TableCell>
                       <TableCell align='right'>ventilation</TableCell>
                       <TableCell align='right'>exposure</TableCell>
                       <TableCell align='right'>ric</TableCell>
@@ -154,6 +155,9 @@ const Evolutions = () => {
                         </TableCell>
                         <TableCell align='right'>
                           {row.attack ? 'Yes' : 'No'}
+                        </TableCell>
+                        <TableCell align='right'>
+                          {row.salvage ? 'Yes' : 'No'}
                         </TableCell>
                         <TableCell align='right'>
                           {row.ventilation ? 'Yes' : 'No'}

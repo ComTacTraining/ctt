@@ -11,6 +11,7 @@ const awsmobile = {
     "aws_appsync_graphqlEndpoint": "https://bvqftuecvbebdmbhcd3yzsww3u.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_appsync_region": "us-east-1",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
+    "aws_appsync_apiKey": "da2-ncrjvmwtkbbenpqwtk6pjvc5j4",
     "predictions": {
         "convert": {
             "speechGenerator": {

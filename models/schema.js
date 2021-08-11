@@ -43,22 +43,6 @@ export const schema = {
                         "connectionType": "BELONGS_TO",
                         "targetName": "reviewEvolutionId"
                     }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -283,21 +267,12 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "createdAt": {
-                    "name": "createdAt",
+                "salvage": {
+                    "name": "salvage",
                     "isArray": false,
-                    "type": "AWSDateTime",
+                    "type": "Boolean",
                     "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -378,22 +353,6 @@ export const schema = {
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -512,10 +471,11 @@ export const schema = {
                 "VENTILATION",
                 "EXPOSURE",
                 "RIC",
-                "MEDICAL"
+                "MEDICAL",
+                "SALVAGE"
             ]
         }
     },
     "nonModels": {},
-    "version": "e7088acd562e65042364cf7be769ee90"
+    "version": "2cf01a86e5a2dd3d55340675358b9172"
 };

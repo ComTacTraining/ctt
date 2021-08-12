@@ -27,7 +27,9 @@ const Command = () => {
     threeSixtyWalkthroughCompleted,
     transferOfCommandCompleted
   } = useSelector((state) => state.ai)
+  const { isDemo } = useSelector((state) => state.evolution)
   const { radioInUse } = useSelector((state) => state.units)
+  const { showTips } = useSelector((state) => state.user)
   const { partialCommand, speechBotState } = useSelector(
     (state) => state.command
   )
@@ -126,7 +128,7 @@ const Command = () => {
           </Grid>
           <Grid item xs={12}>
             {inputMethod === 'Microphone' && <P>{speechBotState}</P>}
-            {partialCommand !== '' && (
+            {partialCommand && (isDemo || (!isDemo && showTips)) && (
               <>
                 <P>Current Command:</P>
                 <Caption>{partialCommand}</Caption>

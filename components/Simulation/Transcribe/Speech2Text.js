@@ -44,9 +44,9 @@ const getAudioEventMessage = (buffer) => {
 
 const Speech2Text = () => {
   const dispatch = useDispatch()
-  const { firstOnScene, commandInputMethod } = useSelector(
-    (state) => state.user
-  )
+  const { firstOnScene } = useSelector((state) => state.user)
+  const { isDemo } = useSelector((state) => state.evolution)
+  const { showTips } = useSelector((state) => state.user)
   const isPressed = useKeyPress('Space')
   const [open, setOpen] = React.useState(false)
   const [lastTranscript, setLastTranscript] = React.useState('')
@@ -82,26 +82,13 @@ const Speech2Text = () => {
 
       const resUrl = await response.json()
       return resUrl.url
-    } catch {
-      console.log("can't make websocket url")
+    } catch (error) {
+      console.log(`[Web Socket Error | API URL] ${error.message}`)
       return null
     }
   }, [])
 
-  const {
-    sendMessage,
-    // sendJsonMessage,
-    // lastMessage,
-    // lastJsonMessage,
-    readyState,
-    getWebSocket
-  } = useWebSocket(getSocketUrl, {
-    onOpen: () => {
-      console.log('websocket opened')
-    },
-    onClose: (closeEvent) => {
-      console.log('websocket closed ')
-    },
+  const { sendMessage, readyState, getWebSocket } = useWebSocket(getSocketUrl, {
     onMessage: (message) => {
       if (message.data instanceof ArrayBuffer) {
         let messageWrapper = eventStreamMarshaller.unmarshall(
@@ -112,19 +99,12 @@ const Speech2Text = () => {
         )
         if (messageWrapper.headers[':message-type'].value === 'event') {
           handleEventStreamMessage(messageBody)
-        } else {
-          console.log(messageBody.Message)
         }
       }
     },
     onError: (message) => {
-      if (message) {
-        console.log('WS connection error', message)
-      } else {
-        console.log('WS connecetion error')
-      }
+      console.log(`[Web Socket Error | General] ${message}`)
     },
-    //Will attempt to reconnect on all close events, such as server shutting down
     shouldReconnect: (closeEvent) => {
       if (closeEvent.reason === 'didUnmount' && closeEvent.code === 3333) {
         return false
@@ -162,28 +142,11 @@ const Speech2Text = () => {
     }
   }, [])
 
-  // React.useEffect(() => {
-  //   if(commandInputMethod === 'Microphone') {
-  //     window.navigator.mediaDevices
-  //         .getUserMedia({
-  //           video: false,
-  //           audio: true
-  //         })
-  //         .then()
-  //         .catch(function (error) {
-  //           console.log('error in microphone ', error)
-  //           setOpen(true)
-
-  //         })
-  //   }
-  // }, [commandInputMethod])
-
   React.useEffect(() => {
     if (connectionStatus === 'Open') {
       getWebSocket().binaryType = 'arraybuffer'
       if (bot !== BOTSTATE.PROCESSING && bot !== BOTSTATE.PRESSKEY) {
         setBot(BOTSTATE.PRESSKEY)
-        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
       }
 
       if (
@@ -194,26 +157,22 @@ const Speech2Text = () => {
       ) {
         dispatch(commandActions.startRecordingMicrophone())
         setBot(BOTSTATE.LISTENING)
-        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.LISTENING))
       } else if (
         !isPressed &&
         isRecordingMicrophone &&
         bot !== BOTSTATE.PROCESSING
       ) {
         setBot(BOTSTATE.PROCESSING)
-        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PROCESSING))
         setBot(BOTSTATE.PRESSKEY)
-        // dispatch(commandActions.updateSpeechBotState(BOTSTATE.PRESSKEY))
         dispatch(commandActions.stopRecordingMicrophone())
       }
     } else if (bot !== BOTSTATE.WAITING) {
       setBot(BOTSTATE.WAITING)
-      // dispatch(commandActions.updateSpeechBotState(BOTSTATE.WAITING))
     }
   }, [firstAlarmAnnounced, readyState, isPressed, commandAllowed])
 
   React.useEffect(() => {
-    if (isRecordingMicrophone) {
+    if (isRecordingMicrophone && (isDemo || (!isDemo && !showTips))) {
       dispatch(
         commandActions.updatePartialTranscript(
           lastTranscript + ' ' + currentTranscript
@@ -243,15 +202,24 @@ const Speech2Text = () => {
         )
         setCurrentTranscript('')
         setLastTranscript('')
-      } else {
+      } else if (
+        (lastTranscript || currentTranscript) &&
+        (isDemo || (!isDemo && showTips))
+      ) {
         dispatch(
           commandActions.updatePartialTranscript(
-            lastTranscript + ' ' + currentTranscript
+            trim(`${lastTranscript} ${currentTranscript}`)
           )
         )
       }
     }
-  }, [isRecordingMicrophone, lastTranscript, currentTranscript])
+  }, [
+    isDemo,
+    showTips,
+    isRecordingMicrophone,
+    lastTranscript,
+    currentTranscript
+  ])
 
   React.useEffect(() => {
     sendMessage(audioBinary)
@@ -269,7 +237,7 @@ const Speech2Text = () => {
         })
         .then(streamAudioToWebSocket)
         .catch(function (error) {
-          console.log('error in microphone ', error)
+          console.log('[Web Socket Error | Permissions] ', error)
           setOpen(true)
         })
     } else {
@@ -283,10 +251,6 @@ const Speech2Text = () => {
       }
     }
   }, [isRecordingMicrophone])
-
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
 
   const handleClose = () => {
     setOpen(false)

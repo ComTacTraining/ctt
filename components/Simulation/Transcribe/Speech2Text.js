@@ -208,7 +208,7 @@ const Speech2Text = () => {
       ) {
         dispatch(
           commandActions.updatePartialTranscript(
-            trim(`${lastTranscript} ${currentTranscript}`)
+            `${lastTranscript} ${currentTranscript}`.trim()
           )
         )
       }
@@ -247,7 +247,7 @@ const Speech2Text = () => {
       if (connectionStatus === 'Open' || connectionStatus === 'Connecting') {
         sendTestMsgTimer.current = setInterval(() => {
           sendMessage(testBuffer)
-        }, 3000)
+        }, 5000)
       }
     }
   }, [isRecordingMicrophone])

@@ -13,7 +13,6 @@ import TextToSpeech from '@/components/Simulation/Speak/TextToSpeech'
 import RadioSound from '@/components/Simulation/Transcribe/RadioSound'
 import Speech2Text from '@/components/Simulation/Transcribe/Speech2Text'
 import Backdrop from '@/components/Simulation/VideoPlayer/Backdrop'
-import Permission from '@/components/Simulation/VideoPlayer/Permission'
 import Screen from '@/components/Simulation/VideoPlayer/Screen'
 import VideoPlayer from '@/components/Simulation/VideoPlayer/VideoPlayer'
 import { resetAI } from '@/store/actions/ai'
@@ -52,7 +51,7 @@ const Simulation = () => {
           <Speech2Text />
           <AI />
           <Speak />
-          <TextToSpeech />
+          {permissionGranted && <TextToSpeech />}
           {!educationCompleted && (
             <Backdrop>
               <MicStatus />
@@ -61,9 +60,8 @@ const Simulation = () => {
               <Title />
               <Countdown />
               <Screen>
-                <Permission />
                 <ScrollingText />
-                {permissionGranted && <VideoPlayer />}
+                <VideoPlayer />
               </Screen>
             </Backdrop>
           )}

@@ -1,6 +1,7 @@
+import Dialog from '@/components/UI/Dialog'
 import { startTime } from '@/store/actions/review'
 import { updateLastPlayedVideo } from '@/store/actions/screen'
-import { updateMasterVolume } from '@/store/actions/user'
+import { setPermissionGranted, updateMasterVolume } from '@/store/actions/user'
 import { options, playlistFromId } from '@/utils/video'
 import { makeStyles } from '@material-ui/core/styles'
 import * as React from 'react'
@@ -13,11 +14,11 @@ import vjsPlaylistPlugin from 'videojs-playlist'
 
 const useStyles = makeStyles(() => ({
   root: {
+    display: 'relative'
+  },
+  player: {
     '& .video-js.vjs-fill': {
       display: 'block'
-    },
-    '& .vjs-big-play-button': {
-      display: 'none'
     },
     '& .vjs-fullscreen-control': {
       display: 'none'
@@ -33,7 +34,7 @@ const VideoPlayer = () => {
     threeSixtyWalkthroughCompleted: end360,
     educationCompleted
   } = useSelector((state) => state.ai)
-  const { masterVolume } = useSelector((state) => state.user)
+  const { masterVolume, permissionGranted } = useSelector((state) => state.user)
   const { alias, isDemo } = useSelector((state) => state.evolution)
   const classes = useStyles()
   const videoRef = React.useRef()
@@ -41,6 +42,13 @@ const VideoPlayer = () => {
   const [playlistLength, setPlaylistLength] = React.useState(0)
   const [lastVideo, setLastVideo] = React.useState('')
   const [playlist, setPlaylist] = React.useState(null)
+  const [showDialog, setShowDialog] = React.useState(false)
+
+  React.useEffect(() => {
+    if (player && permissionGranted) {
+      player.play()
+    }
+  }, [player, permissionGranted])
 
   React.useEffect(() => {
     const providePlaylist = (id) => {
@@ -109,7 +117,25 @@ const VideoPlayer = () => {
       dispatch(updateMasterVolume(player.volume()))
     }
 
+    const requireMicAccess = () => {
+      player.pause()
+      const permissions = navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: false
+      })
+      permissions
+        .then((stream) => {
+          dispatch(setPermissionGranted())
+          stream.getTracks().forEach((track) => track.stop())
+        })
+        .catch((err) => {
+          console.log(err)
+          setShowDialog(true)
+        })
+    }
+
     if (player) {
+      player.bigPlayButton.on('click', () => requireMicAccess())
       player.on('ended', () => videoEnded())
       player.on('volumechange', () => volumeChanged())
     }
@@ -161,10 +187,21 @@ const VideoPlayer = () => {
   }, [lastVideo, player, educationCompleted])
 
   return (
-    <div className={classes.root} data-testid='videoplayer'>
-      <div data-vjs-player>
-        <video ref={videoRef} className='video-js vjs-default-skin' />
+    <div className={classes.root}>
+      <div className={classes.player} data-testid='videoplayer'>
+        <div data-vjs-player>
+          <video
+            ref={videoRef}
+            className='video-js vjs-default-skin vjs-big-play-centered'
+          />
+        </div>
       </div>
+      {showDialog && (
+        <Dialog
+          title='Microphone Access'
+          text='We are not able to access your mic. Please click the lock icon in your url bar and set Microphone to "Allow"'
+        />
+      )}
     </div>
   )
 }

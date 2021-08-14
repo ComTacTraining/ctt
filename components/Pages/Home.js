@@ -10,6 +10,9 @@ const useStyles = makeStyles(() => ({
   root: {
     '& .video-js.vjs-fill': {
       display: 'block'
+    },
+    '& .vjs-fullscreen-control': {
+      display: 'none'
     }
   }
 }))
@@ -27,7 +30,10 @@ const Home = () => {
         <Screen>
           <div className={classes.root} data-testid='videoplayer'>
             <div data-vjs-player>
-              <video ref={ref} className='video-js vjs-default-skin' />
+              <video
+                ref={ref}
+                className='video-js vjs-default-skin vjs-big-play-centered'
+              />
             </div>
           </div>
         </Screen>

@@ -1,6 +1,6 @@
 const bucket = 'https://comtac.s3-us-west-2.amazonaws.com'
 const options = {
-  autoplay: true,
+  autoplay: false,
   controls: true,
   fluid: true,
   aspectRatio: '16:9',

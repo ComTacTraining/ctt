@@ -16,9 +16,15 @@ const useStyles = makeStyles(() => ({
     color: green[200],
     fontSize: 'small'
   },
+  icon: {
+    minWidth: '16px'
+  },
   pending: {
     color: red[200],
     fontSize: 'small'
+  },
+  name: {
+    margin: 0
   }
 }))
 
@@ -26,14 +32,14 @@ const Tip = ({ title, completed }) => {
   const classes = useStyles()
   return (
     <ListItem className={classes.root}>
-      <ListItemIcon style={{ minWidth: '24px' }}>
+      <ListItemIcon className={classes.icon}>
         {completed ? (
           <AddressedIcon className={classes.completed} />
         ) : (
           <UnAddressedIcon className={classes.pending} />
         )}
       </ListItemIcon>
-      <ListItemText primary={title} />
+      <ListItemText primary={title} className={classes.name} />
     </ListItem>
   )
 }

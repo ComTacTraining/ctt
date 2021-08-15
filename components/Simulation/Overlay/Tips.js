@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundColor: 'rgba(43, 51, 63, .7)',
     padding: theme.spacing(1)
+  },
+  list: {
+    paddingTop: 0,
+    paddingBottom: 0
   }
 }))
 
@@ -39,7 +43,7 @@ const Tips = () => {
         <div className={classes.backdrop}>
           <H6>Initial Report Tips</H6>
           <Divider />
-          <List dense={true}>
+          <List dense={true} className={classes.list}>
             <Tip
               completed={tips.initialReportSize}
               key='irSize'
@@ -82,7 +86,7 @@ const Tips = () => {
         <div className={classes.backdrop}>
           <H6>360&deg; Assessment Tips</H6>
           <Divider />
-          <List dense={true}>
+          <List dense={true} className={classes.list}>
             <Tip
               completed={tips.threeSixtyConstruction}
               key='tsConstruction'
@@ -120,7 +124,7 @@ const Tips = () => {
         <div className={classes.backdrop}>
           <H6>Assignment Tips</H6>
           <Divider />
-          <List dense={true}>
+          <List dense={true} className={classes.list}>
             <Tip
               completed={tips.assignmentRescue}
               key='assignRescue'

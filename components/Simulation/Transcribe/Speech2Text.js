@@ -59,6 +59,7 @@ const Speech2Text = () => {
   const [audioBinary, setAudioBinary] = React.useState()
 
   const sendTestMsgTimer = React.useRef(null)
+  const recordingTime = React.useRef(null)
   const testBuffer = React.useMemo(() => {
     const testMessage = getAudioEventMessage(Buffer.from(new Buffer([0])))
     return eventStreamMarshaller.marshall(testMessage)
@@ -185,32 +186,40 @@ const Speech2Text = () => {
       for (let i = 0; i < 20; i++) {
         sendMessage(blankBuffer)
       }
-      if (lastTranscript !== '' && currentTranscript === '') {
-        const _lastTranscript = lastTranscript
-        const _currentTranscript = currentTranscript
-        dispatch(
-          commandActions.updateCompletedTranscript(
-            _lastTranscript + ' ' + _currentTranscript
+      const _lastTranscript = lastTranscript
+      const _currentTranscript = currentTranscript
+      if (_lastTranscript !== '' && _currentTranscript === '') {
+        if (recordingTime.current > 200) {
+          dispatch(
+            commandActions.updateCompletedTranscript(
+              _lastTranscript + ' ' + _currentTranscript
+            )
           )
-        )
-        dispatch(
-          addToLog({
-            timestamp: Date.now(),
-            label: firstOnScene,
-            text: _lastTranscript + ' ' + _currentTranscript
-          })
-        )
+          dispatch(
+            addToLog({
+              timestamp: Date.now(),
+              label: firstOnScene,
+              text: _lastTranscript + ' ' + _currentTranscript
+            })
+          )
+        }
+
         setCurrentTranscript('')
         setLastTranscript('')
       } else if (
         (lastTranscript || currentTranscript) &&
         (isDemo || (!isDemo && showTips))
       ) {
-        dispatch(
-          commandActions.updatePartialTranscript(
-            `${lastTranscript} ${currentTranscript}`.trim()
+        if (recordingTime.current > 200) {
+          dispatch(
+            commandActions.updatePartialTranscript(
+              `${lastTranscript} ${currentTranscript}`.trim()
+            )
           )
-        )
+        } else {
+          setCurrentTranscript('')
+          setLastTranscript('')
+        }
       }
     }
   }, [
@@ -227,6 +236,7 @@ const Speech2Text = () => {
 
   React.useEffect(() => {
     if (isRecordingMicrophone) {
+      recordingTime.current = Date.now()
       if (sendTestMsgTimer.current) {
         clearInterval(sendTestMsgTimer.current)
       }
@@ -241,6 +251,7 @@ const Speech2Text = () => {
           setOpen(true)
         })
     } else {
+      recordingTime.current = Date.now() - recordingTime.current
       if (micStream.current) {
         micStream.current.stop()
       }

@@ -1,6 +1,57 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createOption = /* GraphQL */ `
+  mutation CreateOption(
+    $input: CreateOptionInput!
+    $condition: ModelOptionConditionInput
+  ) {
+    createOption(input: $input, condition: $condition) {
+      id
+      name
+      value
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateOption = /* GraphQL */ `
+  mutation UpdateOption(
+    $input: UpdateOptionInput!
+    $condition: ModelOptionConditionInput
+  ) {
+    updateOption(input: $input, condition: $condition) {
+      id
+      name
+      value
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteOption = /* GraphQL */ `
+  mutation DeleteOption(
+    $input: DeleteOptionInput!
+    $condition: ModelOptionConditionInput
+  ) {
+    deleteOption(input: $input, condition: $condition) {
+      id
+      name
+      value
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createReview = /* GraphQL */ `
   mutation CreateReview(
     $input: CreateReviewInput!
@@ -41,6 +92,7 @@ export const createReview = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -90,6 +142,7 @@ export const updateReview = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -139,6 +192,7 @@ export const deleteReview = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -177,6 +231,7 @@ export const createEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      salvage
       _version
       _deleted
       _lastChangedAt
@@ -214,6 +269,7 @@ export const updateEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      salvage
       _version
       _deleted
       _lastChangedAt
@@ -251,6 +307,7 @@ export const deleteEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      salvage
       _version
       _deleted
       _lastChangedAt

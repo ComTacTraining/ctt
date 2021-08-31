@@ -1,4 +1,29 @@
-type Review @model @auth(rules: [{allow: owner, operations: [read, create]}, {allow: private, operations: [read]}]) {
+type Option
+  @model
+  @key(name: "byName", fields: ["name"], queryField: "optionByName")
+  @auth(
+    rules: [
+      { allow: private, operations: [read] }
+      {
+        allow: groups
+        groups: ["Admin"]
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  value: String
+}
+
+type Review
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read, create] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
   autoScore: Float
   selfScore: Float
@@ -6,7 +31,19 @@ type Review @model @auth(rules: [{allow: owner, operations: [read, create]}, {al
   Evolution: Evolution @connection
 }
 
-type Evolution @model @key(name: "byCategory", fields: ["category"], queryField: "evolutionByCategory") @key(name: "byCategoryNumber", fields: ["category", "number"], queryField: "evolutionByCategoryNumber") @auth(rules: [{allow: private}]) {
+type Evolution
+  @model
+  @key(
+    name: "byCategory"
+    fields: ["category"]
+    queryField: "evolutionByCategory"
+  )
+  @key(
+    name: "byCategoryNumber"
+    fields: ["category", "number"]
+    queryField: "evolutionByCategoryNumber"
+  )
+  @auth(rules: [{ allow: private }]) {
   id: ID!
   number: Int
   category: Category
@@ -33,7 +70,7 @@ type Evolution @model @key(name: "byCategory", fields: ["category"], queryField:
   salvage: Boolean
 }
 
-type Incident @model @auth(rules: [{allow: private}]) {
+type Incident @model @auth(rules: [{ allow: private }]) {
   id: ID!
   title: String!
   icsNims: IcsNims!
@@ -114,4 +151,3 @@ enum IcsNims {
   MEDICAL
   SALVAGE
 }
- 

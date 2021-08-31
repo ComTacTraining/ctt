@@ -1,6 +1,100 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getOption = /* GraphQL */ `
+  query GetOption($id: ID!) {
+    getOption(id: $id) {
+      id
+      name
+      value
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listOptions = /* GraphQL */ `
+  query ListOptions(
+    $filter: ModelOptionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOptions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        value
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const optionByName = /* GraphQL */ `
+  query OptionByName(
+    $name: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelOptionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    optionByName(
+      name: $name
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        value
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncOptions = /* GraphQL */ `
+  query SyncOptions(
+    $filter: ModelOptionFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncOptions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        value
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getReview = /* GraphQL */ `
   query GetReview($id: ID!) {
     getReview(id: $id) {
@@ -38,6 +132,7 @@ export const getReview = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -89,6 +184,7 @@ export const listReviews = /* GraphQL */ `
           exposure
           ric
           medical
+          salvage
           _version
           _deleted
           _lastChangedAt
@@ -149,6 +245,7 @@ export const syncReviews = /* GraphQL */ `
           exposure
           ric
           medical
+          salvage
           _version
           _deleted
           _lastChangedAt
@@ -187,6 +284,7 @@ export const getEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      salvage
       _version
       _deleted
       _lastChangedAt
@@ -226,6 +324,7 @@ export const listEvolutions = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -276,6 +375,7 @@ export const evolutionByCategory = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -328,6 +428,7 @@ export const evolutionByCategoryNumber = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -376,6 +477,7 @@ export const syncEvolutions = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt

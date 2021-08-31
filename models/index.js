@@ -77,9 +77,10 @@ const IcsNims = {
   "SALVAGE": "SALVAGE"
 };
 
-const { Review, Evolution, Incident } = initSchema(schema);
+const { Option, Review, Evolution, Incident } = initSchema(schema);
 
 export {
+  Option,
   Review,
   Evolution,
   Incident,

@@ -77,6 +77,14 @@ export enum IcsNims {
 
 
 
+export declare class Option {
+  readonly id: string;
+  readonly name: string;
+  readonly value?: string;
+  constructor(init: ModelInit<Option>);
+  static copyOf(source: Option, mutator: (draft: MutableModel<Option>) => MutableModel<Option> | void): Option;
+}
+
 export declare class Review {
   readonly id: string;
   readonly autoScore?: number;

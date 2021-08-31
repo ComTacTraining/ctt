@@ -1547,6 +1547,11 @@
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.16.0.tgz#73bce24fb7f47d719caa6b151e58e49b4167d463"
   integrity sha512-ZSHbiwTrISoaTbpercmYGuY7QTg7HxfFyNgbJBaYbwHWbzMhpEdGTsmMpaBXIU6iiqwEEDaIyD8O6yJ+H5DWCg==
 
+"@textlint/ast-node-types@^4.4.2":
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@textlint/ast-node-types/-/ast-node-types-4.4.3.tgz#fdba16e8126cddc50f45433ce7f6c55e7829566c"
+  integrity sha512-qi2jjgO6Tn3KNPGnm6B7p6QTEPvY95NFsIAaJuwbulur8iJUEenp1OnoUfiDaC/g2WPPEFkcfXpmnu8XEMFo2A==
+
 "@types/cookie@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.3.3.tgz#85bc74ba782fb7aa3a514d11767832b0e3bc6803"
@@ -1974,6 +1979,11 @@ bn.js@^5.0.0, bn.js@^5.1.1:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.0.tgz#358860674396c6997771a9d051fcc1b57d4ae002"
   integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
 
+boundary@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/boundary/-/boundary-1.0.1.tgz#4d67dc2602c0cc16dd9bce7ebf87e948290f5812"
+  integrity sha1-TWfcJgLAzBbdm85+v4fpSCkPWBI=
+
 bowser@^2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.11.0.tgz#5ca3c35757a7aa5771500c70a73a9f91ef420a8f"
@@ -2247,6 +2257,16 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
 
+concat-stream@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-2.0.0.tgz#414cf5af790a48c60ab9be4527d56d5e41133cb1"
+  integrity sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==
+  dependencies:
+    buffer-from "^1.0.0"
+    inherits "^2.0.3"
+    readable-stream "^3.0.2"
+    typedarray "^0.0.6"
+
 console-browserify@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/console-browserify/-/console-browserify-1.2.0.tgz#67063cef57ceb6cf4993a2ab3a55840ae8c49336"
@@ -2326,6 +2346,13 @@ crypto-js@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
   integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
+
+css-box-model@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/css-box-model/-/css-box-model-1.2.1.tgz#59951d3b81fd6b2074a62d49444415b0d2b4d7c1"
+  integrity sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw==
+  dependencies:
+    tiny-invariant "^1.0.6"
 
 css-vendor@^2.0.8:
   version "2.0.8"
@@ -3251,6 +3278,11 @@ md5.js@^1.3.4:
     inherits "^2.0.1"
     safe-buffer "^5.1.2"
 
+memoize-one@^5.1.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.2.1.tgz#8337aa3c4335581839ec01c3d594090cebe8f00e"
+  integrity sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==
+
 merge-stream@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
@@ -3500,6 +3532,11 @@ object.assign@^4.1.2:
     define-properties "^1.1.3"
     has-symbols "^1.0.1"
     object-keys "^1.1.1"
+
+object_values@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/object_values/-/object_values-0.1.2.tgz#f8fbc31d2e537170a4cbcfb28dd61501b3207334"
+  integrity sha512-tZgUiKLraVH+4OAedBYrr4/K6KmAQw2RPNd1AuNdhLsuz5WP3VB7WuiKBWbOcjeqqAjus2ChIIWC8dSfmg7ReA==
 
 os-browserify@0.3.0, os-browserify@^0.3.0:
   version "0.3.0"
@@ -3757,6 +3794,11 @@ querystring@^0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.1.tgz#40d77615bb09d16902a85c3e38aa8b5ed761c2dd"
   integrity sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==
 
+raf-schd@^4.0.2:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/raf-schd/-/raf-schd-4.0.3.tgz#5d6c34ef46f8b2a0e880a8fcdb743efc5bfdbc1a"
+  integrity sha512-tQkJl2GRWh83ui2DiPTJz9wEiMN20syf+5oKfB03yYP7ioZcJwsIK8FjrtLwH1m7C7e+Tt2yYBlrOpdT+dyeIQ==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -3781,6 +3823,19 @@ raw-body@2.4.1:
     http-errors "1.7.3"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+react-beautiful-dnd@^13.1.0:
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-13.1.0.tgz#ec97c81093593526454b0de69852ae433783844d"
+  integrity sha512-aGvblPZTJowOWUNiwd6tNfEpgkX5OxmpqxHKNW/4VmvZTNTbeiq7bA3bn5T+QSF2uibXB0D1DmJsb1aC/+3cUA==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    css-box-model "^1.2.0"
+    memoize-one "^5.1.1"
+    raf-schd "^4.0.2"
+    react-redux "^7.2.0"
+    redux "^4.0.4"
+    use-memo-one "^1.1.1"
 
 react-dom@^17.0.1:
   version "17.0.2"
@@ -3808,7 +3863,7 @@ react-native-get-random-values@^1.4.0:
   dependencies:
     fast-base64-decode "^1.0.0"
 
-react-redux@^7.2.2:
+react-redux@^7.2.0, react-redux@^7.2.2:
   version "7.2.4"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.4.tgz#1ebb474032b72d806de2e0519cd07761e222e225"
   integrity sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA==
@@ -3869,7 +3924,7 @@ readable-stream@^2.0.2, readable-stream@^2.3.3, readable-stream@^2.3.6:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readable-stream@^3.5.0, readable-stream@^3.6.0:
+readable-stream@^3.0.2, readable-stream@^3.5.0, readable-stream@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
   integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
@@ -3894,6 +3949,13 @@ redux@^4.0.0, redux@^4.0.5:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.0.tgz#eb049679f2f523c379f1aff345c8612f294c88d4"
   integrity sha512-uI2dQN43zqLWCt6B/BMGRMY6db7TTY4qeHHfGeKb3EOhmOKjU3KdWvNLJyqaHRksv/ErdNH7cFZWg9jXtewy4g==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+
+redux@^4.0.4:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.1.tgz#76f1c439bb42043f985fbd9bf21990e60bd67f47"
+  integrity sha512-hZQZdDEM25UY2P493kPYuKqviVwZ58lEmGQNeQ+gXa+U0gYPUBf7NKYazbe3m+bs/DzM/ahN12DbF+NG8i0CWw==
   dependencies:
     "@babel/runtime" "^7.9.2"
 
@@ -3975,6 +4037,16 @@ semver@^6.0.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
+
+sentence-splitter@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/sentence-splitter/-/sentence-splitter-3.2.2.tgz#b02a28c08bbad4bd3b6ec6f619d50e3fd3596d07"
+  integrity sha512-hMvaodgK9Fay928uiQoTMEWjXpCERdKD2uKo7BbSyP+uWTo+wHiRjN+ZShyI99rW0VuoV4Cuw8FUmaRcnpN7Ug==
+  dependencies:
+    "@textlint/ast-node-types" "^4.4.2"
+    concat-stream "^2.0.0"
+    object_values "^0.1.2"
+    structured-source "^3.0.2"
 
 serialize-javascript@^6.0.0:
   version "6.0.0"
@@ -4200,6 +4272,13 @@ stripe@^8.127.0:
     "@types/node" ">=8.1.0"
     qs "^6.6.0"
 
+structured-source@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/structured-source/-/structured-source-3.0.2.tgz#dd802425e0f53dc4a6e7aca3752901a1ccda7af5"
+  integrity sha1-3YAkJeD1PcSm56yjdSkBoczaevU=
+  dependencies:
+    boundary "^1.0.1"
+
 styled-jsx@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/styled-jsx/-/styled-jsx-3.3.2.tgz#2474601a26670a6049fb4d3f94bd91695b3ce018"
@@ -4278,6 +4357,11 @@ timers-browserify@2.0.12, timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
+tiny-invariant@^1.0.6:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.1.0.tgz#634c5f8efdc27714b7f386c35e6760991d230875"
+  integrity sha512-ytxQvrb1cPc9WBEI/HSeYYoGD0kWnGEOR8RY6KomWLBVhqz0RgTwVO9dLrGz7dC+nN9llyI7OKAgRq8Vq4ZBSw==
+
 tiny-warning@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
@@ -4347,6 +4431,11 @@ type-fest@^0.7.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.7.1.tgz#8dda65feaf03ed78f0a3f9678f1869147f7c5c48"
   integrity sha512-Ne2YiiGN8bmrmJJEuTWTLJR32nh/JdL1+PSicowtNb0WFpn59GK8/lfD61bVtzguz7b3PBt74nxpv/Pw5po5Rg==
 
+typedarray@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+  integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
 ulid@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/ulid/-/ulid-2.3.0.tgz#93063522771a9774121a84d126ecd3eb9804071f"
@@ -4408,6 +4497,11 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-memo-one@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/use-memo-one/-/use-memo-one-1.1.2.tgz#0c8203a329f76e040047a35a1197defe342fab20"
+  integrity sha512-u2qFKtxLsia/r8qG0ZKkbytbztzRb317XCkT7yP8wxL0tZ/CzK2G+WWie5vWvpyeP7+YoPIwbJoIHJ4Ba4k0oQ==
 
 use-sound@2.0.1:
   version "2.0.1"

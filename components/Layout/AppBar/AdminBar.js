@@ -27,7 +27,7 @@ const AdminAppBar = () => {
           { name: 'Reviews', route: '/admin/reviews' },
           { name: 'Evolutions', route: '/admin/evolutions' },
           { name: 'Incidents', route: '/admin/incidents' },
-          { name: 'Grammar', route: '/admin/grammar' },
+          { name: 'Response', route: '/admin/response' },
           { name: 'Debug', route: '/admin/debug' }
         ]}
       />

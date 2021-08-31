@@ -1,5 +1,76 @@
 export const schema = {
     "models": {
+        "Option": {
+            "name": "Option",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "value": {
+                    "name": "value",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Options",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byName",
+                        "fields": [
+                            "name"
+                        ],
+                        "queryField": "optionByName"
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "read"
+                                ]
+                            },
+                            {
+                                "groupClaim": "cognito:groups",
+                                "provider": "userPools",
+                                "allow": "groups",
+                                "groups": [
+                                    "Admin"
+                                ],
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Review": {
             "name": "Review",
             "fields": {
@@ -477,5 +548,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "2cf01a86e5a2dd3d55340675358b9172"
+    "version": "350f256451f0d3eade3bb3273bfaaa17"
 };

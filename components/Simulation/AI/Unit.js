@@ -6,7 +6,7 @@ import {
   properPronouns,
   randomSelection
 } from '@/utils/ai'
-import { replaceSpelledOutNumbers } from '@/utils/units'
+import { swapNumbers } from '@/utils/grammar'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -149,7 +149,7 @@ const Unit = ({ name, voice, index }) => {
     }
 
     const checkIfAddressed = async () => {
-      const numberedCommand = replaceSpelledOutNumbers(command)
+      const numberedCommand = swapNumbers(command)
       if (anyTermsMatchString(numberedCommand, name)) {
         const assigned = await checkForAssignment()
         if (!assigned) {

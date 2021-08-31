@@ -1,6 +1,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateOption = /* GraphQL */ `
+  subscription OnCreateOption {
+    onCreateOption {
+      id
+      name
+      value
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateOption = /* GraphQL */ `
+  subscription OnUpdateOption {
+    onUpdateOption {
+      id
+      name
+      value
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteOption = /* GraphQL */ `
+  subscription OnDeleteOption {
+    onDeleteOption {
+      id
+      name
+      value
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateReview = /* GraphQL */ `
   subscription OnCreateReview {
     onCreateReview {
@@ -38,6 +80,7 @@ export const onCreateReview = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -84,6 +127,7 @@ export const onUpdateReview = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -130,6 +174,7 @@ export const onDeleteReview = /* GraphQL */ `
         exposure
         ric
         medical
+        salvage
         _version
         _deleted
         _lastChangedAt
@@ -165,6 +210,7 @@ export const onCreateEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      salvage
       _version
       _deleted
       _lastChangedAt
@@ -199,6 +245,7 @@ export const onUpdateEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      salvage
       _version
       _deleted
       _lastChangedAt
@@ -233,6 +280,7 @@ export const onDeleteEvolution = /* GraphQL */ `
       exposure
       ric
       medical
+      salvage
       _version
       _deleted
       _lastChangedAt

@@ -26,7 +26,7 @@ const AdminPanel = ({ children }) => {
   return isLoading ? (
     <Loading />
   ) : !isAdmin ? (
-    { children }
+    <>{children}</>
   ) : (
     <Grid container spacing={1}>
       <Grid item xs={12} className={classes.adminButton}>
